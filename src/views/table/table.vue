@@ -178,17 +178,17 @@ export default {
           { min: 5, max: 10, message: '长度必须在5到10之间', trigger: 'blur' }
         ],
         password: [
-          { required: true, Placeholder:'请输入学号', message: '密码不能为空', trigger: 'blur' },
+          { required: true, Placeholder: '请输入学号', message: '密码不能为空', trigger: 'blur' },
           { min: 5, max: 10, message: '长度必须在5到10之间', trigger: 'blur' }
         ],
         name: [
-          { required: true, Placeholder:'请输入姓名', message: '名字不能为空', trigger: 'blur' }
+          { required: true, Placeholder: '请输入姓名', message: '名字不能为空', trigger: 'blur' }
         ],
         univ: [
-          { required: true, Placeholder:'请输入学校名', message: '学校不能为空', trigger: 'blur' }
+          { required: true, Placeholder: '请输入学校名', message: '学校不能为空', trigger: 'blur' }
         ],
         unit: [
-          { required: true, Placeholder:'请输入专业名', message: '专业不能为空', trigger: 'blur' }
+          { required: true, Placeholder: '请输入专业名', message: '专业不能为空', trigger: 'blur' }
         ]
       }
     }

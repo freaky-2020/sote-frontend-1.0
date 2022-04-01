@@ -1,6 +1,6 @@
 module.exports = {
 
-  title: 'Vue Admin Template',
+  title: 'sote-frontend',
 
   /**
    * @type {boolean} true | false
