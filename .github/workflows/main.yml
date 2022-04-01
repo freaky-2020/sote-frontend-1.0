@@ -33,7 +33,7 @@ jobs:
           echo '=====开始构建镜像====='
           echo '=====开始构建 sote-frontend====='
           
-          docker build -t registry.cn-hangzhou.aliyuncs.com/sote/sote-frontend
+          docker build -t registry.cn-hangzhou.aliyuncs.com/sote/sote-frontend .
           
      # 登录到 阿里云镜像服务，使用 GitHub secrets 传入账号密码，密码被加密存储在 GitHub 服务器
      - name: Login to Aliyun
