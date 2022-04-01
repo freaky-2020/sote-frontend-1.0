@@ -25,7 +25,7 @@ jobs:
        run: |
           echo '=====开始安装sote-frontend依赖====='
           npm install
-          npm run build
+          npm run build:prod
           
     # 构建镜像，指定镜像名
      - name: Build Vue Docker Images
