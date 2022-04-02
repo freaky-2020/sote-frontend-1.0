@@ -1,6 +1,6 @@
 module.exports = {
 
-  title: 'sote-frontend',
+  title: '在线考试系统',
 
   /**
    * @type {boolean} true | false
