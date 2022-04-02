@@ -31,6 +31,18 @@ export const constantRoutes = [
     ]
   },
   {
+    path: '/bank',
+    component: Layout,
+    children: [
+      {
+        path: 'bank',
+        name: 'Bank',
+        component: () => import('@/views/bank/bank'),
+        meta: { title: 'Bank', icon: 'el-icon-files' }
+      },
+    ]
+  },
+  {
     path: '/404',
     component: () => import('@/views/404'),
     hidden: true
