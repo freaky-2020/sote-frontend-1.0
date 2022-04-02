@@ -30,24 +30,22 @@ module.exports = {
   lintOnSave: process.env.NODE_ENV === 'development',
   productionSourceMap: false,
   devServer: {
+    proxy: {
+      '/api': {
+        target: 'http://124.222.238.194:10010',
+        changeOrigin: true,  //配置跨域
+        pathRewrite: {
+          '^/api': ''
+        }
+      }
+    },
     port: port,
     open: true,
     overlay: {
       warnings: false,
       errors: true
     },
-
-    proxy: {
-      '/dev-api': {
-        target: 'http://localhost:10010/',  // target host
-        ws: true,  // proxy websockets
-        changeOrigin: true,  // needed for virtual hosted sites
-        pathRewrite: {
-          '^/dev-api': ''  // rewrite path
-        }
-      },
-    }
-    // before: require('./mock/mock-server.js')
+    before: require('./mock/mock-server.js'),
   },
   configureWebpack: {
     // provide the app's title in webpack's name field, so that

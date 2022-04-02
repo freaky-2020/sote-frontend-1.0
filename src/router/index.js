@@ -5,6 +5,27 @@ Vue.use(Router)
 
 /* Layout */
 import Layout from '@/layout'
+import Navbar from '@/layout/components/Navbar'
+import AppMain from '@/layout/components/AppMain'
+
+/**
+ * Note: sub-menu only appear when route children.length >= 1
+ * Detail see: https://panjiachen.github.io/vue-element-admin-site/guide/essentials/router-and-nav.html
+ *
+ * hidden: true                   if set true, item will not show in the sidebar(default is false)
+ * alwaysShow: true               if set true, will always show the root menu
+ *                                if not set alwaysShow, when item has more than one children route,
+ *                                it will becomes nested mode, otherwise not show the root menu
+ * redirect: noRedirect           if set noRedirect will no redirect in the breadcrumb
+ * name:'router-name'             the name is used by <keep-alive> (must set!!!)
+ * meta : {
+    roles: ['admin','editor']    control the page roles (you can set multiple roles)
+    title: 'title'               the name show in sidebar and breadcrumb (recommend set)
+    icon: 'svg-name'/'el-icon-x' the icon show in the sidebar
+    breadcrumb: false            if set false, the item will hidden in breadcrumb(default is true)
+    activeMenu: '/example/list'  if set path, the sidebar will highlight the path you set
+  }
+ */
 
 /**
  * constantRoutes
@@ -19,23 +40,57 @@ export const constantRoutes = [
   },
 
   {
-    path: '/design',
-    component: Layout,
-    children: [
-      {
-        path: 'design',
-        name: 'Design',
-        component: () => import('@/views/design/design'),
-        meta: { title: 'Design', icon: 'el-icon-edit' }
-      },
-    ]
+    path: '/register',
+    name: 'register',
+    component: () => import('@/views/register/index'),
+    hidden: true,
+    meta: { title: '注册', icon: 'dashboard' }
   },
+
+  // {
+  //   path: '/forgetPwd',
+  //   component: () => import('@/views/forgetPwd/forgetPwd'),
+  //   hidden: true
+  // },
   {
     path: '/404',
     component: () => import('@/views/404'),
     hidden: true
   },
-
+  {
+    path: '/createpaper',
+    component: Layout,
+    children: [
+      {
+        path: 'paperinfo',
+        name: 'paperinfo',
+        component: () => import('@/views/createpaper/paperInfo'),
+        meta: { title: '创建试卷', icon: 'clipboard' }
+      }
+    ]
+  },
+  {
+    path: '/exam',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/exam/index'),
+        meta: { title: '我的考试',icon: 'form' }
+      },
+    ]
+  },
+  {
+    path: '/record',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/exam/record'),
+        meta: { title: '考试记录',icon: 'form' }
+      },
+    ]
+  },
   {
     path: '/',
     component: Layout,
@@ -66,12 +121,6 @@ export const constantRoutes = [
         name: 'Tree',
         component: () => import('@/views/tree/index'),
         meta: { title: 'Tree', icon: 'tree' }
-      },
-      {
-        path: 'tab',
-        name: 'Tab',
-        component: () => import('@/views/table/table'),
-        meta: { title: 'Tab', icon: 'table' }
       }
     ]
   },
@@ -79,20 +128,12 @@ export const constantRoutes = [
   {
     path: '/form',
     component: Layout,
-    name: 'Form',
-    meta: { title: 'Form', icon: 'el-icon-s-help' },
     children: [
       {
-        path: 'addUser',
-        name: 'AddUser',
-        component: () => import('@/views/form/AddUser'),
-        meta: { title: 'AddForm', icon: 'form' }
-      },
-      {
-        path: 'editUser',
-        name: 'EditUser',
-        component: () => import('@/views/form/EditUser'),
-        meta: { title: 'EditForm', icon: 'form' }
+        path: 'index',
+        name: 'Form',
+        component: () => import('@/views/form/index'),
+        meta: { title: 'Form', icon: 'form' }
       }
     ]
   },
@@ -168,25 +209,8 @@ export const constantRoutes = [
   },
 
   // 404 page must be placed at the end !!!
-  // { path: '*', redirect: '/404', hidden: true }
-]
-
-export const asyncRoutes = [
-  {
-    path: '/permission',
-    component: Layout,
-    name: '权限测试',
-    meta: { title: '权限测试', icon: 'link',roles: ['STUDENT'] }, //页面需要的权限
-    children: [
-      {
-        path: 'index',
-        component: ()=>import('@/views/permission/index'),
-        name: '权限测试页',
-        meta: { title: '权限测试页', icon: 'link',roles: ['STUDENT'] }  //页面需要的权限
-      }]
-  },
   { path: '*', redirect: '/404', hidden: true }
-];
+]
 
 const createRouter = () => new Router({
   // mode: 'history', // require service support
