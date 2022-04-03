@@ -1,12 +1,9 @@
 <template>
-
   <div class="login-container">
-    <el-card shadow="hover" class="formcard" box-shadow="100px">
-
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
 
       <div class="title-container">
-        <h3 class="title">考试系统</h3>
+        <h3 class="title">Login Form</h3>
       </div>
 
       <el-form-item prop="username">
@@ -16,7 +13,7 @@
         <el-input
           ref="username"
           v-model="loginForm.username"
-          placeholder="用户名"
+          placeholder="Username"
           name="username"
           type="text"
           tabindex="1"
@@ -33,7 +30,7 @@
           ref="password"
           v-model="loginForm.password"
           :type="passwordType"
-          placeholder="密码"
+          placeholder="Password"
           name="password"
           tabindex="2"
           auto-complete="on"
@@ -43,46 +40,43 @@
           <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
         </span>
       </el-form-item>
-      <div style="width: 100%;text-align: right">
-        <el-link
-          type="primary"
-          style="margin-bottom: 20px;color:#304156;margin-right: 10px"
-          @click.native.prevent="forgetPwd"
-        >忘记密码</el-link>
+
+      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">Login</el-button>
+
+      <div class="tips">
+        <span style="margin-right:20px;">username: admin</span>
+        <span> password: any</span>
       </div>
-      <div>
-      <el-button :loading="loading" type="primary" style="width:47%;" @click.native.prevent="handleLogin">登录</el-button>
-      <el-button :loading="loading" type="plain" style="width:47%;float:right" @click.native.prevent="goToRegister">注册</el-button>
-      </div>
+
     </el-form>
-    </el-card>
   </div>
 </template>
 
 <script>
 import { validUsername } from '@/utils/validate'
+import { login } from '@/api/user'
 
 export default {
   name: 'Login',
   data() {
     const validateUsername = (rule, value, callback) => {
       if (!validUsername(value)) {
-        callback(new Error('请输入有效用户名'))
+        callback(new Error('请输入正确的用户名'))
       } else {
         callback()
       }
     }
     const validatePassword = (rule, value, callback) => {
-      if (value.length < 6) {
-        callback(new Error('密码不能少于6位'))
+      if (value.length < 5) {
+        callback(new Error('密码的位数应大于等于5位'))
       } else {
         callback()
       }
     }
     return {
       loginForm: {
-        username: 'admin',
-        password: '111111'
+        username: '10086',
+        password: '123456'
       },
       loginRules: {
         username: [{ required: true, trigger: 'blur', validator: validateUsername }],
@@ -116,7 +110,6 @@ export default {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true
-
           this.$store.dispatch('user/login', this.loginForm).then(() => {
             this.$router.push({ path: this.redirect || '/' })
             this.loading = false
@@ -128,84 +121,52 @@ export default {
           return false
         }
       })
-    },
-    goToRegister() {
-      this.$router.push({
-        path: '/register',
-        // query:{username:this.username,password:this.password}
-      })
-    },
-    forgetPwd() {
-      this.$router.push({ path: '/forgetPwd' } )
     }
-
   }
 }
-
 </script>
-<!--<script>-->
-<!--import {wallbgcanvas} from '@/assets/js/wallbgcanvas'-->
-<!--</script>-->
+
 <style lang="scss">
 /* 修复input 背景不协调 和光标变色 */
 /* Detail see https://github.com/PanJiaChen/vue-element-admin/pull/927 */
 
-$bg:#ececec;
+$bg:#283443;
+$light_gray:#fff;
+$cursor: #fff;
 
-
-@supports (-webkit-mask: none) and (not (cater-color: black)) {
+@supports (-webkit-mask: none) and (not (cater-color: $cursor)) {
   .login-container .el-input input {
-    color: black;
+    color: $cursor;
   }
 }
-//显示时按钮样式
-.el-button--primary { //需要更改的按钮类型
-  background: #304156 !important;
-  border-color: #304156 !important;
-}
-//移入时按钮样式
-.el-button--primary:hover {
-  background: #5979a0 !important;
-  border-color: #304156 !important;
-  color: #FFF !important;
-}
-.formcard{
-  border-radius: 10px;
-  position: absolute;
-  width:500px;
-  height: 500px;
-  left: 50%;
-  top: 50%;
 
-  margin:-250px 0 0 -250px;
-}
 /* reset element-ui css */
 .login-container {
-
   .el-input {
     display: inline-block;
     height: 47px;
     width: 85%;
+
     input {
       background: transparent;
       border: 0px;
       -webkit-appearance: none;
       border-radius: 0px;
       padding: 12px 5px 12px 15px;
-      color: black;
+      color: $light_gray;
       height: 47px;
-      caret-color: black;
+      caret-color: $cursor;
 
       &:-webkit-autofill {
-        box-shadow: 0 0 5px 1000px $bg inset !important;
-        -webkit-text-fill-color: black !important;
+        box-shadow: 0 0 0px 1000px $bg inset !important;
+        -webkit-text-fill-color: $cursor !important;
       }
     }
   }
 
   .el-form-item {
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    background: rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.1);
     border-radius: 5px;
     color: #454545;
   }
@@ -213,9 +174,9 @@ $bg:#ececec;
 </style>
 
 <style lang="scss" scoped>
-$bg:#ececec;
+$bg:#2d3a4b;
 $dark_gray:#889aa4;
-//$light_gray:#eee;
+$light_gray:#eee;
 
 .login-container {
   min-height: 100%;
@@ -227,14 +188,14 @@ $dark_gray:#889aa4;
     position: relative;
     width: 520px;
     max-width: 100%;
-    padding: 70px 35px 0;
+    padding: 160px 35px 0;
     margin: 0 auto;
     overflow: hidden;
   }
 
   .tips {
     font-size: 14px;
-    color: black;
+    color: #fff;
     margin-bottom: 10px;
 
     span {
@@ -244,10 +205,9 @@ $dark_gray:#889aa4;
     }
   }
 
-  //图标？
   .svg-container {
     padding: 6px 5px 6px 15px;
-    //color: $dark_gray;
+    color: $dark_gray;
     vertical-align: middle;
     width: 30px;
     display: inline-block;
@@ -258,7 +218,7 @@ $dark_gray:#889aa4;
 
     .title {
       font-size: 26px;
-      //color: $light_gray;
+      color: $light_gray;
       margin: 0px auto 40px auto;
       text-align: center;
       font-weight: bold;

@@ -88,24 +88,7 @@ export const constantRoutes = [
     ]
   },
 
-  {
-    path: '/form',
-    component: Layout,
-    children: [
-      {
-        path: 'addUser',
-        name: 'AddUser',
-        component: () => import('@/views/form/AddUser'),
-        meta: { title: 'AddForm', icon: 'form' }
-      },
-      {
-        path: 'editUser',
-        name: 'EditUser',
-        component: () => import('@/views/form/EditUser'),
-        meta: { title: 'EditForm', icon: 'form' }
-      }
-    ]
-  },
+
 
   {
     path: '/nested',
@@ -178,8 +161,25 @@ export const constantRoutes = [
   },
 
   // 404 page must be placed at the end !!!
-  { path: '*', redirect: '/404', hidden: true }
+  // { path: '*', redirect: '/404', hidden: true }
 ]
+
+export const asyncRoutes = [
+  {
+    path: '/permission',
+    component: Layout,
+    name: '权限测试',
+    meta: { title: '权限测试', icon: 'link',roles: ['STUDENT'] }, //页面需要的权限
+    children: [
+      {
+        path: 'index',
+        component: ()=>import('@/views/permission/index'),
+        name: '权限测试页',
+        meta: { title: '权限测试页', icon: 'link',roles: ['STUDENT'] }  //页面需要的权限
+      }]
+  },
+  { path: '*', redirect: '/404', hidden: true }
+];
 
 const createRouter = () => new Router({
   // mode: 'history', // require service support
