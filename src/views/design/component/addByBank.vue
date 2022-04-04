@@ -16,6 +16,7 @@
 import bank from '@/views/bank/bank'
 import axios from 'axios'
 import qs from 'Qs'
+import request from '@/utils/request'
 export default {
   name: 'addByBank',
   props:['isAddByBank','topicType','paperId'],
@@ -83,14 +84,12 @@ export default {
 
     },
     bankToExamSubmit(data){
-      axios({
+      request({
         url: '/exam/paper/'+this.paperId+'/addFromBank',
         method: 'post',
         dataType: 'json',
-        data: data,
-        headers: {
-          'Content-Type': 'application/json;charset=utf-8',
-        }
+        ContentType:'application/json;charset=utf-8',
+        data: [],
       }).then(response => {
         console.log(response)
       }).catch( err =>{

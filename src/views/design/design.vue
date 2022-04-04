@@ -9,11 +9,11 @@
       <span style="color: red">{{totalScore}}</span>分
     </div>
     <div class="filter-container">
-      <topic-form style="margin-bottom: 10px" :topicType="1" topicTitle=单选题 :examForm.sync="examForm[0]" :paperId="paperId"></topic-form>
-      <topic-form style="margin-bottom: 10px" :topicType="2" topicTitle=多选题 :examForm.sync="examForm[1]" :paperId="paperId"></topic-form>
-      <topic-form style="margin-bottom: 10px" :topicType="3" topicTitle=判断题 :examForm.sync="examForm[2]" :paperId="paperId"></topic-form>
-      <topic-form style="margin-bottom: 10px" :topicType="4" topicTitle=填空题 :examForm.sync="examForm[3]" :paperId="paperId"></topic-form>
-      <topic-form style="margin-bottom: 10px" :topicType="5" topicTitle=简答题 :examForm.sync="examForm[4]" :paperId="paperId"></topic-form>
+      <topic-form style="margin-bottom: 10px" :topicType="1" topicTitle=单选题 :examForm.sync="examForm[1]" :paperId="paperId"></topic-form>
+      <topic-form style="margin-bottom: 10px" :topicType="2" topicTitle=多选题 :examForm.sync="examForm[2]" :paperId="paperId"></topic-form>
+      <topic-form style="margin-bottom: 10px" :topicType="3" topicTitle=判断题 :examForm.sync="examForm[3]" :paperId="paperId"></topic-form>
+      <topic-form style="margin-bottom: 10px" :topicType="4" topicTitle=填空题 :examForm.sync="examForm[4]" :paperId="paperId"></topic-form>
+      <topic-form style="margin-bottom: 10px" :topicType="5" topicTitle=简答题 :examForm.sync="examForm[5]" :paperId="paperId"></topic-form>
     </div>
     <div style="position:absolute;bottom: 0px;margin-bottom: 5px;transform: translate(-50%);left: 50%" >
       <el-button size="medium" type="primary" icon="el-icon-thumb" @click="toPublish">提交试卷</el-button>
@@ -53,7 +53,13 @@ export default {
       totalNum:10,
       totalScore:100,
       list: {},
-      examForm:[],
+      examForm:{
+        1:[],
+        2:[],
+        3:[],
+        4:[],
+        5:[],
+      },
       isEditTest:false,
       isShowTopic:false,
       inputTopic:'',
@@ -76,8 +82,11 @@ export default {
         methods: 'Get'
       }).then(response => {
         console.log(response)
-        console.log(response[1])
-        this.examForm = response
+        Object.keys(response).forEach(key=>{
+          console.log('key:',key,'value:',response[key])
+          this.examForm[key] = response[key]
+        })
+        console.log(this.examForm)
       })
     },
     toPublish(){
@@ -86,9 +95,11 @@ export default {
       })
     },
     toPreview(){
-      this.$router.push({
-        name: 'Tab'
-      })
+      console.log(this.examForm)
+      console.log(this.examForm[1])
+      // this.$router.push({
+      //   name: 'Tab'
+      // })
     },
     editTestSubmit(){
       this.isEditTest = false
@@ -108,7 +119,7 @@ export default {
     //   this.sum = sums
     // }
   },
-  beforeMount() {
+  created() {
     this.fetchData()
   }
 }

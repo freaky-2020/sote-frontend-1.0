@@ -24,7 +24,7 @@
       </div>
     </div>
     <el-table
-      :data="form"
+      :data="examForm"
       style="width: 100%"
       border
       fit
@@ -141,13 +141,7 @@ export default {
       sumScore:0,
       sum:0,
       question:{},
-      form:[
-        {id:'1', main:'1+1=',score:10,answer:'B',level:'1'},
-        {id:'2', main:'五百是啥',score:10,answer:'C',level:'2'},
-        {id:'3', main:'I AM your',score:10,answer:'D',level:'3'},
-        {id:'4', main:'呵呵',score:10,answer:'A',level:'2'},
-        {id:'5', main:'牛的',score:10,answer:'B',level:'3'},
-      ],
+      form:[],
       map: {
         1: '简单',
         2: '适中',
@@ -260,13 +254,15 @@ export default {
   //   }
   // },
   },
-  beforeMount() {
+  created() {
     this.getAllScore()
+    this.$nextTick()
+    console.log(this.examForm)
   },
   updated() {
   },
   watch:{
-    form(newVal) {
+    examForm(newVal) {
       this.$emit('update:examForm', newVal);
     },
   }
