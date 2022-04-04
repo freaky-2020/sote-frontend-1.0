@@ -8,7 +8,7 @@ import getPageTitle from '@/utils/get-page-title'
 
 NProgress.configure({ showSpinner: false }) // NProgress Configuration
 
-const whiteList = ['/login'] // no redirect whitelist
+const whiteList = ['/login', '/register' ,'/forgetPwd'] // no redirect whitelist 白名单，不进行重定向
 
 router.beforeEach(async(to, from, next) => {
 
@@ -22,7 +22,10 @@ router.beforeEach(async(to, from, next) => {
   const hasToken = getToken()
 
   if (hasToken) {
-    if (to.path === '/login') {
+
+    if (to.path === '/register' || to.path === '/forgetPwd') {
+      next()
+    } else if (to.path === '/login') {
       // if is logged in, redirect to the home page
       next({ path: '/' })
       NProgress.done()
@@ -33,14 +36,9 @@ router.beforeEach(async(to, from, next) => {
       } else {
         try {
           // get user info
-          const role = await store.dispatch('user/getInfo')
+          await store.dispatch('user/getInfo')
 
-          const accessRoutes = await store.dispatch('permission/generateRoutes', role.role)
-
-          router.addRoutes(accessRoutes)
-
-          next({ ...to, replace: true })
-
+          next()
         } catch (error) {
           // remove token and go to login page to re-login
           await store.dispatch('user/resetToken')
@@ -52,7 +50,7 @@ router.beforeEach(async(to, from, next) => {
     }
   } else {
     /* has no token*/
-
+    console.log('has no token')
     if (whiteList.indexOf(to.path) !== -1) {
       // in the free login whitelist, go directly
       next()

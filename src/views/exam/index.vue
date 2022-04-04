@@ -17,14 +17,14 @@
       </ul>
 
       <ul class="paper" v-loading="loading">
-        <li class="item" v-for="(item,index) in pagination.records" :key="index">
+        <li class="item" v-for="(item,index) in ongoingExam" :key="index">
           <h4 @click="toExamMsg(item.examId)">{{item.examName}}</h4>
-          <p class="examName">{{item.subject}}-{{item.note}}</p>
+          <p class="examName">{{item.subject}}-{{item.examNote}}</p>
           <div class="info">
-            <i class="el-icon-time"></i><span>{{item.startTime.slice(0,16)}}开始</span>
-            <i class="iconfont icon-icon-time"></i><span v-if="item.totalTime != null">限时{{item.totalTime}}分钟</span>
+            <i class="el-icon-time"></i><span>{{item.startTime.slice(0,16)}}到{{item.deadline.slice(0,16)}}可进入</span>
+            <i class="iconfont icon-icon-time"></i><span v-if="item.totalTime != null">限时{{item.durationTime}}分钟</span>
             <br />
-            <i class="iconfont icon-fenshu"></i><span>满分{{item.totalScore}}分</span>
+<!--            <i class="iconfont icon-fenshu"></i><span>满分{{item.totalScore}}分</span>-->
             <br/>
 <!--            <el-tag type="info">{{item.subject}}</el-tag>-->
           </div>
@@ -42,16 +42,31 @@
         </el-pagination>
       </div>
     </div>
+    <el-tooltip placement="top" content="回到顶部">
+      <back-to-top class="myBackToTopStyle" :visibility-height="300" :back-position="50" transition-name="fade" />
+    </el-tooltip>
   </div>
+
 </template>
 
 <script>
 import dragSelect from '@/views/exam/components/drag-select'
+import BackToTop from '@/components/BackToTop'
+import request from '@/utils/request'
+
 export default {
-  components:{dragSelect},
+  components:{
+      dragSelect,
+      BackToTop,
+  },
   // examName: 'myExam'
   data() {
     return {
+      futureExam:null,
+      ongoingExam:null,
+      finishedExam:null,
+
+
       loading: false,
       key: null, //搜索关键字
       allExam: null, //所有考试信息
@@ -70,61 +85,38 @@ export default {
             totalTime:120,
             totalScore:100
           },
-          {
-            examId:456,
-            examName:'计算机网络',
-            startTime:'2022-03-29 08:00:00',
-            totalTime:60,
-            totalScore:100
-          },
-          {
-            examId:456,
-            examName:'计算机网络',
-            startTime:'2022-03-29 08:00:00',
-            totalTime:60,
-            totalScore:100
-          },{
-            examId:123,
-            examName:'计算机网络',
-            startTime:'2022-03-29 08:00:00',
-            totalTime:60,
-            totalScore:100
-          },
-          {
-            examId:456,
-            examName:'计算机网络',
-            startTime:'2022-03-29 08:00:00',
-            totalTime:60,
-            totalScore:100
-          },
-          {
-            examId:456,
-            examName:'计算机网络',
-            startTime:'2022-03-29 08:00:00',
-            totalTime:60,
-            totalScore:100
-          },
         ],
       }
     }
   },
-  // created() {
-  //   this.getExamInfo()
-  //   this.loading = true
-  // },
-  // watch: {
+  created() {
+    this.getExamInfo()
+    this.loading = true
+  },
+  watch: {
 
-  // },
+  },
   methods: {
     //获取当前所有考试信息
     getExamInfo() {
-      this.$axios(`/api/exams/${this.pagination.current}/${this.pagination.size}`).then(res => {
-        this.pagination = res.data.data
+      request({
+        url:'http://124.222.238.194:10010/exam/info/query',
+        method:'Get',
+      }).then(res=>{
+        // this.allExam=res
+        this.futureExam=res[1]
+        this.ongoingExam=res[2]
+        this.finishedExam=res[3]
+
         this.loading = false
-        console.log(this.pagination)
-      }).catch(error => {
-        console.log(error)
       })
+      // this.$axios(`/api/exams/${this.pagination.current}/${this.pagination.size}`).then(res => {
+      //   this.pagination = res.data.data
+      //   this.loading = false
+      //   console.log(this.pagination)
+      // }).catch(error => {
+      //   console.log(error)
+      // })
     },
     //改变当前记录条数
     handleSizeChange(val) {
@@ -265,5 +257,15 @@ li{
 #myExam .wrapper {
   //background-color: #fff;
   width: 100%;
+}
+.myBackToTopStyle{
+    right: 50px;
+    bottom: 50px;
+    width: 40px;
+    height: 0px;
+  border-radius: 4px;
+  line-height: 45px;// 请保持与高度一致以垂直居中 Please keep consistent with height to center vertically
+  background: #e7eaf1// 按钮的背景颜色 The background color of the button
+
 }
 </style>
