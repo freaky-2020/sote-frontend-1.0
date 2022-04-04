@@ -17,28 +17,41 @@ const store = new Vuex.Store({
   },
   getters,
   state: {
-    tableData: [{
-      userid: '190101', password: '123556', name: '王小0', status: '1', univ: '中国石油大学华东', unit: '计科'
-    }, {
-      userid: '190102', password: '12355', name: '王小1', status: '2', univ: '中国石油大学华东', unit: '计科'
-    }, {
-      userid: '190103', password: '123553', name: '王小2', status: '3', univ: '中国石油大学华东', unit: '计科'
-    }, {
-      userid: '190104', password: '123554', name: '王小3', status: '3', univ: '中国石油大学华东', unit: '计科'
-    }, {
-      userid: '190105', password: '123552', name: '王小4', status: '3', univ: '中国石油大学华东', unit: '计科'
-    }],
+    fillItems:[
+      {id:1,input:'',},
+      {id:2,input:'',},
+      {id:3,input:'',},
+      {id:4,input:'',},
+      {id:5,input:'',},
+      {id:6,input:'',},
+      {id:7,input:'',},
+      {id:8,input:'',},
+      {id:9,input:'',},
+      {id:10,input:'',},
+    ],
+    check:[],
+    fillSum:1,
+    tableData: [],
     topic:[
       {
         id:1,
-        name:'第一大题',
+        title:'单选题',
         question:[
           {id:'', main:'',type:'',score:'',answer:''}
         ]
       }
+    ],
+    question:[
+      {id:'', main:'',type:'',score:'',answer:''}
     ]
   },
   mutations: {
+    updateFillItems(state,newFillItems){
+      state.fillItems = newFillItems
+    },
+    updateFillSum(state,newFillSum){
+      state.fillSum = newFillSum
+    },
     ADD(state, form) {
       console.log('mutations中的ADD被调用了')
       state.tableData.push(form)
@@ -48,7 +61,7 @@ const store = new Vuex.Store({
       state.tableData = state.tableData.filter((u) => {
         return u.userid.indexOf(id) === -1
       })
-    }
+    },
   }
 })
 

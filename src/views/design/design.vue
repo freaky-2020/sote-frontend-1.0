@@ -3,12 +3,17 @@
 <!--    <div class="filter-container" align="center">-->
 <!--      <el-button @click="topicNum++" icon="el-icon-circle-plus-outline" type="success">添加大题</el-button>-->
 <!--    </div>-->
+    <div style="font-size: 30px">
+      目前试题共
+      <span style="color: red">{{totalNum}}</span>  题  总计
+      <span style="color: red">{{totalScore}}</span>分
+    </div>
     <div class="filter-container">
-      <topic-form style="margin-bottom: 10px" :topicType="1" topicTitle=单选题></topic-form>
-      <topic-form style="margin-bottom: 10px" :topicType="2" topicTitle=多选题></topic-form>
-      <topic-form style="margin-bottom: 10px" :topicType="3" topicTitle=判断题></topic-form>
-      <topic-form style="margin-bottom: 10px" :topicType="4" topicTitle=填空题></topic-form>
-      <topic-form style="margin-bottom: 10px" :topicType="5" topicTitle=简答题></topic-form>
+      <topic-form style="margin-bottom: 10px" :topicType="1" topicTitle=单选题 :examForm.sync="examForm[0]" :paperId="paperId"></topic-form>
+      <topic-form style="margin-bottom: 10px" :topicType="2" topicTitle=多选题 :examForm.sync="examForm[1]" :paperId="paperId"></topic-form>
+      <topic-form style="margin-bottom: 10px" :topicType="3" topicTitle=判断题 :examForm.sync="examForm[2]" :paperId="paperId"></topic-form>
+      <topic-form style="margin-bottom: 10px" :topicType="4" topicTitle=填空题 :examForm.sync="examForm[3]" :paperId="paperId"></topic-form>
+      <topic-form style="margin-bottom: 10px" :topicType="5" topicTitle=简答题 :examForm.sync="examForm[4]" :paperId="paperId"></topic-form>
     </div>
     <div style="position:absolute;bottom: 0px;margin-bottom: 5px;transform: translate(-50%);left: 50%" >
       <el-button size="medium" type="primary" icon="el-icon-thumb" @click="toPublish">提交试卷</el-button>
@@ -38,13 +43,17 @@
 import topicForm from '@/views/design/component/topicForm'
 import axios from 'axios'
 import request from '@/utils/request'
-// axios.defaults.baseURL=''
+axios.defaults.baseURL=''
 
 export default {
   components: {topicForm},
   data() {
     return {
+      paperId:1,
+      totalNum:10,
+      totalScore:100,
       list: {},
+      examForm:[],
       isEditTest:false,
       isShowTopic:false,
       inputTopic:'',
@@ -63,10 +72,12 @@ export default {
     fetchData() {
       this.listLoading = true
       return request({
-        url: 'api/auth/user',
+        url: '/exam/paper/'+this.paperId+'/get',
         methods: 'Get'
       }).then(response => {
         console.log(response)
+        console.log(response[1])
+        this.examForm = response
       })
     },
     toPublish(){
@@ -81,7 +92,24 @@ export default {
     },
     editTestSubmit(){
       this.isEditTest = false
-    }
+    },
+    // getAllScore(){
+    //   let sums = 0
+    //   for(let i = 0; i < this.form.length; i++){
+    //     sums+=this.form[i].score
+    //   }
+    //   this.sum = sums
+    // },
+    // getAllSum(){
+    //   let sums = 0
+    //   for(let i = 0; i < this.form.length; i++){
+    //     sums+=this.form[i].score
+    //   }
+    //   this.sum = sums
+    // }
+  },
+  beforeMount() {
+    this.fetchData()
   }
 }
 </script>

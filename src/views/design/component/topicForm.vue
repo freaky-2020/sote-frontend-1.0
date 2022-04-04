@@ -2,7 +2,7 @@
   <div class="filter-container" v-if="isShow">
     <div style="margin-bottom: 20px">
       <div style="float:left;display:inline; padding-top:10px;margin-bottom: 10px">
-        <span v-show="!isEditTitle">{{topicTitle}}</span>
+        <span v-show="!isEditTitle" style="color: #1482f0">{{topicTitle}}</span>
         <!--        <el-input-->
         <!--          type="text"-->
         <!--          v-show="isEditTitle"-->
@@ -12,7 +12,9 @@
         <!--          ref="inputTitle">-->
         <!--        </el-input>-->
         <!--        <el-button size="small" @click="editTitle" type="primary" style="margin-left: 10px" icon="el-icon-edit" circle></el-button>-->
-        <span style="margin-left: 10px">【共{{topicData.sum}}道试题，合计{{topicData.sumScore}}分】</span>
+        【共
+        <span style="color: red">{{form.length}}</span>道试题，合计
+        <span style="color: red">{{sum}}</span>分】
       </div>
       <div style="float:right;margin-bottom: 10px">
         <el-button size="mini" @click="isAddByBank=true" style="margin-left: 10px">题库选题</el-button>
@@ -39,18 +41,31 @@
         width="180">
         <template slot-scope="scope">
           <div slot="reference" class="name-wrapper">
-            <el-tag size="medium">
-              <el-link @click="handleEdit(scope.row)">{{ scope.row.main }}</el-link>
-            </el-tag>
+              <span>{{ scope.row.main }}</span>
           </div>
         </template>
       </el-table-column>
       <el-table-column
         label="分数"
-        width="180">
+        width="180"
+        prop="score">
+        <template slot="header" slot-scope="scope">
+          <span style="margin-right: 50px">分数</span>
+          <el-popover
+            placement="bottom"
+            width="200"
+            v-model="isUpdateAllScore">
+            <el-input v-model.number="allScore" size="mini" style="margin-bottom: 10px"></el-input>
+            <div style="text-align: right; margin: 0">
+              <el-button size="mini" type="text" @click="isUpdateAllScore = false">取消</el-button>
+              <el-button type="primary" size="mini" @click="updateAllScore(scope)">确定</el-button>
+            </div>
+            <el-link slot="reference" type="primary">批量修改</el-link>
+          </el-popover>
+        </template>
         <template slot-scope="scope">
-          <div slot="reference" class="name-wrapper">
-            <el-input size="mini" v-model="scope.row.score"></el-input>
+          <div slot="reference">
+            <el-input type="number" size="mini" @input="getAllScore" v-model.number="scope.row.score"></el-input>
           </div>
         </template>
       </el-table-column>
@@ -58,7 +73,7 @@
         label="答案"
         width="180">
         <template slot-scope="scope">
-          <div slot="reference" class="name-wrapper">
+          <div slot="reference">
             <el-tag size="medium">{{ scope.row.answer }}</el-tag>
           </div>
         </template>
@@ -67,7 +82,7 @@
         label="难度"
         width="170">
         <template slot-scope="scope">
-          <div slot="reference" class="name-wrapper">
+          <div slot="reference">
             <el-tag size="medium" >{{ map[scope.row.level] }}</el-tag>
           </div>
         </template>
@@ -89,12 +104,14 @@
     <add-by-bank
       :isAddByBank="isAddByBank"
       :topicType="topicType"
-      :isDisabled="true"
+      :paperId="paperId"
       @addByBankclose="isAddByBank = false"></add-by-bank>
     <edit-question
       :isEditQuestion="isEditQuestion"
       :question= "question"
       :topicType="topicType"
+      :isDesign="true"
+      :paperId="paperId"
       :isDisabled="true"
       @editQuestionclose="isEditQuestion = false"></edit-question>
     <add-by-text
@@ -107,9 +124,10 @@
 import addByBank from '@/views/design/component/addByBank'
 import editQuestion from '@/views/design/component/editQuestion'
 import AddByText from '@/views/design/component/addByText'
+import request from '@/utils/request'
 export default {
   name: 'topicForm',
-  props:['topicType','topicTitle'],
+  props:['topicType','topicTitle','paperId','examForm'],
   components:{ AddByText, addByBank,editQuestion},
   data() {
     return {
@@ -118,12 +136,10 @@ export default {
       isAddByBank:false,
       isEditQuestion:false,
       isAddByText:false,
-      topicData: {
-        id:1,
-        title: '第',
-        sum: '3',
-        sumScore: '50',
-      },
+      isUpdateAllScore:false,
+      allScore:0,
+      sumScore:0,
+      sum:0,
       question:{},
       form:[
         {id:'1', main:'1+1=',score:10,answer:'B',level:'1'},
@@ -175,6 +191,15 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
+        request({
+          url: '/exam/paper/delete/',
+          method: 'Delete',
+          params: row,
+        }).then(response => {
+          console.log(response)
+        }).catch( err =>{
+          console.log(err)
+        })
         this.form = this.form.filter((q) => {
           return q !== row
         })
@@ -192,11 +217,59 @@ export default {
     handleEdit(row){
       this.isEditQuestion = true
       this.question = row
-    }
+    },
+    updateAllScore(){
+      this.isUpdateAllScore =false
+      for(let i=0;i<this.form.length;i++){
+        this.form[i].score = this.allScore
+      }
+      this.getAllScore()
+      console.log(this.form)
+    },
+    getAllScore(){
+      let sums = 0
+      for(let i = 0; i < this.form.length; i++){
+        sums+=this.form[i].score
+      }
+      this.sum = sums
+    },
+  //   getSummaries(param) {
+  //     console.log(param)
+  //     const { columns, data } = param;
+  //     const sums = [];
+  //     columns.forEach((column, index) => {
+  //       if (index === 0) {
+  //         sums[index] = '本大题总分';
+  //         return;
+  //       }
+  //       const values = data.map(item => Number(item[column.property]));
+  //       if (column.property === 'score'  ) {
+  //         sums[index] = values.reduce((prev, curr) => {
+  //           const value = Number(curr);
+  //           if (!isNaN(value)) {
+  //             return prev + curr;
+  //           } else {
+  //             return prev;
+  //           }
+  //         }, 0);
+  //         sums[index];
+  //       }
+  //     });
+  //     // this.sum =sums
+  //     return sums
+  //   }
+  // },
   },
   beforeMount() {
-    this.topicData.title = "第"+this.count+"大题"
+    this.getAllScore()
   },
+  updated() {
+  },
+  watch:{
+    form(newVal) {
+      this.$emit('update:examForm', newVal);
+    },
+  }
 }
 </script>
 

@@ -16,7 +16,7 @@
        <span style="margin-left: 10px">试题类型:</span>
        <el-select size="mini" :disabled="topicType !== undefined" v-model="queryForm.typeId" placeholder="请选择" style="width: 100px">
          <el-option
-           v-for="item in options"
+           v-for="item in optionsType"
            :key="item.value"
            :label="item.label"
            :value="item.value">
@@ -118,8 +118,7 @@
          width="170">
        </el-table-column>
        <el-table-column
-         label="创建时间"
-         width="180">
+         label="创建时间">
          <template slot-scope="scope">
            <div slot="reference" class="name-wrapper">
              <el-tag size="medium">{{ scope.row.createTime }}</el-tag>
@@ -127,6 +126,7 @@
          </template>
        </el-table-column>
        <el-table-column
+         v-if="topicType === undefined"
          label="操作">
          <template slot-scope="scope">
            <el-button
@@ -208,7 +208,7 @@ import JsonExcel from 'vue-json-excel'
 import request from '@/utils/request'
 export default {
   name: 'bank',
-  props:['topicType'],
+  props:['topicType','bankToExamSubmit'],
   components:{ AddByText,editQuestion,JsonExcel},
   data(){
     return{
@@ -325,7 +325,7 @@ export default {
         4: '填空题',
         5: '综合题'
       },
-      options: [{
+      optionsType: [{
         value: 1,
         label: '单选题'
       }, {
@@ -378,7 +378,7 @@ export default {
     },
     fetchData() {
       request({
-        url: 'bank/question/query',
+        url: '/bank/question/query',
         method: 'Get',
         params:this.queryForm
       }).then(response => {
@@ -425,7 +425,7 @@ export default {
         type: 'warning'
       }).then(() => {
         request({
-          url: 'api/bank/question/delete/'+row.id,
+          url: '/bank/question/delete/'+row.id,
           method: 'Delete',
         }).then(response => {
           console.log(response)
@@ -472,7 +472,7 @@ export default {
           type: 'warning'
         }).then(() => {
           request({
-            url: 'api/bank/question/delete',
+            url: '/bank/question/delete',
             method: 'Delete',
             params: {ids}
           }).then(response => {
@@ -561,7 +561,7 @@ export default {
     },
     fetchMapSubject(){
       request({
-        url: 'api/bank/subject',
+        url: '/bank/subject',
         methods: 'Get',
       }).then(response => {
         this.optionsSubject =response
@@ -603,6 +603,9 @@ export default {
     editQuestionclose(){
       this.isEditQuestion = false
       this.fetchData()
+    },
+    bankToExam() {
+      this.$emit("bankToExamSubmit",this.$refs.multipleTable.selection)
     }
   },
   beforeMount() {
@@ -611,7 +614,11 @@ export default {
     this.queryForm.typeId = this.topicType
     console.log(this.$store.state.fillItems)
     console.log(this.fillItems)
+    console.log(this)
   },
+  updated() {
+    console.log(this.$refs.multipleTable.selection)
+  }
 }
 </script>
 
