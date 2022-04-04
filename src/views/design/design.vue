@@ -38,7 +38,7 @@
 import topicForm from '@/views/design/component/topicForm'
 import axios from 'axios'
 import request from '@/utils/request'
-axios.defaults.baseURL=''
+// axios.defaults.baseURL=''
 
 export default {
   components: {topicForm},

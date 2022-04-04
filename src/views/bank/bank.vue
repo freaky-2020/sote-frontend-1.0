@@ -55,6 +55,9 @@
            </el-option>
          </el-select>
        </div>
+<!--       <div>-->
+<!--         <el-button @click="debug">test</el-button>-->
+<!--       </div>-->
      </div>
      <JsonExcel
        :data="form"
@@ -358,9 +361,24 @@ export default {
     }
   },
   methods:{
+    debug(){
+      request({
+        url: 'exam/paper/'+1+'/addFromBank',
+        method: 'post',
+        dataType: 'json',
+        data: this.$refs.multipleTable.selection ,
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8',
+        }
+      }).then(response => {
+        console.log(response)
+      }).catch( err =>{
+        console.log(err)
+      })
+    },
     fetchData() {
       request({
-        url: 'api/bank/question/query',
+        url: 'bank/question/query',
         method: 'Get',
         params:this.queryForm
       }).then(response => {
