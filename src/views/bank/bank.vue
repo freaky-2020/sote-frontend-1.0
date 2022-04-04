@@ -16,7 +16,7 @@
        <span style="margin-left: 10px">试题类型:</span>
        <el-select size="mini" :disabled="topicType !== undefined" v-model="queryForm.typeId" placeholder="请选择" style="width: 100px">
          <el-option
-           v-for="item in options"
+           v-for="item in optionsType"
            :key="item.value"
            :label="item.label"
            :value="item.value">
@@ -115,8 +115,7 @@
          width="170">
        </el-table-column>
        <el-table-column
-         label="创建时间"
-         width="180">
+         label="创建时间">
          <template slot-scope="scope">
            <div slot="reference" class="name-wrapper">
              <el-tag size="medium">{{ scope.row.createTime }}</el-tag>
@@ -124,6 +123,7 @@
          </template>
        </el-table-column>
        <el-table-column
+         v-if="topicType === undefined"
          label="操作">
          <template slot-scope="scope">
            <el-button
@@ -205,7 +205,7 @@ import JsonExcel from 'vue-json-excel'
 import request from '@/utils/request'
 export default {
   name: 'bank',
-  props:['topicType'],
+  props:['topicType','bankToExamSubmit'],
   components:{ AddByText,editQuestion,JsonExcel},
   data(){
     return{
@@ -322,7 +322,7 @@ export default {
         4: '填空题',
         5: '综合题'
       },
-      options: [{
+      optionsType: [{
         value: 1,
         label: '单选题'
       }, {
@@ -585,6 +585,9 @@ export default {
     editQuestionclose(){
       this.isEditQuestion = false
       this.fetchData()
+    },
+    bankToExam() {
+      this.$emit("bankToExamSubmit",this.$refs.multipleTable.selection)
     }
   },
   beforeMount() {
@@ -593,7 +596,11 @@ export default {
     this.queryForm.typeId = this.topicType
     console.log(this.$store.state.fillItems)
     console.log(this.fillItems)
+    console.log(this)
   },
+  updated() {
+    console.log(this.$refs.multipleTable.selection)
+  }
 }
 </script>
 

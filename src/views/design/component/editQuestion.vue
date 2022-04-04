@@ -140,8 +140,12 @@
           </div>
         </el-scrollbar>
       </div>
-      <el-row type="flex" justify="end" style="margin-top: 5px">
-        <el-button @click="editStatus ==='edit'? editSubmit(form):createSubmit(form)">确定</el-button>
+      <el-row  v-if="isDesign === undefined" type="flex" justify="end" style="margin-top: 5px">
+        <el-button type="success" @click="editStatus ==='edit'? editSubmit():createSubmit()">确定</el-button>
+        <el-button @click="dialogClose">取消</el-button>
+      </el-row>
+      <el-row v-if="isDesign" type="flex" justify="end" style="margin-top: 5px">
+        <el-button type="info" @click="addToExam">确定</el-button>
         <el-button @click="dialogClose">取消</el-button>
       </el-row>
     </el-dialog>
@@ -164,6 +168,8 @@ export default {
     'fillSum',
     'fillItems',
     'topicType',
+    'paperId',
+    'isDesign'
   ],
   components:{editorWang,everyQuestion},
   data(){
@@ -350,6 +356,22 @@ export default {
       }
       this.editQuestion.answer = ids
       console.log(ids)
+    },
+    addToExam(){
+      if(this.editQuestion.typeId===4){
+        this.updateFill(this.copyFillItems)
+      }
+      axios({
+        url: 'api/exam/paper/'+this.paperId+'/addBySelf',
+        method: 'post',
+        params:this.editQuestion,
+      }).then(response => {
+        console.log(response)
+      }).catch( err =>{
+        console.log(err)
+      })
+      this.$emit("editQuestionclose")
+      this.topicType = undefined
     }
   },
   beforeMount() {

@@ -1,18 +1,24 @@
 <template>
   <div>
-    <el-dialog  title="题库导题" :visible.sync="isAddByBank" :before-close="dialogClose" width="85%">
-      <el-scrollbar style="height: 500px" wrap-style="overflow-x:hidden;">
-        <bank :topicType="topicType"></bank>
+    <el-dialog  title="题库导题" :visible.sync="isAddByBank" :before-close="dialogClose" top="100px"  width="90%">
+      <el-scrollbar style="height: 400px" wrap-style="overflow-x:hidden;">
+        <bank ref="bank" :topicType="topicType" @bankToExamSubmit="bankToExamSubmit"></bank>
       </el-scrollbar>
+      <el-footer style="text-align: center;height: 20px" class="dialog-footer">
+        <el-button type="primary" size="small" @click="bankToExam">确定</el-button>
+        <el-button type="info" size="small" @click="dialogClose">取消</el-button>
+      </el-footer>
     </el-dialog>
   </div>
 </template>
 
 <script>
 import bank from '@/views/bank/bank'
+import axios from 'axios'
+import qs from 'Qs'
 export default {
   name: 'addByBank',
-  props:['isAddByBank','topicType'],
+  props:['isAddByBank','topicType','paperId'],
   components: {bank},
   data(){
     return{
@@ -76,7 +82,20 @@ export default {
     selectionChange(){
 
     },
-    dialogSubmit(){
+    bankToExamSubmit(data){
+      axios({
+        url: 'api/exam/paper/'+this.paperId+'/addFromBank',
+        method: 'post',
+        dataType: 'json',
+        data: [{ id: 17, subjectId: 1, typeId: 4, difficultyId: 2, stem: "",}] ,
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8',
+        }
+      }).then(response => {
+        console.log(response)
+      }).catch( err =>{
+        console.log(err)
+      })
       this.$emit("addByBankclose")
     },
     handleSizeChange(val) {
@@ -107,7 +126,10 @@ export default {
     },
     handleEdit(row){
 
-    }
+    },
+    bankToExam(){
+      this.$refs.bank.bankToExam()
+    },
   }
 }
 </script>
