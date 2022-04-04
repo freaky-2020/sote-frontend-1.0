@@ -31,6 +31,7 @@ service.interceptors.request.use(
 )
 
 // response interceptor
+console.log(axios.interceptors.response)
 service.interceptors.response.use(
   /**
    * If you want to get http information such as headers or status
