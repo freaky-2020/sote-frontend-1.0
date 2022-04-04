@@ -72,7 +72,7 @@ export default {
     fetchData() {
       this.listLoading = true
       return request({
-        url: 'api/exam/paper/'+this.paperId+'/get',
+        url: '/exam/paper/'+this.paperId+'/get',
         methods: 'Get'
       }).then(response => {
         console.log(response)

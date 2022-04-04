@@ -227,8 +227,8 @@ export default {
   methods: {
     handleDelete(deleteUser) {
       if (confirm('确定删除这个吊人？')) {
-        axios({
-          url: 'api/auth/user/delete/'+deleteUser.userName,
+        request({
+          url: '/auth/user/delete/'+deleteUser.userName,
           method: 'delete',
         }).then(response => {
           console.log(response)
@@ -261,8 +261,8 @@ export default {
     updateData(form, id) {
       this.$refs.form.validate((valid) => {
         if (valid) {
-          axios({
-            url: 'api/auth/user/update',
+          request({
+            url: '/auth/user/update',
             method: 'put',
             params:form,
           }).then(response => {
@@ -286,8 +286,8 @@ export default {
     createData(form) {
       this.$refs.form.validate((valid) => {
         if (valid) {
-          axios({
-            url: 'api/auth/user/add',
+          request({
+            url: '/auth/user/add',
             method: 'post',
             params:form,
           }).then(response => {
@@ -306,7 +306,7 @@ export default {
     },
     fetchData() {
       request({
-        url: 'api/auth/user',
+        url: '/auth/user',
         methods: 'Get',
       }).then(response => {
         console.log(response)
@@ -327,7 +327,7 @@ export default {
     },
     request(){
       request({
-        url: 'api/auth/user',
+        url: '/auth/user',
         methods: 'post',
         // params:{
         //   size:15

@@ -192,7 +192,7 @@ export default {
         type: 'warning'
       }).then(() => {
         request({
-          url: 'api/exam/paper/delete/',
+          url: '/exam/paper/delete/',
           method: 'Delete',
           params: row,
         }).then(response => {

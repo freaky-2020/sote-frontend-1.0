@@ -280,8 +280,8 @@ export default {
           if(this.editQuestion.typeId===4){
             this.updateFill(this.copyFillItems)
           }
-          axios({
-            url: 'api/bank/question/update',
+          request({
+            url: '/bank/question/update',
             method: 'put',
             params:this.question,
           }).then(response => {
@@ -304,8 +304,8 @@ export default {
           if(this.editQuestion.typeId===4){
             this.updateFill(this.copyFillItems)
           }
-          axios({
-            url: 'api/bank/question/add',
+          request({
+            url: '/bank/question/add',
             method: 'post',
             params:this.editQuestion,
           }).then(response => {
@@ -324,7 +324,7 @@ export default {
     },
     fetchMapSubject(){
       request({
-        url: 'api/bank/subject',
+        url: '/bank/subject',
         methods: 'Get',
       }).then(response => {
         this.optionsSubject = response
@@ -361,8 +361,8 @@ export default {
       if(this.editQuestion.typeId===4){
         this.updateFill(this.copyFillItems)
       }
-      axios({
-        url: 'api/exam/paper/'+this.paperId+'/addBySelf',
+      request({
+        url: '/exam/paper/'+this.paperId+'/addBySelf',
         method: 'post',
         params:this.editQuestion,
       }).then(response => {

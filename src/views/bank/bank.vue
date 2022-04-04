@@ -360,7 +360,7 @@ export default {
   methods:{
     fetchData() {
       request({
-        url: 'api/bank/question/query',
+        url: '/bank/question/query',
         method: 'Get',
         params:this.queryForm
       }).then(response => {
@@ -407,7 +407,7 @@ export default {
         type: 'warning'
       }).then(() => {
         request({
-          url: 'api/bank/question/delete/'+row.id,
+          url: '/bank/question/delete/'+row.id,
           method: 'Delete',
         }).then(response => {
           console.log(response)
@@ -454,7 +454,7 @@ export default {
           type: 'warning'
         }).then(() => {
           request({
-            url: 'api/bank/question/delete',
+            url: '/bank/question/delete',
             method: 'Delete',
             params: {ids}
           }).then(response => {
@@ -543,7 +543,7 @@ export default {
     },
     fetchMapSubject(){
       request({
-        url: 'api/bank/subject',
+        url: '/bank/subject',
         methods: 'Get',
       }).then(response => {
         this.optionsSubject =response

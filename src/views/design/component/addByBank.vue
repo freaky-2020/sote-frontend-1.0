@@ -84,10 +84,10 @@ export default {
     },
     bankToExamSubmit(data){
       axios({
-        url: 'api/exam/paper/'+this.paperId+'/addFromBank',
+        url: '/exam/paper/'+this.paperId+'/addFromBank',
         method: 'post',
         dataType: 'json',
-        data: [{ id: 17, subjectId: 1, typeId: 4, difficultyId: 2, stem: "",}] ,
+        data: data,
         headers: {
           'Content-Type': 'application/json;charset=utf-8',
         }
