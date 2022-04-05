@@ -2,17 +2,27 @@ import request from '@/utils/request'
 
 export function login(data) {
   return request({
-    url: '/vue-admin-template/user/login',
+    url: '/auth/oauth/token',
     method: 'post',
-    data
+    params: {
+      username:data.username,
+      password:data.password,
+      // client_id:data.client_id,
+      // client_secret:data.client_secret,
+      // grant_type:data.grant_type
+      // username:1901040301,
+      // password:111111,
+      client_id: 'sote-frontend',
+      client_secret: 'eden',
+      grant_type: 'password'
+    }
   })
 }
 
-export function getInfo(token) {
+export function getInfo() {
   return request({
-    url: '/vue-admin-template/user/info',
+    url: '/auth/user/current',
     method: 'get',
-    params: { token }
   })
 }
 
