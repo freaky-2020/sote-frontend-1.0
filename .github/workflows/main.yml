@@ -63,4 +63,4 @@ jobs:
          port: 22
          script: |
            cd /root/sote-backend
-           ./front-end.sh
+           bash ./front-end.sh
