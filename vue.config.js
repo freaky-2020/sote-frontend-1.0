@@ -32,7 +32,7 @@ module.exports = {
   devServer: {
     proxy: {
       '/api': {
-        target: 'http://124.222.238.194/:10010',
+        target: 'http://124.222.238.194:10010',
         changeOrigin: true,  //配置跨域
         pathRewrite: {
           '^/api': ''
