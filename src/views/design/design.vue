@@ -120,7 +120,15 @@ export default {
     // }
   },
   created() {
+    if(this.$route.query.paperId!==undefined){
+      this.paperId=this.$route.query.paperId
+    }
     this.fetchData()
+  },
+  mounted() {
+    if(this.$route.query.paperId!==undefined){
+      this.paperId=this.$route.query.paperId
+    }
   }
 }
 </script>
