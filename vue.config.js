@@ -6,6 +6,8 @@ function resolve(dir) {
   return path.join(__dirname, dir)
 }
 
+const webpack = require('webpack')
+
 const name = defaultSettings.title || 'vue Admin Template' // page title
 
 // If your port is set to 80,
@@ -30,13 +32,22 @@ module.exports = {
   lintOnSave: process.env.NODE_ENV === 'development',
   productionSourceMap: false,
   devServer: {
+    proxy: {
+      '/api': {
+        target: 'http://124.222.238.194:10010',
+        changeOrigin: true,  //配置跨域
+        pathRewrite: {
+          '^/api': ''
+        }
+      }
+    },
     port: port,
     open: true,
     overlay: {
       warnings: false,
       errors: true
     },
-    before: require('./mock/mock-server.js')
+    before: require('./mock/mock-server.js'),
   },
   configureWebpack: {
     // provide the app's title in webpack's name field, so that
@@ -46,7 +57,13 @@ module.exports = {
       alias: {
         '@': resolve('src')
       }
-    }
+    },
+    plugins: [
+      new webpack.ProvidePlugin({
+        $: 'jquery',
+        jQuery: 'jquery'
+      })
+    ],
   },
   chainWebpack(config) {
     // it can improve the speed of the first screen, it is recommended to turn on preload
