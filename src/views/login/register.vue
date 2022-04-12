@@ -1,9 +1,8 @@
 <template>
 
-  <div class="register-container">
+  <div class="register-container" :style="backStyles">
     <el-card shadow="hover" class="formcard" box-shadow="100px">
     <el-form ref="registerForm" :model="registerForm" :rules="registerRules" class="register-form" auto-complete="on" label-position="left">
-
       <div class="title-container">
         <h3 class="title">注册</h3>
       </div>
@@ -57,11 +56,10 @@
         </span>
       </el-form-item>
       <div style="height:30px; width: 100%;text-align: right">
-<!--        <el-link-->
-<!--          type="primary"-->
-<!--          style="margin-bottom: 20px;color:#304156;margin-right: 10px"-->
-<!--          @click="back();""-->
-<!--        >返回</el-link>-->
+        <router-link
+          style="margin-bottom: 20px;color:#304156;margin-right: 10px"
+          to="/login"
+        >返回登录</router-link>
       </div>
 
       <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleRegister">注 册</el-button>
@@ -75,10 +73,12 @@
 <script>
 import { validUsername } from '@/utils/validate'
 import request from '@/utils/request'
+import loginBackImg from '@/assets/login_images/login_back2.jpeg'
 
 export default {
   name: 'register',
   data() {
+
     const validateUsername = (rule, value, callback) => {
       if (!validUsername(value)) {
         callback(new Error('Please enter the correct user name'))
@@ -94,6 +94,13 @@ export default {
       }
     }
     return {
+      backStyles:{
+        backgroundImage:`url(${loginBackImg})`,
+        backgroundSize:'cover',
+        backgroundRepeat:'no-repeat',
+        // backgroundSize:'100% 100%',
+        position: 'fixed',
+      },
       registerForm: {
         username: undefined,
         password: undefined,
@@ -185,6 +192,7 @@ $cursor: #fff;
   color: #FFF !important;
 }
 .formcard{
+  background:rgba(255,255,255,0.8);
   border-radius: 10px;
   position: absolute;
   width:500px;
@@ -193,6 +201,9 @@ $cursor: #fff;
   top: 50%;
 
   margin:-250px 0 0 -250px;
+}
+.formcard:hover{
+  background:rgba(255,255,255,0.95);
 }
 /* reset element-ui css */
 .register-container {

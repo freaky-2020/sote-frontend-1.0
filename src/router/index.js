@@ -42,9 +42,8 @@ export const constantRoutes = [
   {
     path: '/register',
     name: 'register',
-    component: () => import('@/views/register/index'),
+    component: () => import('@/views/login/register'),
     hidden: true,
-    meta: { title: '注册', icon: 'dashboard' }
   },
 
   // {
@@ -81,6 +80,17 @@ export const constantRoutes = [
     ]
   },
   {
+    path: '/teacherexam',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/exam/index-teacher'),
+        meta: { title: '我的考试',icon: 'form' }
+      },
+    ]
+  },
+  {
     path: '/record',
     component: Layout,
     children: [
@@ -91,6 +101,7 @@ export const constantRoutes = [
       },
     ]
   },
+
   {
     path: '/',
     component: Layout,

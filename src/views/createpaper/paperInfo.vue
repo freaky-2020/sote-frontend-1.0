@@ -96,9 +96,7 @@
 
       <el-form-item label="选择考生" v-if="form.noticeWay===2">
 <!--        <el-input v-if="form.noticeWay===''" placeholder="请选择考试方式" :disabled="true"></el-input>-->
-        <el-form-item v-if="form.noticeWay===2 || form.noticeWay===3">
-
-        </el-form-item>
+        <el-button type="text" @click.native.prevent="stuDialogVisible = true">点击指定考生</el-button>
       </el-form-item>
       <el-form-item label="允许切屏次数" prop="cuttingTimes">
         <el-input v-model="form.cuttingTimes" style="width: 200px" placeholder=""></el-input>
@@ -125,17 +123,28 @@
       <el-button @click="form.signatureDialogVisible = false">取 消</el-button>
       <el-button type="primary" @click="addOption(scope.$index)">添 加</el-button>
     </el-dialog>
+
+    <el-dialog  title="指定考生考试" :visible.sync="stuDialogVisible" center width="70%">
+      <stu-table></stu-table>
+      <br/>
+      <div slot="footer" class="dialog-footer" >
+        <el-button @click="stuDialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="wordDialogVisible = false,(word)">确 定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import signature from '@/views/createpaper/components/signature'
 import request from '@/utils/request'
+import stuTable from '@/views/createpaper/components/table'
 
 
 export default {
   components:{
     signature,
+    stuTable
   },
 
   data() {
@@ -147,6 +156,7 @@ export default {
       }
     };
     return {
+      stuDialogVisible:false,
       subjectBox:[
         { id: 1,
           subjectName: '高等数学'},
