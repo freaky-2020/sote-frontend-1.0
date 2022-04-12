@@ -38,19 +38,36 @@ export const constantRoutes = [
     component: () => import('@/views/login/index'),
     hidden: true
   },
-
+  {
+    path: '/design',
+    component: Layout,
+    children: [
+      {
+        path: 'design',
+        name: 'Design',
+        component: () => import('@/views/design/design'),
+        meta: { title: 'Design', icon: 'el-icon-edit' }
+      },
+    ]
+  },
   {
     path: '/register',
     name: 'register',
     component: () => import('@/views/login/register'),
     hidden: true,
   },
-
-  // {
-  //   path: '/forgetPwd',
-  //   component: () => import('@/views/forgetPwd/forgetPwd'),
-  //   hidden: true
-  // },
+  {
+    path: '/bank',
+    component: Layout,
+    children: [
+      {
+        path: 'bank',
+        name: 'Bank',
+        component: () => import('@/views/bank/bank'),
+        meta: { title: 'Bank', icon: 'el-icon-files' }
+      },
+    ]
+  },
   {
     path: '/404',
     component: () => import('@/views/404'),
@@ -132,6 +149,12 @@ export const constantRoutes = [
         name: 'Tree',
         component: () => import('@/views/tree/index'),
         meta: { title: 'Tree', icon: 'tree' }
+      },
+      {
+        path: 'tab',
+        name: 'Tab',
+        component: () => import('@/views/table/table'),
+        meta: { title: 'Tab', icon: 'table' }
       }
     ]
   },
@@ -220,8 +243,25 @@ export const constantRoutes = [
   },
 
   // 404 page must be placed at the end !!!
-  { path: '*', redirect: '/404', hidden: true }
+  // { path: '*', redirect: '/404', hidden: true }
 ]
+
+export const asyncRoutes = [
+  {
+    path: '/permission',
+    component: Layout,
+    name: '权限测试',
+    meta: { title: '权限测试', icon: 'link',roles: ['STUDENT'] }, //页面需要的权限
+    children: [
+      {
+        path: 'index',
+        component: ()=>import('@/views/permission/index'),
+        name: '权限测试页',
+        meta: { title: '权限测试页', icon: 'link',roles: ['STUDENT'] }  //页面需要的权限
+      }]
+  },
+  { path: '*', redirect: '/404', hidden: true }
+];
 
 const createRouter = () => new Router({
   // mode: 'history', // require service support

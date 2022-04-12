@@ -19,7 +19,7 @@ service.interceptors.request.use(
       // let each request carry token
       // ['X-Token'] is a custom headers key
       // please modify it according to the actual situation
-      config.headers['X-Token'] = getToken()
+      config.headers['Authorization'] = getToken()
     }
     return config
   },
@@ -31,6 +31,7 @@ service.interceptors.request.use(
 )
 
 // response interceptor
+console.log(axios.interceptors.response)
 service.interceptors.response.use(
   /**
    * If you want to get http information such as headers or status
