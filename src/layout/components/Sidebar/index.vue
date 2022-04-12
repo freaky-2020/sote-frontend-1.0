@@ -24,13 +24,11 @@ import Logo from './Logo'
 import SidebarItem from './SidebarItem'
 import variables from '@/styles/variables.scss'
 
-
 export default {
   components: { SidebarItem, Logo },
   computed: {
     ...mapGetters([
-      'sidebar',
-      'permission_routes',
+      'sidebar'
     ]),
     routes() {
       return this.$router.options.routes
@@ -53,7 +51,6 @@ export default {
     isCollapse() {
       return !this.sidebar.opened
     }
-  },
-
+  }
 }
 </script>

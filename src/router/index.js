@@ -230,7 +230,46 @@ export const constantRoutes = [
       }
     ]
   },
-
+  {
+    path: '/profile',
+    component: Layout,
+    redirect: '/profile/index',
+    hidden: true,
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/profile/index'),
+        name: 'Profile',
+        meta: { title: 'Profile', icon: 'user', noCache: true }
+      }
+    ]
+  },
+  {
+    path: '/exam_',
+    component: Layout,
+    redirect: '/exam/index',
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/exam_/index'),
+        name: 'Exam_',
+        meta: { title: 'Exam_', icon: 'user' }
+      }
+    ]
+  },
+  {
+    path: '/exam_publish',
+    component: Layout,
+    redirect: '/exam_publish/index',
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/exam_publish/index'),
+        name: 'Exam_publish',
+        meta: { title: 'Exam_publish', icon: 'user' }
+      }
+    ]
+  },
   {
     path: 'external-link',
     component: Layout,

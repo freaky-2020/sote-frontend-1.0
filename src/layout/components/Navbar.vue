@@ -1,8 +1,8 @@
 <template>
   <div class="navbar">
-    <hamburger :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" />
+    <hamburger id="hamburger-container" :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" />
 
-    <breadcrumb class="breadcrumb-container" />
+    <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
 
     <div class="right-menu">
       <el-dropdown class="avatar-container" trigger="click">
@@ -10,11 +10,12 @@
           <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">
           <i class="el-icon-caret-bottom" />
         </div>
-        <el-dropdown-menu slot="dropdown" class="user-dropdown">
+        <el-dropdown-menu slot="dropdown">
+          <router-link to="/profile/index">
+            <el-dropdown-item>Profile</el-dropdown-item>
+          </router-link>
           <router-link to="/">
-            <el-dropdown-item>
-              Home
-            </el-dropdown-item>
+            <el-dropdown-item>Dashboard</el-dropdown-item>
           </router-link>
           <a target="_blank" href="https://github.com/PanJiaChen/vue-admin-template/">
             <el-dropdown-item>Github</el-dropdown-item>

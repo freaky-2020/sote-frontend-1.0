@@ -18,8 +18,6 @@ import '@/icons' // icon
 import '@/permission'
 
 
-import '@/permission' // permission control
-
 
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 Vue.prototype.$axios = axios;
