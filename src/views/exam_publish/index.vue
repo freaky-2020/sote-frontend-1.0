@@ -4,7 +4,7 @@
       <div style="position:absolute;float: left;top: 0;">
         <h3>以下任意一种方式通知考生参加考试</h3>
       </div>
-      <div class="qrcode" ref="qrCodeUrl" style="position:absolute;float: left;top: 80px;">
+      <div ref="qrCodeUrl" class="qrcode" style="position:absolute;float: left;top: 80px;">
         <p>1、将二维码发给考生，扫描参加考试</p>
       </div>
       <div style="position:absolute;float: left;top: 240px;">
@@ -46,6 +46,9 @@ export default {
       inputData: 'https://github.com/PanJiaChen/vue-element-admin'
     }
   },
+  mounted() {
+    this.creatQrCode()
+  },
   methods: {
     handleCopy(text, event) {
       clip(text, event)
@@ -70,9 +73,6 @@ export default {
         correctLevel: QRCode.CorrectLevel.H
       })
     }
-  },
-  mounted() {
-    this.creatQrCode();
   }
 }
 </script>

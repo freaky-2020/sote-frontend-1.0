@@ -35,7 +35,7 @@ module.exports = {
     proxy: {
       '/api': {
         target: 'http://124.222.238.194:10010',
-        changeOrigin: true,  //配置跨域
+        changeOrigin: true, // 配置跨域
         pathRewrite: {
           '^/api': ''
         }
@@ -47,7 +47,7 @@ module.exports = {
       warnings: false,
       errors: true
     },
-    before: require('./mock/mock-server.js'),
+    before: require('./mock/mock-server.js')
   },
   configureWebpack: {
     // provide the app's title in webpack's name field, so that

@@ -171,7 +171,7 @@ export const constantRoutes = [
         path: 'index',
         component: () => import('@/views/exam_/index'),
         name: 'Exam_',
-        meta: { title: 'Exam_', icon: 'user'}
+        meta: { title: 'Exam_', icon: 'user' }
       }
     ]
   },
@@ -184,7 +184,7 @@ export const constantRoutes = [
         path: 'index',
         component: () => import('@/views/exam_publish/index'),
         name: 'Exam_publish',
-        meta: { title: 'Exam_publish', icon: 'user'}
+        meta: { title: 'Exam_publish', icon: 'user' }
       }
     ]
   },

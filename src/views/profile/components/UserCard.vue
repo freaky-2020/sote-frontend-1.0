@@ -20,12 +20,12 @@
     <div class="user-bio">
       <div class="user-education user-bio-section">
         <div class="user-bio-section-header text-center"><span>学而不思则罔，思而不学则殆</span></div>
-<!--        <div class="user-bio-section-header text-center"><svg-icon icon-class="education" /><span>中国石油大学（华东）</span></div>-->
-<!--        <div class="user-bio-section-body">-->
-<!--          <div class="text-muted">-->
-<!--            JS in Computer Science from the University of Technology-->
-<!--          </div>-->
-<!--        </div>-->
+        <!--        <div class="user-bio-section-header text-center"><svg-icon icon-class="education" /><span>中国石油大学（华东）</span></div>-->
+        <!--        <div class="user-bio-section-body">-->
+        <!--          <div class="text-muted">-->
+        <!--            JS in Computer Science from the University of Technology-->
+        <!--          </div>-->
+        <!--        </div>-->
       </div>
     </div>
   </el-card>
