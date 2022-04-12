@@ -77,13 +77,13 @@
 
 <script>
 // import dragSelect from '@/views/exam/components/drag-select'
-// import BackToTop from '@/components/BackToTop'
+import BackToTop from '@/components/BackToTop'
 import request from '@/utils/request'
 import examList from '@/views/exam/components/examList'
 export default {
   components:{
     // dragSelect,
-    // BackToTop,
+    BackToTop,
     examList,
   },
   // examName: 'myExam'

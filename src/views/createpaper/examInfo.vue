@@ -118,11 +118,11 @@
       </el-form-item>
     </el-form>
 
-    <el-dialog title="手工签名" :visible.sync="form.signatureDialogVisible" >
-      <signature style="border:1px solid #5a5e66"></signature>
-      <el-button @click="form.signatureDialogVisible = false">取 消</el-button>
-      <el-button type="primary" @click="addOption(scope.$index)">添 加</el-button>
-    </el-dialog>
+<!--    <el-dialog title="手工签名" :visible.sync="form.signatureDialogVisible" >-->
+<!--      <signature style="border:1px solid #5a5e66"></signature>-->
+<!--      <el-button @click="form.signatureDialogVisible = false">取 消</el-button>-->
+<!--      <el-button type="primary" @click="addOption(scope.$index)">添 加</el-button>-->
+<!--    </el-dialog>-->
 
     <el-dialog  title="指定考生考试" :visible.sync="stuDialogVisible" center width="70%">
       <stu-table></stu-table>

@@ -57,13 +57,13 @@ export const constantRoutes = [
     hidden: true
   },
   {
-    path: '/createpaper',
+    path: '/createexam',
     component: Layout,
     children: [
       {
-        path: 'paperinfo',
+        path: 'examinfo',
         name: 'paperinfo',
-        component: () => import('@/views/createpaper/paperInfo'),
+        component: () => import('@/views/createpaper/examInfo'),
         meta: { title: '创建试卷', icon: 'clipboard' }
       }
     ]
@@ -86,7 +86,7 @@ export const constantRoutes = [
       {
         path: 'index',
         component: () => import('@/views/exam/index-teacher'),
-        meta: { title: '我的考试',icon: 'form' }
+        meta: { title: '我创建的考试',icon: 'form' }
       },
     ]
   },
@@ -110,7 +110,7 @@ export const constantRoutes = [
       path: 'dashboard',
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: 'Dashboard', icon: 'dashboard' }
+      meta: { title: '主页', icon: 'dashboard' }
     }]
   },
 
