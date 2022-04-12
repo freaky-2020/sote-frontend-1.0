@@ -230,6 +230,32 @@ export const constantRoutes = [
       }
     ]
   },
+  {
+    path: '/Invigilate',
+    component: Layout,
+    name: '监考',
+    meta: { title: '监考', icon: 'link' },
+    children: [
+      {
+        path: 'index',
+        component: ()=>import('@/views/Invigilate/index'),
+        name: '监考',
+        meta: { title: '监考页', icon: 'link' }  //页面需要的权限
+      }]
+  },
+  {
+    path: '/detect',
+    component: Layout,
+    name: '检测',
+    meta: { title: '检测', icon: 'link' },
+    children: [
+      {
+        path: 'index',
+        component: ()=>import('@/views/detect/index'),
+        name: '检测',
+        meta: { title: '检测页', icon: 'link' }  //页面需要的权限
+      }]
+  },
 
   // 404 page must be placed at the end !!!
   // { path: '*', redirect: '/404', hidden: true }
