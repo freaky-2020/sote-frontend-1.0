@@ -223,12 +223,6 @@ export default {
       this.current = val
       // this.getExamInfo()
     },
-    //搜索试卷
-    //跳转到试卷详情页
-    // toExamMsg(examId) {
-    //   this.$router.push({path: '/examMsg', query: {examId: examId}})
-    //   console.log(examId)
-    // }
   }
 }
 </script>

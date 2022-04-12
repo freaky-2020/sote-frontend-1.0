@@ -16,11 +16,10 @@ import router from './router'
 
 import '@/icons' // icon
 import '@/permission'
-import axios from 'axios' // permission control
 
 
 import '@/permission' // permission control
-import axios from 'axios';
+
 
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 Vue.prototype.$axios = axios;

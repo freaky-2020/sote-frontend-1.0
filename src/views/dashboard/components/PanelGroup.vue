@@ -75,8 +75,8 @@ export default {
     goToCreate(){
       this.$router.push({ path: '/createexam/examinfo', })
     },
-    goToExam(){
-      this.$router.push({ path: '/createexam/examinfo', })
+    goToExamList(){
+      this.$router.push({ path: '/teacherexam/index', })
     }
   }
 }
