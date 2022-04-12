@@ -1,7 +1,7 @@
 // 我的试卷页面
 <template>
   <div id="myExam">
-<!--    <div class="title">我的试卷</div>-->
+    <!--    <div class="title">我的试卷</div>-->
     <div class="wrapper">
       <ul class="top">
         <el-tabs v-model="activeExamsName" type="card">
@@ -14,33 +14,46 @@
         <li class="search-li">
           <div class="icon">
             <el-input type="text" placeholder="试卷名称" class="search" v-model="key" size="mini"></el-input>
-<!--            <i class="el-icon-search"></i>-->
+            <!--            <i class="el-icon-search"></i>-->
           </div>
         </li>
         <li><el-button type="primary" @click="search()" size="mini">搜索试卷</el-button></li>
         <li>
-          <el-tooltip content="输入老师告知的口令加入一场考试" placement="bottom" effect="light">
-          <el-button type="info" icon="el-icon-circle-plus-outline" @click.native.prevent="wordDialogVisible=true" size="mini">加入考试</el-button>
-          </el-tooltip>
+            <el-button type="info" icon="el-icon-circle-plus-outline" @click.native.prevent="goToCreate" size="mini">添加考试</el-button>
         </li>
       </ul>
-      <exam-list v-if="displayExam!=null"
-        v-bind:displayExam="displayExam.slice((current-1)*pageSize,current*pageSize)"></exam-list>
-<!--      <ul class="paper" v-loading="loading" v-show="activeExamsName==='all'">-->
-<!--        <li class="item" v-for="(item,index) in displayExam" :key="index">-->
-<!--          <h4 @click="toExamMsg(item.examId)">{{item.examName}}</h4>-->
-<!--          <p class="examName">科目：{{item.subjectName}}-&#45;&#45;{{item.examNote}}</p>-->
-<!--          <div class="info">-->
-<!--            <span>允许考试&nbsp;{{item.allowableTime}}&nbsp;次</span>-->
-<!--            <br/>-->
-<!--            <i class="el-icon-time"></i><span>{{item.startTime.slice(0,16)}}到{{item.deadline.slice(0,16)}}可进入</span>-->
-<!--            <i class="iconfont icon-icon-time"></i><span v-if="item.totalTime != null">限时{{item.durationTime}}分钟</span>-->
-<!--            <br />-->
-<!--&lt;!&ndash;            <i class="iconfont icon-fenshu"></i><span>满分{{item.totalScore}}分</span>&ndash;&gt;-->
-<!--&lt;!&ndash;            <el-tag type="info">{{item.subject}}</el-tag>&ndash;&gt;-->
-<!--          </div>-->
-<!--        </li>-->
-<!--      </ul>-->
+
+      <ul class="paper" v-if="displayExam!=null">
+        <li class="item"
+            v-for="(item,index) in displayExam.slice((current-1)*pageSize,current*pageSize)" :key="index">
+          <h4 @click="toExam(item)">{{item.examInfo.examName}}</h4>
+          <p class="examName">科目：{{item.examInfo.subjectName}}---{{item.examInfo.examNote}}</p>
+          <div class="info">
+            <span>考试口令：{{item.examInfo.word}}  </span>
+            <el-button type="text" icon="el-icon-document-copy" @click="handleCopy(item.examInfo.word,$event)">
+            </el-button>
+            <br/>
+            <span>允许考试&nbsp;{{item.examInfo.allowableTime}}&nbsp;次 允许切屏&nbsp;{{item.examInfo.cuttingTimes}}&nbsp;次</span>
+            <br/>
+            <i class="el-icon-time"></i><span>{{item.examInfo.startTime.slice(0,16)}}到{{item.examInfo.deadline.slice(0,16)}}可进入</span>
+            <span>   考试时长{{item.examInfo.durationTime}}分钟</span>
+            <div class="nomargin" style="float: right">
+              <el-dropdown>
+                <el-button  class="nomargin" icon="el-icon-edit" size="mini">编辑<i class="el-icon-arrow-down el-icon--right"></i></el-button>
+                <el-dropdown-menu slot="dropdown">
+                  <el-dropdown-item>编辑考试信息</el-dropdown-item>
+                  <el-dropdown-item>设计考试题目</el-dropdown-item>
+                  <el-dropdown-item >删除考试</el-dropdown-item>
+                </el-dropdown-menu>
+              </el-dropdown>
+              <el-button  class="nomargin" icon="el-icon-document-checked" size="mini">批阅</el-button>
+              <el-button  class="nomargin" icon="el-icon-s-data" size="mini">成绩分析</el-button>
+            </div>
+          </div>
+        </li>
+      </ul>
+<!--      <exam-list-t v-if="displayExam!=null"-->
+<!--                 v-bind:displayExam="displayExam.slice((current-1)*pageSize,current*pageSize)"></exam-list-t>-->
       <div class="pagination">
         <el-pagination
           v-if="displayExam!=null"
@@ -52,7 +65,7 @@
           :page-size="pageSize"
           layout="total, sizes, prev, pager, next, jumper"
           :total="displayExam.length"
-          >
+        >
         </el-pagination>
       </div>
     </div>
@@ -76,15 +89,15 @@
 </template>
 
 <script>
-// import dragSelect from '@/views/exam/components/drag-select'
 import BackToTop from '@/components/BackToTop'
 import request from '@/utils/request'
-import examList from '@/views/exam/components/examList'
+// import examListT from '@/views/exam/components/examListT'
+import clip from '@/utils/clipboard'
+
 export default {
   components:{
-      // dragSelect,
-      BackToTop,
-      examList,
+    BackToTop,
+    // examListT,
   },
   // examName: 'myExam'
   data() {
@@ -106,9 +119,9 @@ export default {
       loading: false,
       key: null, //搜索关键字
 
-        current: 1, //当前页
-        total: null, //记录条数
-        pageSize: 6, //每页条数
+      current: 1, //当前页
+      total: null, //记录条数
+      pageSize: 6, //每页条数
 
     }
   },
@@ -149,7 +162,6 @@ export default {
     getExamSubject(){
       for(var i=0;i<this.allSubject.length;i++){
         for(var j=0;j<this.ongoingExam.length;j++){
-
           if(this.ongoingExam[j].examInfo.subjectId===this.allSubject[i].id){
             // console.log(this.allSubject[j].subjectName)
             this.ongoingExam[j].examInfo.subjectName=this.allSubject[i].subjectName
@@ -195,23 +207,23 @@ export default {
       //   console.log(error)
       // })
     },
-    handleClickTab(tab, event){
-
+    goToCreate(){
+      this.$router.push({ path: '/createexam/examinfo', })
     },
     enterExam(){
-        request({
-          url:'/exam/stu/join/'+this.word,
-          // url:`/exam/stu/join/${this.word}`,
-          method:'Get',
-          // data:{
-          //   // word:this.word,
-          //   examineeId:1904011106,
-          // }
-          params: { examineeId:this.examineeId }
-        }).then(res=>{
-          console.log(res)
-        })
-        this.wordDialogVisible = false;
+      request({
+        url:'/exam/stu/join/'+this.word,
+        // url:`/exam/stu/join/${this.word}`,
+        method:'Get',
+        // data:{
+        //   // word:this.word,
+        //   examineeId:1904011106,
+        // }
+        params: { examineeId:this.examineeId }
+      }).then(res=>{
+        console.log(res)
+      })
+      this.wordDialogVisible = false;
     },
     //改变当前记录条数
     handleSizeChange(val) {
@@ -223,6 +235,24 @@ export default {
       this.current = val
       // this.getExamInfo()
     },
+
+
+    toExam(item) {
+      // request({
+      //   url:'/exam/stu/start/'+this.userName+'/'+item.examInfo.examId+'/'+(item.time+1),
+      //   method:'Get',
+      //
+      // }).then(res=>{
+      //   console.log(res)
+      // })
+
+      // this.$router.push({path: '/examMsg', query: {examId: examId}})
+      // console.log(examId)
+    },
+    handleCopy(text, event) {
+      clip(text, event)
+    },
+
   }
 }
 </script>
@@ -238,61 +268,6 @@ li{
     justify-content: center;
   }
 }
-//.paper {
-//  h4 {
-//    cursor: pointer;
-//  }
-//  .item a {
-//    color: #000;
-//  }
-//}
-//
-////.wrapper .top .order {
-////  cursor: pointer;
-////}
-////.wrapper .top .order:hover {
-////  color: #0195ff;
-////  border-bottom: 2px solid #0195ff;
-////}
-////.wrapper .top .order:visited {
-////  color: #0195ff;
-////  border-bottom: 2px solid #0195ff;
-////}
-//.item .info i {
-//  margin-right: 5px;
-//  color: #0195ff;
-//}
-//.item .info span {
-//  margin-right: 14px;
-//}
-//.paper .item {
-//  width: 360px;
-//  border-radius: 6px;
-//  padding: 20px 30px;
-//  border: 1px solid #eee;
-//  box-shadow: 0 0 4px 2px rgba(217,222,234,0.3);
-//  transition: all 0.6s ease;
-//}
-//.paper .item:hover {
-//  box-shadow: 0 0 4px 2px rgba(140, 193, 248, 0.45);
-//  transform: scale(1.03);
-//}
-//.paper .item .info {
-//  font-size: 13px;
-//  color: #88949b;
-//}
-//.paper .item .examName {
-//  font-size: 14px;
-//  color: #88949b;
-//}
-//.paper * {
-//  margin: 12px 0;
-//}
-//.wrapper .paper {
-//  display: flex;
-//  justify-content: space-around;
-//  flex-wrap: wrap;
-//}
 .top .el-icon-search {
   position: absolute;
   right: 10px;
@@ -337,13 +312,78 @@ li{
   width: 100%;
 }
 .myBackToTopStyle{
-    right: 50px;
-    bottom: 50px;
-    width: 40px;
-    height: 0px;
+  right: 50px;
+  bottom: 50px;
+  width: 40px;
+  height: 0px;
   border-radius: 4px;
   line-height: 45px;// 请保持与高度一致以垂直居中 Please keep consistent with height to center vertically
   background: #e7eaf1// 按钮的背景颜色 The background color of the button
 
+}
+
+
+
+//paperItem：：：：
+li{
+  list-style-type:none;
+}
+.paper {
+  h4 {
+    cursor: pointer;
+  }
+  .item a {
+    color: #000;
+  }
+}
+
+//.wrapper .top .order {
+//  cursor: pointer;
+//}
+//.wrapper .top .order:hover {
+//  color: #0195ff;
+//  border-bottom: 2px solid #0195ff;
+//}
+//.wrapper .top .order:visited {
+//  color: #0195ff;
+//  border-bottom: 2px solid #0195ff;
+//}
+.item .info i {
+  margin-right: 5px;
+  color: #0195ff;
+}
+.item .info span {
+  //margin-right: 14px;
+}
+.paper .item {
+  width: 80%;
+  border-radius: 6px;
+  padding: 20px 30px;
+  border: 1px solid #eee;
+  box-shadow: 0 0 4px 2px rgba(217,222,234,0.3);
+  transition: all 0.6s ease;
+}
+.paper .item:hover {
+  box-shadow: 0 0 4px 2px rgba(140, 193, 248, 0.45);
+  transform: scale(1.01);
+}
+.paper .item .info {
+  font-size: 13px;
+  color: #88949b;
+}
+.paper .item .examName {
+  font-size: 14px;
+  color: #88949b;
+}
+.paper * {
+  margin: 12px 0;
+}
+.wrapper .paper {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+.nomargin *{
+  margin: 0px 5px;
 }
 </style>

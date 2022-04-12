@@ -53,9 +53,8 @@ export const constantRoutes = [
   {
     path: '/register',
     name: 'register',
-    component: () => import('@/views/register/index'),
+    component: () => import('@/views/login/register'),
     hidden: true,
-    meta: { title: '注册', icon: 'dashboard' }
   },
   {
     path: '/bank',
@@ -75,13 +74,13 @@ export const constantRoutes = [
     hidden: true
   },
   {
-    path: '/createpaper',
+    path: '/createexam',
     component: Layout,
     children: [
       {
-        path: 'paperinfo',
+        path: 'examinfo',
         name: 'paperinfo',
-        component: () => import('@/views/createpaper/paperInfo'),
+        component: () => import('@/views/createpaper/examInfo'),
         meta: { title: '创建试卷', icon: 'clipboard' }
       }
     ]
@@ -98,6 +97,17 @@ export const constantRoutes = [
     ]
   },
   {
+    path: '/teacherexam',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/exam/index-teacher'),
+        meta: { title: '我创建的考试',icon: 'form' }
+      },
+    ]
+  },
+  {
     path: '/record',
     component: Layout,
     children: [
@@ -108,6 +118,7 @@ export const constantRoutes = [
       },
     ]
   },
+
   {
     path: '/',
     component: Layout,
@@ -116,7 +127,7 @@ export const constantRoutes = [
       path: 'dashboard',
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: 'Dashboard', icon: 'dashboard' }
+      meta: { title: '主页', icon: 'dashboard' }
     }]
   },
 

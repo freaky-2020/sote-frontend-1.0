@@ -4,7 +4,7 @@
 <!--    <div class="title">我的试卷</div>-->
     <div class="wrapper">
       <ul class="top">
-        <el-tabs v-model="activeExamsName" type="card">
+        <el-tabs v-model="activeExamsName" type="card" @tab-click="handleClickTab">
           <el-tab-pane label="全部" name="all" ></el-tab-pane>
           <el-tab-pane label="开放中" name="ongoing"></el-tab-pane>
           <el-tab-pane label="未开始" name="future"></el-tab-pane>
@@ -24,8 +24,7 @@
           </el-tooltip>
         </li>
       </ul>
-      <exam-list v-if="displayExam!=null"
-        v-bind:displayExam="displayExam.slice((current-1)*pageSize,current*pageSize)"></exam-list>
+      <exam-list v-bind:displayExam="displayExam.slice((current-1)*pageSize,current*pageSize)"></exam-list>
 <!--      <ul class="paper" v-loading="loading" v-show="activeExamsName==='all'">-->
 <!--        <li class="item" v-for="(item,index) in displayExam" :key="index">-->
 <!--          <h4 @click="toExamMsg(item.examId)">{{item.examName}}</h4>-->
@@ -43,8 +42,6 @@
 <!--      </ul>-->
       <div class="pagination">
         <el-pagination
-          v-if="displayExam!=null"
-
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
           :current-page="current"
@@ -68,7 +65,7 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="wordDialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="enterExam">确 定</el-button>
+        <el-button type="primary" @click="wordDialogVisible = false,enterExam">确 定</el-button>
       </div>
     </el-dialog>
   </div>
@@ -76,28 +73,25 @@
 </template>
 
 <script>
-// import dragSelect from '@/views/exam/components/drag-select'
+import dragSelect from '@/views/exam/components/drag-select'
 import BackToTop from '@/components/BackToTop'
 import request from '@/utils/request'
 import examList from '@/views/exam/components/examList'
 export default {
   components:{
-      // dragSelect,
+      dragSelect,
       BackToTop,
       examList,
   },
   // examName: 'myExam'
   data() {
     return {
-      examineeId:1904011106,
-
       activeExamsName:'all',
       wordDialogVisible:false,
       word:null,
 
       allSubject:null,
 
-      allExam:null,
       futureExam:null,
       ongoingExam:null,
       finishedExam:null,
@@ -108,25 +102,9 @@ export default {
 
         current: 1, //当前页
         total: null, //记录条数
-        pageSize: 6, //每页条数
-
+        pageSize: 9, //每页条数
+        displayExam:[],
     }
-  },
-  computed:{
-    displayExam:function(){
-      if(this.activeExamsName=== 'all'){
-        return this.allExam
-      }else if(this.activeExamsName ==='ongoing'){
-        return this.ongoingExam
-      }else if(this.activeExamsName ==='future'){
-        return this.futureExam
-      }else if(this.activeExamsName==='finished'){
-        return this.finishedExam
-      }
-    }
-  },
-  watch: {
-
   },
   created() {
     this.getAllSubject()//1
@@ -134,14 +112,17 @@ export default {
     // this.getExamInfo()//2
     // this.loading = true
   },
+  watch: {
 
+  },
   methods: {
     getAllSubject(){
       request({
-        url:'/bank/subject',
+        url:'http://124.222.238.194:10010/bank/subject',
         method:'Get',
       }).then(res=>{
         this.allSubject=res
+
         this.getExamInfo()
         //先获取科目，再获取考试信息
       })
@@ -150,21 +131,21 @@ export default {
       for(var i=0;i<this.allSubject.length;i++){
         for(var j=0;j<this.ongoingExam.length;j++){
 
-          if(this.ongoingExam[j].examInfo.subjectId===this.allSubject[i].id){
+          if(this.ongoingExam[j].subjectId===this.allSubject[i].id){
             // console.log(this.allSubject[j].subjectName)
-            this.ongoingExam[j].examInfo.subjectName=this.allSubject[i].subjectName
+            this.ongoingExam[j].subjectName=this.allSubject[i].subjectName
             // break
           }
         }
         for(var j=0;j<this.finishedExam.length;j++){
-          if(this.finishedExam[j].examInfo.subjectId===this.allSubject[i].id){
-            this.finishedExam[j].examInfo.subjectName=this.allSubject[i].subjectName
+          if(this.finishedExam[j].subjectId===this.allSubject[i].id){
+            this.finishedExam[j].subjectName=this.allSubject[i].subjectName
             // break;
           }
         }
         for(var j=0;j<this.futureExam.length;j++){
-          if(this.futureExam[j].examInfo.subjectId===this.allSubject[i].id){
-            this.futureExam[j].examInfo.subjectName=this.allSubject[i].subjectName
+          if(this.futureExam[j].subjectId===this.allSubject[i].id){
+            this.futureExam[j].subjectName=this.allSubject[i].subjectName
             // break;
           }
         }
@@ -173,18 +154,17 @@ export default {
     //获取当前所有考试信息
     getExamInfo() {
       request({
-        // url:'/exam/info/query',
+        url:'/exam/info/query',
         // url:'/exam/stu/getExam/stu/{userName}'+this.userName
-        url:'/exam/stu/getExam/stu/1904011106',
+        // url:'/exam/stu/getExam/stu/1904011106',
         method:'Get',
       }).then(res=>{
-        console.log(res)
         // this.allExam=res
-        this.futureExam=res[0]
-        this.ongoingExam=res[1]
-        this.finishedExam=res[2]
+        this.futureExam=res[1]
+        this.ongoingExam=res[2]
+        this.finishedExam=res[3]
         this.getExamSubject();
-        this.allExam=this.ongoingExam.concat(this.futureExam).concat(this.finishedExam)
+        this.displayExam=this.ongoingExam.concat(this.futureExam).concat(this.finishedExam)
         this.loading = false
       })
       // this.$axios(`/api/exams/${this.current}/${this.size}`).then(res => {
@@ -196,22 +176,18 @@ export default {
       // })
     },
     handleClickTab(tab, event){
-
+      if(tab.name === 'all'){
+        this.displayExam=this.ongoingExam.concat(this.futureExam).concat(this.finishedExam)
+      }else if(tab.name ==='ongoing'){
+        this.displayExam=this.ongoingExam
+      }else if(tab.name ==='future'){
+        this.displayExam=this.futureExam
+      }else if(tab.name ==='finished'){
+        this.displayExam=this.finishedExam
+      }
     },
     enterExam(){
-        request({
-          url:'/exam/stu/join/'+this.word,
-          // url:`/exam/stu/join/${this.word}`,
-          method:'Get',
-          // data:{
-          //   // word:this.word,
-          //   examineeId:1904011106,
-          // }
-          params: { examineeId:this.examineeId }
-        }).then(res=>{
-          console.log(res)
-        })
-        this.wordDialogVisible = false;
+
     },
     //改变当前记录条数
     handleSizeChange(val) {
@@ -223,6 +199,23 @@ export default {
       this.current = val
       // this.getExamInfo()
     },
+    //搜索试卷
+    search() {
+      this.$axios('/api/exams').then(res => {
+        if(res.data.code == 200) {
+          let allExam = res.data.data
+          let newPage = allExam.filter(item => {
+            return item.examName.includes(this.key)
+          })
+          this.records = newPage
+        }
+      })
+    },
+    //跳转到试卷详情页
+    // toExamMsg(examId) {
+    //   this.$router.push({path: '/examMsg', query: {examId: examId}})
+    //   console.log(examId)
+    // }
   }
 }
 </script>
