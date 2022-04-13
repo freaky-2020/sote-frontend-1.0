@@ -4,7 +4,7 @@
       <div v-for="(question,index) in exam_date[1]" :key="index+'1'">
         <div v-if="num === index">
           <div slot="header" class="clearfix">
-            <h3 class="box-center">一、单选题(共{{ exam_date[1].length }}题，合计 未知 分)</h3>
+            <h3 class="box-center">一、单选题(共{{ exam_date[1].length }}题，合计{{ getAllScore(exam_date[1]) }}分)</h3>
           </div>
           <h3 class="box-center">{{ question.quesNo }}、{{ replace_stem(question.stem) }}</h3>
           <!--              <p class="question-score">多选题 0分</p>-->
@@ -30,9 +30,9 @@
         </div>
       </div>
       <div v-for="(question,index) in exam_date[2]" :key="index+'2'">
-        <div v-if="num === index">
+        <div v-if="num === (index+exam_date[1].length)">
           <div slot="header" class="clearfix">
-            <h3 class="box-center">二、多选题(共{{ exam_date[2].length }}题，合计 未知 分)</h3>
+            <h3 class="box-center">二、多选题(共{{ exam_date[2].length }}题，合计{{ getAllScore(exam_date[2]) }}分)</h3>
           </div>
           <h3 class="box-center">{{ question.quesNo }}、{{ replace_stem(question.stem) }}</h3>
           <el-button class="circle_btn" size="mini" circle :type="detailDate[question.quesNo-1].answer.includes('1')?'primary':''" @click="anwser_group(question.quesNo,'1')">A</el-button>
@@ -43,92 +43,74 @@
           {{ question.choice3 }}<br>
           <el-button class="circle_btn" size="mini" circle :type="detailDate[question.quesNo-1].answer.includes('4')?'primary':''" @click="anwser_group(question.quesNo,'4')">D</el-button>
           {{ question.choice4 }}
+          <el-row>
+            <el-col :span="3">
+              <el-button :disabled="preDisabled" @click="prex">上一题</el-button>
+            </el-col>
+            <el-col :span="6">
+              <el-button :disabled="nextDisabled" @click="next">下一题</el-button>
+            </el-col>
+          </el-row>
         </div>
       </div>
 
-      <!--      <div>-->
-      <!--              <div v-if="exam_date[1].length!==0">-->
-      <!--                <div slot="header" class="clearfix">-->
-      <!--                  <h3 class="box-center">一、单选题(共{{ exam_date[1].length }}题，合计 未知 分)</h3>-->
-      <!--                </div>-->
-      <!--                <div v-for="(question,index) in exam_date[1]" :key="index+'1'">-->
-      <!--                  <div :id="ques(question.quesNo)">-->
-      <!--                    <h3 class="box-center">{{ question.quesNo }}、{{ replace_stem(question.stem) }}</h3>-->
-      <!--                    &lt;!&ndash;              <p class="question-score">多选题 0分</p>&ndash;&gt;-->
+      <div v-for="(question,index) in exam_date[3]" :key="index+'3'">
+        <div v-if="num === (index+exam_date[1].length+exam_date[2].length)">
+          <div slot="header" class="clearfix">
+            <h3 class="box-center">三、判断题(共{{ exam_date[3].length }}题，合计{{ getAllScore(exam_date[3]) }}分)</h3>
+          </div>
+          <h3 class="box-center">{{ question.quesNo }}、{{ replace_stem(question.stem) }}</h3>
+          <el-button class="circle_btn" size="mini" circle :type="detailDate[question.quesNo-1].answer === 1?'primary':''" @click="detailDate[question.quesNo-1].answer = 1">A</el-button>
+          正确<br>
+          <el-button class="circle_btn" size="mini" circle :type="detailDate[question.quesNo-1].answer === 2?'primary':''" @click="detailDate[question.quesNo-1].answer = 2">B</el-button>
+          错误<br>
+          <el-row>
+            <el-col :span="3">
+              <el-button :disabled="preDisabled" @click="prex">上一题</el-button>
+            </el-col>
+            <el-col :span="6">
+              <el-button :disabled="nextDisabled" @click="next">下一题</el-button>
+            </el-col>
+          </el-row>
+        </div>
+      </div>
 
-      <!--                    &lt;!&ndash;              上面的那个id，用来答题卡定位...ques_no代表题号，因为没法直接取得所有试题的序号，只能取出一种题型的序号&ndash;&gt;-->
-      <!--                    &lt;!&ndash;              choice也需要再嵌套一层，因为id用来显示是否选中按钮，同时也不同用四个按钮，直接一个for循环&ndash;&gt;-->
-      <!--                    <el-button class="circle_btn" size="mini" circle :type="detailDate[question.quesNo-1].answer === '1'?'primary':''" @click="detailDate[question.quesNo-1].answer='1'">A</el-button>-->
-      <!--                    {{ question.choice1 }}<br>-->
-      <!--                    <el-button class="circle_btn" size="mini" circle :type="detailDate[question.quesNo-1].answer ==='2'?'primary' :''" @click="detailDate[question.quesNo-1].answer='2'">B</el-button>-->
-      <!--                    {{ question.choice2 }}<br>-->
-      <!--                    <el-button class="circle_btn" size="mini" circle :type="detailDate[question.quesNo-1].answer ==='3'?'primary' :''" @click="detailDate[question.quesNo-1].answer='3'">C</el-button>-->
-      <!--                    {{ question.choice3 }}<br>-->
-      <!--                    <el-button class="circle_btn" size="mini" circle :type="detailDate[question.quesNo-1].answer ==='4'?'primary' :''" @click="detailDate[question.quesNo-1].answer='4'">D</el-button>-->
-      <!--                    {{ question.choice4 }}-->
-      <!--                  </div>-->
-      <!--                </div>-->
-      <!--              </div>-->
+      <div v-for="(question,index) in exam_date[4]" :key="index+'4'">
+        <div v-if="num === (index+exam_date[1].length+exam_date[2].length+exam_date[3].length)">
+          <div slot="header" class="clearfix">
+            <h3 class="box-center">四、填空题(共{{ exam_date[4].length }}题，合计{{ getAllScore(exam_date[4]) }}分)</h3>
+          </div>
+          <h3 class="box-center" v-html="question.quesNo+'、'+replace_stem_judge(replace_stem(question.stem))" />
+          <!--          题干传过来字符串，用{}表示空的位置，使用jquery来替代{}字符为<input type="text">,然后使用v-html来转换为____，题干题干中间可以有多个____，-->
+          <!--                另外，input好像都要绑定一个数据v-model，这样正好可以获取用户输入的答案，比如：v-model="ruleForm.resource[index]"-->
+          <el-row>
+            <el-col :span="3">
+              <el-button :disabled="preDisabled" @click="prex">上一题</el-button>
+            </el-col>
+            <el-col :span="6">
+              <el-button :disabled="nextDisabled" @click="next">下一题</el-button>
+            </el-col>
+          </el-row>
+        </div>
+      </div>
 
-      <!--        <div v-if="exam_date[2].length!==0">-->
-      <!--          <div slot="header" class="clearfix">-->
-      <!--            <h3 class="box-center">二、多选题(共{{ exam_date[2].length }}题，合计 未知 分)</h3>-->
-      <!--          </div>-->
-      <!--          <div v-for="(question,index) in exam_date[2]" :key="index+'2'">-->
-      <!--            <div :id="ques(question.quesNo)">-->
-      <!--              <h3 class="box-center">{{ question.quesNo }}、{{ replace_stem(question.stem) }}</h3>-->
-      <!--              <el-button class="circle_btn" size="mini" circle :type="detailDate[question.quesNo-1].answer.includes('1')?'primary':''" @click="anwser_group(question.quesNo,'1')">A</el-button>-->
-      <!--              {{ question.choice1 }}<br>-->
-      <!--              <el-button class="circle_btn" size="mini" circle :type="detailDate[question.quesNo-1].answer.includes('2')?'primary':''" @click="anwser_group(question.quesNo,'2')">B</el-button>-->
-      <!--              {{ question.choice2 }}<br>-->
-      <!--              <el-button class="circle_btn" size="mini" circle :type="detailDate[question.quesNo-1].answer.includes('3')?'primary':''" @click="anwser_group(question.quesNo,'3')">C</el-button>-->
-      <!--              {{ question.choice3 }}<br>-->
-      <!--              <el-button class="circle_btn" size="mini" circle :type="detailDate[question.quesNo-1].answer.includes('4')?'primary':''" @click="anwser_group(question.quesNo,'4')">D</el-button>-->
-      <!--              {{ question.choice4 }}-->
-      <!--            </div>-->
-      <!--          </div>-->
-      <!--        </div>-->
-
-      <!--        <div v-if="exam_date[3].length!==0">-->
-      <!--          <div slot="header" class="clearfix">-->
-      <!--            <h3 class="box-center">三、判断题(共{{ exam_date[3].length }}题，合计 未知 分)</h3>-->
-      <!--          </div>-->
-      <!--          <div v-for="(question,index) in exam_date[3]" :key="index+'3'">-->
-      <!--            <div :id="ques(question.quesNo)">-->
-      <!--              <h3 class="box-center">{{ question.quesNo }}、{{ replace_stem(question.stem) }}</h3>-->
-      <!--              <el-button class="circle_btn" size="mini" circle :type="detailDate[question.quesNo-1].answer === 1?'primary':''" @click="detailDate[question.quesNo-1].answer = 1">A</el-button>-->
-      <!--              正确<br>-->
-      <!--              <el-button class="circle_btn" size="mini" circle :type="detailDate[question.quesNo-1].answer === 2?'primary':''" @click="detailDate[question.quesNo-1].answer = 2">B</el-button>-->
-      <!--              错误<br>-->
-      <!--            </div>-->
-      <!--          </div>-->
-      <!--        </div>-->
-
-      <!--        <div v-if="exam_date[4].length!==0">-->
-      <!--          <div slot="header" class="clearfix">-->
-      <!--            <h3 class="box-center">四、填空题(共{{ exam_date[4].length }}题，合计 未知 分)</h3>-->
-      <!--          </div>-->
-      <!--          <div v-for="(question,index) in exam_date[4]" :key="index+'4'">-->
-      <!--            <div :id="ques(question.quesNo)">-->
-      <!--              <h3 class="box-center" v-html="question.quesNo+'、'+replace_stem_judge(replace_stem(question.stem))" />-->
-      <!--              &lt;!&ndash;          题干传过来字符串，用{}表示空的位置，使用jquery来替代{}字符为<input type="text">,然后使用v-html来转换为____，题干题干中间可以有多个____，&ndash;&gt;-->
-      <!--              &lt;!&ndash;                另外，input好像都要绑定一个数据v-model，这样正好可以获取用户输入的答案，比如：v-model="ruleForm.resource[index]"&ndash;&gt;-->
-      <!--            </div>-->
-      <!--          </div>-->
-      <!--        </div>-->
-
-      <!--        <div v-if="exam_date[5].length!==0">-->
-      <!--          <div slot="header" class="clearfix">-->
-      <!--            <h3 class="box-center">五、简答题(共{{ exam_date[5].length }}题，合计 未知 分)</h3>-->
-      <!--          </div>-->
-      <!--          <div v-for="(question,index) in exam_date[5]" :key="index+'5'">-->
-      <!--            <div :id="ques(question.quesNo)">-->
-      <!--              <h3 class="box-center">{{ question.quesNo }}、{{ replace_stem(question.stem) }}</h3>-->
-      <!--              <el-input v-model="detailDate[question.quesNo-1].answer" type="textarea" :rows="5" resize="none" maxlength="500" />-->
-      <!--            </div>-->
-      <!--          </div>-->
-      <!--        </div>-->
-      <!--      </div>-->
+      <div v-for="(question,index) in exam_date[5]" :key="index+'5'">
+        <div v-if="num === (index+exam_date[1].length+exam_date[2].length+exam_date[3].length+exam_date[4].length)">
+          <div slot="header" class="clearfix">
+            <h3 class="box-center">五、简答题(共{{ exam_date[5].length }}题，合计{{ getAllScore(exam_date[5]) }}分)</h3>
+          </div>
+          <h3 class="box-center">{{ question.quesNo }}、{{ replace_stem(question.stem) }}</h3>
+          <el-input v-model="detailDate[question.quesNo-1].answer" type="textarea" :rows="5" resize="none" maxlength="500" />
+          <el-row>
+            <el-col :span="3">
+              <el-button :disabled="preDisabled" @click="prex">上一题</el-button>
+            </el-col>
+            <el-col :span="6">
+              <el-button :disabled="nextDisabled" @click="next">下一题</el-button>
+            </el-col>
+          </el-row>
+        </div>
+      </div>
     </div>
   </el-card>
 </template>
@@ -142,21 +124,22 @@ export default {
     return {
       details: 1,
       detailDate: null,
-      preDisabled: true, // 上禁用按钮
-      nextDisabled: false, // 下禁用按钮
-
-      num: 0, // 第几题
-      allRadio: [], // 每题的选项
-      answerList: [] // 所有题的答案或分数
+      preDisabled: true, // 上禁用按钮,下禁用在vuex中
+    }
+  },
+  computed: {
+    num() {
+      return this.$store.state.numx
+    },
+    nextDisabled() {
+      return this.$store.state.nextDisabled
     }
   },
   watch: {
     // 第一题和最后一题禁用按钮
     num(now, old) {
-      this.nextDisabled = now === this.questionList.length - 1
-      if (now < 1) {
-        this.preDisabled = true
-      }
+      this.nextDisabled = now === this.detailDate.length - 1
+      this.preDisabled = now === 0
     }
   },
   created() {
@@ -191,7 +174,19 @@ export default {
       }).then(response => {
         console.log(response)
         this.detailDate = response
-        this.answer_assign()
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    submitDate(num) {
+      request({
+        url: 'exam/detail/answer' + '/' + this.details + '/' + num,
+        method: 'get',
+        params: {
+          answer: this.detailDate[num - 1].answer
+        }
+      }).then(response => {
+        console.log(response)
       }).catch(err => {
         console.log(err)
       })
@@ -205,29 +200,25 @@ export default {
     replace_stem_judge(stem) {
       return stem.replaceAll('{}', '<div class="input-box">\n' +
         '  <label class="input-box__label"></label>\n' +
-        '  <input type="text" class="input-box__input"/>\n' +
+        '  <input v-model="detailDate[question.quesNo-1].answer" type="text" class="input-box__input"/>\n' +
         '</div>')
     },
-    answer_assign() {
-      let i
-      for (i = 0; i < this.detailDate.length; i++) {
-        if (this.detailDate[i].answer === null) {
-          this.detailDate[i].answer = ''
-        }
-      }
-    },
     next() {
-      this.preDisabled = false
       if (this.num < this.detailDate.length - 1) {
-        this.num += 1
+        this.$store.commit('addnum')
       }
+      this.submitDate(this.num)
     },
     prex() {
-      if (this.num === 0) {
-        this.num = 0
-      } else {
-        this.num -= 1
+      this.$store.commit('reducenum')
+      this.submitDate(this.num)
+    },
+    getAllScore(form) {
+      let sums = 0
+      for (let i = 0; i < form.length; i++) {
+        sums += form[i].score
       }
+      return sums
     }
   }
 }

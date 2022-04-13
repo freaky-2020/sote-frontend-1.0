@@ -8,7 +8,7 @@
         </el-col>
         <el-col :span="15" :xs="24">
           <el-scrollbar style="height: 641px" wrap-style="overflow-x:hidden;">
-            <Display v-if="flag" :exam_date="examDate" />
+            <Display v-if="flag" :exam_date="examDate"/>
           </el-scrollbar>
         </el-col>
         <el-col :span="3" :xs="24">
