@@ -30,15 +30,15 @@
       fit
       highlight-current-row>
       <el-table-column
-        label="题目序号"
-        width="180">
+        label="序号"
+        width="70px">
         <template slot-scope="scope">
           <span style="margin-left: 10px">{{ scope.row.id }}</span>
         </template>
       </el-table-column>
       <el-table-column
         label="题目内容"
-        width="180">
+        min-width="45%">
         <template slot-scope="scope">
           <div slot="reference" class="name-wrapper">
               <span>{{ scope.row.main }}</span>
@@ -47,7 +47,7 @@
       </el-table-column>
       <el-table-column
         label="分数"
-        width="180"
+        min-width="15%"
         prop="score">
         <template slot="header" slot-scope="scope">
           <span style="margin-right: 50px">分数</span>
@@ -71,7 +71,7 @@
       </el-table-column>
       <el-table-column
         label="答案"
-        width="180">
+        min-width="25%">
         <template slot-scope="scope">
           <div slot="reference">
             <el-tag size="medium">{{ scope.row.answer }}</el-tag>
@@ -80,7 +80,7 @@
       </el-table-column>
       <el-table-column
         label="难度"
-        width="170">
+        min-width="15%">
         <template slot-scope="scope">
           <div slot="reference">
             <el-tag size="medium" >{{ map[scope.row.level] }}</el-tag>
@@ -88,7 +88,9 @@
         </template>
       </el-table-column>
       <el-table-column
-        label="操作">
+        label="操作"
+        width="150px"
+        >
         <template slot-scope="scope">
           <el-button
             size="mini"

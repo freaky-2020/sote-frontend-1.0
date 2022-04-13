@@ -1,7 +1,9 @@
 <template>
-
   <div class="background-container">
-  <div class="article-container">
+    <div style="position: fixed;background-color:#FFFFFF;width: 200px" >
+
+    </div>
+  <div class="app-container">
 <!--    <div class="filter-container" align="center">-->
 <!--      <el-button @click="topicNum++" icon="el-icon-circle-plus-outline" type="success">添加大题</el-button>-->
 <!--    </div>-->
