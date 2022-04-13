@@ -12,7 +12,7 @@
         :collapse-transition="false"
         mode="vertical"
       >
-        <sidebar-item v-for="route in permission_routes" :key="route.path" :item="route" :base-path="route.path" />
+        <sidebar-item v-for="route in routes" :key="route.path" :item="route" :base-path="route.path" />
       </el-menu>
     </el-scrollbar>
   </div>
@@ -24,14 +24,17 @@ import Logo from './Logo'
 import SidebarItem from './SidebarItem'
 import variables from '@/styles/variables.scss'
 
-
 export default {
   components: { SidebarItem, Logo },
   computed: {
     ...mapGetters([
-      'sidebar',
-      'permission_routes',
+      'sidebar'
     ]),
+    routes() {
+      // return this.$router.options.routes
+      // 改动的地方
+      return this.$store.state.permission.currentRoutes.children
+    },
     activeMenu() {
       const route = this.$route
       const { meta, path } = route
@@ -50,7 +53,6 @@ export default {
     isCollapse() {
       return !this.sidebar.opened
     }
-  },
-
+  }
 }
 </script>

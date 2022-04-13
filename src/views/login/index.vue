@@ -1,12 +1,11 @@
 <template>
 
-  <div class="login-container">
-    <el-card shadow="hover" class="formcard" box-shadow="100px">
-
-    <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
+  <div class="login-container" :style="backStyles">
+    <el-card shadow="hover" class="loginFormcard" box-shadow="100px">
+    <el-form id="loginForm" ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
 
       <div class="title-container">
-        <h3 class="title">考试系统</h3>
+        <h3 class="title">sote 在线考试系统</h3>
       </div>
 
       <el-form-item prop="username">
@@ -56,13 +55,19 @@
       </div>
     </el-form>
     </el-card>
+<!--    <index-li-zi></index-li-zi>-->
   </div>
+
 </template>
 
 <script>
 import { validUsername } from '@/utils/validate'
-
+import loginBackImg from '@/assets/login_images/login_back2.jpeg'
+// import IndexLiZi from '@/components/IndexLiZi'
 export default {
+  components:{
+    // IndexLiZi,
+  },
   name: 'Login',
   data() {
     const validateUsername = (rule, value, callback) => {
@@ -90,7 +95,14 @@ export default {
       },
       loading: false,
       passwordType: 'password',
-      redirect: undefined
+      redirect: undefined,
+      backStyles:{
+        backgroundImage:`url(${loginBackImg})`,
+        backgroundSize:'cover',
+        backgroundRepeat:'no-repeat',
+        // backgroundSize:'100% 100%',
+        position: 'fixed',
+      }
     }
   },
   watch: {
@@ -116,7 +128,6 @@ export default {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true
-
           this.$store.dispatch('user/login', this.loginForm).then(() => {
             this.$router.push({ path: this.redirect || '/' })
             this.loading = false
@@ -127,12 +138,6 @@ export default {
           console.log('error submit!!')
           return false
         }
-      })
-    },
-    goToRegister() {
-      this.$router.push({
-        path: '/register',
-        // query:{username:this.username,password:this.password}
       })
     },
     forgetPwd() {
@@ -169,23 +174,29 @@ $bg:#ececec;
   border-color: #304156 !important;
   color: #FFF !important;
 }
-.formcard{
+.loginFormcard{
+  background:rgba(255,255,255,0.8);
   border-radius: 10px;
   position: absolute;
-  width:500px;
-  height: 500px;
+  width:450px;
+  height: 450px;
   left: 50%;
   top: 50%;
 
-  margin:-250px 0 0 -250px;
+  margin:-225px 0 0 -225px;
+}
+.loginFormcard:hover{
+  background:rgba(255,255,255,0.95);
 }
 /* reset element-ui css */
 .login-container {
+  //background-image: url("/src/assets/login_images/login_back.jpeg");
 
   .el-input {
     display: inline-block;
     height: 47px;
     width: 85%;
+
     input {
       background: transparent;
       border: 0px;
@@ -220,7 +231,7 @@ $dark_gray:#889aa4;
 .login-container {
   min-height: 100%;
   width: 100%;
-  background-color: $bg;
+  background-color: #ededed;
   overflow: hidden;
 
   .login-form {

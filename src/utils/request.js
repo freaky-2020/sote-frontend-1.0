@@ -31,7 +31,6 @@ service.interceptors.request.use(
 )
 
 // response interceptor
-console.log(axios.interceptors.response)
 service.interceptors.response.use(
   /**
    * If you want to get http information such as headers or status
@@ -45,8 +44,8 @@ service.interceptors.response.use(
    */
   response => {
     const res = response.data
-
-    // if the custom code is not 20000, it is judged as an error.
+    //
+    // // if the custom code is not 20000, it is judged as an error.
     // if (res.code !== 20000) {
     //   Message({
     //     message: res.message || 'Error',
