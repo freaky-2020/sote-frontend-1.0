@@ -12,6 +12,7 @@
         <!--          ref="inputTitle">-->
         <!--        </el-input>-->
         <!--        <el-button size="small" @click="editTitle" type="primary" style="margin-left: 10px" icon="el-icon-edit" circle></el-button>-->
+<!--        这一部分是计算总分 总题目数的部分-->
         【共
         <span style="color: red">{{form.length}}</span>道试题，合计
         <span style="color: red">{{sum}}</span>分】
@@ -19,92 +20,91 @@
       <div style="float:right;margin-bottom: 10px">
         <el-button size="mini" @click="isAddByBank=true" style="margin-left: 10px">题库选题</el-button>
         <el-button size="mini" @click="isEditQuestion=true" style="margin-left: 10px">新增试题</el-button>
-        <el-button size="mini" @click="isAddByText=true"  style="margin-left: 10px">模板导题</el-button>
+<!--        <el-button size="mini" @click="isAddByText=true"  style="margin-left: 10px">模板导题</el-button>-->
         <el-button size="mini" @click="deleteTopic"  style="margin-left: 10px">删除本题</el-button>
       </div>
     </div>
-    <el-table
-      :data="examForm"
-      style="width: 100%"
-      border
-      fit
-      highlight-current-row>
-      <el-table-column
-        label="题目序号"
-        width="180">
-        <template slot-scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.id }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column
-        label="题目内容"
-        width="180">
-        <template slot-scope="scope">
-          <div slot="reference" class="name-wrapper">
-              <span>{{ scope.row.main }}</span>
-          </div>
-        </template>
-      </el-table-column>
-      <el-table-column
-        label="分数"
-        width="180"
-        prop="score">
-        <template slot="header" slot-scope="scope">
-          <span style="margin-right: 50px">分数</span>
-          <el-popover
-            placement="bottom"
-            width="200"
-            v-model="isUpdateAllScore">
-            <el-input v-model.number="allScore" size="mini" style="margin-bottom: 10px"></el-input>
-            <div style="text-align: right; margin: 0">
-              <el-button size="mini" type="text" @click="isUpdateAllScore = false">取消</el-button>
-              <el-button type="primary" size="mini" @click="updateAllScore(scope)">确定</el-button>
+    <div style="text-align: center">
+      <el-table
+        :data="form"
+        style="width: 90%"
+        border
+        fit
+        highlight-current-row>
+        <el-table-column
+          label="题目序号"
+          width="180">
+          <template slot-scope="scope">
+            <span style="margin-left: 10px">{{ scope.row.quesNo }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column
+          label="题目内容"
+          width="180">
+          <template slot-scope="scope">
+            <div slot="reference" class="name-wrapper">
+              <span v-html="scope.row.stem"></span>
             </div>
-            <el-link slot="reference" type="primary">批量修改</el-link>
-          </el-popover>
-        </template>
-        <template slot-scope="scope">
-          <div slot="reference">
-            <el-input type="number" size="mini" @input="getAllScore" v-model.number="scope.row.score"></el-input>
-          </div>
-        </template>
-      </el-table-column>
-      <el-table-column
-        label="答案"
-        width="180">
-        <template slot-scope="scope">
-          <div slot="reference">
-            <el-tag size="medium">{{ scope.row.answer }}</el-tag>
-          </div>
-        </template>
-      </el-table-column>
-      <el-table-column
-        label="难度"
-        width="170">
-        <template slot-scope="scope">
-          <div slot="reference">
-            <el-tag size="medium" >{{ map[scope.row.level] }}</el-tag>
-          </div>
-        </template>
-      </el-table-column>
-      <el-table-column
-        label="操作">
-        <template slot-scope="scope">
-          <el-button
-            size="mini"
-            type="primary"
-            @click="handleEdit(scope.row)">编辑</el-button>
-          <el-button
-            size="mini"
-            type="danger"
-            @click="handleDelete(scope.row)">删除</el-button>
-        </template>
-      </el-table-column>
-    </el-table>
+          </template>
+        </el-table-column>
+        <el-table-column
+          label="分数"
+          width="180"
+          prop="score">
+          <template slot="header" slot-scope="scope">
+            <span style="margin-right: 50px">分数</span>
+            <el-popover
+              placement="bottom"
+              width="200"
+              v-model="isUpdateAllScore">
+              <el-input v-model.number="allScore" size="mini" style="margin-bottom: 10px"></el-input>
+              <div style="text-align: right; margin: 0">
+                <el-button size="mini" type="text" @click="isUpdateAllScore = false">取消</el-button>
+                <el-button type="primary" size="mini" @click="updateAllScore(scope)">确定</el-button>
+              </div>
+              <el-link slot="reference" type="primary">批量修改</el-link>
+            </el-popover>
+          </template>
+          <template slot-scope="scope">
+            <div slot="reference">
+              <el-input type="number" size="mini" @input="getAllScore" v-model.number="scope.row.score"></el-input>
+            </div>
+          </template>
+        </el-table-column>
+        <el-table-column
+          label="答案"
+          :formatter="getAnswer"
+          width="180">
+        </el-table-column>
+        <el-table-column
+          label="难度"
+          width="170">
+          <template slot-scope="scope">
+            <div slot="reference">
+              <el-tag size="medium" >{{ mapLevel[scope.row.difficultyId] }}</el-tag>
+            </div>
+          </template>
+        </el-table-column>
+        <el-table-column
+          label="操作">
+          <template slot-scope="scope">
+            <el-button
+              size="mini"
+              type="primary"
+              @click="handleEdit(scope.row)">编辑</el-button>
+            <el-button
+              size="mini"
+              type="danger"
+              @click="handleDelete(scope.row)">删除</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+    </div>
     <add-by-bank
       :isAddByBank="isAddByBank"
       :topicType="topicType"
       :paperId="paperId"
+      @fetchDataExam="fetchDataExam"
       @addByBankclose="isAddByBank = false"></add-by-bank>
     <edit-question
       :isEditQuestion="isEditQuestion"
@@ -113,6 +113,8 @@
       :isDesign="true"
       :paperId="paperId"
       :isDisabled="true"
+      :editStatus="editStatus"
+      @fetchDataExam="fetchDataExam"
       @editQuestionclose="isEditQuestion = false"></edit-question>
     <add-by-text
       :isAddByText="isAddByText"
@@ -127,27 +129,48 @@ import AddByText from '@/views/design/component/addByText'
 import request from '@/utils/request'
 export default {
   name: 'topicForm',
-  props:['topicType','topicTitle','paperId','examForm'],
-  components:{ AddByText, addByBank,editQuestion},
+  props: {
+    topicType: Number,
+    topicTitle: String,
+    paperId: Number,
+    examForm: {
+      type: Array
+    },
+    fetchData: Function,
+    scoreSums: Number,
+  },
+  components: { AddByText, addByBank, editQuestion },
   data() {
     return {
-      isShow:true,
+      check: this.$store.state.check,
+      fillItems: this.$store.state.fillItems,
+      fillSum: this.$store.state.fillSum,
+      isShow: true,
+      optionsSubject:[
+      ],
       isEditTitle: false,
-      isAddByBank:false,
-      isEditQuestion:false,
-      isAddByText:false,
-      isUpdateAllScore:false,
-      allScore:0,
-      sumScore:0,
-      sum:0,
-      question:{},
-      form:[],
-      map: {
+      isAddByBank: false,
+      isEditQuestion: false,
+      isAddByText: false,
+      isUpdateAllScore: false,
+      sum: this.scoreSums,
+      allScore: 0,
+      question: {},
+      editStatus:'',
+      form: this.examForm,
+      mapLevel: {
         1: '简单',
         2: '适中',
         3: '困难',
         4: '压轴'
-      }
+      },
+      mapAnswer: {
+        1: 'A',
+        2: 'B',
+        3: 'C',
+        4: 'D',
+        ',': ''
+      },
     }
   },
   methods: {
@@ -161,7 +184,7 @@ export default {
         this.$refs.inputTitle.focus()
       })
     },
-    deleteTopic(){
+    deleteTopic() {
       this.$confirm('此操作将永久删除该大题确定吗?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
@@ -179,7 +202,7 @@ export default {
         });
       });
     },
-    handleDelete(row){
+    handleDelete(row) {
       this.$confirm('此操作将删除该题目,确定吗?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
@@ -188,10 +211,11 @@ export default {
         request({
           url: '/exam/paper/delete/',
           method: 'Delete',
-          params: row,
+          data: [row],
         }).then(response => {
           console.log(response)
-        }).catch( err =>{
+          this.$emit("fetchData")
+        }).catch(err => {
           console.log(err)
         })
         this.form = this.form.filter((q) => {
@@ -208,62 +232,114 @@ export default {
         });
       });
     },
-    handleEdit(row){
-      this.isEditQuestion = true
+    handleEdit(row) {
+      console.log(row)
+      if (row.typeId === 1) {
+        row.answer = parseInt(row.answer)
+      }
+      if (row.typeId === 2) {
+        row.answer = row.answer.toString()
+        row.answer = row.answer.split(",")
+        row.answer = row.answer.map(Number)
+        this.$store.commit('updateCheck', row.answer);
+      }
+      if (row.typeId === 3) {
+        row.answer = parseInt(row.answer)
+      }
+      if (row.typeId === 4) {
+        row.answer = row.answer.split('|')
+        this.fillSum = row.answer.length
+        for (let i = 0; i < row.answer.length; i++) {
+          this.fillItems[i].input = row.answer[i]
+        }
+        this.$store.commit('updateFillSum', this.fillSum)
+        this.$store.commit('updateFillItems', this.fillItems)
+        console.log(row.answer)
+      }
       this.question = row
+      this.isEditQuestion = true
+      this.editStatus = 'edit'
+      this.formatter(row)
     },
-    updateAllScore(){
-      this.isUpdateAllScore =false
-      for(let i=0;i<this.form.length;i++){
+    updateAllScore() {
+      this.isUpdateAllScore = false
+      for (let i = 0; i < this.form.length; i++) {
         this.form[i].score = this.allScore
       }
       this.getAllScore()
       console.log(this.form)
     },
-    getAllScore(){
+    getAllScore() {
       let sums = 0
-      for(let i = 0; i < this.form.length; i++){
-        sums+=this.form[i].score
+      for (let i = 0; i < this.form.length; i++) {
+        sums += this.form[i].score
       }
       this.sum = sums
     },
-  //   getSummaries(param) {
-  //     console.log(param)
-  //     const { columns, data } = param;
-  //     const sums = [];
-  //     columns.forEach((column, index) => {
-  //       if (index === 0) {
-  //         sums[index] = '本大题总分';
-  //         return;
-  //       }
-  //       const values = data.map(item => Number(item[column.property]));
-  //       if (column.property === 'score'  ) {
-  //         sums[index] = values.reduce((prev, curr) => {
-  //           const value = Number(curr);
-  //           if (!isNaN(value)) {
-  //             return prev + curr;
-  //           } else {
-  //             return prev;
-  //           }
-  //         }, 0);
-  //         sums[index];
-  //       }
-  //     });
-  //     // this.sum =sums
-  //     return sums
-  //   }
-  // },
+    fetchDataExam() {
+      this.$emit("fetchData")
+    },
+    getAnswer(row) {
+      if (row.typeId === 1) {
+        return this.mapAnswer[row.answer]
+      } else if (row.typeId === 2) {
+        let newAnswer = ''
+        for (let i = 0; i < row.answer.length; i++) {
+          newAnswer = `${newAnswer}${this.mapAnswer[row.answer[i]]}`
+        }
+        return newAnswer
+      } else if (row.typeId === 3) {
+        if (row.answer === "1") {
+          return '正确'
+        } else return '错误'
+      } else if (row.typeId === 4) {
+        return row.answer
+      } else {
+        return row.answer.replace(/<(style|script|iframe)[^>]*?>[\s\S]+?<\/\1\s*>/gi, '').replace(/<[^>]+?>/g, '').replace(/\s+/g, ' ').replace(/ /g, ' ').replace(/>/g, ' ');
+      }
+    },
+    formatter(row) {
+      for (let i = 0; i < this.optionsSubject.length; i++) {
+        if (this.optionsSubject[i].id === row.subjectId) {
+          return this.optionsSubject[i].subjectName
+        }
+      }
+    },
+    fetchMapSubject(){
+      request({
+        url: '/bank/subject',
+        methods: 'Get',
+      }).then(response => {
+        this.optionsSubject =response
+      }).catch( err =>{
+        console.log(err)
+      })
+    },
+  },
+  mounted() {
+    this.getAllScore()
+    console.log(this.form)
   },
   created() {
-    this.getAllScore()
-    this.$nextTick()
-    console.log(this.examForm)
   },
   updated() {
+
   },
-  watch:{
-    examForm(newVal) {
+  watch: {
+    examForm() {
+      this.form = this.examForm
+      this.getAllScore()
+    },
+    form(newVal) {
       this.$emit('update:examForm', newVal);
+      console.log(this.form)
+    },
+    sum: {
+      handler: function(newVal) {
+        this.$emit('update:scoreSums', newVal);
+      },
+      immediate: true,
+      deep:true,
     },
   }
 }

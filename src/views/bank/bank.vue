@@ -516,7 +516,7 @@ export default {
         row.answer = row.answer.toString()
         row.answer = row.answer.split(",")
         row.answer = row.answer.map(Number)
-        this.check = row.answer
+        this.$store.commit('updateCheck', row.answer);
       }
       if(row.typeId===3){
         row.answer = parseInt(row.answer)

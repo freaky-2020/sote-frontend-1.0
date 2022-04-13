@@ -68,6 +68,91 @@ export const constantRoutes = [
     hidden: true,
   },
   {
+    path: '/judge',
+    component: Layout,
+    children: [
+      {
+        path: 'judge',
+        name: 'Judge',
+        component: () => import('@/views/judge/judge'),
+        meta: { title: 'Judge', icon: 'el-icon-s-check' }
+      },
+    ]
+  },
+  {
+    path: '/display',
+    component: Layout,
+    children: [
+      {
+        path: 'display',
+        name: 'Display',
+        component: () => import('@/views/display/display'),
+        meta: { title: 'Display', icon: 'el-icon-s-check' }
+      },
+    ]
+  },
+  {
+    path: '/teacherexam',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: 'teacherExam',
+        component: () => import('@/views/exam/index-teacher'),
+        meta: { title: '我创建的考试',icon: 'form' }
+      },
+    ]
+  },
+  {
+    path: '/exam',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name:'stuExam',
+        component: () => import('@/views/exam/index'),
+        meta: { title: '我的考试',icon: 'form' }
+      },
+    ]
+  },
+  {
+    path: '/grade',
+    component: Layout,
+    children: [
+      {
+        path: 'grade',
+        name: 'Grade',
+        component: () => import('@/views/grade/grade'),
+        meta: { title: 'Grade', icon: 'el-icon-s-check' }
+      },
+    ]
+  },
+  {
+    path: '/exam_',
+    component: Layout,
+    redirect: '/exam/index',
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/exam_/index'),
+        name: 'Exam_',
+        meta: { title: 'Exam_', icon: 'user' }
+      }
+    ]
+  },
+  {
+    path: '/grading',
+    component: Layout,
+    children: [
+      {
+        path: 'grading',
+        name: 'Grading',
+        component: () => import('@/views/grading/grading'),
+        meta: { title: 'Grading', icon: 'el-icon-menu' }
+      },
+    ]
+  },
+  {
     path: '/bank',
     component: Layout,
     children: [
@@ -84,6 +169,7 @@ export const constantRoutes = [
     component: () => import('@/views/404'),
     hidden: true
   },
+
   {
     path: '/createexam',
     component: Layout,

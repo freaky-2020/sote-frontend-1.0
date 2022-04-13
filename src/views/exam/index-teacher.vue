@@ -17,7 +17,7 @@
             <!--            <i class="el-icon-search"></i>-->
           </div>
         </li>
-        <li><el-button type="primary" @click="search()" size="mini">搜索试卷</el-button></li>
+        <li><el-button type="primary" size="mini">搜索试卷</el-button></li>
         <li>
             <el-button type="info" icon="el-icon-circle-plus-outline" @click.native.prevent="goToCreate" size="mini">添加考试</el-button>
         </li>
@@ -25,9 +25,10 @@
 
       <ul class="paper" v-if="displayExam!=null">
         <li class="item"
-            v-for="(item,index) in displayExam.slice((current-1)*pageSize,current*pageSize)" :key="index">
+            v-for="(item,index) in newDisplayExam.slice((current-1)*pageSize,current*pageSize)" :key="index">
           <h4 @click="toExam(item)">{{item.examInfo.examName}}</h4>
-          <p class="examName">科目：{{item.examInfo.subjectName}}---{{item.examInfo.examNote}}</p>
+          <p class="examName">科目：{{item.examInfo.subjectName}}</p>
+          <p class="examName">考试须知：{{item.examInfo.examNote}}</p>
           <div class="info">
             <span>考试口令：{{item.examInfo.word}}  </span>
             <el-button type="text" icon="el-icon-document-copy" @click="handleCopy(item.examInfo.word,$event)">
@@ -38,16 +39,16 @@
             <i class="el-icon-time"></i><span>{{item.examInfo.startTime.slice(0,16)}}到{{item.examInfo.deadline.slice(0,16)}}可进入</span>
             <span>   考试时长{{item.examInfo.durationTime}}分钟</span>
             <div class="nomargin" style="float: right">
-              <el-dropdown>
+              <el-dropdown @command="handleCommand" trigger="click">
                 <el-button  class="nomargin" icon="el-icon-edit" size="mini">编辑<i class="el-icon-arrow-down el-icon--right"></i></el-button>
                 <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item>编辑考试信息</el-dropdown-item>
-                  <el-dropdown-item>设计考试题目</el-dropdown-item>
-                  <el-dropdown-item >删除考试</el-dropdown-item>
+                  <el-dropdown-item command="edit">编辑考试信息</el-dropdown-item>
+                  <el-dropdown-item command="design">设计考试题目</el-dropdown-item>
+                  <el-dropdown-item command="delete">删除考试</el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
-              <el-button  class="nomargin" icon="el-icon-document-checked" size="mini">批阅</el-button>
-              <el-button  class="nomargin" icon="el-icon-s-data" size="mini">成绩分析</el-button>
+              <el-button  class="nomargin" @click="judge(item.examInfo)" icon="el-icon-document-checked" size="mini">批阅</el-button>
+              <el-button  class="nomargin" @click="grade" icon="el-icon-s-data" size="mini">成绩分析</el-button>
             </div>
           </div>
         </li>
@@ -64,7 +65,7 @@
           :page-sizes="[6, 9, 20, 30]"
           :page-size="pageSize"
           layout="total, sizes, prev, pager, next, jumper"
-          :total="displayExam.length"
+          :total="newDisplayExam.length"
         >
         </el-pagination>
       </div>
@@ -84,6 +85,24 @@
         <el-button type="primary" @click="enterExam">确 定</el-button>
       </div>
     </el-dialog>
+
+    <el-dialog
+      title="提示"
+      :visible.sync="judgeDialog"
+      width="30%">
+      <el-select v-model="select" placeholder="请选择多选题判分模式">
+        <el-option
+          v-for="item in optionsJudge"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value">
+        </el-option>
+      </el-select>
+      <span slot="footer" class="dialog-footer">
+    <el-button @click="judgeDialog = false">取 消</el-button>
+    <el-button type="primary" @click="judgeSubmit">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 
 </template>
@@ -102,14 +121,14 @@ export default {
   // examName: 'myExam'
   data() {
     return {
+      judgeDialog:false,
       examineeId:1904011106,
-
       activeExamsName:'all',
       wordDialogVisible:false,
       word:null,
 
       allSubject:null,
-
+      select:1,
       allExam:null,
       futureExam:null,
       ongoingExam:null,
@@ -117,12 +136,20 @@ export default {
 
 
       loading: false,
-      key: null, //搜索关键字
+      key: '', //搜索关键字
 
       current: 1, //当前页
       total: null, //记录条数
       pageSize: 6, //每页条数
-
+      optionsJudge:[
+        {
+          value: 1,
+          label: '选不全不得分'
+        }, {
+          value: 2,
+          label: '选不全得半分'
+        }
+      ]
     }
   },
   computed:{
@@ -136,6 +163,11 @@ export default {
       }else if(this.activeExamsName==='finished'){
         return this.finishedExam
       }
+    },
+    newDisplayExam(){
+      return this.displayExam.filter((u) => {
+        return u.examInfo.examName.indexOf(this.key) !== -1
+      })
     }
   },
   watch: {
@@ -149,34 +181,50 @@ export default {
   },
 
   methods: {
-    getAllSubject(){
+    handleCommand(command) {
+      this.$message('click on item ' + command);
+      if (command === 'edit') {
+
+      } else if (command === 'delete') {
+
+      } else if (command === 'design') {
+        this.$router.push({ name: 'Design', query: {} })
+      }
+    },
+    editExamInfo() {
+
+    },
+    deleteExam() {
+
+    },
+    getAllSubject() {
       request({
-        url:'/bank/subject',
-        method:'Get',
-      }).then(res=>{
-        this.allSubject=res
+        url: '/bank/subject',
+        method: 'Get',
+      }).then(res => {
+        this.allSubject = res
         this.getExamInfo()
         //先获取科目，再获取考试信息
       })
     },
-    getExamSubject(){
-      for(var i=0;i<this.allSubject.length;i++){
-        for(var j=0;j<this.ongoingExam.length;j++){
-          if(this.ongoingExam[j].examInfo.subjectId===this.allSubject[i].id){
+    getExamSubject() {
+      for (var i = 0; i < this.allSubject.length; i++) {
+        for (var j = 0; j < this.ongoingExam.length; j++) {
+          if (this.ongoingExam[j].examInfo.subjectId === this.allSubject[i].id) {
             // console.log(this.allSubject[j].subjectName)
-            this.ongoingExam[j].examInfo.subjectName=this.allSubject[i].subjectName
+            this.ongoingExam[j].examInfo.subjectName = this.allSubject[i].subjectName
             // break
           }
         }
-        for(var j=0;j<this.finishedExam.length;j++){
-          if(this.finishedExam[j].examInfo.subjectId===this.allSubject[i].id){
-            this.finishedExam[j].examInfo.subjectName=this.allSubject[i].subjectName
+        for (var j = 0; j < this.finishedExam.length; j++) {
+          if (this.finishedExam[j].examInfo.subjectId === this.allSubject[i].id) {
+            this.finishedExam[j].examInfo.subjectName = this.allSubject[i].subjectName
             // break;
           }
         }
-        for(var j=0;j<this.futureExam.length;j++){
-          if(this.futureExam[j].examInfo.subjectId===this.allSubject[i].id){
-            this.futureExam[j].examInfo.subjectName=this.allSubject[i].subjectName
+        for (var j = 0; j < this.futureExam.length; j++) {
+          if (this.futureExam[j].examInfo.subjectId === this.allSubject[i].id) {
+            this.futureExam[j].examInfo.subjectName = this.allSubject[i].subjectName
             // break;
           }
         }
@@ -187,16 +235,16 @@ export default {
       request({
         // url:'/exam/info/query',
         // url:'/exam/stu/getExam/stu/{userName}'+this.userName
-        url:'/exam/stu/getExam/stu/1904011106',
-        method:'Get',
-      }).then(res=>{
+        url: '/exam/stu/getExam/stu/' + this.examineeId,
+        method: 'Get',
+      }).then(res => {
         console.log(res)
         // this.allExam=res
-        this.futureExam=res[0]
-        this.ongoingExam=res[1]
-        this.finishedExam=res[2]
+        this.futureExam = res[0]
+        this.ongoingExam = res[1]
+        this.finishedExam = res[2]
         this.getExamSubject();
-        this.allExam=this.ongoingExam.concat(this.futureExam).concat(this.finishedExam)
+        this.allExam = this.ongoingExam.concat(this.futureExam).concat(this.finishedExam)
         this.loading = false
       })
       // this.$axios(`/api/exams/${this.current}/${this.size}`).then(res => {
@@ -207,20 +255,20 @@ export default {
       //   console.log(error)
       // })
     },
-    goToCreate(){
+    goToCreate() {
       this.$router.push({ path: '/createexam/examinfo', })
     },
-    enterExam(){
+    enterExam() {
       request({
-        url:'/exam/stu/join/'+this.word,
+        url: '/exam/stu/join/' + this.word,
         // url:`/exam/stu/join/${this.word}`,
-        method:'Get',
+        method: 'Get',
         // data:{
         //   // word:this.word,
         //   examineeId:1904011106,
         // }
-        params: { examineeId:this.examineeId }
-      }).then(res=>{
+        params: { examineeId: this.examineeId }
+      }).then(res => {
         console.log(res)
       })
       this.wordDialogVisible = false;
@@ -235,24 +283,51 @@ export default {
       this.current = val
       // this.getExamInfo()
     },
-
-
+    judge(item) {
+      this.judgeItem = item
+      this.judgeDialog = true
+    },
+    judgeSubmit() {
+      this.judgeDialog = false
+      request({
+        url: '/exam/mark/auto/' + this.judgeItem.examId,
+        method: 'Get',
+        params: {rule: this.select},
+      }).then(res => {
+        console.log(res)
+        if(confirm(res+'是否进入简答题批阅?')){
+          this.$router.push({ name: 'Grading',
+            query: {
+              paperId:this.judgeItem.paperId,
+              examId:this.judgeItem.examId
+            } })
+        }
+      })
+    },
+    grade() {
+      this.$router.push({ name: 'Grade', query: {} })
+    },
     toExam(item) {
-      // request({
-      //   url:'/exam/stu/start/'+this.userName+'/'+item.examInfo.examId+'/'+(item.time+1),
-      //   method:'Get',
-      //
-      // }).then(res=>{
-      //   console.log(res)
-      // })
-
-      // this.$router.push({path: '/examMsg', query: {examId: examId}})
-      // console.log(examId)
+      request({
+        url: '/exam/stu/start/' + this.examineeId + '/' + item.examInfo.examId + '/' + (item.time + 1),
+        method: 'Get',
+      }).then(res => {
+        console.log(res)
+        Object.keys(res).forEach(key => {
+          console.log(key)
+          if (key === 'success') {
+            console.log(res['success'])
+            this.$router.push({ name: 'Exam_', query: { examValue: JSON.stringify(res['success']) } })
+          } else {
+            alert(key)
+            this.$emit("getExamInfo")
+          }
+        })
+      })
     },
     handleCopy(text, event) {
       clip(text, event)
     },
-
   }
 }
 </script>

@@ -1,74 +1,63 @@
 <template>
   <el-card>
     <div>
-      <div v-for="(question,index) in exam_date[1]" :key="index+'1'">
-        <div v-if="num === index">
-          <div slot="header" class="clearfix">
-            <h3 class="box-center">一、单选题(共{{ exam_date[1].length }}题，合计 未知 分)</h3>
-          </div>
-          <h3 class="box-center">{{ question.quesNo }}、{{ replace_stem(question.stem) }}</h3>
-          <!--              <p class="question-score">多选题 0分</p>-->
-
-          <!--              上面的那个id，用来答题卡定位...ques_no代表题号，因为没法直接取得所有试题的序号，只能取出一种题型的序号-->
-          <!--              choice也需要再嵌套一层，因为id用来显示是否选中按钮，同时也不同用四个按钮，直接一个for循环-->
-          <el-button class="circle_btn" size="mini" circle :type="detailDate[question.quesNo-1].answer === '1'?'primary':''" @click="detailDate[question.quesNo-1].answer='1'">A</el-button>
-          {{ question.choice1 }}<br>
-          <el-button class="circle_btn" size="mini" circle :type="detailDate[question.quesNo-1].answer ==='2'?'primary' :''" @click="detailDate[question.quesNo-1].answer='2'">B</el-button>
-          {{ question.choice2 }}<br>
-          <el-button class="circle_btn" size="mini" circle :type="detailDate[question.quesNo-1].answer ==='3'?'primary' :''" @click="detailDate[question.quesNo-1].answer='3'">C</el-button>
-          {{ question.choice3 }}<br>
-          <el-button class="circle_btn" size="mini" circle :type="detailDate[question.quesNo-1].answer ==='4'?'primary' :''" @click="detailDate[question.quesNo-1].answer='4'">D</el-button>
-          {{ question.choice4 }}
-          <el-row>
-            <el-col :span="3">
-              <el-button :disabled="preDisabled" @click="prex">上一题</el-button>
-            </el-col>
-            <el-col :span="6">
-              <el-button :disabled="nextDisabled" @click="next">下一题</el-button>
-            </el-col>
-          </el-row>
+      <div v-if="exam_date[1].length!==0">
+        <div slot="header" class="clearfix">
+          <h3 class="box-center">一、单选题(共{{ exam_date[1].length }}题，合计 未知 分)</h3>
         </div>
-      </div>
-      <div v-for="(question,index) in exam_date[2]" :key="index+'2'">
-        <div v-if="num === index">
-          <div slot="header" class="clearfix">
-            <h3 class="box-center">二、多选题(共{{ exam_date[2].length }}题，合计 未知 分)</h3>
+        <div v-for="(question,index) in exam_date[1]" :key="index+'1'">
+          <div v-if="num === index">
+            <h3 class="box-center">{{ question.quesNo }}、{{ replace_stem(question.stem) }}</h3>
+            <!--              <p class="question-score">多选题 0分</p>-->
+
+            <!--              上面的那个id，用来答题卡定位...ques_no代表题号，因为没法直接取得所有试题的序号，只能取出一种题型的序号-->
+            <!--              choice也需要再嵌套一层，因为id用来显示是否选中按钮，同时也不同用四个按钮，直接一个for循环-->
+            <el-button class="circle_btn" size="mini" circle :type="detailDate[question.quesNo-1].answer === '1'?'primary':''" @click="detailDate[question.quesNo-1].answer='1'">A</el-button>
+            {{ question.choice1 }}<br>
+            <el-button class="circle_btn" size="mini" circle :type="detailDate[question.quesNo-1].answer ==='2'?'primary' :''" @click="detailDate[question.quesNo-1].answer='2'">B</el-button>
+            {{ question.choice2 }}<br>
+            <el-button class="circle_btn" size="mini" circle :type="detailDate[question.quesNo-1].answer ==='3'?'primary' :''" @click="detailDate[question.quesNo-1].answer='3'">C</el-button>
+            {{ question.choice3 }}<br>
+            <el-button class="circle_btn" size="mini" circle :type="detailDate[question.quesNo-1].answer ==='4'?'primary' :''" @click="detailDate[question.quesNo-1].answer='4'">D</el-button>
+            {{ question.choice4 }}
+            <el-row>
+              <el-col :span="3">
+                <el-button class="mar10" :disabled="preDisabled" @click="prex">上一题</el-button>
+              </el-col>
+              <el-col :span="6">
+                <el-button class="mar10" :disabled="nextDisabled" @click="next">下一题</el-button>
+              </el-col>
+              <el-col :span="12">
+                <el-button type="primary" class="mar10" @click="goSubmit">提交打分任务</el-button>
+              </el-col>
+            </el-row>
           </div>
-          <h3 class="box-center">{{ question.quesNo }}、{{ replace_stem(question.stem) }}</h3>
-          <el-button class="circle_btn" size="mini" circle :type="detailDate[question.quesNo-1].answer.includes('1')?'primary':''" @click="anwser_group(question.quesNo,'1')">A</el-button>
-          {{ question.choice1 }}<br>
-          <el-button class="circle_btn" size="mini" circle :type="detailDate[question.quesNo-1].answer.includes('2')?'primary':''" @click="anwser_group(question.quesNo,'2')">B</el-button>
-          {{ question.choice2 }}<br>
-          <el-button class="circle_btn" size="mini" circle :type="detailDate[question.quesNo-1].answer.includes('3')?'primary':''" @click="anwser_group(question.quesNo,'3')">C</el-button>
-          {{ question.choice3 }}<br>
-          <el-button class="circle_btn" size="mini" circle :type="detailDate[question.quesNo-1].answer.includes('4')?'primary':''" @click="anwser_group(question.quesNo,'4')">D</el-button>
-          {{ question.choice4 }}
         </div>
       </div>
 
       <!--      <div>-->
-      <!--              <div v-if="exam_date[1].length!==0">-->
-      <!--                <div slot="header" class="clearfix">-->
-      <!--                  <h3 class="box-center">一、单选题(共{{ exam_date[1].length }}题，合计 未知 分)</h3>-->
-      <!--                </div>-->
-      <!--                <div v-for="(question,index) in exam_date[1]" :key="index+'1'">-->
-      <!--                  <div :id="ques(question.quesNo)">-->
-      <!--                    <h3 class="box-center">{{ question.quesNo }}、{{ replace_stem(question.stem) }}</h3>-->
-      <!--                    &lt;!&ndash;              <p class="question-score">多选题 0分</p>&ndash;&gt;-->
+<!--              <div v-if="exam_date[1].length!==0">-->
+<!--                <div slot="header" class="clearfix">-->
+<!--                  <h3 class="box-center">一、单选题(共{{ exam_date[1].length }}题，合计 未知 分)</h3>-->
+<!--                </div>-->
+<!--                <div v-for="(question,index) in exam_date[1]" :key="index+'1'">-->
+<!--                  <div :id="ques(question.quesNo)">-->
+<!--                    <h3 class="box-center">{{ question.quesNo }}、{{ replace_stem(question.stem) }}</h3>-->
+<!--                    &lt;!&ndash;              <p class="question-score">多选题 0分</p>&ndash;&gt;-->
 
-      <!--                    &lt;!&ndash;              上面的那个id，用来答题卡定位...ques_no代表题号，因为没法直接取得所有试题的序号，只能取出一种题型的序号&ndash;&gt;-->
-      <!--                    &lt;!&ndash;              choice也需要再嵌套一层，因为id用来显示是否选中按钮，同时也不同用四个按钮，直接一个for循环&ndash;&gt;-->
-      <!--                    <el-button class="circle_btn" size="mini" circle :type="detailDate[question.quesNo-1].answer === '1'?'primary':''" @click="detailDate[question.quesNo-1].answer='1'">A</el-button>-->
-      <!--                    {{ question.choice1 }}<br>-->
-      <!--                    <el-button class="circle_btn" size="mini" circle :type="detailDate[question.quesNo-1].answer ==='2'?'primary' :''" @click="detailDate[question.quesNo-1].answer='2'">B</el-button>-->
-      <!--                    {{ question.choice2 }}<br>-->
-      <!--                    <el-button class="circle_btn" size="mini" circle :type="detailDate[question.quesNo-1].answer ==='3'?'primary' :''" @click="detailDate[question.quesNo-1].answer='3'">C</el-button>-->
-      <!--                    {{ question.choice3 }}<br>-->
-      <!--                    <el-button class="circle_btn" size="mini" circle :type="detailDate[question.quesNo-1].answer ==='4'?'primary' :''" @click="detailDate[question.quesNo-1].answer='4'">D</el-button>-->
-      <!--                    {{ question.choice4 }}-->
-      <!--                  </div>-->
-      <!--                </div>-->
-      <!--              </div>-->
+<!--                    &lt;!&ndash;              上面的那个id，用来答题卡定位...ques_no代表题号，因为没法直接取得所有试题的序号，只能取出一种题型的序号&ndash;&gt;-->
+<!--                    &lt;!&ndash;              choice也需要再嵌套一层，因为id用来显示是否选中按钮，同时也不同用四个按钮，直接一个for循环&ndash;&gt;-->
+<!--                    <el-button class="circle_btn" size="mini" circle :type="detailDate[question.quesNo-1].answer === '1'?'primary':''" @click="detailDate[question.quesNo-1].answer='1'">A</el-button>-->
+<!--                    {{ question.choice1 }}<br>-->
+<!--                    <el-button class="circle_btn" size="mini" circle :type="detailDate[question.quesNo-1].answer ==='2'?'primary' :''" @click="detailDate[question.quesNo-1].answer='2'">B</el-button>-->
+<!--                    {{ question.choice2 }}<br>-->
+<!--                    <el-button class="circle_btn" size="mini" circle :type="detailDate[question.quesNo-1].answer ==='3'?'primary' :''" @click="detailDate[question.quesNo-1].answer='3'">C</el-button>-->
+<!--                    {{ question.choice3 }}<br>-->
+<!--                    <el-button class="circle_btn" size="mini" circle :type="detailDate[question.quesNo-1].answer ==='4'?'primary' :''" @click="detailDate[question.quesNo-1].answer='4'">D</el-button>-->
+<!--                    {{ question.choice4 }}-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
 
       <!--        <div v-if="exam_date[2].length!==0">-->
       <!--          <div slot="header" class="clearfix">-->
@@ -142,9 +131,35 @@ export default {
     return {
       details: 1,
       detailDate: null,
+
+      questionList: [
+        {
+          id: '1',
+          name: 'one',
+          question: '问题1111111?',
+          answer: '防弹少年框架的积分换深刻领会是客家话'
+        },
+        {
+          id: '2',
+          name: 'two',
+          question: '问题222222222?',
+          answer: '分类开始动画佛丹斯科了解封惹急人都是会计发发多少咯科技和?'
+        },
+        {
+          id: '3',
+          name: 'three',
+          question: '问题333333333?',
+          answer: '的数据库和 非打死不回复欧水回复而交话费渡水复渡水附近的时刻?'
+        },
+        {
+          id: '4',
+          name: 'fore',
+          question: '问题4444?',
+          answer: '客家话的发生了空间是客家话?'
+        }
+      ],
       preDisabled: true, // 上禁用按钮
       nextDisabled: false, // 下禁用按钮
-
       num: 0, // 第几题
       allRadio: [], // 每题的选项
       answerList: [] // 所有题的答案或分数
@@ -216,9 +231,16 @@ export default {
         }
       }
     },
+
+    rideoChange(val) {
+      console.log(val)
+      this.answerList.push(val)
+      // console.log(this.allRadio); // ["4", empty, "2"]
+      // console.log(this.answerList); // ["4", "2"]
+    },
     next() {
       this.preDisabled = false
-      if (this.num < this.detailDate.length - 1) {
+      if (this.num < this.questionList.length - 1) {
         this.num += 1
       }
     },
@@ -228,6 +250,9 @@ export default {
       } else {
         this.num -= 1
       }
+    },
+    goSubmit() {
+      this.submitDialog = true
     }
   }
 }
