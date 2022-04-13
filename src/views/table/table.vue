@@ -140,8 +140,6 @@
 
 <script>
 import request from '@/utils/request'
-import axios from 'axios'
-import qs from 'Qs'
 
 export default {
   data() {
@@ -151,41 +149,12 @@ export default {
       page: 1,
       limit: 10,
       newForm:[],
-      listQuery: {
-        page: 1,
-        limit: 20,
-        importance: undefined,
-        title: undefined,
-        type: undefined,
-        sort: '+id'
-      },
       listLoading: true,
       radio: 1,
       select: '1',
       input: '',
       editIndex: -1,
       tableData: [],
-      backData:{
-        records:[ {
-          "id": 1,
-          "userName": "1904011106",
-          "password": "123456",
-          "roleId": 1,
-          "userStatus": 1,
-          "realName": null,
-          "userUniv": null,
-          "userUnit": null
-        }],
-        "total": 0,
-        "size": 2,
-        "current": 1,
-        "orders": [],
-        "optimizeCountSql": true,
-        "searchCount": true,
-        "countId": null,
-        "maxLimit": null,
-        "pages": 0
-      },
       dialogFormVisible: false,
       dialogStatus: '',
       textMap: {

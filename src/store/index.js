@@ -16,6 +16,8 @@ const store = new Vuex.Store({
   },
   getters,
   state: {
+    numx: 0,
+    isDown:false,
     fillItems:[
       {id:1,input:'',},
       {id:2,input:'',},
@@ -45,11 +47,33 @@ const store = new Vuex.Store({
     ]
   },
   mutations: {
+    gradingThis(state){
+      state.isDown = true
+    },
+    gradingDown(state){
+      state.isDown = false
+    },
+    addnum(state) {
+      state.numx += 1
+    },
+    reducenum(state) {
+      if (state.numx === 0) {
+        state.numx = 0
+      } else {
+        state.numx -= 1
+      }
+    },
+    setnum(state, index) {
+      state.numx = index
+    },
     updateFillItems(state,newFillItems){
       state.fillItems = newFillItems
     },
     updateFillSum(state,newFillSum){
       state.fillSum = newFillSum
+    },
+    updateCheck(state,newCheck){
+      state.check = newCheck
     },
     ADD(state, form) {
       console.log('mutations中的ADD被调用了')

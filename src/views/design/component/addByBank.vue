@@ -14,12 +14,10 @@
 
 <script>
 import bank from '@/views/bank/bank'
-import axios from 'axios'
-import qs from 'Qs'
 import request from '@/utils/request'
 export default {
   name: 'addByBank',
-  props:['isAddByBank','topicType','paperId'],
+  props:['isAddByBank','topicType','paperId','fetchDataExam'],
   components: {bank},
   data(){
     return{
@@ -79,6 +77,7 @@ export default {
   methods:{
     dialogClose(){
       this.$emit("addByBankclose")
+      this.$emit("fetchDataExam")
     },
     selectionChange(){
 
@@ -87,11 +86,14 @@ export default {
       request({
         url: '/exam/paper/'+this.paperId+'/addFromBank',
         method: 'post',
+        data: data,
         dataType: 'json',
-        ContentType:'application/json;charset=utf-8',
-        data: [],
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8',
+        }
       }).then(response => {
         console.log(response)
+        this.$emit("fetchDataExam")
       }).catch( err =>{
         console.log(err)
       })
