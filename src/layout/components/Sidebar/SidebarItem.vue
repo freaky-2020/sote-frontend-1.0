@@ -88,7 +88,13 @@ export default {
       if (isExternal(this.basePath)) {
         return this.basePath
       }
-      return path.resolve(this.basePath, routePath)
+      /** 改动的地方 */
+      const currentRoutes = this.$store.state.permission.currentRoutes
+      if (currentRoutes && currentRoutes.path) {
+        return path.resolve(currentRoutes.path, this.basePath, routePath)
+      }
+      //end
+      // return path.resolve(this.basePath, routePath)
     }
   }
 }

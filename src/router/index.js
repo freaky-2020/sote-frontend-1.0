@@ -39,6 +39,17 @@ export const constantRoutes = [
     hidden: true
   },
   {
+    path: '/',
+    component: Layout,
+    redirect: '/dashboard',
+    children: [{
+      path: 'dashboard',
+      name: 'Dashboard',
+      component: () => import('@/views/dashboard/index'),
+      meta: { title: '主页', icon: 'dashboard' }
+    }]
+  },
+  {
     path: '/design',
     component: Layout,
     children: [
@@ -46,7 +57,7 @@ export const constantRoutes = [
         path: 'design',
         name: 'Design',
         component: () => import('@/views/design/design'),
-        meta: { title: 'Design', icon: 'el-icon-edit' }
+        meta: { title: '设计试卷', icon: 'el-icon-edit' }
       },
     ]
   },
@@ -64,7 +75,7 @@ export const constantRoutes = [
         path: 'bank',
         name: 'Bank',
         component: () => import('@/views/bank/bank'),
-        meta: { title: 'Bank', icon: 'el-icon-files' }
+        meta: { title: '试题管理', icon: 'el-icon-files' }
       },
     ]
   },
@@ -119,45 +130,35 @@ export const constantRoutes = [
     ]
   },
 
-  {
-    path: '/',
-    component: Layout,
-    redirect: '/dashboard',
-    children: [{
-      path: 'dashboard',
-      name: 'Dashboard',
-      component: () => import('@/views/dashboard/index'),
-      meta: { title: '主页', icon: 'dashboard' }
-    }]
-  },
 
-  {
-    path: '/example',
-    component: Layout,
-    redirect: '/example/table',
-    name: 'Example',
-    meta: { title: 'Example', icon: 'el-icon-s-help' },
-    children: [
-      {
-        path: 'table',
-        name: 'Table',
-        component: () => import('@/views/table/index'),
-        meta: { title: 'Table', icon: 'table' }
-      },
-      {
-        path: 'tree',
-        name: 'Tree',
-        component: () => import('@/views/tree/index'),
-        meta: { title: 'Tree', icon: 'tree' }
-      },
-      {
-        path: 'tab',
-        name: 'Tab',
-        component: () => import('@/views/table/table'),
-        meta: { title: 'Tab', icon: 'table' }
-      }
-    ]
-  },
+
+  // {
+  //   path: '/example',
+  //   component: Layout,
+  //   redirect: '/example/table',
+  //   name: 'Example',
+  //   meta: { title: 'Example', icon: 'el-icon-s-help' },
+  //   children: [
+  //     {
+  //       path: 'table',
+  //       name: 'Table',
+  //       component: () => import('@/views/table/index'),
+  //       meta: { title: 'Table', icon: 'table' }
+  //     },
+  //     {
+  //       path: 'tree',
+  //       name: 'Tree',
+  //       component: () => import('@/views/tree/index'),
+  //       meta: { title: 'Tree', icon: 'tree' }
+  //     },
+  //     {
+  //       path: 'tab',
+  //       name: 'Tab',
+  //       component: () => import('@/views/table/table'),
+  //       meta: { title: 'Tab', icon: 'table' }
+  //     }
+  //   ]
+  // },
 
   {
     path: '/form',
@@ -230,6 +231,17 @@ export const constantRoutes = [
       }
     ]
   },
+
+  // {
+  //   path: 'external-link',
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
+  //       meta: { title: 'External Link', icon: 'link' }
+  //     }
+  //   ]
+  // },
   {
     path: '/profile',
     component: Layout,

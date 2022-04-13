@@ -1,4 +1,5 @@
 <template>
+  <div class="background-container">
   <div class="app-container">
 <!--    <div class="filter-container" align="center">-->
 <!--      <el-button @click="topicNum++" icon="el-icon-circle-plus-outline" type="success">添加大题</el-button>-->
@@ -15,7 +16,7 @@
       <topic-form style="margin-bottom: 10px" :topicType="4" topicTitle=填空题 :examForm.sync="examForm[4]" :paperId="paperId"></topic-form>
       <topic-form style="margin-bottom: 10px" :topicType="5" topicTitle=简答题 :examForm.sync="examForm[5]" :paperId="paperId"></topic-form>
     </div>
-    <div style="position:absolute;bottom: 0px;margin-bottom: 5px;transform: translate(-50%);left: 50%" >
+    <div style="position:absolute;margin-top:20px;transform: translate(-50%);left: 50%" >
       <el-button size="medium" type="primary" icon="el-icon-thumb" @click="toPublish">提交试卷</el-button>
       <el-button size="medium" type="warning" icon="el-icon-setting" @click="isEditTest = true">考试设置</el-button>
       <el-button size="medium" type="info" icon="el-icon-view" @click="toPreview">预览试卷</el-button>
@@ -36,6 +37,7 @@
         </el-row>
       </el-dialog>
     </div>
+  </div>
   </div>
 </template>
 

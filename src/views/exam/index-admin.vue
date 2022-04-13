@@ -1,6 +1,6 @@
 // 我的试卷页面
 <template>
-  <div id="myExam">
+  <div id="myExam" >
 <!--    <div class="title">我的试卷</div>-->
     <div class="wrapper">
       <ul class="top">

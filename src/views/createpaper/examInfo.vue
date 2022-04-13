@@ -1,5 +1,6 @@
 <template>
-  <div class="app-container">
+  <div class="background-container">
+  <div class="article-container">
     <el-form ref="form" :model="form" :rules="formContentRules" label-width="120px">
       <h3 class="h3title">基本信息</h3>
       <el-form-item label="考试名称" prop="examName">
@@ -132,6 +133,7 @@
         <el-button type="primary" @click="wordDialogVisible = false,(word)">确 定</el-button>
       </div>
     </el-dialog>
+  </div>
   </div>
 </template>
 
