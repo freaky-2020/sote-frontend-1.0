@@ -3,20 +3,30 @@
    <div class="app-container">
    <div v-if="isExam" style="margin: 10px">
 
-     <h2 class="h2title" style="" ><i class="el-icon-folder"></i>  试题库</h2>
+     <h3 class="h3title" style="" ><i class="el-icon-folder"></i>  试题库</h3>
 <!--     <span style="font-size:30px;color:#fcb211">试题库</span>-->
    </div>
 <!--   <el-divider></el-divider>-->
    <div style="margin: 20px;">
      <div style="margin-bottom: 10px">
        <h4 class="h4title"> 筛选</h4>
-       <span>试题内容:</span>
+
+       <span style="">科目:</span>
+       <el-select size="mini" v-model="queryForm.subjectId" placeholder="请选择" style="">
+         <el-option
+           v-for="item in optionsSubject"
+           :key="item.id"
+           :label="item.subjectName"
+           :value="item.id">
+         </el-option>
+       </el-select>
+       <span>题目内容:</span>
        <el-input
          size="mini"
          v-model="queryForm.stem"
          placeholder="请输入试题内容"
          style="width: 180px;"></el-input>
-       <span style="margin-left: 10px">试题类型:</span>
+       <span style="margin-left: 10px">类型:</span>
        <el-select size="mini" :disabled="topicType !== undefined" v-model="queryForm.typeId" placeholder="请选择" style="width: 100px">
          <el-option
            v-for="item in optionsType"
@@ -25,15 +35,7 @@
            :value="item.value">
          </el-option>
        </el-select>
-       <span style="margin-left: 10px">试题科目:</span>
-       <el-select size="mini" v-model="queryForm.subjectId" placeholder="请选择" style="width: 100px;margin-right: 5px">
-         <el-option
-           v-for="item in optionsSubject"
-           :key="item.id"
-           :label="item.subjectName"
-           :value="item.id">
-         </el-option>
-       </el-select>
+
        <el-button  size="small" @click="fetchData" icon="el-icon-search">查询</el-button>
        <el-button size="small" @click="clear" icon="el-icon-refresh">清除</el-button>
        <div style="float: right;">

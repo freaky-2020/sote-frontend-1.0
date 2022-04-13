@@ -358,14 +358,14 @@ export default {
 .el-radio{
   height: 30px;
 }
-.el-button--primary {
-  background: #304156 !important;
-  border-color: #304156 !important;
-}
-.el-button--primary:hover {
-  background: #5979a0 !important;
-  border-color: #304156 !important;
-  color: #FFF !important;
-}
+/*.el-button--primary {*/
+/*  background: #304156 !important;*/
+/*  border-color: #304156 !important;*/
+/*}*/
+/*.el-button--primary:hover {*/
+/*  background: #5979a0 !important;*/
+/*  border-color: #304156 !important;*/
+/*  color: #FFF !important;*/
+/*}*/
 </style>
 

@@ -1,9 +1,11 @@
 <template>
+
   <div class="background-container">
-  <div class="app-container">
+  <div class="article-container">
 <!--    <div class="filter-container" align="center">-->
 <!--      <el-button @click="topicNum++" icon="el-icon-circle-plus-outline" type="success">添加大题</el-button>-->
 <!--    </div>-->
+    <h3 class="h3title">设计试卷试题</h3>
     <div style="font-size: 30px">
       目前试题共
       <span style="color: red">{{totalNum}}</span>  题  总计

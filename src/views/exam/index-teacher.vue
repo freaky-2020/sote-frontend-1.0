@@ -1,7 +1,7 @@
 // 我的试卷页面
 <template>
-  <div id="myExam">
-    <!--    <div class="title">我的试卷</div>-->
+  <div class="background-container">
+    <div id="myExam" class="article-container">
     <div class="wrapper">
       <ul class="top">
         <el-tabs v-model="activeExamsName" type="card">
@@ -85,7 +85,7 @@
       </div>
     </el-dialog>
   </div>
-
+  </div>
 </template>
 
 <script>
@@ -356,7 +356,7 @@ li{
   //margin-right: 14px;
 }
 .paper .item {
-  width: 80%;
+  width: 90%;
   border-radius: 6px;
   padding: 20px 30px;
   border: 1px solid #eee;
