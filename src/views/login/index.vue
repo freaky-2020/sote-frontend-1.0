@@ -1,9 +1,11 @@
 <template>
-  <div class="login-container">
-    <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
+
+  <div class="login-container" :style="backStyles">
+    <el-card shadow="hover" class="loginFormcard" box-shadow="100px">
+    <el-form id="loginForm" ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
 
       <div class="title-container">
-        <h3 class="title">Login Form</h3>
+        <h3 class="title">sote 在线考试系统</h3>
       </div>
 
       <el-form-item prop="username">
@@ -13,7 +15,7 @@
         <el-input
           ref="username"
           v-model="loginForm.username"
-          placeholder="Username"
+          placeholder="用户名"
           name="username"
           type="text"
           tabindex="1"
@@ -30,7 +32,7 @@
           ref="password"
           v-model="loginForm.password"
           :type="passwordType"
-          placeholder="Password"
+          placeholder="密码"
           name="password"
           tabindex="2"
           auto-complete="on"
@@ -40,42 +42,52 @@
           <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
         </span>
       </el-form-item>
-
-      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">Login</el-button>
-
-      <div class="tips">
-        <span style="margin-right:20px;">username: admin</span>
-        <span> password: any</span>
+      <div style="width: 100%;text-align: right">
+        <el-link
+          type="primary"
+          style="margin-bottom: 20px;color:#304156;margin-right: 10px"
+          @click.native.prevent="forgetPwd"
+        >忘记密码</el-link>
       </div>
-
+      <div>
+      <el-button :loading="loading" type="primary" style="width:47%;" @click.native.prevent="handleLogin">登录</el-button>
+      <el-button :loading="loading" type="plain" style="width:47%;float:right" @click.native.prevent="goToRegister">注册</el-button>
+      </div>
     </el-form>
+    </el-card>
+<!--    <index-li-zi></index-li-zi>-->
   </div>
+
 </template>
 
 <script>
 import { validUsername } from '@/utils/validate'
-
+import loginBackImg from '@/assets/login_images/login_back2.jpeg'
+// import IndexLiZi from '@/components/IndexLiZi'
 export default {
+  components:{
+    // IndexLiZi,
+  },
   name: 'Login',
   data() {
     const validateUsername = (rule, value, callback) => {
       if (!validUsername(value)) {
-        callback(new Error('Please enter the correct user name'))
+        callback(new Error('请输入有效用户名'))
       } else {
         callback()
       }
     }
     const validatePassword = (rule, value, callback) => {
       if (value.length < 6) {
-        callback(new Error('The password can not be less than 6 digits'))
+        callback(new Error('密码不能少于6位'))
       } else {
         callback()
       }
     }
     return {
       loginForm: {
-        username: 'admin',
-        password: '111111'
+        username: '10086',
+        password: '123456'
       },
       loginRules: {
         username: [{ required: true, trigger: 'blur', validator: validateUsername }],
@@ -83,7 +95,14 @@ export default {
       },
       loading: false,
       passwordType: 'password',
-      redirect: undefined
+      redirect: undefined,
+      backStyles:{
+        backgroundImage:`url(${loginBackImg})`,
+        backgroundSize:'cover',
+        backgroundRepeat:'no-repeat',
+        // backgroundSize:'100% 100%',
+        position: 'fixed',
+      }
     }
   },
   watch: {
@@ -120,27 +139,59 @@ export default {
           return false
         }
       })
+    },
+    forgetPwd() {
+      this.$router.push({ path: '/forgetPwd' } )
     }
+
   }
 }
-</script>
 
+</script>
+<!--<script>-->
+<!--import {wallbgcanvas} from '@/assets/js/wallbgcanvas'-->
+<!--</script>-->
 <style lang="scss">
 /* 修复input 背景不协调 和光标变色 */
 /* Detail see https://github.com/PanJiaChen/vue-element-admin/pull/927 */
 
-$bg:#283443;
-$light_gray:#fff;
-$cursor: #fff;
+$bg:#ececec;
 
-@supports (-webkit-mask: none) and (not (cater-color: $cursor)) {
+
+@supports (-webkit-mask: none) and (not (cater-color: black)) {
   .login-container .el-input input {
-    color: $cursor;
+    color: black;
   }
 }
+//显示时按钮样式
+.el-button--primary { //需要更改的按钮类型
+  background: #304156 !important;
+  border-color: #304156 !important;
+}
+//移入时按钮样式
+.el-button--primary:hover {
+  background: #5979a0 !important;
+  border-color: #304156 !important;
+  color: #FFF !important;
+}
+.loginFormcard{
+  background:rgba(255,255,255,0.8);
+  border-radius: 10px;
+  position: absolute;
+  width:450px;
+  height: 450px;
+  left: 50%;
+  top: 50%;
 
+  margin:-225px 0 0 -225px;
+}
+.loginFormcard:hover{
+  background:rgba(255,255,255,0.95);
+}
 /* reset element-ui css */
 .login-container {
+  //background-image: url("/src/assets/login_images/login_back.jpeg");
+
   .el-input {
     display: inline-block;
     height: 47px;
@@ -152,20 +203,20 @@ $cursor: #fff;
       -webkit-appearance: none;
       border-radius: 0px;
       padding: 12px 5px 12px 15px;
-      color: $light_gray;
+      color: black;
       height: 47px;
-      caret-color: $cursor;
+      caret-color: black;
 
       &:-webkit-autofill {
-        box-shadow: 0 0 0px 1000px $bg inset !important;
-        -webkit-text-fill-color: $cursor !important;
+        box-shadow: 0 0 5px 1000px $bg inset !important;
+        -webkit-text-fill-color: black !important;
       }
     }
   }
 
   .el-form-item {
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(0, 0, 0, 0.05);
     border-radius: 5px;
     color: #454545;
   }
@@ -173,28 +224,28 @@ $cursor: #fff;
 </style>
 
 <style lang="scss" scoped>
-$bg:#2d3a4b;
+$bg:#ececec;
 $dark_gray:#889aa4;
-$light_gray:#eee;
+//$light_gray:#eee;
 
 .login-container {
   min-height: 100%;
   width: 100%;
-  background-color: $bg;
+  background-color: #ededed;
   overflow: hidden;
 
   .login-form {
     position: relative;
     width: 520px;
     max-width: 100%;
-    padding: 160px 35px 0;
+    padding: 70px 35px 0;
     margin: 0 auto;
     overflow: hidden;
   }
 
   .tips {
     font-size: 14px;
-    color: #fff;
+    color: black;
     margin-bottom: 10px;
 
     span {
@@ -204,9 +255,10 @@ $light_gray:#eee;
     }
   }
 
+  //图标？
   .svg-container {
     padding: 6px 5px 6px 15px;
-    color: $dark_gray;
+    //color: $dark_gray;
     vertical-align: middle;
     width: 30px;
     display: inline-block;
@@ -217,7 +269,7 @@ $light_gray:#eee;
 
     .title {
       font-size: 26px;
-      color: $light_gray;
+      //color: $light_gray;
       margin: 0px auto 40px auto;
       text-align: center;
       font-weight: bold;

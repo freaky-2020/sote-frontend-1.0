@@ -8,6 +8,7 @@ module.exports = {
     browser: true,
     node: true,
     es6: true,
+    jquery: true
   },
   extends: ['plugin:vue/recommended', 'eslint:recommended'],
 
@@ -172,7 +173,7 @@ module.exports = {
       'after': true
     }],
     'space-before-blocks': [2, 'always'],
-    'space-before-function-paren': [2, 'never'],
+    'space-before-function-paren': ['error', 'never'],
     'space-in-parens': [2, 'never'],
     'space-infix-ops': 2,
     'space-unary-ops': [2, {
