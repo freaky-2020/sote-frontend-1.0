@@ -24,7 +24,7 @@
               <el-button :disabled="preDisabled" @click="prex">上一题</el-button>
             </el-col>
             <el-col :span="6">
-              <el-button :disabled="nextDisabled" @click="next">下一题</el-button>
+              <el-button :disabled="$store.state.nextDisabled" @click="next">下一题</el-button>
             </el-col>
           </el-row>
         </div>
@@ -48,7 +48,7 @@
               <el-button :disabled="preDisabled" @click="prex">上一题</el-button>
             </el-col>
             <el-col :span="6">
-              <el-button :disabled="nextDisabled" @click="next">下一题</el-button>
+              <el-button :disabled="$store.state.nextDisabled" @click="next">下一题</el-button>
             </el-col>
           </el-row>
         </div>
@@ -69,7 +69,7 @@
               <el-button :disabled="preDisabled" @click="prex">上一题</el-button>
             </el-col>
             <el-col :span="6">
-              <el-button :disabled="nextDisabled" @click="next">下一题</el-button>
+              <el-button :disabled="$store.state.nextDisabled" @click="next">下一题</el-button>
             </el-col>
           </el-row>
         </div>
@@ -88,7 +88,7 @@
               <el-button :disabled="preDisabled" @click="prex">上一题</el-button>
             </el-col>
             <el-col :span="6">
-              <el-button :disabled="nextDisabled" @click="next">下一题</el-button>
+              <el-button :disabled="$store.state.nextDisabled" @click="next">下一题</el-button>
             </el-col>
           </el-row>
         </div>
@@ -106,7 +106,7 @@
               <el-button :disabled="preDisabled" @click="prex">上一题</el-button>
             </el-col>
             <el-col :span="6">
-              <el-button :disabled="nextDisabled" @click="next">下一题</el-button>
+              <el-button :disabled="$store.state.nextDisabled" @click="next">下一题</el-button>
             </el-col>
           </el-row>
         </div>
@@ -124,7 +124,7 @@ export default {
     return {
       details: 1,
       detailDate: null,
-      preDisabled: true, // 上禁用按钮,下禁用在vuex中
+      preDisabled: true // 上禁用按钮,下禁用在vuex中
     }
   },
   computed: {
@@ -138,7 +138,11 @@ export default {
   watch: {
     // 第一题和最后一题禁用按钮
     num(now, old) {
-      this.nextDisabled = now === this.detailDate.length - 1
+      if (now === this.detailDate.length - 1) {
+        this.$store.commit('nextDisableTrue')
+      } else {
+        this.$store.commit('nextDisableFalse')
+      }
       this.preDisabled = now === 0
     }
   },
@@ -205,12 +209,12 @@ export default {
     },
     next() {
       if (this.num < this.detailDate.length - 1) {
-        this.$store.commit('addnum')
+        this.$store.commit('addNum')
       }
       this.submitDate(this.num)
     },
     prex() {
-      this.$store.commit('reducenum')
+      this.$store.commit('reduceNum')
       this.submitDate(this.num)
     },
     getAllScore(form) {

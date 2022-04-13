@@ -13,21 +13,24 @@ const store = new Vuex.Store({
     nextDisabled: false // 下禁用按钮
   },
   mutations: {
-    addnum(state) {
+    addNum(state) {
       state.numx += 1
     },
-    reducenum(state) {
+    reduceNum(state) {
       if (state.numx === 0) {
         state.numx = 0
       } else {
         state.numx -= 1
       }
     },
-    setnum(state, index) {
+    setNum(state, index) {
       state.numx = index
     },
-    nextDisable() {
-
+    nextDisableTrue(state) {
+      state.nextDisabled = true
+    },
+    nextDisableFalse(state) {
+      state.nextDisabled = false
     }
   },
   modules: {
