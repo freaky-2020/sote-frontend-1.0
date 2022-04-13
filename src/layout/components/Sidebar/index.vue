@@ -33,7 +33,9 @@ export default {
       'permission_routes',
     ]),
     routes() {
-      return this.$router.options.routes
+      // return this.$router.options.routes
+      // 改动的地方
+      return this.$store.state.permission.currentRoutes.children
     },
     activeMenu() {
       const route = this.$route

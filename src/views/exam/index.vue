@@ -1,6 +1,7 @@
 // 我的试卷页面
 <template>
-  <div id="myExam">
+  <div class="background-container">
+  <div id="myExam" class="article-container">
 <!--    <div class="title">我的试卷</div>-->
     <div class="wrapper">
       <ul class="top">
@@ -72,7 +73,7 @@
       </div>
     </el-dialog>
   </div>
-
+  </div>
 </template>
 
 <script>
@@ -326,6 +327,7 @@ li{
   margin: 20px;
 }
 #myExam {
+  background-color: #ffffff;
   width: 90%;
   margin: 0 auto;
 }

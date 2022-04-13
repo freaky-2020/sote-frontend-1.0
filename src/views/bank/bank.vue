@@ -1,12 +1,15 @@
 <template>
- <div>
+ <div class="background-container">
+   <div class="app-container">
    <div v-if="isExam" style="margin: 10px">
-     <i class="el-icon-folder"></i>
-     <span style="font-size:30px;color: indianred">试题库</span>
+
+     <h2 class="h2title" style="" ><i class="el-icon-folder"></i>  试题库</h2>
+<!--     <span style="font-size:30px;color:#fcb211">试题库</span>-->
    </div>
-   <el-divider></el-divider>
+<!--   <el-divider></el-divider>-->
    <div style="margin: 20px;">
      <div style="margin-bottom: 10px">
+       <h4 class="h4title"> 筛选</h4>
        <span>试题内容:</span>
        <el-input
          size="mini"
@@ -84,14 +87,14 @@
        </el-table-column>
        <el-table-column
          label="题目类型"
-         width="180">
+         width="100">
          <template slot-scope="scope">
            <span style="margin-left: 10px">{{ mapType[scope.row.typeId] }}</span>
          </template>
        </el-table-column>
        <el-table-column
          label="题目内容"
-         width="180">
+         width="200">
          <template slot-scope="scope">
            <div slot="reference" class="name-wrapper">
              <span v-html="scope.row.stem"></span>
@@ -105,7 +108,7 @@
        </el-table-column>
        <el-table-column
          label="难度"
-         width="100">
+         width="80">
          <template slot-scope="scope">
            <div slot="reference" class="name-wrapper">
              <el-tag size="medium">{{ mapLevel[scope.row.difficultyId] }}</el-tag>
@@ -115,7 +118,7 @@
        <el-table-column
          label="试题科目"
          :formatter="formatter"
-         width="170">
+         width="100">
        </el-table-column>
        <el-table-column
          label="创建时间">
@@ -198,6 +201,7 @@
                   @fetchData="fetchData"
                   @editQuestionclose="editQuestionclose"></edit-question>
    <add-by-text :isAddByText="isAddByText" @addByTextclose="isAddByText = false"></add-by-text>
+   </div>
  </div>
 </template>
 
