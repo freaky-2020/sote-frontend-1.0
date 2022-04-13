@@ -106,10 +106,10 @@
               <el-button :disabled="preDisabled" @click="prex">上一题</el-button>
             </el-col>
             <el-col :span="6">
-              <el-button :disabled="nextDisabled" @click="next">下一题</el-button>
+              <el-button :disabled="$store.state.nextDisabled" @click="next">下一题</el-button>
             </el-col>
             <el-col  :span="9">
-              <el-button  type="primary" @click="gradingThis">批改此题</el-button>
+              <el-button  type="primary" @click="gradingThis(question.quesNo)">批改此题</el-button>
             </el-col>
           </el-row>
           <el-row v-if="$store.state.isDown === true">
@@ -117,11 +117,11 @@
               <el-button :disabled="preDisabled" @click="prex">上一学生</el-button>
             </el-col>
             <el-col :span="6">
-              <el-button :disabled="nextDisabled" @click="next">下一学生</el-button>
+              <el-button :disabled="$store.state.nextDisabled" @click="next">下一学生</el-button>
             </el-col>
             <el-col :span="9">
               打分：<el-input style="width: 100px;margin-right: 30px" ></el-input>
-              <el-button  type="primary" @click="gradingDown">批改完成</el-button>
+              <el-button  type="primary" @click="gradingDown(question.quesNo-1)">批改完成</el-button>
             </el-col>
           </el-row>
         </div>
@@ -134,26 +134,31 @@ import request from '@/utils/request'
 
 export default {
   name: 'Display',
-  props: ['exam_date'],
+  props: ['exam_date','examId', 'quesNos'],
   data() {
     return {
       isDown:this.$store.state.isDown,
-      details: 1,
+      details: 6,
       detailDate: null,
-      num_: 0, // 用于点击答题卡跳转
       preDisabled: true, // 上禁用按钮
-      nextDisabled: false // 下禁用按钮
     }
   },
   computed: {
     num() {
-      return this.$store.state.numx
+      return this.$store.state.numX
+    },
+    nextDisabled() {
+      return this.$store.state.nextDisabled
     }
   },
   watch: {
     // 第一题和最后一题禁用按钮
     num(now, old) {
-      this.nextDisabled = now === this.detailDate.length - 1
+      if (now === this.quesNos - 1) {
+        this.$store.commit('nextDisableTrue')
+      } else {
+        this.$store.commit('nextDisableFalse')
+      }
       this.preDisabled = now === 0
     }
   },
@@ -219,9 +224,8 @@ export default {
         '</div>')
     },
     next() {
-      this.preDisabled = false
-      if (this.num < this.detailDate.length - 1) {
-        this.$store.commit('addnum')
+      if (this.num < this.quesNos - 1) {
+        this.$store.commit('addNum')
       }
       this.submitDate(this.num)
     },
@@ -236,8 +240,16 @@ export default {
       }
       return sums
     },
-    gradingThis(){
+    gradingThis(item){
       this.$store.commit('gradingThis')
+      request({
+        url: 'exam/mark/hand/' + this.examId + '/' + item,
+        method: 'get',
+      }).then(response => {
+        console.log(response)
+      }).catch(err => {
+        console.log(err)
+      })
     },
     gradingDown(){
       this.$store.commit('gradingDown')

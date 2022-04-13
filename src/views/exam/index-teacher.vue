@@ -126,14 +126,13 @@ export default {
       activeExamsName:'all',
       wordDialogVisible:false,
       word:null,
-
       allSubject:null,
       select:1,
       allExam:null,
       futureExam:null,
       ongoingExam:null,
       finishedExam:null,
-
+      publishedExam:null,
 
       loading: false,
       key: '', //搜索关键字
@@ -228,6 +227,12 @@ export default {
             // break;
           }
         }
+        for (var j = 0; j < this.publishedExam.length; j++) {
+          if (this.publishedExam[j].examInfo.subjectId === this.allSubject[i].id) {
+            this.publishedExam[j].examInfo.subjectName = this.allSubject[i].subjectName
+            // break;
+          }
+        }
       }
     },
     //获取当前所有考试信息
@@ -235,14 +240,16 @@ export default {
       request({
         // url:'/exam/info/query',
         // url:'/exam/stu/getExam/stu/{userName}'+this.userName
-        url: '/exam/stu/getExam/stu/' + this.examineeId,
+        url: '/exam/info/query' ,
         method: 'Get',
+        params: { invigilatorId: '1901040301' },
       }).then(res => {
         console.log(res)
         // this.allExam=res
         this.futureExam = res[0]
         this.ongoingExam = res[1]
         this.finishedExam = res[2]
+        this.publishedExam = res[3]
         this.getExamSubject();
         this.allExam = this.ongoingExam.concat(this.futureExam).concat(this.finishedExam)
         this.loading = false

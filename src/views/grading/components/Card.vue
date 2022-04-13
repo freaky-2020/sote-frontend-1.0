@@ -49,7 +49,7 @@
 import request from '@/utils/request'
 export default {
   name: 'Card',
-  props: ['exam_date'],
+  props: ['exam_date','quesNos'],
   // 父子组件之间数据传递，该数据在子组件中不能随便更改，会报错
   data() {
     return {
@@ -57,13 +57,25 @@ export default {
       select:'',
       isDown:this.$store.state.isDown,
       sum: 0,
-      details: 1,
+      details: 6,
       detailDate: null
     }
   },
   computed: {
     num() {
-      return this.$store.state.numx
+      return this.$store.state.numX
+    },
+    nextDisabled() {
+      return this.$store.state.nextDisabled
+    }
+  },
+  watch: {
+    num(now, old) {
+      if (now === this.quesNos - 1) {
+        this.$store.commit('nextDisableTrue')
+      } else {
+        this.$store.commit('nextDisableFalse')
+      }
     }
   },
   mounted() {
