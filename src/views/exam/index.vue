@@ -187,7 +187,6 @@ export default {
         url:'/exam/stu/getExam/stu/1904011106',
         method:'Get',
       }).then(res=>{
-        alert(1)
         console.log(res)
         // this.allExam=res
         this.futureExam=res[0]
@@ -343,6 +342,7 @@ li{
   margin: 20px;
 }
 #myExam {
+  background-color: #ffffff;
   width: 90%;
   margin: 0 auto;
 }

@@ -13,6 +13,7 @@ const name = defaultSettings.title || 'vue Admin Template' // page title
 // For example, Mac: sudo npm run
 // You can change the port by the following methods:
 // port = 9528 npm run dev OR npm run dev --port = 9528
+
 const port = process.env.port || process.env.npm_config_port || 9528 // dev port
 
 // All configuration item explanations can be find in https://cli.vuejs.org/config/
@@ -32,7 +33,8 @@ module.exports = {
   devServer: {
     proxy: {
       '/api': {
-        target: 'http://124.222.238.194:10010',
+        // target: 'http://124.222.238.194:10010',
+        target: 'http://localhost:10010',
         changeOrigin: true,  //配置跨域
         pathRewrite: {
           '^/api': ''
@@ -45,7 +47,8 @@ module.exports = {
       warnings: false,
       errors: true
     },
-    before: require('./mock/mock-server.js'),
+
+    // before: require('./mock/mock-server.js')
   },
   configureWebpack: {
     // provide the app's title in webpack's name field, so that
@@ -55,7 +58,7 @@ module.exports = {
       alias: {
         '@': resolve('src')
       }
-    }
+    },
   },
   chainWebpack(config) {
     // it can improve the speed of the first screen, it is recommended to turn on preload

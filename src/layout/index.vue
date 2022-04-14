@@ -1,8 +1,15 @@
 <template>
   <div :class="classObj" class="app-wrapper">
+<!--    &lt;!&ndash; 改动的地方 start&ndash;&gt;-->
+<!--    我是topBar我是topBar我是topBar我是topBar我是topBar我是topBar-->
+<!--    &lt;!&ndash; 改动的地方 end&ndash;&gt;-->
+<!--    // 改的地方start-->
+    <topbar/>
+<!--    // 改的地方end-->
     <div v-if="device==='mobile'&&sidebar.opened" class="drawer-bg" @click="handleClickOutside" />
-    <sidebar class="sidebar-container" />
-    <div class="main-container">
+
+<!--    <sidebar  v-if="!sidebar.hide" class="sidebar-container" />-->
+    <div :class="{sidebarHide: sidebar.hide}" class="main-container">
       <div :class="{'fixed-header':fixedHeader}">
         <navbar />
       </div>
@@ -12,7 +19,9 @@
 </template>
 
 <script>
-import { Navbar, Sidebar, AppMain } from './components'
+// 改的地方start
+import { Navbar, Sidebar, AppMain, Topbar } from './components'
+// 改的地方end
 import ResizeMixin from './mixin/ResizeHandler'
 
 export default {
@@ -20,7 +29,10 @@ export default {
   components: {
     Navbar,
     Sidebar,
-    AppMain
+    AppMain,
+    // 改的地方start
+    Topbar,
+    // 改的地方end
   },
   mixins: [ResizeMixin],
   computed: {

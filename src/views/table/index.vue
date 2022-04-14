@@ -1,22 +1,5 @@
 <template>
   <div class="app-container">
-    <template>
-      <el-radio-group v-model="radio">
-        <el-radio :label="1">管理员</el-radio>
-        <el-radio :label="2">老师</el-radio>
-        <el-radio :label="3">学生</el-radio>
-      </el-radio-group>
-    </template>
-    <div style="margin-top: 15px;">
-      <el-input placeholder="请输入内容" v-model="input" class="input-with-select">
-        <el-select v-model="select" slot="prepend" placeholder="请选择">
-          <el-option label="学号" value="1"></el-option>
-          <el-option label="姓名" value="2"></el-option>
-          <el-option label="用户电话" value="3"></el-option>
-        </el-select>
-        <el-button slot="append" icon="el-icon-search"></el-button>
-      </el-input>
-    </div>
     <el-table
       v-loading="listLoading"
       :data="list"
@@ -77,10 +60,7 @@ export default {
   data() {
     return {
       list: null,
-      listLoading: true,
-      radio: '管理员',
-      select: '',
-      input: ''
+      listLoading: true
     }
   },
   created() {
@@ -97,11 +77,3 @@ export default {
   }
 }
 </script>
-<style>
-.el-select .el-input {
-  width: 150px;
-}
-.input-with-select .el-input-group__prepend {
-  background-color: #fff;
-}
-</style>
