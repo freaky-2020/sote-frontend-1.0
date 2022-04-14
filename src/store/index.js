@@ -9,28 +9,32 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    numx: 0,
-    nextDisabled: false // 下禁用按钮
+    numX: 0,
+    nextDisabled: false, // 下禁用按钮
+    detailDate: null
   },
   mutations: {
     addNum(state) {
-      state.numx += 1
+      state.numX += 1
     },
     reduceNum(state) {
-      if (state.numx === 0) {
-        state.numx = 0
+      if (state.numX === 0) {
+        state.numX = 0
       } else {
-        state.numx -= 1
+        state.numX -= 1
       }
     },
     setNum(state, index) {
-      state.numx = index
+      state.numX = index
     },
     nextDisableTrue(state) {
       state.nextDisabled = true
     },
     nextDisableFalse(state) {
       state.nextDisabled = false
+    },
+    setDetailDate(state, response) {
+      state.detailDate = response
     }
   },
   modules: {
