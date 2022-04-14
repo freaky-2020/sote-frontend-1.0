@@ -8,39 +8,43 @@
 <!--      <el-button @click="topicNum++" icon="el-icon-circle-plus-outline" type="success">添加大题</el-button>-->
 <!--    </div>-->
     <h3 class="h3title">设计试卷试题</h3>
+<!--    这一部分是计算总分 总题目数的部分-->
     <div style="font-size: 30px">
       目前试题共
       <span style="color: red">{{totalNum}}</span>  题  总计
       <span style="color: red">{{totalScore}}</span>分
     </div>
     <div class="filter-container">
-      <topic-form style="margin-bottom: 10px" :topicType="1" topicTitle=单选题 :examForm.sync="examForm[1]" :paperId="paperId"></topic-form>
-      <topic-form style="margin-bottom: 10px" :topicType="2" topicTitle=多选题 :examForm.sync="examForm[2]" :paperId="paperId"></topic-form>
-      <topic-form style="margin-bottom: 10px" :topicType="3" topicTitle=判断题 :examForm.sync="examForm[3]" :paperId="paperId"></topic-form>
-      <topic-form style="margin-bottom: 10px" :topicType="4" topicTitle=填空题 :examForm.sync="examForm[4]" :paperId="paperId"></topic-form>
-      <topic-form style="margin-bottom: 10px" :topicType="5" topicTitle=简答题 :examForm.sync="examForm[5]" :paperId="paperId"></topic-form>
-    </div>
-    <div style="position:absolute;margin-top:20px;transform: translate(-50%);left: 50%" >
-      <el-button size="medium" type="primary" icon="el-icon-thumb" @click="toPublish">提交试卷</el-button>
-      <el-button size="medium" type="warning" icon="el-icon-setting" @click="isEditTest = true">考试设置</el-button>
-      <el-button size="medium" type="info" icon="el-icon-view" @click="toPreview">预览试卷</el-button>
+      <topic-form  v-if="isFetched" :topicType="1" topicTitle=单选题 :examForm.sync="examForm[1]"
+                   :scoreSums.sync="scoreItems[0]" :paperId="paperId" @fetchData="fetchData"></topic-form>
+      <topic-form  v-if="isFetched" :topicType="2" topicTitle=多选题 :examForm.sync="examForm[2]"
+                   :scoreSums.sync="scoreItems[1]" :paperId="paperId" @fetchData="fetchData"></topic-form>
+      <topic-form  v-if="isFetched" :topicType="3" topicTitle=判断题 :examForm.sync="examForm[3]"
+                   :scoreSums.sync="scoreItems[2]" :paperId="paperId" @fetchData="fetchData"></topic-form>
+      <topic-form  v-if="isFetched" :topicType="4" topicTitle=填空题 :examForm.sync="examForm[4]"
+                   :scoreSums.sync="scoreItems[3]" :paperId="paperId" @fetchData="fetchData"></topic-form>
+      <topic-form  v-if="isFetched" :topicType="5" topicTitle=简答题 :examForm.sync="examForm[5]"
+                   :scoreSums.sync="scoreItems[4]" :paperId="paperId" @fetchData="fetchData"></topic-form>
     </div>
 
-    <div>
-      <el-dialog title="考试设置" :visible.sync="isEditTest" top="50px" width=60%>
-        <div style="border: solid 1px #f4f4f5">
-          <el-scrollbar style="height: 500px" wrap-style="overflow-x:hidden;">
-            <div>
+    <el-dialog
+      title="提示"
+      :visible.sync="designDialog"
+      width="30%"
+      center>
+      <span>提交试卷后无法修改，确认提交试卷吗</span>
+      <span slot="footer" class="dialog-footer">
+    <el-button @click="designDialog = false">取 消</el-button>
+    <el-button type="primary" @click="toPublish">确 定</el-button>
+    </span>
+    </el-dialog>
 
-            </div>
-          </el-scrollbar>
-        </div>
-        <el-row type="flex" justify="end" style="margin-top: 10px">
-          <el-button size="medium" @click="editTestSubmit">确定</el-button>
-          <el-button size="medium" @click="isEditTest = false">取消</el-button>
-        </el-row>
-      </el-dialog>
-    </div>
+    <el-footer height="40px">
+      <div style="position:absolute;bottom: 0px;margin-bottom: 5px;transform: translate(-50%);left: 50%" >
+        <el-button size="medium" type="primary" icon="el-icon-thumb" @click="designDialog =true">提交试卷</el-button>
+        <el-button size="medium" type="info" icon="el-icon-view" @click="toPreview">预览试卷</el-button>
+      </div>
+    </el-footer>
   </div>
   </div>
 </template>
@@ -55,9 +59,12 @@ export default {
   components: {topicForm},
   data() {
     return {
-      paperId:1,
-      totalNum:10,
-      totalScore:100,
+      designDialog:false,
+      isFetched:false,
+      keys:1,
+      paperId:11,
+      totalNum:0,
+      totalScore:0,
       list: {},
       examForm:{
         1:[],
@@ -66,6 +73,7 @@ export default {
         4:[],
         5:[],
       },
+      scoreItems:[0,0,0,0,0],
       isEditTest:false,
       isShowTopic:false,
       inputTopic:'',
@@ -88,24 +96,30 @@ export default {
         methods: 'Get'
       }).then(response => {
         console.log(response)
+        this.isFetched = true
+        let sums = 0
         Object.keys(response).forEach(key=>{
           console.log('key:',key,'value:',response[key])
           this.examForm[key] = response[key]
+          sums = sums + response[key].length
         })
-        console.log(this.examForm)
+        this.totalNum = sums
       })
     },
     toPublish(){
+      this.designDialog =false
       this.$router.push({
-        name: 'Tab'
+        name: 'teacherExam'
       })
     },
     toPreview(){
-      console.log(this.examForm)
-      console.log(this.examForm[1])
-      // this.$router.push({
-      //   name: 'Tab'
-      // })
+      this.$router.push({
+        name: 'Exam_',
+        query:{
+          paperId:this.paperId,
+          isView:true,
+        }
+      })
     },
     editTestSubmit(){
       this.isEditTest = false
@@ -126,16 +140,27 @@ export default {
     // }
   },
   created() {
-    if(this.$route.query.paperId!==undefined){
-      this.paperId=this.$route.query.paperId
-    }
     this.fetchData()
   },
-  mounted() {
-    if(this.$route.query.paperId!==undefined){
-      this.paperId=this.$route.query.paperId
+  watch:{
+    scoreItems:{
+      handler: function(newVal) {
+        let sums = 0
+        for(let i=0;i<5;i++){
+          sums =sums + this.scoreItems[i]
+        }
+        this.totalScore = sums
+        console.log(this.scoreItems)
+      },
+      immediate:true,
+      deep:true
     }
   }
 }
 </script>
 
+<style lang="scss">
+topic-form{
+  margin-bottom: 10px;
+}
+</style>

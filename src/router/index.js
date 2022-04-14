@@ -49,23 +49,108 @@ export const constantRoutes = [
       meta: { title: '主页', icon: 'dashboard' }
     }]
   },
-  {
-    path: '/design',
-    component: Layout,
-    children: [
-      {
-        path: 'design',
-        name: 'Design',
-        component: () => import('@/views/design/design'),
-        meta: { title: '设计试卷', icon: 'el-icon-edit' }
-      },
-    ]
-  },
+  // {
+  //   path: '/design',
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: 'design',
+  //       name: 'Design',
+  //       component: () => import('@/views/design/design'),
+  //       meta: { title: '设计试卷', icon: 'el-icon-edit' }
+  //     },
+  //   ]
+  // },
   {
     path: '/register',
     name: 'register',
     component: () => import('@/views/login/register'),
     hidden: true,
+  },
+  // {
+  //   path: '/judge',
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: 'judge',
+  //       name: 'Judge',
+  //       component: () => import('@/views/judge/judge'),
+  //       meta: { title: '审批', icon: 'el-icon-s-check' }
+  //     },
+  //   ]
+  // },
+  // {
+  //   path: '/display',
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: 'display',
+  //       name: 'Display',
+  //       component: () => import('@/views/display/display'),
+  //       meta: { title: '考试主体', icon: 'el-icon-s-check' }
+  //     },
+  //   ]
+  // },
+  {
+    path: '/teacherexam',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: 'teacherExam',
+        component: () => import('@/views/exam/index-teacher'),
+        meta: { title: '我创建的考试',icon: 'form' }
+      },
+    ]
+  },
+  {
+    path: '/exam',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name:'stuExam',
+        component: () => import('@/views/exam/index'),
+        meta: { title: '我的考试',icon: 'form' }
+      },
+    ]
+  },
+  {
+    path: '/grade',
+    component: Layout,
+    children: [
+      {
+        path: 'grade',
+        name: 'Grade',
+        component: () => import('@/views/grade/grade'),
+        meta: { title: '老师查看学生的成绩', icon: 'el-icon-s-check' }
+      },
+    ]
+  },
+  {
+    path: '/exam_',
+    component: Layout,
+    redirect: '/exam/index',
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/exam_/index'),
+        name: 'Exam_',
+        meta: { title: '考试主体', icon: 'user' }
+      }
+    ]
+  },
+  {
+    path: '/grading',
+    component: Layout,
+    children: [
+      {
+        path: 'grading',
+        name: 'Grading',
+        component: () => import('@/views/grading/grading'),
+        meta: { title: '老师给学生批卷', icon: 'el-icon-menu' }
+      },
+    ]
   },
   {
     path: '/bank',
@@ -84,6 +169,7 @@ export const constantRoutes = [
     component: () => import('@/views/404'),
     hidden: true
   },
+
   {
     path: '/createexam',
     component: Layout,
@@ -96,28 +182,7 @@ export const constantRoutes = [
       }
     ]
   },
-  {
-    path: '/exam',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/exam/index'),
-        meta: { title: '我的考试',icon: 'form' }
-      },
-    ]
-  },
-  {
-    path: '/teacherexam',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/exam/index-teacher'),
-        meta: { title: '我创建的考试',icon: 'form' }
-      },
-    ]
-  },
+
   {
     path: '/record',
     component: Layout,
@@ -160,77 +225,77 @@ export const constantRoutes = [
   //   ]
   // },
 
-  {
-    path: '/form',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        name: 'Form',
-        component: () => import('@/views/form/index'),
-        meta: { title: 'Form', icon: 'form' }
-      }
-    ]
-  },
+  // {
+  //   path: '/form',
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: 'index',
+  //       name: 'Form',
+  //       component: () => import('@/views/form/index'),
+  //       meta: { title: 'Form', icon: 'form' }
+  //     }
+  //   ]
+  // },
 
-  {
-    path: '/nested',
-    component: Layout,
-    redirect: '/nested/menu1',
-    name: 'Nested',
-    meta: {
-      title: 'Nested',
-      icon: 'nested'
-    },
-    children: [
-      {
-        path: 'menu1',
-        component: () => import('@/views/nested/menu1/index'), // Parent router-view
-        name: 'Menu1',
-        meta: { title: 'Menu1' },
-        children: [
-          {
-            path: 'menu1-1',
-            component: () => import('@/views/nested/menu1/menu1-1'),
-            name: 'Menu1-1',
-            meta: { title: 'Menu1-1' }
-          },
-          {
-            path: 'menu1-2',
-            component: () => import('@/views/nested/menu1/menu1-2'),
-            name: 'Menu1-2',
-            meta: { title: 'Menu1-2' },
-            children: [
-              {
-                path: 'menu1-2-1',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-1'),
-                name: 'Menu1-2-1',
-                meta: { title: 'Menu1-2-1' }
-              },
-              {
-                path: 'menu1-2-2',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-2'),
-                name: 'Menu1-2-2',
-                meta: { title: 'Menu1-2-2' }
-              }
-            ]
-          },
-          {
-            path: 'menu1-3',
-            component: () => import('@/views/nested/menu1/menu1-3'),
-            name: 'Menu1-3',
-            meta: { title: 'Menu1-3' }
-          }
-        ]
-      },
-      {
-        path: 'menu2',
-        component: () => import('@/views/nested/menu2/index'),
-        name: 'Menu2',
-        meta: { title: 'menu2' }
-      }
-    ]
-  },
+  // {
+  //   path: '/nested',
+  //   component: Layout,
+  //   redirect: '/nested/menu1',
+  //   name: 'Nested',
+  //   meta: {
+  //     title: 'Nested',
+  //     icon: 'nested'
+  //   },
+  //   children: [
+  //     {
+  //       path: 'menu1',
+  //       component: () => import('@/views/nested/menu1/index'), // Parent router-view
+  //       name: 'Menu1',
+  //       meta: { title: 'Menu1' },
+  //       children: [
+  //         {
+  //           path: 'menu1-1',
+  //           component: () => import('@/views/nested/menu1/menu1-1'),
+  //           name: 'Menu1-1',
+  //           meta: { title: 'Menu1-1' }
+  //         },
+  //         {
+  //           path: 'menu1-2',
+  //           component: () => import('@/views/nested/menu1/menu1-2'),
+  //           name: 'Menu1-2',
+  //           meta: { title: 'Menu1-2' },
+  //           children: [
+  //             {
+  //               path: 'menu1-2-1',
+  //               component: () => import('@/views/nested/menu1/menu1-2/menu1-2-1'),
+  //               name: 'Menu1-2-1',
+  //               meta: { title: 'Menu1-2-1' }
+  //             },
+  //             {
+  //               path: 'menu1-2-2',
+  //               component: () => import('@/views/nested/menu1/menu1-2/menu1-2-2'),
+  //               name: 'Menu1-2-2',
+  //               meta: { title: 'Menu1-2-2' }
+  //             }
+  //           ]
+  //         },
+  //         {
+  //           path: 'menu1-3',
+  //           component: () => import('@/views/nested/menu1/menu1-3'),
+  //           name: 'Menu1-3',
+  //           meta: { title: 'Menu1-3' }
+  //         }
+  //       ]
+  //     },
+  //     {
+  //       path: 'menu2',
+  //       component: () => import('@/views/nested/menu2/index'),
+  //       name: 'Menu2',
+  //       meta: { title: 'menu2' }
+  //     }
+  //   ]
+  // },
 
   // {
   //   path: 'external-link',
@@ -241,6 +306,69 @@ export const constantRoutes = [
   //       meta: { title: 'External Link', icon: 'link' }
   //     }
   //   ]
+  // },
+  {
+    path: '/profile',
+    component: Layout,
+    redirect: '/profile/index',
+    hidden: true,
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/profile/index'),
+        name: 'Profile',
+        meta: { title: 'Profile', icon: 'user', noCache: true }
+      }
+    ]
+  },
+  // {
+  //   path: '/exam_publish',
+  //   component: Layout,
+  //   redirect: '/exam_publish/index',
+  //   children: [
+  //     {
+  //       path: 'index',
+  //       component: () => import('@/views/exam_publish/index'),
+  //       name: 'Exam_publish',
+  //       meta: { title: 'Exam_publish', icon: 'user' }
+  //     }
+  //   ]
+  // },
+  // {
+  //   path: 'external-link',
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
+  //       meta: { title: 'External Link', icon: 'link' }
+  //     }
+  //   ]
+  // },
+  // {
+  //   path: '/Invigilate',
+  //   component: Layout,
+  //   name: '监考',
+  //   meta: { title: '监考', icon: 'link' },
+  //   children: [
+  //     {
+  //       path: 'index',
+  //       component: ()=>import('@/views/Invigilate/index'),
+  //       name: '监考',
+  //       meta: { title: '监考页', icon: 'link' }  //页面需要的权限
+  //     }]
+  // },
+  // {
+  //   path: '/detect',
+  //   component: Layout,
+  //   name: '检测',
+  //   meta: { title: '检测', icon: 'link' },
+  //   children: [
+  //     {
+  //       path: 'index',
+  //       component: ()=>import('@/views/detect/index'),
+  //       name: '检测',
+  //       meta: { title: '检测页', icon: 'link' }  //页面需要的权限
+  //     }]
   // },
 
   // 404 page must be placed at the end !!!
@@ -260,6 +388,36 @@ export const asyncRoutes = [
         name: '权限测试页',
         meta: { title: '权限测试页', icon: 'link',roles: ['STUDENT'] }  //页面需要的权限
       }]
+  },
+  {
+    path: '/design',
+    component: Layout,
+    children: [
+      {
+        path: 'design',
+        name: 'Design',
+        component: () => import('@/views/design/design'),
+        meta: { title: '设计试卷', icon: 'el-icon-edit' }
+      },
+    ]
+  },
+  {
+    path: '/register',
+    name: 'register',
+    component: () => import('@/views/login/register'),
+    hidden: true,
+  },
+  {
+    path: '/judge',
+    component: Layout,
+    children: [
+      {
+        path: 'judge',
+        name: 'Judge',
+        component: () => import('@/views/judge/judge'),
+        meta: { title: '审批', icon: 'el-icon-s-check' }
+      },
+    ]
   },
   { path: '*', redirect: '/404', hidden: true }
 ];

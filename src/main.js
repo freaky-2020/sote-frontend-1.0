@@ -1,7 +1,5 @@
 import Vue from 'vue'
 
-import axios from 'axios'
-
 import 'normalize.css/normalize.css' // A modern alternative to CSS resets
 
 import ElementUI from 'element-ui'
@@ -17,9 +15,9 @@ import router from './router'
 
 import '@/icons' // icon
 import '@/permission'
+import echarts from 'echarts'
+import axios from 'axios' // permission control
 
-
-import '@/permission' // permission control
 
 
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
@@ -39,11 +37,11 @@ Vue.prototype.$axios = axios;
 
 // set ElementUI lang to EN
 Vue.use(ElementUI, { locale })
+Vue.prototype.$echarts = echarts
 // 如果想要中文版 element-ui，按如下方式声明
 // Vue.use(ElementUI)
 
 Vue.config.productionTip = false
-
 
 new Vue({
   el: '#app',

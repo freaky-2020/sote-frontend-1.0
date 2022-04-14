@@ -47,7 +47,7 @@
               <br>
               <el-form-item  style="margin-right: 10px;margin-left: 10px" label="试题内容" prop="difficultyId">
                 <el-row type="flex">
-                  <editor-wang justify="end" v-model="editQuestion.stem" ></editor-wang>
+                  <editor-wang justify="end" v-model="editQuestion.stem"></editor-wang>
                 </el-row>
               </el-form-item>
 
@@ -145,21 +145,16 @@
               </el-form-item>
             </el-form>
           </div>
-
-<!--          <span slot="footer" class="dialog-footer">-->
-          <el-row  v-if="isDesign === undefined" type="flex" justify="end" style="margin: 5px">
-            <el-button type="success" @click="editStatus ==='edit'? editSubmit():createSubmit()">确定</el-button>
-            <el-button @click="dialogClose">取消</el-button>
-          </el-row>
-          <el-row v-if="isDesign" type="flex" justify="end" style="margin: 5px">
-            <el-button type="info" @click="addToExam">确定</el-button>
-            <el-button @click="dialogClose">取消</el-button>
-          </el-row>
-<!--          </span>-->
-
         </el-scrollbar>
       </div>
-
+      <el-row  v-if="isDesign === undefined" type="flex" justify="end" style="margin-top: 5px">
+        <el-button type="success" @click="editStatus === 'edit' ? editSubmit():createSubmit()">确定</el-button>
+        <el-button @click="dialogClose">取消</el-button>
+      </el-row>
+      <el-row v-if="isDesign" type="flex" justify="end" style="margin-top: 5px">
+        <el-button type="info" @click="editStatus === 'edit' ? editDesign():addToExam()">确定</el-button>
+        <el-button @click="dialogClose">取消</el-button>
+      </el-row>
     </el-dialog>
   </div>
 </template>
@@ -181,7 +176,8 @@ export default {
     'fillItems',
     'topicType',
     'paperId',
-    'isDesign'
+    'isDesign',
+    'fetchDataExam'
   ],
   components:{editorWang,everyQuestion},
   data(){
@@ -279,12 +275,14 @@ export default {
   },
   methods:{
     dialogClose(){
+      this.$emit("fetchDataExam")
       this.$emit("editQuestionclose")
     },
     selectionChange(){
 
     },
     editSubmit(){
+      alert('正在编辑')
       this.$refs.form.validate((valid) => {
         if (valid) {
           this.question.createTime=null
@@ -316,6 +314,7 @@ export default {
           if(this.editQuestion.typeId===4){
             this.updateFill(this.copyFillItems)
           }
+          alert('正在创建')
           request({
             url: '/bank/question/add',
             method: 'post',
@@ -363,7 +362,7 @@ export default {
       for(let i=0;i<this.fillSum;i++){
         ids= ids + e[i].input
         if(i !== this.fillSum-1){
-          ids= ids  + '|'
+          ids= ids  + ','
         }
       }
       this.editQuestion.answer = ids
@@ -379,12 +378,28 @@ export default {
         params:this.editQuestion,
       }).then(response => {
         console.log(response)
+        this.$emit("fetchDataExam")
       }).catch( err =>{
         console.log(err)
       })
       this.$emit("editQuestionclose")
-      this.topicType = undefined
-    }
+    },
+    editDesign(){
+      if(this.editQuestion.typeId===4){
+        this.updateFill(this.copyFillItems)
+      }
+      request({
+        url: '/exam/paper/update',
+        method: 'put',
+        data:[this.editQuestion],
+      }).then(response => {
+        console.log(response)
+        this.$emit("fetchDataExam")
+      }).catch( err =>{
+        console.log(err)
+      })
+      this.$emit("editQuestionclose")
+    },
   },
   beforeMount() {
     this.fetchMapSubject()
@@ -405,7 +420,7 @@ export default {
   },
   watch:{
     copyCheck(newVal) {
-      this.$emit('update:check', newVal);
+      this.$store.commit('updateCheck', newVal);
     },
     copyFillSum(newVal) {
       this.$store.commit('updateFillSum',newVal)

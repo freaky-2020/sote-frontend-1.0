@@ -1,7 +1,6 @@
 // 我的试卷页面
 <template>
-  <div class="background-container">
-  <div id="myExam" class="article-container">
+  <div id="myExam">
 <!--    <div class="title">我的试卷</div>-->
     <div class="wrapper">
       <ul class="top">
@@ -18,15 +17,15 @@
 <!--            <i class="el-icon-search"></i>-->
           </div>
         </li>
-        <li><el-button type="primary" @click="search()" size="mini">搜索试卷</el-button></li>
+        <li><el-button type="primary" size="mini">搜索试卷</el-button></li>
         <li>
           <el-tooltip content="输入老师告知的口令加入一场考试" placement="bottom" effect="light">
           <el-button type="info" icon="el-icon-circle-plus-outline" @click.native.prevent="wordDialogVisible=true" size="mini">加入考试</el-button>
           </el-tooltip>
         </li>
       </ul>
-      <exam-list v-if="displayExam!=null"
-        v-bind:displayExam="displayExam.slice((current-1)*pageSize,current*pageSize)"></exam-list>
+      <exam-list v-if="displayExam!=null" @getExamInfo="getExamInfo"
+        v-bind:displayExam="newDisplayExam.slice((current-1)*pageSize,current*pageSize)"></exam-list>
 <!--      <ul class="paper" v-loading="loading" v-show="activeExamsName==='all'">-->
 <!--        <li class="item" v-for="(item,index) in displayExam" :key="index">-->
 <!--          <h4 @click="toExamMsg(item.examId)">{{item.examName}}</h4>-->
@@ -52,14 +51,11 @@
           :page-sizes="[6, 9, 20, 30]"
           :page-size="pageSize"
           layout="total, sizes, prev, pager, next, jumper"
-          :total="displayExam.length"
+          :total="newDisplayExam.length"
           >
         </el-pagination>
       </div>
     </div>
-    <el-tooltip placement="top" content="回到顶部">
-      <back-to-top class="myBackToTopStyle" :visibility-height="300" :back-position="50" transition-name="fade" />
-    </el-tooltip>
 
     <el-dialog title="加入考试" :visible.sync="wordDialogVisible">
       <el-form >
@@ -73,7 +69,7 @@
       </div>
     </el-dialog>
   </div>
-  </div>
+
 </template>
 
 <script>
@@ -81,6 +77,7 @@
 import BackToTop from '@/components/BackToTop'
 import request from '@/utils/request'
 import examList from '@/views/exam/components/examList'
+import clip from '@/utils/clipboard'
 export default {
   components:{
       // dragSelect,
@@ -94,7 +91,7 @@ export default {
 
       activeExamsName:'all',
       wordDialogVisible:false,
-      word:null,
+      word:'',
 
       allSubject:null,
 
@@ -103,9 +100,9 @@ export default {
       ongoingExam:null,
       finishedExam:null,
 
-
+      map:[],
       loading: false,
-      key: null, //搜索关键字
+      key: '', //搜索关键字
 
         current: 1, //当前页
         total: null, //记录条数
@@ -124,10 +121,12 @@ export default {
       }else if(this.activeExamsName==='finished'){
         return this.finishedExam
       }
+    },
+    newDisplayExam(){
+      return this.displayExam.filter((u) => {
+        return u.examInfo.examName.indexOf(this.key) !== -1
+      })
     }
-  },
-  watch: {
-
   },
   created() {
     this.getAllSubject()//1
@@ -199,18 +198,18 @@ export default {
     handleClickTab(tab, event){
 
     },
+
     enterExam(){
+      this.word=this.word.replace('+','%2B').replace('/','%2F').replace('?','%3F').replace('%','%25').replace('#','%23').replace('&','%26').replace(' ','%3D');
         request({
           url:'/exam/stu/join/'+this.word,
-          // url:`/exam/stu/join/${this.word}`,
           method:'Get',
-          // data:{
-          //   // word:this.word,
-          //   examineeId:1904011106,
-          // }
-          params: { examineeId:this.examineeId }
+          params:{examineeId:this.examineeId}
         }).then(res=>{
           console.log(res)
+          this.getExamInfo()
+          alert(res)
+          this.word = ''
         })
         this.wordDialogVisible = false;
     },
@@ -224,6 +223,12 @@ export default {
       this.current = val
       // this.getExamInfo()
     },
+    //搜索试卷
+    //跳转到试卷详情页
+    // toExamMsg(examId) {
+    //   this.$router.push({path: '/examMsg', query: {examId: examId}})
+    //   console.log(examId)
+    // }
   }
 }
 </script>

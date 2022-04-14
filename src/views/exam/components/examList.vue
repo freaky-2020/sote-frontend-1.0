@@ -1,8 +1,8 @@
 <template>
 <!--  <ul class="paper" v-loading="loading">-->
-  <ul class="paper">
-    <li class="item" v-for="(item,index) in displayExam" :key="index">
-      <h4 @click="toExam(item)">{{item.examInfo.examName}}</h4>
+  <ul class="paper" >
+    <li class="item"  v-for="(item,index) in displayExam" :key="index">
+      <h4  @click="toExam(item)">{{item.examInfo.examName}}</h4>
       <p class="examName">科目：{{item.examInfo.subjectName}}---{{item.examInfo.examNote}}</p>
       <div class="info">
         <span>允许考试&nbsp;{{item.examInfo.allowableTime}}&nbsp;次 已完成{{item.time}}次</span>
@@ -26,22 +26,32 @@ export default {
   data() {
     return {
       userName:1904011106,
+      examValue:{},
     }
   },
   props:[
-    'displayExam'
+    'displayExam',
+    'getExamInfo'
   ],
   methods:{
     toExam(item) {
       request({
         url:'/exam/stu/start/'+this.userName+'/'+item.examInfo.examId+'/'+(item.time+1),
         method:'Get',
-
       }).then(res=>{
         console.log(res)
+        Object.keys(res).forEach(key=>{
+          console.log(key)
+            if(key === 'success'){
+              console.log(res['success'])
+              this.$router.push({name: 'Exam_', query: {examValue: JSON.stringify(res['success']) }})
+            }
+            else{
+              alert(key)
+              this.$emit("getExamInfo")
+            }
+        })
       })
-      // this.$router.push({path: '/examMsg', query: {examId: examId}})
-      // console.log(examId)
     }
   }
 }
