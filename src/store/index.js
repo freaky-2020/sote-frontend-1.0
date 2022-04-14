@@ -9,35 +9,6 @@ import permission from './modules/permission'
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
-  state: {
-    numX: 0,
-    nextDisabled: false, // 下禁用按钮
-    detailDate: null
-  },
-  mutations: {
-    addNum(state) {
-      state.numX += 1
-    },
-    reduceNum(state) {
-      if (state.numX === 0) {
-        state.numX = 0
-      } else {
-        state.numX -= 1
-      }
-    },
-    setNum(state, index) {
-      state.numX = index
-    },
-    nextDisableTrue(state) {
-      state.nextDisabled = true
-    },
-    nextDisableFalse(state) {
-      state.nextDisabled = false
-    },
-    setDetailDate(state, response) {
-      state.detailDate = response
-    }
-  },
   modules: {
     app,
     settings,
@@ -46,7 +17,9 @@ const store = new Vuex.Store({
   },
   getters,
   state: {
-    numx: 0,
+    numX: 0,
+    nextDisabled: false, // 下禁用按钮
+    detailDate: null,
     isDown:false,
     fillItems:[
       {id:1,input:'',},
@@ -77,24 +50,33 @@ const store = new Vuex.Store({
     ]
   },
   mutations: {
+    addNum(state) {
+      state.numX += 1
+    },
+    reduceNum(state) {
+      if (state.numX === 0) {
+        state.numX = 0
+      } else {
+        state.numX -= 1
+      }
+    },
+    setNum(state, index) {
+      state.numX = index
+    },
+    nextDisableTrue(state) {
+      state.nextDisabled = true
+    },
+    nextDisableFalse(state) {
+      state.nextDisabled = false
+    },
+    setDetailDate(state, response) {
+      state.detailDate = response
+    },
     gradingThis(state){
       state.isDown = true
     },
     gradingDown(state){
       state.isDown = false
-    },
-    addnum(state) {
-      state.numx += 1
-    },
-    reducenum(state) {
-      if (state.numx === 0) {
-        state.numx = 0
-      } else {
-        state.numx -= 1
-      }
-    },
-    setnum(state, index) {
-      state.numx = index
     },
     updateFillItems(state,newFillItems){
       state.fillItems = newFillItems

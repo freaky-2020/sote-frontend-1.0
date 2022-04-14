@@ -2,14 +2,11 @@
   <div class="app-container">
     <div>
       <el-row :gutter="20">
-        <el-col :span="5" :xs="24">
+        <el-col :span="7" :xs="24">
           <Card v-if="flag" :exam_date="examDate" :quesNos="quesNos" />
         </el-col>
         <el-col :span="15" :xs="24">
           <Display v-if="flag" :exam_date="examDate" :quesNos="quesNos"/>
-        </el-col>
-        <el-col :span="3" :xs="24">
-          <!--          <Countdown :exam-value="JSON.parse($route.query.examValue)" />-->
         </el-col>
       </el-row>
     </div>
@@ -19,11 +16,10 @@
 <script>
 import Card from './components/Card'
 import Display from './components/Display'
-import Countdown from './components/Countdown'
 import request from '@/utils/request'
 
 export default {
-  components: { Card, Display, Countdown },
+  components: { Card, Display},
   data() {
     return {
       flag: false,
@@ -56,5 +52,3 @@ export default {
   }
 }
 </script>
-<style lang="scss">
-</style>

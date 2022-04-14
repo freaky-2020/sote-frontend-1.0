@@ -23,7 +23,6 @@
       <div class="card-content-title">简答题(共{{ exam_date[5].length }}题，合计{{ getAllScore(exam_date[5]) }}分)</div><br>
       <el-button v-for="(question,index) in exam_date[5]" :key="index+'5'" :type="$store.state.detailDate[question.quesNo-1].answer === null?'info':'primary'" size="mini" class="buton" @click="setNum(index+exam_date[1].length+exam_date[2].length+exam_date[3].length+exam_date[4].length)">{{ question.quesNo }}</el-button>
     </div>
-
   </el-card>
 </template>
 
