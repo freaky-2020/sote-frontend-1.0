@@ -37,7 +37,7 @@
 <script>
 import clip from '@/utils/clipboard'
 import elDragDialog from '@/utils/el-drag-dialog'
-import QRCode from 'qrcodejs2'
+
 export default {
   directives: { elDragDialog },
   data() {

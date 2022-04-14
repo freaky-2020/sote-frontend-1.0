@@ -21,9 +21,22 @@
       <topic-form  v-if="isFetched" :topicType="5" topicTitle=简答题 :examForm.sync="examForm[5]"
                    :scoreSums.sync="scoreItems[4]" :paperId="paperId" @fetchData="fetchData"></topic-form>
     </div>
+
+    <el-dialog
+      title="提示"
+      :visible.sync="designDialog"
+      width="30%"
+      center>
+      <span>提交试卷后无法修改，确认提交试卷吗</span>
+      <span slot="footer" class="dialog-footer">
+    <el-button @click="designDialog = false">取 消</el-button>
+    <el-button type="primary" @click="toPublish">确 定</el-button>
+    </span>
+    </el-dialog>
+
     <el-footer height="40px">
       <div style="position:absolute;bottom: 0px;margin-bottom: 5px;transform: translate(-50%);left: 50%" >
-        <el-button size="medium" type="primary" icon="el-icon-thumb" @click="toPublish">提交试卷</el-button>
+        <el-button size="medium" type="primary" icon="el-icon-thumb" @click="designDialog =true">提交试卷</el-button>
         <el-button size="medium" type="info" icon="el-icon-view" @click="toPreview">预览试卷</el-button>
       </div>
     </el-footer>
@@ -40,9 +53,10 @@ export default {
   components: {topicForm},
   data() {
     return {
+      designDialog:false,
       isFetched:false,
       keys:1,
-      paperId:1,
+      paperId:11,
       totalNum:0,
       totalScore:0,
       list: {},
@@ -87,14 +101,19 @@ export default {
       })
     },
     toPublish(){
+      this.designDialog =false
       this.$router.push({
-        name: 'Tab'
+        name: 'teacherExam'
       })
     },
     toPreview(){
-      // this.$router.push({
-      //   name: 'Tab'
-      // })
+      this.$router.push({
+        name: 'Exam_',
+        query:{
+          paperId:this.paperId,
+          isView:true,
+        }
+      })
     },
     editTestSubmit(){
       this.isEditTest = false

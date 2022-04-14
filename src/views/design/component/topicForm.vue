@@ -20,7 +20,7 @@
       <div style="float:right;margin-bottom: 10px">
         <el-button size="mini" @click="isAddByBank=true" style="margin-left: 10px">题库选题</el-button>
         <el-button size="mini" @click="isEditQuestion=true" style="margin-left: 10px">新增试题</el-button>
-        <el-button size="mini" @click="isAddByText=true"  style="margin-left: 10px">模板导题</el-button>
+<!--        <el-button size="mini" @click="isAddByText=true"  style="margin-left: 10px">模板导题</el-button>-->
         <el-button size="mini" @click="deleteTopic"  style="margin-left: 10px">删除本题</el-button>
       </div>
     </div>
@@ -113,6 +113,7 @@
       :isDesign="true"
       :paperId="paperId"
       :isDisabled="true"
+      :editStatus="editStatus"
       @fetchDataExam="fetchDataExam"
       @editQuestionclose="isEditQuestion = false"></edit-question>
     <add-by-text
@@ -155,6 +156,7 @@ export default {
       sum: this.scoreSums,
       allScore: 0,
       question: {},
+      editStatus:'',
       form: this.examForm,
       mapLevel: {
         1: '简单',
