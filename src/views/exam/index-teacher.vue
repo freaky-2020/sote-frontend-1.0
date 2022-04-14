@@ -9,6 +9,7 @@
           <el-tab-pane label="开放中" name="ongoing"></el-tab-pane>
           <el-tab-pane label="未开始" name="future"></el-tab-pane>
           <el-tab-pane label="已结束" name="finished"></el-tab-pane>
+          <el-tab-pane label="已发布" name="published"></el-tab-pane>
         </el-tabs>
 
         <li class="search-li">
@@ -26,18 +27,18 @@
       <ul class="paper" v-if="displayExam!=null">
         <li class="item"
             v-for="(item,index) in newDisplayExam.slice((current-1)*pageSize,current*pageSize)" :key="index">
-          <h4 @click="toExam(item)">{{item.examInfo.examName}}</h4>
-          <p class="examName">科目：{{item.examInfo.subjectName}}</p>
-          <p class="examName">考试须知：{{item.examInfo.examNote}}</p>
+          <h4 @click="toExam(item)">{{item.examName}}</h4>
+          <p class="examName">科目：{{item.subjectName}}</p>
+          <p class="examName">考试须知：{{item.examNote}}</p>
           <div class="info">
-            <span>考试口令：{{item.examInfo.word}}  </span>
-            <el-button type="text" icon="el-icon-document-copy" @click="handleCopy(item.examInfo.word,$event)">
+            <span>考试口令：{{item.word}}  </span>
+            <el-button type="text" icon="el-icon-document-copy" @click="handleCopy(item.word,$event)">
             </el-button>
             <br/>
-            <span>允许考试&nbsp;{{item.examInfo.allowableTime}}&nbsp;次 允许切屏&nbsp;{{item.examInfo.cuttingTimes}}&nbsp;次</span>
+            <span>允许考试&nbsp;{{item.allowableTime}}&nbsp;次 允许切屏&nbsp;{{item.cuttingTimes}}&nbsp;次</span>
             <br/>
-            <i class="el-icon-time"></i><span>{{item.examInfo.startTime.slice(0,16)}}到{{item.examInfo.deadline.slice(0,16)}}可进入</span>
-            <span>   考试时长{{item.examInfo.durationTime}}分钟</span>
+            <i class="el-icon-time"></i><span>{{item.startTime.slice(0,16)}}到{{item.deadline.slice(0,16)}}可进入</span>
+            <span>   考试时长{{item.durationTime}}分钟</span>
             <div class="nomargin" style="float: right">
               <el-dropdown @command="handleCommand" trigger="click">
                 <el-button  class="nomargin" icon="el-icon-edit" size="mini">编辑<i class="el-icon-arrow-down el-icon--right"></i></el-button>
@@ -47,7 +48,7 @@
                   <el-dropdown-item command="delete">删除考试</el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
-              <el-button  class="nomargin" @click="judge(item.examInfo)" icon="el-icon-document-checked" size="mini">批阅</el-button>
+              <el-button  class="nomargin" @click="judge(item)" icon="el-icon-document-checked" size="mini">批阅</el-button>
               <el-button  class="nomargin" @click="grade" icon="el-icon-s-data" size="mini">成绩分析</el-button>
             </div>
           </div>
@@ -126,14 +127,13 @@ export default {
       activeExamsName:'all',
       wordDialogVisible:false,
       word:null,
-
       allSubject:null,
       select:1,
       allExam:null,
       futureExam:null,
       ongoingExam:null,
       finishedExam:null,
-
+      publishedExam:null,
 
       loading: false,
       key: '', //搜索关键字
@@ -162,11 +162,13 @@ export default {
         return this.futureExam
       }else if(this.activeExamsName==='finished'){
         return this.finishedExam
+      }else if(this.activeExamsName==='published'){
+        return this.publishedExam
       }
     },
     newDisplayExam(){
       return this.displayExam.filter((u) => {
-        return u.examInfo.examName.indexOf(this.key) !== -1
+        return u.examName.indexOf(this.key) !== -1
       })
     }
   },
@@ -179,7 +181,9 @@ export default {
     // this.getExamInfo()//2
     // this.loading = true
   },
+  updated() {
 
+  },
   methods: {
     handleCommand(command) {
       this.$message('click on item ' + command);
@@ -210,21 +214,27 @@ export default {
     getExamSubject() {
       for (var i = 0; i < this.allSubject.length; i++) {
         for (var j = 0; j < this.ongoingExam.length; j++) {
-          if (this.ongoingExam[j].examInfo.subjectId === this.allSubject[i].id) {
+          if (this.ongoingExam[j].subjectId === this.allSubject[i].id) {
             // console.log(this.allSubject[j].subjectName)
-            this.ongoingExam[j].examInfo.subjectName = this.allSubject[i].subjectName
+            this.ongoingExam[j].subjectName = this.allSubject[i].subjectName
             // break
           }
         }
         for (var j = 0; j < this.finishedExam.length; j++) {
-          if (this.finishedExam[j].examInfo.subjectId === this.allSubject[i].id) {
-            this.finishedExam[j].examInfo.subjectName = this.allSubject[i].subjectName
+          if (this.finishedExam[j].subjectId === this.allSubject[i].id) {
+            this.finishedExam[j].subjectName = this.allSubject[i].subjectName
             // break;
           }
         }
         for (var j = 0; j < this.futureExam.length; j++) {
-          if (this.futureExam[j].examInfo.subjectId === this.allSubject[i].id) {
-            this.futureExam[j].examInfo.subjectName = this.allSubject[i].subjectName
+          if (this.futureExam[j].subjectId === this.allSubject[i].id) {
+            this.futureExam[j].subjectName = this.allSubject[i].subjectName
+            // break;
+          }
+        }
+        for (var j = 0; j < this.publishedExam.length; j++) {
+          if (this.publishedExam[j].subjectId === this.allSubject[i].id) {
+            this.publishedExam[j].subjectName = this.allSubject[i].subjectName
             // break;
           }
         }
@@ -235,16 +245,19 @@ export default {
       request({
         // url:'/exam/info/query',
         // url:'/exam/stu/getExam/stu/{userName}'+this.userName
-        url: '/exam/stu/getExam/stu/' + this.examineeId,
+        url: '/exam/info/query' ,
         method: 'Get',
+        params: { invigilatorId: '1901040301' },
       }).then(res => {
         console.log(res)
         // this.allExam=res
         this.futureExam = res[0]
         this.ongoingExam = res[1]
         this.finishedExam = res[2]
+        this.publishedExam = res[3]
         this.getExamSubject();
-        this.allExam = this.ongoingExam.concat(this.futureExam).concat(this.finishedExam)
+        this.allExam = this.ongoingExam.concat(this.futureExam).concat(this.finishedExam).concat(this.publishedExam)
+        console.log(this.allExam)
         this.loading = false
       })
       // this.$axios(`/api/exams/${this.current}/${this.size}`).then(res => {
@@ -295,12 +308,17 @@ export default {
         params: {rule: this.select},
       }).then(res => {
         console.log(res)
-        if(confirm(res+'是否进入简答题批阅?')){
-          this.$router.push({ name: 'Grading',
-            query: {
-              paperId:this.judgeItem.paperId,
-              examId:this.judgeItem.examId
-            } })
+        if(res.indexOf('考试')){
+          if(confirm(res+'是否进入简答题批阅?')){
+            this.$router.push({ name: 'Grading',
+              query: {
+                paperId:this.judgeItem.paperId,
+                examId:this.judgeItem.examId
+              } })
+          }
+        }
+        else{
+          alert(res)
         }
       })
     },
