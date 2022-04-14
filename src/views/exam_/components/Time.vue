@@ -47,9 +47,9 @@ export default {
   methods: {
     // 倒计时
     countDown() {
-      let h = Math.round(this.seconds / (60 * 60) % 24);
+      let h = Math.floor(this.seconds / (60 * 60) % 24);
       h = h < 10 ? "0" + h : h
-      let m = Math.round(this.seconds / 60 % 60);
+      let m = Math.floor(this.seconds / 60 % 60);
       m = m < 10 ? "0" + m : m
       let s = Math.round(this.seconds % 60);
       s = s < 10 ? "0" + s : s

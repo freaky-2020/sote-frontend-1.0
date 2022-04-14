@@ -33,12 +33,11 @@ import request from '@/utils/request'
 
 export default {
   name: 'Card',
-  props: ['exam_date'],
+  props: ['exam_date','details'],
   // 父子组件之间数据传递，该数据在子组件中不能随便更改，会报错
   data() {
     return {
       full_score: 2,
-      details: 1,
       sum:0,
       detailDate: null,
     }

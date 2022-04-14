@@ -126,10 +126,9 @@ import request from '@/utils/request'
 
 export default {
   name: 'Display',
-  props: ['exam_date'],
+  props: ['exam_date','details'],
   data() {
     return {
-      details: 1,
       detailDate: null,
 
       questionList: [

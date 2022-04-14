@@ -247,7 +247,7 @@ export default {
         // url:'/exam/stu/getExam/stu/{userName}'+this.userName
         url: '/exam/info/query' ,
         method: 'Get',
-        params: { invigilatorId: '1901040301' },
+        params: { invigilatorId: this.$store.getters.name },
       }).then(res => {
         console.log(res)
         // this.allExam=res
