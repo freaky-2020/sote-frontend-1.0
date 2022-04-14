@@ -19,6 +19,7 @@ const store = new Vuex.Store({
   state: {
     numX: 0,
     nextDisabled: false, // 下禁用按钮
+    detailDate: null,
     isDown:false,
     fillItems:[
       {id:1,input:'',},
@@ -49,12 +50,6 @@ const store = new Vuex.Store({
     ]
   },
   mutations: {
-    gradingThis(state){
-      state.isDown = true
-    },
-    gradingDown(state){
-      state.isDown = false
-    },
     addNum(state) {
       state.numX += 1
     },
@@ -73,6 +68,15 @@ const store = new Vuex.Store({
     },
     nextDisableFalse(state) {
       state.nextDisabled = false
+    },
+    setDetailDate(state, response) {
+      state.detailDate = response
+    },
+    gradingThis(state){
+      state.isDown = true
+    },
+    gradingDown(state){
+      state.isDown = false
     },
     updateFillItems(state,newFillItems){
       state.fillItems = newFillItems

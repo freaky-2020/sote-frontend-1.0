@@ -43,6 +43,8 @@ export default {
       paperId: this.$route.query.paperId,
       examDate: null,
       examValue: null,
+      quesNos: null
+      examValue: null,
       quesNos: null,
       totalNum:10,
       scNum:0,
@@ -140,7 +142,7 @@ export default {
     window.removeEventListener("visibilitychange", this.pageHidden);
     // window.removeEventListener("scroll", this.handleScroll);
     window.removeEventListener("resize", this.pageHidden);
-  }
+  },
 }
 </script>
 <style lang="scss">
