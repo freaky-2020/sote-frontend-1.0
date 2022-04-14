@@ -1,11 +1,22 @@
 <template>
   <div class="background-container">
     <div v-if="isExam" style="margin: 10px" class="app-container">
-      <i class="el-icon-folder"></i>
-      <span style="font-size:30px;color: indianred">试题库</span>
+
+      <h3  class="pagetitle" ><i class="el-icon-folder"></i> 试题库</h3>
 
       <div style="margin: 20px;">
         <div class="select-container" >
+          <div class="select-item">
+            <!--            <span>试题类型:</span>-->
+            <el-select  :disabled="topicType !== undefined" v-model="queryForm.typeId" placeholder="请选择类型" style="">
+              <el-option
+                v-for="item in optionsType"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+              </el-option>
+            </el-select>
+          </div>
           <div class="select-item" >
 <!--            <span>科目:</span>-->
             <el-select  v-model="queryForm.subjectId" placeholder="请选择科目" style="">
@@ -18,24 +29,6 @@
             </el-select>
           </div>
           <div class="select-item">
-<!--            <span>试题类型:</span>-->
-            <el-select  :disabled="topicType !== undefined" v-model="queryForm.typeId" placeholder="请选择类型" style="">
-              <el-option
-                v-for="item in optionsType"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-              </el-option>
-            </el-select>
-          </div>
-          <div class="select-item">
-<!--          <span>试题内容:</span>-->
-          <el-input
-            v-model="queryForm.stem"
-            placeholder="请输入试题内容"
-            style="width: 180px;"></el-input>
-          </div>
-          <div class="select-item">
             <span style="margin-left: 10px"></span>
             <el-select  v-model="queryForm.difficultyId" placeholder="请选择难度">
               <el-option
@@ -46,6 +39,13 @@
               </el-option>
             </el-select>
           </div>
+          <div class="select-item">
+            <!--          <span>试题内容:</span>-->
+            <el-input
+              v-model="queryForm.stem"
+              placeholder="请输入试题内容"
+              style=""></el-input>
+          </div>
 <!--          <div style="float: right;">-->
 <!--            &lt;!&ndash;         <el-button size="medium" @click="isAddByText=true"  >文本增题</el-button>&ndash;&gt;-->
 <!--            <el-button size="medium" v-if="topicType === undefined" @click="addBySelf"  >新增试题</el-button>-->
@@ -54,16 +54,19 @@
 <!--            <el-button size="medium" @click="$refs.import.$el.click()">导出</el-button>-->
 <!--          </div>-->
           <br>
-          <div style="margin-top: 5px">
+          <div class="select-item" >
             <el-date-picker  type="date" placeholder="选择起始日期" v-model="queryForm.startTime" style="width: 200px;"></el-date-picker>
-            <span>   -   </span>
+          </div>
+          <div class="select-item" >
+<!--            <span>   -   </span>-->
             <el-date-picker  type="date" placeholder="选择截止日期" v-model="queryForm.endTime" style="width: 200px;"></el-date-picker>
           </div>
-          <div style="float: right">
-            <el-button  size="medium" @click="fetchData" icon="el-icon-search">查询</el-button>
-            <el-button size="medium" @click="clear" icon="el-icon-refresh">清除</el-button>
-          </div>
-        </div>
+          <div style="float: right; margin:10px 0 15px 0" >
+            <el-button  size="medium" @click="fetchData" icon="el-icon-search"
+                        type="info">查询</el-button>
+            <el-button size="medium" @click="clear" icon="el-icon-refresh"
+            >清除</el-button>
+          </div>        </div>
         <JsonExcel
           :data="form"
           ref="import"
@@ -163,11 +166,11 @@
 
     </div>
 
-    <div style="z-index: auto;position: absolute; top:15%;left: 90%">
+    <div style="z-index: auto;position:fixed; top:25%;left: 90%">
       <!--         <el-button size="medium" @click="isAddByText=true"  >文本增题</el-button>-->
-      <el-tooltip  v-if="topicType === undefined" class="item" effect="light" content="添加题目" placement="right-end">
+      <el-tooltip  v-if="topicType === undefined" class="item" effect="light" content="创建试题" placement="right-end">
         <el-button v-if="topicType === undefined" @click="addBySelf"
-                   icon="el-icon-plus" circle></el-button>
+                   type="primary" icon="el-icon-plus" circle></el-button>
       </el-tooltip>      <br/><br />
       <el-tooltip  v-if="topicType === undefined" class="item" effect="light" content="批量删除" placement="right-end">
         <el-button  v-if="topicType === undefined" @click="deleteAll($refs.multipleTable.selection)"
@@ -175,7 +178,7 @@
       </el-tooltip>      <br/><br />
       <el-tooltip  v-if="topicType === undefined" class="item" effect="light" content="导出题库" placement="right-end">
         <el-button @click="$refs.import.$el.click()"
-                   icon="el-icon-paperclip" circle></el-button>
+                   type=info icon="el-icon-paperclip" circle></el-button>
       </el-tooltip>
 
 
@@ -195,7 +198,7 @@
 
 
 
-    <div>
+    <div >
       <el-dialog title="批量修改" :visible.sync="isUpdateAll" width="60%">
         <el-divider></el-divider>
         <div style="margin: 20px">
@@ -656,12 +659,21 @@ JsonExcel{
 }
 .select-item{
   width: 25%;
-  margin:0px;
+  margin:10px 0 10px 0;
   display:inline-block;
 
-  el-select el-input{
-    width: 90%;
+  el-select {
+    //width: 80%;
+  }
+  el-input{
+    //width: 85%;
   }
 
+}
+.pagetitle{
+  color:#00509d;
+  height: 40px;
+  font-size: 20px;
+  border-bottom: 1px solid lightgrey;
 }
 </style>
