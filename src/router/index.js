@@ -91,18 +91,18 @@ export const constantRoutes = [
   //     },
   //   ]
   // },
-  {
-    path: '/teacherexam',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        name: 'teacherExam',
-        component: () => import('@/views/exam/index-teacher'),
-        meta: { title: '我创建的考试',icon: 'form' }
-      },
-    ]
-  },
+  // {
+  //   path: '/teacherexam',
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: 'index',
+  //       name: 'teacherExam',
+  //       component: () => import('@/views/exam/index-teacher'),
+  //       meta: { title: '我创建的考试',icon: 'form' }
+  //     },
+  //   ]
+  // },
   {
     path: '/exam',
     component: Layout,
@@ -115,18 +115,18 @@ export const constantRoutes = [
       },
     ]
   },
-  {
-    path: '/grade',
-    component: Layout,
-    children: [
-      {
-        path: 'grade',
-        name: 'Grade',
-        component: () => import('@/views/grade/grade'),
-        meta: { title: '老师查看学生的成绩', icon: 'el-icon-s-check' }
-      },
-    ]
-  },
+  // {
+  //   path: '/grade',
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: 'grade',
+  //       name: 'Grade',
+  //       component: () => import('@/views/grade/grade'),
+  //       meta: { title: '老师查看学生的成绩', icon: 'el-icon-s-check' }
+  //     },
+  //   ]
+  // },
   {
     path: '/exam_',
     component: Layout,
@@ -140,18 +140,18 @@ export const constantRoutes = [
       }
     ]
   },
-  {
-    path: '/grading',
-    component: Layout,
-    children: [
-      {
-        path: 'grading',
-        name: 'Grading',
-        component: () => import('@/views/grading/grading'),
-        meta: { title: '老师给学生批卷', icon: 'el-icon-menu' }
-      },
-    ]
-  },
+  // {
+  //   path: '/grading',
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: 'grading',
+  //       name: 'Grading',
+  //       component: () => import('@/views/grading/grading'),
+  //       meta: { title: '老师给学生批卷', icon: 'el-icon-menu' }
+  //     },
+  //   ]
+  // },
   {
     path: '/bank',
     component: Layout,
@@ -170,18 +170,18 @@ export const constantRoutes = [
     hidden: true
   },
 
-  {
-    path: '/createexam',
-    component: Layout,
-    children: [
-      {
-        path: 'examinfo',
-        name: 'paperinfo',
-        component: () => import('@/views/createpaper/examInfo'),
-        meta: { title: '创建试卷', icon: 'clipboard' }
-      }
-    ]
-  },
+  // {
+  //   path: '/createexam',
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: 'examinfo',
+  //       name: 'paperinfo',
+  //       component: () => import('@/views/createpaper/examInfo'),
+  //       meta: { title: '创建试卷', icon: 'clipboard' }
+  //     }
+  //   ]
+  // },
 
   {
     path: '/record',
@@ -195,118 +195,6 @@ export const constantRoutes = [
     ]
   },
 
-
-
-  // {
-  //   path: '/example',
-  //   component: Layout,
-  //   redirect: '/example/table',
-  //   name: 'Example',
-  //   meta: { title: 'Example', icon: 'el-icon-s-help' },
-  //   children: [
-  //     {
-  //       path: 'table',
-  //       name: 'Table',
-  //       component: () => import('@/views/table/index'),
-  //       meta: { title: 'Table', icon: 'table' }
-  //     },
-  //     {
-  //       path: 'tree',
-  //       name: 'Tree',
-  //       component: () => import('@/views/tree/index'),
-  //       meta: { title: 'Tree', icon: 'tree' }
-  //     },
-  //     {
-  //       path: 'tab',
-  //       name: 'Tab',
-  //       component: () => import('@/views/table/table'),
-  //       meta: { title: 'Tab', icon: 'table' }
-  //     }
-  //   ]
-  // },
-
-  // {
-  //   path: '/form',
-  //   component: Layout,
-  //   children: [
-  //     {
-  //       path: 'index',
-  //       name: 'Form',
-  //       component: () => import('@/views/form/index'),
-  //       meta: { title: 'Form', icon: 'form' }
-  //     }
-  //   ]
-  // },
-
-  // {
-  //   path: '/nested',
-  //   component: Layout,
-  //   redirect: '/nested/menu1',
-  //   name: 'Nested',
-  //   meta: {
-  //     title: 'Nested',
-  //     icon: 'nested'
-  //   },
-  //   children: [
-  //     {
-  //       path: 'menu1',
-  //       component: () => import('@/views/nested/menu1/index'), // Parent router-view
-  //       name: 'Menu1',
-  //       meta: { title: 'Menu1' },
-  //       children: [
-  //         {
-  //           path: 'menu1-1',
-  //           component: () => import('@/views/nested/menu1/menu1-1'),
-  //           name: 'Menu1-1',
-  //           meta: { title: 'Menu1-1' }
-  //         },
-  //         {
-  //           path: 'menu1-2',
-  //           component: () => import('@/views/nested/menu1/menu1-2'),
-  //           name: 'Menu1-2',
-  //           meta: { title: 'Menu1-2' },
-  //           children: [
-  //             {
-  //               path: 'menu1-2-1',
-  //               component: () => import('@/views/nested/menu1/menu1-2/menu1-2-1'),
-  //               name: 'Menu1-2-1',
-  //               meta: { title: 'Menu1-2-1' }
-  //             },
-  //             {
-  //               path: 'menu1-2-2',
-  //               component: () => import('@/views/nested/menu1/menu1-2/menu1-2-2'),
-  //               name: 'Menu1-2-2',
-  //               meta: { title: 'Menu1-2-2' }
-  //             }
-  //           ]
-  //         },
-  //         {
-  //           path: 'menu1-3',
-  //           component: () => import('@/views/nested/menu1/menu1-3'),
-  //           name: 'Menu1-3',
-  //           meta: { title: 'Menu1-3' }
-  //         }
-  //       ]
-  //     },
-  //     {
-  //       path: 'menu2',
-  //       component: () => import('@/views/nested/menu2/index'),
-  //       name: 'Menu2',
-  //       meta: { title: 'menu2' }
-  //     }
-  //   ]
-  // },
-
-  // {
-  //   path: 'external-link',
-  //   component: Layout,
-  //   children: [
-  //     {
-  //       path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
-  //       meta: { title: 'External Link', icon: 'link' }
-  //     }
-  //   ]
-  // },
   {
     path: '/profile',
     component: Layout,
@@ -390,6 +278,54 @@ export const asyncRoutes = [
       }]
   },
   {
+    path: '/createexam',
+    component: Layout,
+    children: [
+      {
+        path: 'examinfo',
+        name: 'paperinfo',
+        component: () => import('@/views/createpaper/examInfo'),
+        meta: { title: '创建试卷', icon: 'clipboard',roles: ['TEACHER'] }
+      }
+    ]
+  },
+  {
+    path: '/grading',
+    component: Layout,
+    children: [
+      {
+        path: 'grading',
+        name: 'Grading',
+        component: () => import('@/views/grading/grading'),
+        meta: { title: '老师给学生批卷', icon: 'el-icon-menu',roles: ['TEACHER']  }
+      },
+    ]
+  },
+  {
+    path: '/grade',
+    component: Layout,
+    children: [
+      {
+        path: 'grade',
+        name: 'Grade',
+        component: () => import('@/views/grade/grade'),
+        meta: { title: '老师查看学生的成绩', icon: 'el-icon-s-check',roles: ['TEACHER']  }
+      },
+    ]
+  },
+  {
+    path: '/teacherexam',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: 'teacherExam',
+        component: () => import('@/views/exam/index-teacher'),
+        meta: { title: '我创建的考试',icon: 'form' }
+      },
+    ]
+  },
+  {
     path: '/design',
     component: Layout,
     children: [
@@ -399,7 +335,8 @@ export const asyncRoutes = [
         component: () => import('@/views/design/design'),
         meta: { title: '设计试卷', icon: 'el-icon-edit' }
       },
-    ]
+    ],
+    hidden: true,
   },
   {
     path: '/register',
