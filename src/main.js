@@ -15,7 +15,7 @@ import router from './router'
 
 import '@/icons' // icon
 import '@/permission'
-import echarts from 'echarts'
+import * as echarts from 'echarts'
 import axios from 'axios' // permission control
 
 

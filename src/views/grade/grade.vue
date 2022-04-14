@@ -1,6 +1,8 @@
 <template>
-  <div>
-    <div style="margin-top: 15px;margin-bottom: 15px;margin-left: 10%;margin-right: 10%">
+
+  <div class="article-container">
+    <h3 class="pagetitle">考生成绩</h3>
+    <div style="margin: 15px 0">
       <el-input placeholder="请输入内容" v-model="input" class="input-with-select">
         <el-select v-model="select" slot="prepend" placeholder="请选择" style="width: 200px">
           <el-option label="学号" value="1"></el-option>
@@ -12,21 +14,21 @@
 
     <el-table
       :data="newTable.slice((page-1)*limit, page*limit)"
-      style="width: 80%;margin-left: 10%"
+      style="width: 100%;"
       border
       fit
       highlight-current-row>
       <el-table-column
         label="学号"
         sortable
-        width="180">
+        min-width="25%">
         <template slot-scope="scope">
           <span style="margin-left: 10px">{{ scope.row.user.userName }}</span>
         </template>
       </el-table-column>
       <el-table-column
         label="姓名"
-        width="180">
+        min-width="25%">
         <template slot-scope="scope">
           <div slot="reference" class="name-wrapper">
             <el-tag size="medium">{{ scope.row.user.realName }}</el-tag>
@@ -35,7 +37,7 @@
       </el-table-column>
       <el-table-column
         label="专业"
-        width="180">
+        min-width="25%">
         <template slot-scope="scope">
           <div slot="reference" class="name-wrapper">
             <el-tag size="medium">{{ scope.row.user.userUnit }}</el-tag>
@@ -44,19 +46,21 @@
       </el-table-column>
       <el-table-column
         label="成绩"
-        width="180">
+        min-width="25%">
         <template slot-scope="scope">
           <div slot="reference" class="name-wrapper">
             <el-tag size="medium">{{ scope.row.score }}</el-tag>
           </div>
         </template>
       </el-table-column>
-      <el-table-column align="center">
+      <el-table-column align="center"
+                       width="150px">
         <template slot-scope="scope">
           <el-button
-            size="mini"
-            type="primary"
-            @click="viewDetail(scope.row)">详细查看</el-button>
+            size="medium"
+            type="info"
+
+            @click="viewDetail(scope.row)">详细信息</el-button>
         </template>
       </el-table-column>
     </el-table>

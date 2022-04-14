@@ -3,13 +3,17 @@
     <div class="dashboard-text">name: {{ name }}</div>
     <div class="dashboard-text">name: {{ this.$store.getters.roles }}</div>
     <panel-group></panel-group>
+
+    <mix-chart></mix-chart>
   </div>
+
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 
 import PanelGroup from '@/views/dashboard/components/PanelGroup'
+import MixChart from '@/components/Charts/MixChart'
 
 
 const lineChartData = {
@@ -35,6 +39,7 @@ export default {
   name: 'Dashboard',
   components:{
     PanelGroup,
+    MixChart
   },
   methods:{
     handleSetLineChartData(type) {

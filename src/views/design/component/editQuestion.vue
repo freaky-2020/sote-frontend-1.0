@@ -145,16 +145,17 @@
               </el-form-item>
             </el-form>
           </div>
+          <el-row  v-if="isDesign === undefined" type="flex" justify="end" style="margin-top: 5px">
+            <el-button type="success" @click="editStatus === 'edit' ? editSubmit():createSubmit()">确定</el-button>
+            <el-button @click="dialogClose">取消</el-button>
+          </el-row>
+          <el-row v-if="isDesign" type="flex" justify="end" style="margin-top: 5px">
+            <el-button type="info" @click="editStatus === 'edit' ? editDesign():addToExam()">确定</el-button>
+            <el-button @click="dialogClose">取消</el-button>
+          </el-row>
         </el-scrollbar>
       </div>
-      <el-row  v-if="isDesign === undefined" type="flex" justify="end" style="margin-top: 5px">
-        <el-button type="success" @click="editStatus === 'edit' ? editSubmit():createSubmit()">确定</el-button>
-        <el-button @click="dialogClose">取消</el-button>
-      </el-row>
-      <el-row v-if="isDesign" type="flex" justify="end" style="margin-top: 5px">
-        <el-button type="info" @click="editStatus === 'edit' ? editDesign():addToExam()">确定</el-button>
-        <el-button @click="dialogClose">取消</el-button>
-      </el-row>
+
     </el-dialog>
   </div>
 </template>

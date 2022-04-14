@@ -166,31 +166,22 @@
 
     </div>
 
-    <div style="z-index: auto;position:fixed; top:25%;left: 90%">
-      <!--         <el-button size="medium" @click="isAddByText=true"  >文本增题</el-button>-->
-      <el-tooltip  v-if="topicType === undefined" class="item" effect="light" content="创建试题" placement="right-end">
-        <el-button v-if="topicType === undefined" @click="addBySelf"
-                   type="primary" icon="el-icon-plus" circle></el-button>
-      </el-tooltip>      <br/><br />
-      <el-tooltip  v-if="topicType === undefined" class="item" effect="light" content="批量删除" placement="right-end">
-        <el-button  v-if="topicType === undefined" @click="deleteAll($refs.multipleTable.selection)"
-                    type="danger" icon="el-icon-delete" circle></el-button>
-      </el-tooltip>      <br/><br />
-      <el-tooltip  v-if="topicType === undefined" class="item" effect="light" content="导出题库" placement="right-end">
-        <el-button @click="$refs.import.$el.click()"
-                   type=info icon="el-icon-paperclip" circle></el-button>
-      </el-tooltip>
-
-
-<!--      <el-button v-if="topicType === undefined" @click="addBySelf"-->
-<!--                 icon="el-icon-plus" circle></el-button>-->
-
-      <!--         <el-button size="medium" @click="updateAll($refs.multipleTable.selection)" >批量修改</el-button>-->
-<!--      <el-button  v-if="topicType === undefined" @click="deleteAll($refs.multipleTable.selection)"-->
-<!--                  type="danger" icon="el-icon-delete" circle></el-button>-->
-
-<!--      <el-button @click="$refs.import.$el.click()"-->
-<!--                 icon="el-icon-paperclip" circle></el-button>-->
+    <div style="z-index: auto;position: absolute; top:20%;left: 90%">
+      <div style="position:fixed">
+        <!--         <el-button size="medium" @click="isAddByText=true"  >文本增题</el-button>-->
+        <el-tooltip  v-if="topicType === undefined" class="item" effect="light" content="创建试题" placement="right-end">
+          <el-button v-if="topicType === undefined" @click="addBySelf"
+                     type="primary" icon="el-icon-plus" circle></el-button>
+        </el-tooltip>      <br/><br />
+        <el-tooltip  v-if="topicType === undefined" class="item" effect="light" content="批量删除" placement="right-end">
+          <el-button  v-if="topicType === undefined" @click="deleteAll($refs.multipleTable.selection)"
+                      type="danger" icon="el-icon-delete" circle></el-button>
+        </el-tooltip>      <br/><br />
+        <el-tooltip  v-if="topicType === undefined" class="item" effect="light" content="导出题库" placement="right-end">
+          <el-button @click="$refs.import.$el.click()"
+                     type=info icon="el-icon-paperclip" circle></el-button>
+        </el-tooltip>
+      </div>
     </div>
 
     <el-divider></el-divider>

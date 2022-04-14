@@ -10,7 +10,7 @@
 <!--        <el-input v-model="form.examId" />-->
 <!--      </el-form-item>-->
       <el-form-item label="考试科目" prop="subjectId">
-        <el-select v-model="form.subjectId" placeholder="选择考试科目" style="width: 35%" >
+        <el-select id="selectSubject" v-model="form.subjectId" placeholder="选择考试科目" style="width: 35%" >
           <el-option v-for="item in subjectBox"
                       :key="item.id"
                      :value="item.id"
@@ -256,7 +256,7 @@ export default {
   methods: {
     getSubject(){
       request({
-        url:'http://124.222.238.194:10010/bank/subject',
+        url:'/bank/subject',
         method:'Get',
       }).then(response=>{
         console.log(response)
@@ -265,7 +265,7 @@ export default {
     },
     getTeacher(){
       request({
-        url:'http://124.222.238.194:10010/auth/user/page/teacher',
+        url:'/auth/user/page/teacher',
         method:'Get',
       }).then(res=>{
         console.log(res)
@@ -277,7 +277,7 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           request({
-            url:'http://124.222.238.194:10010/exam/info/add',
+            url:'/exam/info/add',
             method:'post',
             params:this.form,
           // {allowableTime:this.form.allowableTime,
@@ -347,7 +347,7 @@ export default {
 
 <style lang="scss" scoped>
 .h3title{
-  color: gray;
+  color: #00509d;
   //background-color: lightgrey;
   height: 40px;
   border-bottom: 1px solid lightgrey;
@@ -357,6 +357,9 @@ export default {
 }
 .el-radio{
   height: 30px;
+}
+#selectSubject .el-input {
+  width: 200px!important;
 }
 /*.el-button--primary {*/
 /*  background: #304156 !important;*/

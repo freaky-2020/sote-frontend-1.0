@@ -59,6 +59,7 @@ export default {
 <style lang="scss" scoped>
   li{
     list-style-type:none;
+    margin: 10px;
   }
   .paper {
   h4 {

@@ -12,14 +12,12 @@
         </el-tabs>
 
         <li class="search-li">
-          <div class="icon">
-            <el-input type="text" placeholder="试卷名称" class="search" v-model="key" size="mini"></el-input>
+            <el-input type="text" placeholder="试卷名称" class="search" v-model="key" size="medium"> </el-input>
+            <el-button type="primary" size="medium" icon="el-icon-search" circle></el-button>
             <!--            <i class="el-icon-search"></i>-->
-          </div>
         </li>
-        <li><el-button type="primary" size="mini">搜索试卷</el-button></li>
         <li>
-            <el-button type="info" icon="el-icon-circle-plus-outline" @click.native.prevent="goToCreate" size="mini">添加考试</el-button>
+            <el-button type="info" icon="el-icon-circle-plus-outline" @click.native.prevent="goToCreate" size="medium">添加考试</el-button>
         </li>
       </ul>
 
@@ -40,15 +38,15 @@
             <span>   考试时长{{item.examInfo.durationTime}}分钟</span>
             <div class="nomargin" style="float: right">
               <el-dropdown @command="handleCommand" trigger="click">
-                <el-button  class="nomargin" icon="el-icon-edit" size="mini">编辑<i class="el-icon-arrow-down el-icon--right"></i></el-button>
+                <el-button  class="nomargin" icon="el-icon-edit" size="small">编辑<i class="el-icon-arrow-down el-icon--right"></i></el-button>
                 <el-dropdown-menu slot="dropdown">
                   <el-dropdown-item command="edit">编辑考试信息</el-dropdown-item>
                   <el-dropdown-item command="design">设计考试题目</el-dropdown-item>
                   <el-dropdown-item command="delete">删除考试</el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
-              <el-button  class="nomargin" @click="judge(item.examInfo)" icon="el-icon-document-checked" size="mini">批阅</el-button>
-              <el-button  class="nomargin" @click="grade" icon="el-icon-s-data" size="mini">成绩分析</el-button>
+              <el-button  class="nomargin" @click="judge(item.examInfo)" icon="el-icon-document-checked" size="small">批阅</el-button>
+              <el-button  class="nomargin" @click="grade" icon="el-icon-s-data" size="small">成绩分析</el-button>
             </div>
           </div>
         </li>
@@ -58,7 +56,7 @@
       <div class="pagination">
         <el-pagination
           v-if="displayExam!=null"
-
+          background
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
           :current-page="current"
@@ -431,7 +429,7 @@ li{
   //margin-right: 14px;
 }
 .paper .item {
-  width: 90%;
+  width: 100%;
   border-radius: 6px;
   padding: 20px 30px;
   border: 1px solid #eee;
