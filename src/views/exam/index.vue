@@ -184,7 +184,7 @@ export default {
       request({
         // url:'/exam/info/query',
         // url:'/exam/stu/getExam/stu/{userName}'+this.userName
-        url:'/exam/stu/getExam/stu/1904011106',
+        url:'/exam/stu/getExam/stu/' + this.examineeId,
         method:'Get',
       }).then(res=>{
         console.log(res)

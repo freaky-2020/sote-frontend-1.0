@@ -308,12 +308,17 @@ export default {
         params: {rule: this.select},
       }).then(res => {
         console.log(res)
-        if(confirm(res+'是否进入简答题批阅?')){
-          this.$router.push({ name: 'Grading',
-            query: {
-              paperId:this.judgeItem.paperId,
-              examId:this.judgeItem.examId
-            } })
+        if(res.indexOf('考试')){
+          if(confirm(res+'是否进入简答题批阅?')){
+            this.$router.push({ name: 'Grading',
+              query: {
+                paperId:this.judgeItem.paperId,
+                examId:this.judgeItem.examId
+              } })
+          }
+        }
+        else{
+          alert(res)
         }
       })
     },

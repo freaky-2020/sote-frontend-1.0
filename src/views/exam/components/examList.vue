@@ -44,7 +44,11 @@ export default {
           console.log(key)
             if(key === 'success'){
               console.log(res['success'])
-              this.$router.push({name: 'Exam_', query: {examValue: JSON.stringify(res['success']) }})
+              this.$router.push({name: 'Exam_', query:
+                  {
+                    paperId: this.paperId,
+                    details: item.details,
+                    examValue: JSON.stringify(res['success']) }})
             }
             else{
               alert(key)

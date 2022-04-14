@@ -3,14 +3,13 @@
     <div>
       <el-row :gutter="20">
         <el-col :span="8" :xs="24">
-          <Card v-if="flag" :exam_date="examDate" :quesNos="quesNos" />
+          <Card v-if="flag &&this.paperId && this.stuData!==undefined" :exam_date="examDate" :quesNos="quesNos"
+                @gradingThis="gradingThis" :stuData="stuData"/>
           <!--          目标组件中props中的数据名 = 当前组件的数据-->
         </el-col>
         <el-col :span="15" :xs="24">
-          <Display v-if="flag" :exam_date="examDate" :examId="examId" :quesNos="quesNos" />
-        </el-col>
-        <el-col :span="3" :xs="24">
-          <!--          <Countdown :exam-value="JSON.parse($route.query.examValue)" />-->
+          <Display v-if="flag &&this.paperId && this.stuData!==undefined" :exam_date="examDate" :examId="examId" :quesNos="quesNos"
+                   @gradingThis="gradingThis" :stuData="stuData"/>
         </el-col>
       </el-row>
     </div>
@@ -27,33 +26,20 @@ export default {
   data() {
     return {
       flag: false,
-      paperId: 1,
-      examId:1,
+      paperId: undefined,
+      examId:undefined,
       examDate: null,
       examValue: null,
-      quesNos: null
+      stuData:[],
+      quesNos: 0,
     }
   },
   created() {
     this.paperId = this.$route.query.paperId
     this.examId =this.$route.query.examId
-    this.fetchData()
     this.fetchAllQues()
   },
   methods: {
-    fetchData() {
-      request({
-        url: 'exam/paper/' + this.paperId +'/get',
-        method: 'get'
-      }).then(response => {
-        console.log(response)
-        this.examDate = response
-        this.flag = true
-        this.getQuesNos()
-      }).catch(err => {
-        console.log(err)
-      })
-    },
     fetchAllQues(){
       request({
         url: 'exam/mark/allQues/' + this.paperId,
@@ -61,14 +47,32 @@ export default {
       }).then(response => {
         console.log(response)
         this.examDate = response
+        this.$store.commit('setNum', response[0].quesNo)
+        this.getQuesNos()
         this.flag = true
       }).catch(err => {
         console.log(err)
       })
     },
+    gradingThis(item){
+      this.stuData = undefined
+      this.$store.commit('gradingThis')
+      request({
+        url: 'exam/mark/hand/' + this.examId + '/' + item,
+        method: 'get',
+      }).then(response => {
+        console.log(response)
+        this.stuData = response
+      }).catch(err => {
+        console.log(err)
+      })
+    },
     getQuesNos() {
-      this.quesNos = this.examDate[1].length + this.examDate[2].length + this.examDate[3].length + this.examDate[4].length + this.examDate[5].length
+      this.quesNos = this.examDate.length+this.examDate[0].quesNo
     }
+  },
+  updated() {
+    console.log(this.stuData)
   }
 }
 </script>
