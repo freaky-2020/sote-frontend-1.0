@@ -88,7 +88,7 @@ export default {
   // examName: 'myExam'
   data() {
     return {
-      examineeId:1904011106,
+      examineeId:this.$store.getters.name,
 
       activeExamsName:'all',
       wordDialogVisible:false,

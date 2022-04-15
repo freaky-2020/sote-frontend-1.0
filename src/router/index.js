@@ -49,36 +49,36 @@ export const constantRoutes = [
       meta: { title: '主页', icon: 'dashboard' }
     }]
   },
-  // {
-  //   path: '/design',
-  //   component: Layout,
-  //   children: [
-  //     {
-  //       path: 'design',
-  //       name: 'Design',
-  //       component: () => import('@/views/design/design'),
-  //       meta: { title: '设计试卷', icon: 'el-icon-edit' }
-  //     },
-  //   ]
-  // },
+  {
+    path: '/design',
+    component: Layout,
+    children: [
+      {
+        path: 'design',
+        name: 'Design',
+        component: () => import('@/views/design/design'),
+        meta: { title: '设计试卷', icon: 'el-icon-edit' }
+      },
+    ]
+  },
   {
     path: '/register',
     name: 'register',
     component: () => import('@/views/login/register'),
     hidden: true,
   },
-  // {
-  //   path: '/judge',
-  //   component: Layout,
-  //   children: [
-  //     {
-  //       path: 'judge',
-  //       name: 'Judge',
-  //       component: () => import('@/views/judge/judge'),
-  //       meta: { title: '审批', icon: 'el-icon-s-check' }
-  //     },
-  //   ]
-  // },
+  {
+    path: '/judge',
+    component: Layout,
+    children: [
+      {
+        path: 'judge',
+        name: 'Judge',
+        component: () => import('@/views/judge/judge'),
+        meta: { title: '审批', icon: 'el-icon-s-check' }
+      },
+    ]
+  },
   // {
   //   path: '/display',
   //   component: Layout,
@@ -141,17 +141,29 @@ export const constantRoutes = [
     ]
   },
   {
-    path: '/grading',
+    path: '/exam_results',
     component: Layout,
     children: [
       {
-        path: 'grading',
-        name: 'Grading',
-        component: () => import('@/views/grading/grading'),
-        meta: { title: '老师给学生批卷', icon: 'el-icon-menu' }
-      },
+        path: 'index',
+        component: () => import('@/views/exam_results/index'),
+        name: 'Exam_results',
+        meta: { title: '考试结果', icon: 'user' }
+      }
     ]
   },
+  // {
+  //   path: '/grading',
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: 'grading',
+  //       name: 'Grading',
+  //       component: () => import('@/views/grading/grading'),
+  //       meta: { title: '老师给学生批卷', icon: 'el-icon-menu' }
+  //     },
+  //   ]
+  // },
   {
     path: '/bank',
     component: Layout,
@@ -388,36 +400,6 @@ export const asyncRoutes = [
         name: '权限测试页',
         meta: { title: '权限测试页', icon: 'link',roles: ['STUDENT'] }  //页面需要的权限
       }]
-  },
-  {
-    path: '/design',
-    component: Layout,
-    children: [
-      {
-        path: 'design',
-        name: 'Design',
-        component: () => import('@/views/design/design'),
-        meta: { title: '设计试卷', icon: 'el-icon-edit' }
-      },
-    ]
-  },
-  {
-    path: '/register',
-    name: 'register',
-    component: () => import('@/views/login/register'),
-    hidden: true,
-  },
-  {
-    path: '/judge',
-    component: Layout,
-    children: [
-      {
-        path: 'judge',
-        name: 'Judge',
-        component: () => import('@/views/judge/judge'),
-        meta: { title: '审批', icon: 'el-icon-s-check' }
-      },
-    ]
   },
   { path: '*', redirect: '/404', hidden: true }
 ];

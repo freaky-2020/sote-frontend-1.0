@@ -37,9 +37,16 @@ const actions = {
     return new Promise((resolve, reject) => {
       login({ username: username.trim(), password: password }).then(response => {
         const { data } = response
-        commit('SET_TOKEN', data.tokenHead+data.token)
-        setToken(data.tokenHead+data.token)
-        resolve()
+        if(response.code===401){
+        // if(false){
+          commit('SET_TOKEN', data.tokenHead+data.refreshToken)
+          setToken(data.tokenHead+data.refreshToken)
+          resolve()
+        }else{
+          commit('SET_TOKEN', data.tokenHead+data.token)
+          setToken(data.tokenHead+data.token)
+          resolve()
+        }
       }).catch(error => {
         reject(error)
       })
