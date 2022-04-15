@@ -138,7 +138,8 @@ export const constantRoutes = [
         name: 'Exam_',
         meta: { title: '考试主体', icon: 'user' }
       }
-    ]
+    ],
+    hidden: true
   },
   {
     path: '/exam_results',

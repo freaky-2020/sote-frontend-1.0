@@ -1,9 +1,9 @@
 <template>
   <div class="webrtc_face_detector">
     <div>
-      <div>
-        <el-button class="el-button" @click="fnOpen">开启监控</el-button>
-        <el-button class="el-button" @click="fnClose">结束监控</el-button>
+      <div class="button">
+        <el-button  @click="fnOpen">开启监控</el-button>
+        <el-button  @click="fnClose">结束监控</el-button>
       </div>
 <!--      <div>-->
 <!--        <span style="margin-right: 20px;"-->
@@ -234,15 +234,18 @@ export default {
 /*  color: white;*/
 /*  margin: 10px;*/
 /*}*/
-.el-button{
-  position: relative;
-  right: 0;
-  bottom: 0;
+.button{
+  position: fixed;
+  right: 90px;
+  bottom: 270px;
 }
 .see {
-  position: absolute;
+  position: fixed;
+
   right: 0;
+
   bottom: 0;
+
 }
 .see canvas {
   position: absolute;

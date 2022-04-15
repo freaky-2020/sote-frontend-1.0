@@ -236,14 +236,16 @@ button {
   margin: 10px;
 }
 .see {
-  position: absolute;
-  top: 0px;
-  left: 900px;
+  position: fixed;
+
+  right: 0px;
+
+  bottom: 0px;
+
+  width: 30%;
 }
 .see canvas {
-  position: absolute;
-  top: 0;
-  left: 0;
+  position: absolute;right: 0;bottom: 0;
 }
 .option {
   padding-bottom: 20px;
