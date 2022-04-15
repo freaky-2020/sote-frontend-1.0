@@ -161,7 +161,9 @@ export default {
       } else {
         this.times=this.times+1
         if(this.times>20){
-          alert("未检测到人脸")
+          this.$alert('未检测到人脸', '通知', {
+            confirmButtonText: '确定',
+          }).then()
           request({
             url:"exam/invi/updateCheat",
             method:'Get',

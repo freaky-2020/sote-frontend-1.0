@@ -58,9 +58,9 @@
            </el-option>
          </el-select>
        </div>
-       <div>
-         <el-button @click="debug">test</el-button>
-       </div>
+<!--       <div>-->
+<!--         <el-button @click="debug">test</el-button>-->
+<!--       </div>-->
      </div>
      <JsonExcel
        :data="form"

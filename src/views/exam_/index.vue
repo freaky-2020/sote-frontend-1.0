@@ -7,7 +7,7 @@
           <!--          目标组件中props中的数据名 = 当前组件的数据-->
         </el-col>
         <el-col :span="15" :xs="24">
-          <Display ref="display" v-if="flag" :exam_date="examDate" :quesNos="quesNos" :details="details" :examId="exam_id" :times="times" :isCheat="isCheat" />
+          <Display ref="display" v-if="flag" :exam_date="examDate" :quesNos="quesNos" :details="details" :examId="exam_id" :times="present_time" :isCheat="isCheat" />
         </el-col>
         <el-col :span="3" :xs="24">
           <Countdown v-if="$route.query.isView===undefined" :exam-value="JSON.parse($route.query.examValue)" />
@@ -55,8 +55,7 @@ export default {
       cutFlag:false,
       exam_id:this.$route.query.examId,
       examinee_id:this.$store.getters.name,
-      present_time:1,
-      times: this.$route.query.times,
+      present_time:this.$route.query.times,
       isCheat:false
     }
   },
@@ -117,6 +116,7 @@ export default {
         this.getSc()
         if(this.scNum+1>=this.totalNum){
           this.isCheat=true
+          console.log(this.isCheat)
           this.$refs.display.goSubmit(this.isCheat)
           request({
             url:"exam/invi/updateCheat",

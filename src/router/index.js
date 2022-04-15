@@ -153,18 +153,19 @@ export const constantRoutes = [
       }
     ]
   },
-  // {
-  //   path: '/grading',
-  //   component: Layout,
-  //   children: [
-  //     {
-  //       path: 'grading',
-  //       name: 'Grading',
-  //       component: () => import('@/views/grading/grading'),
-  //       meta: { title: '老师给学生批卷', icon: 'el-icon-menu' }
-  //     },
-  //   ]
-  // },
+  {
+    path: '/grading',
+    component: Layout,
+    children: [
+      {
+        path: 'grading',
+        name: 'Grading',
+        component: () => import('@/views/grading/grading'),
+        meta: { title: '老师给学生批卷', icon: 'el-icon-menu' }
+      },
+    ],
+    hidden: true
+  },
   {
     path: '/bank',
     component: Layout,

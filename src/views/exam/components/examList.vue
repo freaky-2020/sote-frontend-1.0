@@ -27,6 +27,11 @@ export default {
   data() {
     return {
       userName: this.$store.getters.name,
+      paperId:null,
+      details:null,
+      examId:null,
+      times:null,
+      cuttingTimes:null,
       examValue: {}
     }
   },
@@ -36,32 +41,43 @@ export default {
   ],
   methods: {
     toExam(item) {
-      request({
-        url: '/exam/stu/start/' + this.userName + '/' + item.examInfo.examId + '/' + (item.time + 1),
-        method: 'Get'
-      }).then(res => {
-        console.log(res)
-        Object.keys(res).forEach(key => {
-          console.log(key)
-          if (key === 'success') {
-            console.log(res['success'])
-            console.log(item)
-            this.paperId = res['success'].examInfo.paperId
-            this.$router.push({
-              name: 'Exam_', query:
-                {
-                  paperId: item.examInfo.paperId,
-                  details: res['success'].stuExam.details,
-                  examValue: JSON.stringify(res['success']),
-                  examId: item.examInfo.examId,
-                  times: item.time+1,
-                  cuttingTimes:item.examInfo.cuttingTimes
-                }
-            })
-          } else {
-            alert(key)
-            this.$emit('getExamInfo')
-          }
+      this.$confirm('你将进入考试，准备好了吗', '提示', {
+        confirmButtonText: '好了',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        request({
+          url: '/exam/stu/start/' + this.userName + '/' + item.examInfo.examId + '/' + (item.time + 1),
+          method: 'Get'
+        }).then(res => {
+          console.log(res)
+          Object.keys(res).forEach(key => {
+            console.log(key)
+            if (key === 'success') {
+              console.log(res['success'])
+              console.log(item)
+              this.paperId = res['success'].examInfo.paperId
+              this.details=res['success'].stuExam.details
+              this.examValue=JSON.stringify(res['success'])
+              this.examId=item.examInfo.examId
+              this.times=item.time + 1
+              this.cuttingTimes=item.examInfo.cuttingTimes
+              this.$router.push({
+                name: 'Exam_', query:
+                  {
+                    paperId: this.paperId,
+                    details: this.details,
+                    examValue: this.examValue,
+                    examId: this.examId,
+                    times: this.times,
+                    cuttingTimes: this.cuttingTimes
+                  }
+              })
+            } else {
+              alert(key)
+              this.$emit('getExamInfo')
+            }
+          })
         })
       })
     }
