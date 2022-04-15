@@ -1,10 +1,10 @@
 <template>
   <el-card>
     <div>
-      <div v-for="(question,index) in exam_date[1]" :key="index+'1'">
+      <div v-for="(question,index) in exam_data[1]" :key="index+'1'">
         <div v-if="num === index">
           <div slot="header" class="clearfix">
-            <h3 class="box-center">一、单选题(共{{ exam_date[1].length }}题，合计{{ getAllScore(exam_date[1]) }}分)</h3>
+            <h3 class="box-center">一、单选题(共{{ exam_data[1].length }}题，合计{{ getAllScore(exam_data[1]) }}分)</h3>
           </div>
           <h3 class="box-center">{{ question.quesNo }}、{{ replace_stem(question.stem) }}</h3>
           <!--              <p class="question-score">多选题 0分</p>-->
@@ -12,22 +12,22 @@
           <!--              上面的那个id，用来答题卡定位...ques_no代表题号，因为没法直接取得所有试题的序号，只能取出一种题型的序号-->
           <!--              choice也需要再嵌套一层，因为id用来显示是否选中按钮，同时也不同用四个按钮，直接一个for循环-->
           <el-button class="circle_btn" size="mini" circle
-                     :type="$store.state.detailDate[question.quesNo-1].answer === '1'?'primary':''"
+                     :type="detailData[question.quesNo-1].answer === '1'?'primary':''"
                      @click="answerOne(question.quesNo-1, '1')">A
           </el-button>
           {{ question.choice1 }}<br>
           <el-button class="circle_btn" size="mini" circle
-                     :type="$store.state.detailDate[question.quesNo-1].answer ==='2'?'primary' :''"
+                     :type="detailData[question.quesNo-1].answer ==='2'?'primary' :''"
                      @click="answerOne(question.quesNo-1, '2')">B
           </el-button>
           {{ question.choice2 }}<br>
           <el-button class="circle_btn" size="mini" circle
-                     :type="$store.state.detailDate[question.quesNo-1].answer ==='3'?'primary' :''"
+                     :type="detailData[question.quesNo-1].answer ==='3'?'primary' :''"
                      @click="answerOne(question.quesNo-1, '3')">C
           </el-button>
           {{ question.choice3 }}<br>
           <el-button class="circle_btn" size="mini" circle
-                     :type="$store.state.detailDate[question.quesNo-1].answer ==='4'?'primary' :''"
+                     :type="detailData[question.quesNo-1].answer ==='4'?'primary' :''"
                      @click="answerOne(question.quesNo-1, '4')">D
           </el-button>
           {{ question.choice4 }}
@@ -41,30 +41,30 @@
           </el-row>
         </div>
       </div>
-      <div v-for="(question,index) in exam_date[2]" :key="index+'2'">
-        <div v-if="num === (index+exam_date[1].length)">
+      <div v-for="(question,index) in exam_data[2]" :key="index+'2'">
+        <div v-if="num === (index+exam_data[1].length)">
           <div slot="header" class="clearfix">
-            <h3 class="box-center">二、多选题(共{{ exam_date[2].length }}题，合计{{ getAllScore(exam_date[2]) }}分)</h3>
+            <h3 class="box-center">二、多选题(共{{ exam_data[2].length }}题，合计{{ getAllScore(exam_data[2]) }}分)</h3>
           </div>
           <h3 class="box-center">{{ question.quesNo }}、{{ replace_stem(question.stem) }}</h3>
           <el-button class="circle_btn" size="mini" circle
-                     :type="judgeGroup($store.state.detailDate[question.quesNo-1].answer, '1')?'primary':''"
+                     :type="judgeGroup(detailData[question.quesNo-1].answer, '1')?'primary':''"
                      @click="answerGroup(question.quesNo-1,'1')">A
           </el-button>
           {{ question.choice1 }}<br>
           <el-button class="circle_btn" size="mini" circle
-                     :type="judgeGroup($store.state.detailDate[question.quesNo-1].answer, '2')?'primary':''"
-                     @click="answerGroup(question.quesNo-1,2)">B
+                     :type="judgeGroup(detailData[question.quesNo-1].answer, '2')?'primary':''"
+                     @click="answerGroup(question.quesNo-1,'2')">B
           </el-button>
           {{ question.choice2 }}<br>
           <el-button class="circle_btn" size="mini" circle
-                     :type="judgeGroup($store.state.detailDate[question.quesNo-1].answer, '3')?'primary':''"
-                     @click="answerGroup(question.quesNo-1,3)">C
+                     :type="judgeGroup(detailData[question.quesNo-1].answer, '3')?'primary':''"
+                     @click="answerGroup(question.quesNo-1,'3')">C
           </el-button>
           {{ question.choice3 }}<br>
           <el-button class="circle_btn" size="mini" circle
-                     :type="judgeGroup($store.state.detailDate[question.quesNo-1].answer, '4')?'primary':''"
-                     @click="answerGroup(question.quesNo-1,4)">D
+                     :type="judgeGroup(detailData[question.quesNo-1].answer, '4')?'primary':''"
+                     @click="answerGroup(question.quesNo-1,'4')">D
           </el-button>
           {{ question.choice4 }}
           <el-row>
@@ -78,20 +78,20 @@
         </div>
       </div>
 
-      <div v-for="(question,index) in exam_date[3]" :key="index+'3'">
-        <div v-if="num === (index+exam_date[1].length+exam_date[2].length)">
+      <div v-for="(question,index) in exam_data[3]" :key="index+'3'">
+        <div v-if="num === (index+exam_data[1].length+exam_data[2].length)">
           <div slot="header" class="clearfix">
-            <h3 class="box-center">三、判断题(共{{ exam_date[3].length }}题，合计{{ getAllScore(exam_date[3]) }}分)</h3>
+            <h3 class="box-center">三、判断题(共{{ exam_data[3].length }}题，合计{{ getAllScore(exam_data[3]) }}分)</h3>
           </div>
           <h3 class="box-center">{{ question.quesNo }}、{{ replace_stem(question.stem) }}</h3>
           <el-button class="circle_btn" size="mini" circle
-                     :type="$store.state.detailDate[question.quesNo-1].answer === 1?'primary':''"
-                     @click="$store.state.detailDate[question.quesNo-1].answer = 1">A
+                     :type="detailData[question.quesNo-1].answer === '1'?'primary':''"
+                     @click="answerOne(question.quesNo-1, '1')">A
           </el-button>
           正确<br>
           <el-button class="circle_btn" size="mini" circle
-                     :type="$store.state.detailDate[question.quesNo-1].answer === 2?'primary':''"
-                     @click="$store.state.detailDate[question.quesNo-1].answer = 2">B
+                     :type="detailData[question.quesNo-1].answer === '2'?'primary':''"
+                     @click="answerOne(question.quesNo-1, '2')">B
           </el-button>
           错误<br>
           <el-row>
@@ -105,10 +105,10 @@
         </div>
       </div>
 
-      <div v-for="(question,index) in exam_date[4]" :key="index+'4'">
-        <div v-if="num === (index+exam_date[1].length+exam_date[2].length+exam_date[3].length)">
+      <div v-for="(question,index) in exam_data[4]" :key="index+'4'">
+        <div v-if="num === (index+exam_data[1].length+exam_data[2].length+exam_data[3].length)">
           <div slot="header" class="clearfix">
-            <h3 class="box-center">四、填空题(共{{ exam_date[4].length }}题，合计{{ getAllScore(exam_date[4]) }}分)</h3>
+            <h3 class="box-center">四、填空题(共{{ exam_data[4].length }}题，合计{{ getAllScore(exam_data[4]) }}分)</h3>
           </div>
           <h3 class="box-center" v-html="question.quesNo+'、'+replace_stem_judge(replace_stem(question.stem))"/>
           <!--          题干传过来字符串，用{}表示空的位置，使用jquery来替代{}字符为<input type="text">,然后使用v-html来转换为____，题干题干中间可以有多个____，-->
@@ -124,13 +124,13 @@
         </div>
       </div>
 
-      <div v-for="(question,index) in exam_date[5]" :key="index+'5'">
-        <div v-if="num === (index+exam_date[1].length+exam_date[2].length+exam_date[3].length+exam_date[4].length)">
+      <div v-for="(question,index) in exam_data[5]" :key="index+'5'">
+        <div v-if="num === (index+exam_data[1].length+exam_data[2].length+exam_data[3].length+exam_data[4].length)">
           <div slot="header" class="clearfix">
-            <h3 class="box-center">五、简答题(共{{ exam_date[5].length }}题，合计{{ getAllScore(exam_date[5]) }}分)</h3>
+            <h3 class="box-center">五、简答题(共{{ exam_data[5].length }}题，合计{{ getAllScore(exam_data[5]) }}分)</h3>
           </div>
           <h3 class="box-center">{{ question.quesNo }}、{{ replace_stem(question.stem) }}</h3>
-          <el-input v-model="$store.state.detailDate[question.quesNo-1].answer" type="textarea" :rows="5" resize="none"
+          <el-input v-model="detailData[question.quesNo-1].answer" type="textarea" :rows="5" resize="none"
                     maxlength="500"/>
           <el-row>
             <el-col :span="3">
@@ -152,7 +152,7 @@ import request from '@/utils/request'
 
 export default {
   name: 'Display',
-  props: ['exam_date', 'quesNos', 'details', 'examId', 'times', 'isCheat'],
+  props: ['exam_data','detailData', 'quesNos', 'details', 'examId', 'times', 'isCheat'],
   data() {
     return {
       preDisabled: true // 上禁用按钮,下禁用在vuex中
@@ -172,7 +172,7 @@ export default {
         this.$store.commit('nextDisableFalse')
       }
       this.preDisabled = now === 0
-      this.submitDate(old + 1) // 当num值改变时，提交上一个题的答案
+      this.submitData(old + 1) // 当num值改变时，提交上一个题的答案
     }
   },
   created() {
@@ -189,10 +189,14 @@ export default {
   },
   methods: {
     answerOne(no, select) {
-      this.$store.commit('setDetailData_AnswerOne',{no: no, select: select})
+      if(this.detailData[no].answer === select){
+        this.detailData[no].answer = null
+      }
+      else{
+        this.detailData[no].answer = select
+      }
     },
     judgeGroup(answer, select){
-
       if (answer === null){
         return false
       }
@@ -201,26 +205,36 @@ export default {
       }
     },
     answerGroup(no, select) {
-      this.$store.commit('setDetailData_AnswerGroup',{no: no, select: select})
-      alert(this.$store.state.detailDate[data.no].answer)
+      if(this.detailData[no].answer === null){
+        this.detailData[no].answer = select
+      }
+      else if (this.detailData[no].answer.indexOf(select) > -1) {
+        const x = this.detailData[no].answer.indexOf(select)
+        if (x > -1) {
+          if((x + 1) === this.detailData[no].answer.length)
+            this.detailData[no].answer = this.detailData[no].answer.slice(0, x-1)
+          else{
+            this.detailData[no].answer = this.detailData[no].answer.replace(select+',','')
+          }
+          if ((this.detailData[no].answer.includes('1') === false) && (this.detailData[no].answer.includes('2') === false) && (this.detailData[no].answer.includes('3') === false) && (this.detailData[no].answer.includes('4') === false)) {
+            this.detailData[no].answer = null
+          }
+        }
+      }
+      else {
+        this.detailData[no].answer = this.detailData[no].answer + ',' + select
+      }
     },
-    fetchData() {
-      request({
-        url: 'exam/detail/get/' + this.details,
-        method: 'get'
-      }).then(response => {
-        console.log(response)
-        this.$store.commit('setDetailDate', response)
-      }).catch(err => {
-        console.log(err)
-      })
+    answerBlank(no) {
+      alert(this.detailData[no].answer)
+      return this.detailData[no].answer
     },
-    submitDate(num) {
+    submitData(num) {
       request({
         url: 'exam/detail/answer' + '/' + this.details + '/' + num,
         method: 'get',
         params: {
-          answer: this.$store.state.detailDate[num - 1].answer
+          answer: this.detailData[num - 1].answer
         }
       }).then(response => {
         console.log(response)
@@ -237,7 +251,7 @@ export default {
     replace_stem_judge(stem) {
       return stem.replaceAll('{}', '<div class="input-box">\n' +
         '  <label class="input-box__label"></label>\n' +
-        '  <input v-model="$store.state.detailDate[question.quesNo-1].answer" type="text" class="input-box__input"/>\n' +
+        '  <input v-model="answerBlank(question.quesNo-1)" type="text" class="input-box__input"/>\n' +
         '</div>')
     },
     next() {
@@ -257,7 +271,7 @@ export default {
     },
     goSubmit(isCheat) {
       if (isCheat) {
-        this.submitDate(this.num + 1)
+        this.submitData(this.num + 1)
         this.$alert('强制交卷', '通知', {
           confirmButtonText: '确定',
         }).then(async ()=>{
@@ -273,7 +287,7 @@ export default {
           confirmButtonText: '确定',
           cancelButtonText: '取消'
         }).then(async() => {
-          this.submitDate(this.num + 1)
+          this.submitData(this.num + 1)
           request({
             url: '/exam/stu/submit/' + this.$store.getters.name + '/' + this.examId + '/' + this.times,
             method: 'Get'
@@ -327,7 +341,7 @@ export default {
   line-height: normal;
   visibility: hidden;
   font-family: inherit;
-  height: 13px;
+  height: 12px;
   padding: 0 10px;
 }
 

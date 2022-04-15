@@ -18,11 +18,11 @@
     <li class="menu-item">
       <div class="item-label">当前进度</div>
       <div class="item-press">
-        <span>{{ radio.length }}</span>
-        <span>{{ examinationData.length }}</span>
+        <span>{{ progress }}</span>
+        <span>{{ detailData.length }}</span>
       </div>
       <div class="percentage">
-        <el-progress :percentage="percentage" :color="customColor"></el-progress>
+        <el-progress :percentage="Math.round(progress/detailData.length *100)" :color="customColor"></el-progress>
       </div>
     </li>
   </el-card>
@@ -32,7 +32,7 @@
 import Time from './Time'
 export default {
   name: 'Submit',
-  props:['examValue'],
+  props:['examValue','detailData','progress'],
   components: { Time },
   data() {
     return {
@@ -42,7 +42,6 @@ export default {
       submitView: false,
       radio: ['A'], // 单选真题答案
       checkResult: false, // 左侧栏、右侧栏、答题结果栏
-      percentage: 25
     }
   },
   methods: {
