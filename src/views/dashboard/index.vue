@@ -18,24 +18,19 @@
           </div>
         </el-col>
         <el-col :span="7" >
+
                 <div class="chart-div" style="height: 350px">
-                  <donut-chart></donut-chart>
+<!--                  <el-collapse v-model="activeName" accordion>-->
+<!--                    <el-collapse-item title="近期考试" name="1">-->
+                      <donut-chart ></donut-chart>
+<!--                    </el-collapse-item>-->
+<!--                  </el-collapse>-->
                 </div>
         </el-col>
-<!--        <el-col :xs="4" :sm="6" :md="8" :lg="9" :xl="11"><div class="grid-content bg-purple"></div></el-col>-->
-<!--        <el-col :xs="8" :sm="6" :md="4" :lg="3" :xl="1"><div class="grid-content bg-purple-light"></div></el-col>-->
-<!--        <el-col :xs="24" :sm="24" :lg="8">-->
-<!--          <div class="chart-div">-->
-<!--            <mix-chart></mix-chart>-->
-<!--          </div>-->
-<!--        </el-col>-->
-<!--        <el-col :xs="24" :sm="24" :lg="8">-->
-<!--          <div class="donut-chart">-->
-<!--            <donut-chart></donut-chart>-->
-<!--          </div>-->
-<!--        </el-col>-->
       </el-row>
+      <el-divider></el-divider>
     </div>
+
   </div>
 </template>
 

@@ -1,6 +1,6 @@
 <template>
-
-  <div class="article-container">
+<div class="background-container">
+  <div class="article-container" style="margin-right: 17%">
     <h3 class="pagetitle">考生成绩</h3>
     <div style="margin: 15px 0">
       <el-input placeholder="请输入内容" v-model="input" class="input-with-select">
@@ -78,16 +78,25 @@
         :total="total">
       </el-pagination>
     </div>
-    <pie></pie>
+
+<!--    <pie></pie>-->
   </div>
+  <div  class="chart-div" style="height: 350px;width: 200px;position:relative;top:-300px;left: 85%">
+    <donut-chart ></donut-chart>
+  </div>
+</div>
+
 </template>
 
 <script>
 import request from '@/utils/request'
 import pie from '@/views/grade/components/pie'
+import DonutChart from '@/components/Charts/DonutChart'
+
 export default {
   name: 'grade',
-  components:{pie},
+  components:{pie
+  ,DonutChart},
   data(){
     return{
       select: '1',

@@ -43,6 +43,10 @@ Vue.prototype.$echarts = echarts
 
 Vue.config.productionTip = false
 
+import dataV from '@jiaminghi/data-view'
+Vue.use(dataV)
+
+
 new Vue({
   el: '#app',
   router,

@@ -33,6 +33,7 @@ import AppMain from '@/layout/components/AppMain'
  * all roles can be accessed
  */
 export const constantRoutes = [
+
   {
     path: '/login',
     component: () => import('@/views/login/index'),
@@ -193,6 +194,12 @@ export const constantRoutes = [
         meta: { title: '考试记录',icon: 'form' }
       },
     ]
+  },
+  {
+    path: '/visualization',
+    component: () => import('@/views/visualization/index'),
+    hidden: false,
+    meta: { title: '可视化',icon: '' }
   },
 
 

@@ -1,5 +1,5 @@
 <template>
-  <div :id="id" :class="className" style="height: 100%;width: 100% " />
+  <div :id="id" :class="className" :style="{height:height,width:width}" />
 </template>
 
 <script>
@@ -19,11 +19,11 @@ export default {
     },
     width: {
       type: String,
-      default: '200px'
+      default: '100%'
     },
     height: {
       type: String,
-      default: '200px'
+      default: '100%'
     }
   },
   data() {
@@ -47,12 +47,13 @@ export default {
       this.chart.setOption({
         backgroundColor: '#ffffff',
         title: {
-          text: '最近考试',
+          text: ' 第一次测验-成绩分布',
           x: '20',
-          bottom: '20',
+          top: '20',
           textStyle: {
+            fontWeight:500,
             color: '#19348a',
-            fontSize: '14px'
+            fontSize: '13px'
           },
           subtextStyle: {
             color: '#90979c',
@@ -73,7 +74,7 @@ export default {
         //   }
         // },
         legend: {
-          top: '5%',
+          bottom: '3%',
           left: 'center'
         },
         calculable: true,
@@ -96,7 +97,7 @@ export default {
               label: {
                 show: true,
                 fontSize: '40',
-                fontWeight: 'bold'
+                // fontWeight: 'bold'
               }
             },
             labelLine: {
