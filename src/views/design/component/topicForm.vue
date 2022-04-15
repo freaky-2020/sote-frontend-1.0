@@ -2,7 +2,7 @@
   <div class="filter-container" v-if="isShow">
     <div style="margin-bottom: 20px">
       <div style="float:left;display:inline; padding-top:10px;margin-bottom: 10px">
-<!--        <el-tag type="info" v-show="!isEditTitle" style="color: #F19E00FF ;font-size: 15px">{{topicTitle}}</el-tag>-->
+        <el-tag type="info" v-show="!isEditTitle" style="color: #F19E00FF ;font-size: 15px">{{topicTitle}}</el-tag>
         <!--        <el-input-->
         <!--          type="text"-->
         <!--          v-show="isEditTitle"-->
@@ -99,7 +99,7 @@
             <el-button
               size="mini"
               type="primary"
-              @click="handleEdit(scope.row)" >编辑</el-button>
+              @click="handleEdit(scope.row)">编辑</el-button>
             <el-button
               size="mini"
               type="danger"
@@ -326,14 +326,27 @@ export default {
   },
   mounted() {
     this.getAllScore()
-    this.$nextTick()
-    console.log(this.examForm)
+    console.log(this.form)
+  },
+  created() {
   },
   updated() {
   },
-  watch:{
-    examForm(newVal) {
+  watch: {
+    examForm() {
+      this.form = this.examForm
+      this.getAllScore()
+    },
+    form(newVal) {
       this.$emit('update:examForm', newVal);
+      console.log(this.form)
+    },
+    sum: {
+      handler: function(newVal) {
+        this.$emit('update:scoreSums', newVal);
+      },
+      immediate: true,
+      deep:true,
     },
   }
 }
