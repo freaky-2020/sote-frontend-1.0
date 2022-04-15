@@ -34,7 +34,6 @@ export default {
   data() {
     return {
       sum: 0,
-      details: 1
     }
   },
   computed: {

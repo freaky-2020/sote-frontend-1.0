@@ -13,22 +13,22 @@
           <!--              choice也需要再嵌套一层，因为id用来显示是否选中按钮，同时也不同用四个按钮，直接一个for循环-->
           <el-button class="circle_btn" size="mini" circle
                      :type="$store.state.detailDate[question.quesNo-1].answer === '1'?'primary':''"
-                     @click="$store.state.detailDate[question.quesNo-1].answer === 1">A
+                     @click="answerOne(question.quesNo-1, '1')">A
           </el-button>
           {{ question.choice1 }}<br>
           <el-button class="circle_btn" size="mini" circle
                      :type="$store.state.detailDate[question.quesNo-1].answer ==='2'?'primary' :''"
-                     @click="$store.state.detailDate[question.quesNo-1].answer === 2">B
+                     @click="answerOne(question.quesNo-1, '2')">B
           </el-button>
           {{ question.choice2 }}<br>
           <el-button class="circle_btn" size="mini" circle
                      :type="$store.state.detailDate[question.quesNo-1].answer ==='3'?'primary' :''"
-                     @click="$store.state.detailDate[question.quesNo-1].answer === 3">C
+                     @click="answerOne(question.quesNo-1, '3')">C
           </el-button>
           {{ question.choice3 }}<br>
           <el-button class="circle_btn" size="mini" circle
                      :type="$store.state.detailDate[question.quesNo-1].answer ==='4'?'primary' :''"
-                     @click="$store.state.detailDate[question.quesNo-1].answer === 4">D
+                     @click="answerOne(question.quesNo-1, '4')">D
           </el-button>
           {{ question.choice4 }}
           <el-row>
@@ -48,23 +48,23 @@
           </div>
           <h3 class="box-center">{{ question.quesNo }}、{{ replace_stem(question.stem) }}</h3>
           <el-button class="circle_btn" size="mini" circle
-                     :type="$store.state.detailDate[question.quesNo-1].answer.includes('1')?'primary':''"
-                     @click="anwserGroup(question.quesNo,1)">A
+                     :type="judgeGroup($store.state.detailDate[question.quesNo-1].answer, '1')?'primary':''"
+                     @click="answerGroup(question.quesNo-1,'1')">A
           </el-button>
           {{ question.choice1 }}<br>
           <el-button class="circle_btn" size="mini" circle
-                     :type="$store.state.detailDate[question.quesNo-1].answer.includes('2')?'primary':''"
-                     @click="anwserGroup(question.quesNo,2)">B
+                     :type="judgeGroup($store.state.detailDate[question.quesNo-1].answer, '2')?'primary':''"
+                     @click="answerGroup(question.quesNo-1,2)">B
           </el-button>
           {{ question.choice2 }}<br>
           <el-button class="circle_btn" size="mini" circle
-                     :type="$store.state.detailDate[question.quesNo-1].answer.includes('3')?'primary':''"
-                     @click="anwserGroup(question.quesNo,3)">C
+                     :type="judgeGroup($store.state.detailDate[question.quesNo-1].answer, '3')?'primary':''"
+                     @click="answerGroup(question.quesNo-1,3)">C
           </el-button>
           {{ question.choice3 }}<br>
           <el-button class="circle_btn" size="mini" circle
-                     :type="$store.state.detailDate[question.quesNo-1].answer.includes('4')?'primary':''"
-                     @click="anwserGroup(question.quesNo,4)">D
+                     :type="judgeGroup($store.state.detailDate[question.quesNo-1].answer, '4')?'primary':''"
+                     @click="answerGroup(question.quesNo-1,4)">D
           </el-button>
           {{ question.choice4 }}
           <el-row>
@@ -188,17 +188,21 @@ export default {
     })
   },
   methods: {
-    anwserGroup(no, select) {
-      // 存在的话就取消，不存在就添加
-      if (this.$store.state.detailDate[no - 1].answer.includes(select)) {
-        // includes()方法判断是否包含某一元素,返回true或false表示是否包含元素，对NaN一样有效
-        const x = this.$store.state.detailDate[no - 1].answer.indexOf(select) // 判断数组中是否有选中的id,如果有则去掉
-        if (x > -1) {
-          this.$store.state.detailDate[no - 1].answer.splice(x, 1)
-        }
-      } else {
-        this.$store.state.detailDate[no - 1].answer = this.$store.state.detailDate[no - 1].answer + ',' + select
+    answerOne(no, select) {
+      this.$store.commit('setDetailData_AnswerOne',{no: no, select: select})
+    },
+    judgeGroup(answer, select){
+
+      if (answer === null){
+        return false
       }
+      else{
+        return answer.includes(select)
+      }
+    },
+    answerGroup(no, select) {
+      this.$store.commit('setDetailData_AnswerGroup',{no: no, select: select})
+      alert(this.$store.state.detailDate[data.no].answer)
     },
     fetchData() {
       request({

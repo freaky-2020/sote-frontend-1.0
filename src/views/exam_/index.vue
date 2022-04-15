@@ -3,7 +3,7 @@
     <div>
       <el-row :gutter="20">
         <el-col :span="5" :xs="24">
-          <Card v-if="flag" :exam_date="examDate" :quesNos="quesNos" :details="$route.query.details"/>
+          <Card v-if="flag" :exam_date="examDate" :quesNos="quesNos" :details="details"/>
           <!--          目标组件中props中的数据名 = 当前组件的数据-->
         </el-col>
         <el-col :span="15" :xs="24">
