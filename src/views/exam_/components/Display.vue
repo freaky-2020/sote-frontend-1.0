@@ -60,9 +60,9 @@
             <h3 class="box-center">三、判断题(共{{ exam_data[3].length }}题，合计{{ getAllScore(exam_data[3]) }}分)</h3>
           </div>
           <h3 class="box-center">{{ question.quesNo }}、{{ replace_stem(question.stem) }}</h3>
-          <el-button class="circle_btn" size="mini" circle :type="$store.state.detailData[question.quesNo-1].answer === '1'?'primary':''" @click="answerOne(question.quesNo-1, '1')">A</el-button>
+          <el-button class="circle_btn" size="mini" circle :type="$store.state.detailDate[question.quesNo-1].answer === 1?'primary':''" @click="$store.state.detailDate[question.quesNo-1].answer = 1">A</el-button>
           正确<br>
-          <el-button class="circle_btn" size="mini" circle :type="$store.state.detailData[question.quesNo-1].answer === '2'?'primary':''" @click="answerOne(question.quesNo-1, '2')">B</el-button>
+          <el-button class="circle_btn" size="mini" circle :type="$store.state.detailDate[question.quesNo-1].answer === 2?'primary':''" @click="$store.state.detailDate[question.quesNo-1].answer = 2">B</el-button>
           错误<br>
           <el-row>
             <el-col :span="3">
@@ -80,7 +80,7 @@
           <div slot="header" class="clearfix">
             <h3 class="box-center">四、填空题(共{{ exam_data[4].length }}题，合计{{ getAllScore(exam_data[4]) }}分)</h3>
           </div>
-          <h3 class="box-center" v-html="question.quesNo+'、'+replace_stem_judge(replace_stem(question.stem))" />
+          <h3 class="box-center" v-html="question.quesNo+'、'+replace_stem_judge(replace_stem(question.stem))"/>
           <!--          题干传过来字符串，用{}表示空的位置，使用jquery来替代{}字符为<input type="text">,然后使用v-html来转换为____，题干题干中间可以有多个____，-->
           <!--                另外，input好像都要绑定一个数据v-model，这样正好可以获取用户输入的答案，比如：v-model="ruleForm.resource[index]"-->
           <el-row>

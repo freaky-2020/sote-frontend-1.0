@@ -219,7 +219,7 @@ export default {
         examName: '',
         examNote:'',
         subjectId: null,
-        invigilatorId:null,
+        invigilatorId:this.$store.getters.name,
 
         // needsign: false,
         // type: [],
@@ -228,7 +228,6 @@ export default {
         // newClassification:'',
         // classificationDialogVisible:false,
         // signatureDialogVisible:false,
-
 
         startTime:'',
         deadline:'',
@@ -256,7 +255,7 @@ export default {
   methods: {
     getSubject(){
       request({
-        url:'http://124.222.238.194:10010/bank/subject',
+        url:'/bank/subject',
         method:'Get',
       }).then(response=>{
         console.log(response)
@@ -265,7 +264,7 @@ export default {
     },
     getTeacher(){
       request({
-        url:'http://124.222.238.194:10010/auth/user/page/teacher',
+        url:'/auth/user/page/teacher',
         method:'Get',
       }).then(res=>{
         console.log(res)
@@ -277,7 +276,7 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           request({
-            url:'http://124.222.238.194:10010/exam/info/add',
+            url:'/exam/info/add',
             method:'post',
             params:this.form,
           // {allowableTime:this.form.allowableTime,

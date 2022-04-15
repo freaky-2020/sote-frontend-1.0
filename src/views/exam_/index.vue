@@ -3,10 +3,11 @@
     <div>
       <el-row :gutter="20">
         <el-col :span="5" :xs="24">
-          <Card v-if="flag" :exam_data="examData" :quesNos="quesNos" />
+          <Card v-if="flag" :exam_date="examData" :quesNos="quesNos" :details="$route.query.details"/>
+          <!--          目标组件中props中的数据名 = 当前组件的数据-->
         </el-col>
         <el-col :span="15" :xs="24">
-          <Display v-if="flag" :exam_data="examData" :quesNos="quesNos"/>
+          <Display ref="display" v-if="flag" :exam_date="examData" :quesNos="quesNos" :details="details" :examId="exam_id" />
         </el-col>
         <el-col :span="3" :xs="24">
           <!--          <Countdown :exam-value="JSON.parse($route.query.examValue)" />-->
@@ -27,14 +28,18 @@ export default {
   data() {
     return {
       flag: false,
-      paperId: 1,
       examData: null,
+      paperId: this.$route.query.paperId,
+      details: this.$route.query.details,
+      examDate: null,
       examValue: null,
       quesNos: null
     }
   },
   created() {
     this.fetchData()
+    let examValue = JSON.parse(this.$route.query.examValue)
+    this.paperId = examValue.examInfo.paperId
   },
   methods: {
     fetchData() {

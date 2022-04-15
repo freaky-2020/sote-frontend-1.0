@@ -59,6 +59,7 @@ export default {
 <style lang="scss" scoped>
 .buton{
   margin-bottom: 5px;
+  margin-top: 5px;
 }
 </style>
 

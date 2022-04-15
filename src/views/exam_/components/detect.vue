@@ -1,10 +1,9 @@
 <template>
-  <div >
-    <div >
+  <div class="webrtc_face_detector">
+    <div>
       <div>
-        <label>面板操作：</label>
-        <button @click="fnOpen">启动摄像头视频媒体</button>
-        <button @click="fnClose">结束摄像头视频媒体</button>
+        <el-button class="el-button" @click="fnOpen">开启监控</el-button>
+        <el-button class="el-button" @click="fnClose">结束监控</el-button>
       </div>
 <!--      <div>-->
 <!--        <span style="margin-right: 20px;"-->
@@ -227,18 +226,23 @@ export default {
 </script>
 
 <style scoped>
-button {
-  height: 30px;
-  border: 2px #42b983 solid;
-  border-radius: 4px;
-  background: #42b983;
-  color: white;
-  margin: 10px;
+/*button {*/
+/*  height: 30px;*/
+/*  border: 2px #42b983 solid;*/
+/*  border-radius: 4px;*/
+/*  background: #42b983;*/
+/*  color: white;*/
+/*  margin: 10px;*/
+/*}*/
+.el-button{
+  position: relative;
+  right: 0;
+  bottom: 0;
 }
 .see {
   position: absolute;
-  top: 0px;
-  left: 900px;
+  right: 0;
+  bottom: 0;
 }
 .see canvas {
   position: absolute;
@@ -250,6 +254,7 @@ button {
 }
 .option div {
   padding: 10px;
+  border-bottom: 2px #42b983 solid;
 }
 .option div label {
   margin-right: 20px;

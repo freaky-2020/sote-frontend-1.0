@@ -9,6 +9,7 @@
           <el-tab-pane label="开放中" name="ongoing"></el-tab-pane>
           <el-tab-pane label="未开始" name="future"></el-tab-pane>
           <el-tab-pane label="已结束" name="finished"></el-tab-pane>
+          <el-tab-pane label="已发布" name="published"></el-tab-pane>
         </el-tabs>
 
         <li class="search-li">
@@ -87,7 +88,7 @@ export default {
   // examName: 'myExam'
   data() {
     return {
-      examineeId:1904011106,
+      examineeId:this.$store.getters.name,
 
       activeExamsName:'all',
       wordDialogVisible:false,
@@ -99,7 +100,7 @@ export default {
       futureExam:null,
       ongoingExam:null,
       finishedExam:null,
-
+      publishedExam:null,
       map:[],
       loading: false,
       key: '', //搜索关键字
@@ -120,6 +121,8 @@ export default {
         return this.futureExam
       }else if(this.activeExamsName==='finished'){
         return this.finishedExam
+      }else if(this.activeExamsName==='published'){
+        return this.publishedExam
       }
     },
     newDisplayExam(){
@@ -168,6 +171,12 @@ export default {
             // break;
           }
         }
+        for (var j = 0; j < this.publishedExam.length; j++) {
+          if (this.publishedExam[j].subjectId === this.allSubject[i].id) {
+            this.publishedExam[j].subjectName = this.allSubject[i].subjectName
+            // break;
+          }
+        }
       }
     },
     //获取当前所有考试信息
@@ -175,7 +184,7 @@ export default {
       request({
         // url:'/exam/info/query',
         // url:'/exam/stu/getExam/stu/{userName}'+this.userName
-        url:'/exam/stu/getExam/stu/1904011106',
+        url:'/exam/stu/getExam/stu/' + this.examineeId,
         method:'Get',
       }).then(res=>{
         console.log(res)
@@ -183,8 +192,9 @@ export default {
         this.futureExam=res[0]
         this.ongoingExam=res[1]
         this.finishedExam=res[2]
+        this.publishedExam=res[3]
         this.getExamSubject();
-        this.allExam=this.ongoingExam.concat(this.futureExam).concat(this.finishedExam)
+        this.allExam=this.ongoingExam.concat(this.futureExam).concat(this.finishedExam).concat(this.publishedExam)
         this.loading = false
       })
       // this.$axios(`/api/exams/${this.current}/${this.size}`).then(res => {

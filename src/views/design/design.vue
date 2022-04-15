@@ -56,7 +56,7 @@ export default {
       designDialog:false,
       isFetched:false,
       keys:1,
-      paperId:11,
+      paperId:this.$route.query.paperId,
       totalNum:0,
       totalScore:0,
       list: {},
@@ -85,8 +85,10 @@ export default {
   methods:{
     fetchData() {
       this.listLoading = true
+      // console.log("8888")
+      // console.log(this.$route.query.paperId)
       return request({
-        url: '/exam/paper/'+this.paperId+'/get',
+        url: '/exam/paper/'+this.$route.query.paperId+'/get',
         methods: 'Get'
       }).then(response => {
         console.log(response)
@@ -134,6 +136,7 @@ export default {
     // }
   },
   created() {
+
     this.fetchData()
   },
   watch:{
