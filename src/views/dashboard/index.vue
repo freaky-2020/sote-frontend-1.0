@@ -1,12 +1,14 @@
 <template>
   <div class="dashboard-container">
-    <div class="dashboard-text">name: {{ name }}</div>
-    <div class="dashboard-text">name: {{ this.$store.getters.roles }}</div>
-    <panel-group></panel-group>
-
-    <mix-chart></mix-chart>
+    <div class="background-container">
+      <div class="dashboard-text">name: {{ name }}</div>
+      <div class="dashboard-text">name: {{ this.$store.getters.roles }}</div>
+      <panel-group></panel-group>
+          <div class="chart-div" style="width:60% ;height: 450px">
+            <mix-chart></mix-chart>
+          </div>
+    </div>
   </div>
-
 </template>
 
 <script>
@@ -57,11 +59,14 @@ export default {
 <style lang="scss" scoped>
 .dashboard {
   &-container {
-    margin: 30px;
+    //margin: 30px;
   }
   &-text {
     font-size: 30px;
     line-height: 46px;
   }
+}
+.chart-div{
+  box-shadow: 4px 4px 40px rgba(0, 0, 0, .05);
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div :id="id" :class="className" :style="{height:height,width:width}" />
+  <div :id="id" :class="className" style="height: 100%;width: 100% " />
 </template>
 
 <script>
@@ -46,13 +46,14 @@ export default {
       this.chart = echarts.init(document.getElementById(this.id))
       const xData = (function() {
         const data = []
-        for (let i = 1; i < 13; i++) {
-          data.push(i + 'month')
+        /////横坐标
+        for (let i = 8; i < 20; i++) {
+          data.push('4-'+i)
         }
         return data
       }())
       this.chart.setOption({
-        backgroundColor: '#344b58',
+        backgroundColor: '#ffffff',
         title: {
           text: 'statistics',
           x: '20',
@@ -75,11 +76,11 @@ export default {
           }
         },
         grid: {
-          left: '5%',
+          left: '10%',
           right: '5%',
           borderWidth: 0,
           top: 150,
-          bottom: 95,
+          bottom: 100,
           textStyle: {
             color: '#fff'
           }
@@ -90,7 +91,7 @@ export default {
           textStyle: {
             color: '#90979c'
           },
-          data: ['female', 'male', 'average']
+          data: ['参加考试人次', '访问人次']
         },
         calculable: true,
         xAxis: [{
@@ -145,7 +146,7 @@ export default {
           start: 10,
           end: 80,
           handleIcon: 'path://M306.1,413c0,2.2-1.8,4-4,4h-59.8c-2.2,0-4-1.8-4-4V200.8c0-2.2,1.8-4,4-4h59.8c2.2,0,4,1.8,4,4V413z',
-          handleSize: '110%',
+          handleSize: '100%',
           handleStyle: {
             color: '#d3dee5'
 
@@ -162,14 +163,14 @@ export default {
           end: 35
         }],
         series: [{
-          name: 'female',
+          name: '参加考试人次',
           type: 'bar',
           stack: 'total',
           barMaxWidth: 35,
           barGap: '10%',
           itemStyle: {
             normal: {
-              color: 'rgba(255,144,128,1)',
+              color: '#00509d',
               label: {
                 show: true,
                 textStyle: {
@@ -183,61 +184,51 @@ export default {
             }
           },
           data: [
-            709,
-            1917,
-            2455,
-            2610,
-            1719,
-            1433,
-            1544,
-            3285,
-            5208,
-            3372,
-            2484,
-            4078
+            8,4,4,13,10,7,30,22,31,38,12,25
           ]
         },
 
-        {
-          name: 'male',
-          type: 'bar',
-          stack: 'total',
-          itemStyle: {
-            normal: {
-              color: 'rgba(0,191,183,1)',
-              barBorderRadius: 0,
-              label: {
-                show: true,
-                position: 'top',
-                formatter(p) {
-                  return p.value > 0 ? p.value : ''
-                }
-              }
-            }
-          },
-          data: [
-            327,
-            1776,
-            507,
-            1200,
-            800,
-            482,
-            204,
-            1390,
-            1001,
-            951,
-            381,
-            220
-          ]
-        }, {
-          name: 'average',
+        //  {
+          //   name: 'male',
+          //   type: 'bar',
+          //   stack: 'total',
+          //   itemStyle: {
+          //     normal: {
+          //       color: 'rgba(0,191,183,1)',
+          //       barBorderRadius: 0,
+          //       label: {
+          //         show: true,
+          //         position: 'top',
+          //         formatter(p) {
+          //           return p.value > 0 ? p.value : ''
+          //         }
+          //       }
+          //     }
+          //   },
+          //   data: [
+          //     327,
+          //     1776,
+          //     507,
+          //     1200,
+          //     800,
+          //     482,
+          //     204,
+          //     1390,
+          //     1001,
+          //     951,
+          //     381,
+          //     220
+          //   ]
+          // },
+          {
+          name: '访问人次',
           type: 'line',
           stack: 'total',
           symbolSize: 10,
           symbol: 'circle',
           itemStyle: {
             normal: {
-              color: 'rgba(252,230,48,1)',
+              color: '#efb336',
               barBorderRadius: 0,
               label: {
                 show: true,
@@ -249,18 +240,7 @@ export default {
             }
           },
           data: [
-            1036,
-            3693,
-            2962,
-            3810,
-            2519,
-            1915,
-            1748,
-            4675,
-            6209,
-            4323,
-            2865,
-            4298
+            40,15,9,7,14,12,12,41,23,45,20,56,30
           ]
         }
         ]
