@@ -7,10 +7,6 @@
             <h3 class="box-center">一、单选题(共{{ exam_data[1].length }}题，合计{{ getAllScore(exam_data[1]) }}分)</h3>
           </div>
           <h3 class="box-center">{{ question.quesNo }}、{{ replace_stem(question.stem) }}</h3>
-          <!--              <p class="question-score">多选题 0分</p>-->
-
-          <!--              上面的那个id，用来答题卡定位...ques_no代表题号，因为没法直接取得所有试题的序号，只能取出一种题型的序号-->
-          <!--              choice也需要再嵌套一层，因为id用来显示是否选中按钮，同时也不同用四个按钮，直接一个for循环-->
           <el-button class="circle_btn" size="mini" circle
                      :type="detailData[question.quesNo-1].answer === '1'?'primary':''"
                      @click="answerOne(question.quesNo-1, '1')">A
@@ -41,6 +37,8 @@
           </el-row>
         </div>
       </div>
+
+
       <div v-for="(question,index) in exam_data[2]" :key="index+'2'">
         <div v-if="num === (index+exam_data[1].length)">
           <div slot="header" class="clearfix">
@@ -158,6 +156,7 @@ export default {
       preDisabled: true // 上禁用按钮,下禁用在vuex中
     }
   },
+
   computed: {
     num() {
       return this.$store.state.numX
@@ -174,9 +173,6 @@ export default {
       this.preDisabled = now === 0
       this.submitData(old + 1) // 当num值改变时，提交上一个题的答案
     }
-  },
-  created() {
-    this.fetchData()
   },
   mounted() {
     const inputs = document.querySelectorAll('.input-box__label')

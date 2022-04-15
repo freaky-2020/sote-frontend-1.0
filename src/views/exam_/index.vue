@@ -7,7 +7,7 @@
           <!--          目标组件中props中的数据名 = 当前组件的数据-->
         </el-col>
         <el-col :span="15" :xs="24">
-          <Display ref="display" v-if="flag && flag2" :exam_date="examData" :quesNos="quesNos" :details="details" :detailData="detailData" :examId="exam_id" :times="present_time" :isCheat="isCheat" />
+          <Display ref="display" v-if="flag1 && flag2" :exam_data="examData" :quesNos="quesNos" :details="details" :detailData="detailData" :examId="exam_id" :times="present_time" :isCheat="isCheat" />
         </el-col>
         <el-col :span="3" :xs="24">
           <Countdown v-if="$route.query.isView===undefined&&flag2&&flag3" :exam-value="JSON.parse($route.query.examValue)" :detailData="detailData" :progress="progress"/>
@@ -59,7 +59,7 @@ export default {
       exam_id:this.$route.query.examId,
       examinee_id:this.$store.getters.name,
       present_time:this.$route.query.times,
-      isCheat:false
+      isCheat:false,
       progress: 0
     }
   },

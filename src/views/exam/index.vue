@@ -244,6 +244,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+::-webkit-scrollbar {
+  //滚动条宽高，如果不需要显示滚动条可设置宽高为0
+  width: 0px;
+  height: 0px;
+}
+
 li{
   list-style-type:none;
 }

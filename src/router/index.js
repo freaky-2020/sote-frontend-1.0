@@ -167,6 +167,16 @@ export const constantRoutes = [
     hidden: true
   },
   {
+    path: '/fillblank',
+    component: Layout,
+    children: [{
+      path: 'fillblank',
+      name: 'Grading',
+      component:()=> import('@/views/exam_/components/fillblank'),
+    }],
+    hidden: true
+  },
+  {
     path: '/bank',
     component: Layout,
     children: [
