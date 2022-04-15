@@ -4,11 +4,11 @@
     <li class="item" v-for="(item,index) in displayExam" :key="index">
       <h4 @click="toExam(item)">{{item.examInfo.examName}}</h4>
       <p class="examName">科目：{{item.examInfo.subjectName}}---{{item.examInfo.examNote}}</p>
-      <div class="info">
+      <div class="info"><br/>
         <span>考试口令：{{item.examInfo.word}}  </span>
         <el-button type="text" icon="el-icon-document-copy" @click="handleCopy(item.examInfo.word,$event)">
         </el-button>
-        <br/>
+
         <span>允许考试&nbsp;{{item.examInfo.allowableTime}}&nbsp;次 允许切屏&nbsp;{{item.examInfo.cuttingTimes}}&nbsp;次</span>
         <br/>
         <i class="el-icon-time"></i><span>{{item.examInfo.startTime.slice(0,16)}}到{{item.examInfo.deadline.slice(0,16)}}可进入</span>

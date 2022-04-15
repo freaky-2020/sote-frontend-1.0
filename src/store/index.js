@@ -18,6 +18,7 @@ const store = new Vuex.Store({
   getters,
   state: {
     numX: 0,
+    userNum:0,
     nextDisabled: false, // 下禁用按钮
     isDown:false,
     fillItems:[
@@ -54,6 +55,19 @@ const store = new Vuex.Store({
     },
     gradingDown(state){
       state.isDown = false
+    },
+    addUserNum(state,max){
+      if(state.userNum<max){
+        state.userNum += 1
+      }
+    },
+    reduceUserNum(state){
+      if(state.userNum>0){
+        state.userNum -= 1
+      }
+    },
+    setUserNum(state,val){
+      state.userNum = val
     },
     addNum(state) {
       state.numX += 1

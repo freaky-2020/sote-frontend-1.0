@@ -9,16 +9,17 @@
           <el-tab-pane label="开放中" name="ongoing"></el-tab-pane>
           <el-tab-pane label="未开始" name="future"></el-tab-pane>
           <el-tab-pane label="已结束" name="finished"></el-tab-pane>
-          <el-tab-pane label="已发布" name="published"></el-tab-pane>
+          <el-tab-pane label="已公布" name="published"></el-tab-pane>
         </el-tabs>
 
         <li class="search-li">
           <div class="icon">
-            <el-input type="text" placeholder="试卷名称" class="search" v-model="key" size="mini"></el-input>
+            <el-input type="text" placeholder="试卷名称" class="search" v-model="key" size="mini">
+              <el-button slot="append" icon="el-icon-search"></el-button>
+            </el-input>
             <!--            <i class="el-icon-search"></i>-->
           </div>
         </li>
-        <li><el-button type="primary" size="mini">搜索试卷</el-button></li>
         <li>
             <el-button type="info" icon="el-icon-circle-plus-outline" @click.native.prevent="goToCreate" size="mini">添加考试</el-button>
         </li>
@@ -27,7 +28,7 @@
       <ul class="paper" v-if="displayExam!=null">
         <li class="item"
             v-for="(item,index) in newDisplayExam.slice((current-1)*pageSize,current*pageSize)" :key="index">
-          <h4 @click="toExam(item)">{{item.examName}}</h4>
+          <h4>{{item.examName}}</h4>
           <p class="examName">科目：{{item.subjectName}}</p>
           <p class="examName">考试须知：{{item.examNote}}</p>
           <div class="info">
@@ -49,7 +50,8 @@
                 </el-dropdown-menu>
               </el-dropdown>
               <el-button  class="nomargin" @click="judge(item)" icon="el-icon-document-checked" size="mini">批阅</el-button>
-              <el-button  class="nomargin" @click="grade" icon="el-icon-s-data" size="mini">成绩分析</el-button>
+              <el-button v-if="activeExamsName === 'published'" class="nomargin" @click="grade" icon="el-icon-s-data" size="mini">成绩分析</el-button>
+              <el-button v-if="activeExamsName === 'finished' " size="mini" type="primary" @click="publishExam(item)" >公布成绩</el-button>
             </div>
           </div>
         </li>
@@ -241,7 +243,7 @@ export default {
       }
     },
     //获取当前所有考试信息
-    getExamInfo() {
+    getExamInfo(val) {
       request({
         // url:'/exam/info/query',
         // url:'/exam/stu/getExam/stu/{userName}'+this.userName
@@ -259,14 +261,11 @@ export default {
         this.allExam = this.ongoingExam.concat(this.futureExam).concat(this.finishedExam).concat(this.publishedExam)
         console.log(this.allExam)
         this.loading = false
+        if(val === 1){
+          this.activeExamsName = 'published'
+        }
+        val = 0
       })
-      // this.$axios(`/api/exams/${this.current}/${this.size}`).then(res => {
-      //   this.pagination = res.data.data
-      //   this.loading = false
-      //   console.log(this.pagination)
-      // }).catch(error => {
-      //   console.log(error)
-      // })
     },
     goToCreate() {
       this.$router.push({ path: '/createexam/examinfo', })
@@ -274,12 +273,7 @@ export default {
     enterExam() {
       request({
         url: '/exam/stu/join/' + this.word,
-        // url:`/exam/stu/join/${this.word}`,
         method: 'Get',
-        // data:{
-        //   // word:this.word,
-        //   examineeId:1904011106,
-        // }
         params: { examineeId: this.examineeId }
       }).then(res => {
         console.log(res)
@@ -308,7 +302,7 @@ export default {
         params: {rule: this.select},
       }).then(res => {
         console.log(res)
-        if(res.indexOf('考试')){
+        if(res.indexOf('答卷') !== -1){
           if(confirm(res+'是否进入简答题批阅?')){
             this.$router.push({ name: 'Grading',
               query: {
@@ -325,27 +319,40 @@ export default {
     grade() {
       this.$router.push({ name: 'Grade', query: {} })
     },
-    toExam(item) {
-      request({
-        url: '/exam/stu/start/' + this.examineeId + '/' + item.examInfo.examId + '/' + (item.time + 1),
-        method: 'Get',
-      }).then(res => {
-        console.log(res)
-        Object.keys(res).forEach(key => {
-          console.log(key)
-          if (key === 'success') {
-            console.log(res['success'])
-            this.$router.push({ name: 'Exam_', query: { examValue: JSON.stringify(res['success']) } })
-          } else {
-            alert(key)
-            this.$emit("getExamInfo")
-          }
-        })
-      })
-    },
     handleCopy(text, event) {
       clip(text, event)
     },
+    publishExam(item){
+      if(confirm('是否公布考试结果?')){
+        request({
+          url: 'exam/info/try/publish/' + item.examId,
+          method: 'get',
+        }).then(response => {
+          if(response.indexOf('成绩与答案') !== -1){
+            alert(response)
+            this.getExamInfo(1)
+          }
+          else if(response.indexOf('未全部批阅') !== -1){
+            if(confirm(response)){
+              request({
+                url: 'exam/info/publish/' + item.examId,
+                method: 'get',
+              }).then(response => {
+                alert(response)
+              }).catch(err => {
+                console.log(err)
+              })
+              this.getExamInfo(1)
+            }
+          }
+          else{
+            alert(response)
+          }
+        }).catch(err => {
+          console.log(err)
+        })
+      }
+    }
   }
 }
 </script>

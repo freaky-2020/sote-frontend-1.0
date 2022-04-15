@@ -21,7 +21,7 @@
       </el-input>
       <el-scrollbar>
         <el-table
-          :data="this.stuData.slice((page-1)*limit, page*limit)"
+          :data="this.newStuData.slice((page-1)*limit, page*limit)"
           style="width: 100%"
           border
           fit
@@ -30,9 +30,7 @@
             label="姓名"
             width="100">
             <template slot-scope="scope">
-              <div slot="reference" class="name-wrapper">
-                <el-tag size="medium">{{ scope.row.user.realName }}</el-tag>
-              </div>
+                <span>{{ scope.row.user.realName }}</span>
             </template>
           </el-table-column>
           <el-table-column
@@ -40,6 +38,13 @@
             sortable>
             <template slot-scope="scope">
               <span style="margin-left: 10px">{{ scope.row.user.userName }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column
+            label="操作"
+            sortable>
+            <template slot-scope="scope">
+              <el-button type="primary" size="mini" @click="toUser(scope.row.user.userName)">转到该生</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -66,12 +71,12 @@
 import request from '@/utils/request'
 export default {
   name: 'Card',
-  props: ['exam_date','quesNos','gradingThis','stuData'],
+  props: ['exam_date','quesNos','stuData'],
   // 父子组件之间数据传递，该数据在子组件中不能随便更改，会报错
   data() {
     return {
       input:'',
-      select:'',
+      select:'1',
       isDown:this.$store.state.isDown,
       sum: 0,
       details: 6,
@@ -87,28 +92,21 @@ export default {
     },
     nextDisabled() {
       return this.$store.state.nextDisabled
-    }
-  },
-  watch: {
-    num(now, old) {
-      if (now === this.quesNos - 1) {
-        this.$store.commit('nextDisableTrue')
-      } else {
-        this.$store.commit('nextDisableFalse')
-      }
     },
-    stuData:{
-      handler(){
-        if(this.stuData!==undefined){
-          this.total = this.stuData.length
-        }
-      },
-      deep:true,
-      immediate:true,
+    newStuData(){
+      if (this.select === '1') {
+        return this.stuData.filter((u) => {
+          return u.user.userName.indexOf(this.input) !== -1
+        })
+      } else {
+        return this.stuData.filter((u) => {
+          if(u.realName === null){
+            return null
+          }
+          return u.user.realName.indexOf(this.input) !== -1
+        })
+      }
     }
-  },
-  mounted() {
-    this.fetchData()
   },
   methods: {
     getAllScore(form) {
@@ -132,9 +130,6 @@ export default {
     setNum(index) {
       this.$store.commit('setNum', index)
     },
-    gradingThis(){
-      this.$emit('gradingThis')
-    },
     handleSizeChange(val) {
       console.log(`每页 ${val} 条`)
       this.limit = val
@@ -144,7 +139,40 @@ export default {
       console.log(`当前页: ${val}`)
       this.page = val
     },
-  }
+    toUser(val){
+      let num = 0
+      console.log(val)
+      for(let i=0;i<this.stuData.length;i++){
+        console.log(this.stuData[i].user.userName)
+        console.log(i)
+        if(val === this.stuData[i].user.userName){
+          num = i
+        }
+      }
+      this.$store.commit('setUserNum',num)
+    }
+  },
+  mounted() {
+    this.fetchData()
+  },
+  watch: {
+    num(now, old) {
+      if (now === this.quesNos - 1) {
+        this.$store.commit('nextDisableTrue')
+      } else {
+        this.$store.commit('nextDisableFalse')
+      }
+    },
+    stuData:{
+      handler(){
+        if(this.stuData!==undefined){
+          this.total = this.stuData.length
+        }
+      },
+      deep:true,
+      immediate:true,
+    }
+  },
 }
 </script>
 
