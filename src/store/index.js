@@ -19,7 +19,7 @@ const store = new Vuex.Store({
   state: {
     numX: 0,
     nextDisabled: false, // 下禁用按钮
-    detailDate: null,
+    detailData: null,
     isDown:false,
     fillItems:[
       {id:1,input:'',},
@@ -69,8 +69,33 @@ const store = new Vuex.Store({
     nextDisableFalse(state) {
       state.nextDisabled = false
     },
-    setDetailDate(state, response) {
-      state.detailDate = response
+    setDetailData(state, response) {
+      state.detailData = response
+    },
+    setDetailData_AnswerOne(state, data){
+      if(state.detailData[data.no].answer === data.select){
+        state.detailData[data.no].answer = null
+      }
+      else{
+        state.detailData[data.no].answer = data.select
+      }
+    },
+    setDetailData_AnswerGroup(state, data){
+      if (store.state.detailData[data.no].answer.includes(data.select)) {
+        const x = state.detailData[data.no].answer.indexOf(data.select)
+        if (x > -1) {
+          if((x + 1) === state.detailData[data.no].answer.length)
+            state.detailData[data.no].answer = state.detailData[data.no].answer.slice(0, x-1)
+          else{
+            state.detailData[data.no].answer = state.detailData[data.no].answer.replace(data.select+',','')
+          }
+        }
+      } else {
+        store.state.detailData[data.no].answer = store.state.detailData[data.no].answer + ',' + data.select
+      }
+      if ((store.state.detailData[data.no].answer.includes('1') === false) && (store.state.detailData[data.no].answer.includes('2') === false) && (store.state.detailData[data.no].answer.includes('3') === false) && (store.state.detailData[data.no].answer.includes('4') === false)) {
+        store.state.detailData[data.no].answer = null
+      }
     },
     gradingThis(state){
       state.isDown = true

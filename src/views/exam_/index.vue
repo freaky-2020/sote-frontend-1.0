@@ -3,10 +3,10 @@
     <div>
       <el-row :gutter="20">
         <el-col :span="5" :xs="24">
-          <Card v-if="flag" :exam_date="examDate" :quesNos="quesNos" />
+          <Card v-if="flag" :exam_data="examData" :quesNos="quesNos" />
         </el-col>
         <el-col :span="15" :xs="24">
-          <Display v-if="flag" :exam_date="examDate" :quesNos="quesNos"/>
+          <Display v-if="flag" :exam_data="examData" :quesNos="quesNos"/>
         </el-col>
         <el-col :span="3" :xs="24">
           <!--          <Countdown :exam-value="JSON.parse($route.query.examValue)" />-->
@@ -28,7 +28,7 @@ export default {
     return {
       flag: false,
       paperId: 1,
-      examDate: null,
+      examData: null,
       examValue: null,
       quesNos: null
     }
@@ -43,7 +43,7 @@ export default {
         method: 'get'
       }).then(response => {
         console.log(response)
-        this.examDate = response
+        this.examData = response
         this.flag = true
         this.getQuesNos()
       }).catch(err => {
@@ -51,7 +51,7 @@ export default {
       })
     },
     getQuesNos() {
-      this.quesNos = this.examDate[1].length + this.examDate[2].length + this.examDate[3].length + this.examDate[4].length + this.examDate[5].length
+      this.quesNos = this.examData[1].length + this.examData[2].length + this.examData[3].length + this.examData[4].length + this.examData[5].length
     }
   }
 }
