@@ -4,9 +4,37 @@
       <div class="dashboard-text">name: {{ name }}</div>
       <div class="dashboard-text">name: {{ this.$store.getters.roles }}</div>
       <panel-group></panel-group>
-          <div class="chart-div" style="width:60% ;height: 450px">
+<!--          <div class="chart-div" style="width:60% ;height: 450px">-->
+<!--            <mix-chart></mix-chart>-->
+<!--          </div>-->
+<!--          <div id="donut-chart" style="width:30% ;height: 450px">-->
+<!--            <donut-chart></donut-chart>-->
+<!--          </div>-->
+      <el-row :gutter="32" >
+        <el-col :span="17" >
+          <div class="chart-div" style="height: 450px">
+<!--            <span></span>-->
             <mix-chart></mix-chart>
           </div>
+        </el-col>
+        <el-col :span="7" >
+                <div class="chart-div" style="height: 350px">
+                  <donut-chart></donut-chart>
+                </div>
+        </el-col>
+<!--        <el-col :xs="4" :sm="6" :md="8" :lg="9" :xl="11"><div class="grid-content bg-purple"></div></el-col>-->
+<!--        <el-col :xs="8" :sm="6" :md="4" :lg="3" :xl="1"><div class="grid-content bg-purple-light"></div></el-col>-->
+<!--        <el-col :xs="24" :sm="24" :lg="8">-->
+<!--          <div class="chart-div">-->
+<!--            <mix-chart></mix-chart>-->
+<!--          </div>-->
+<!--        </el-col>-->
+<!--        <el-col :xs="24" :sm="24" :lg="8">-->
+<!--          <div class="donut-chart">-->
+<!--            <donut-chart></donut-chart>-->
+<!--          </div>-->
+<!--        </el-col>-->
+      </el-row>
     </div>
   </div>
 </template>
@@ -16,7 +44,7 @@ import { mapGetters } from 'vuex'
 
 import PanelGroup from '@/views/dashboard/components/PanelGroup'
 import MixChart from '@/components/Charts/MixChart'
-
+import DonutChart from '@/components/Charts/DonutChart'
 
 const lineChartData = {
   newVisitis: {
@@ -41,7 +69,8 @@ export default {
   name: 'Dashboard',
   components:{
     PanelGroup,
-    MixChart
+    MixChart,
+    DonutChart,
   },
   methods:{
     handleSetLineChartData(type) {

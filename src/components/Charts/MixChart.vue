@@ -15,7 +15,7 @@ export default {
     },
     id: {
       type: String,
-      default: 'chart'
+      default: 'mix-chart'
     },
     width: {
       type: String,
