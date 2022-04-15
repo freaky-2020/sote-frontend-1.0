@@ -11,13 +11,25 @@
 
           <!--              上面的那个id，用来答题卡定位...ques_no代表题号，因为没法直接取得所有试题的序号，只能取出一种题型的序号-->
           <!--              choice也需要再嵌套一层，因为id用来显示是否选中按钮，同时也不同用四个按钮，直接一个for循环-->
-          <el-button class="circle_btn" size="mini" circle :type="$store.state.detailDate[question.quesNo-1].answer === '1'?'primary':''" @click="answerOne($store.state.detailDate[question.quesNo-1].answer,'1')">A</el-button>
+          <el-button class="circle_btn" size="mini" circle
+                     :type="$store.state.detailDate[question.quesNo-1].answer === '1'?'primary':''"
+                     @click="$store.state.detailDate[question.quesNo-1].answer === 1">A
+          </el-button>
           {{ question.choice1 }}<br>
-          <el-button class="circle_btn" size="mini" circle :type="$store.state.detailDate[question.quesNo-1].answer ==='2'?'primary' :''" @click="answerOne($store.state.detailDate[question.quesNo-1].answer,'1')">B</el-button>
+          <el-button class="circle_btn" size="mini" circle
+                     :type="$store.state.detailDate[question.quesNo-1].answer ==='2'?'primary' :''"
+                     @click="$store.state.detailDate[question.quesNo-1].answer === 2">B
+          </el-button>
           {{ question.choice2 }}<br>
-          <el-button class="circle_btn" size="mini" circle :type="$store.state.detailDate[question.quesNo-1].answer ==='3'?'primary' :''" @click="answerOne($store.state.detailDate[question.quesNo-1].answer,'1')">C</el-button>
+          <el-button class="circle_btn" size="mini" circle
+                     :type="$store.state.detailDate[question.quesNo-1].answer ==='3'?'primary' :''"
+                     @click="$store.state.detailDate[question.quesNo-1].answer === 3">C
+          </el-button>
           {{ question.choice3 }}<br>
-          <el-button class="circle_btn" size="mini" circle :type="$store.state.detailDate[question.quesNo-1].answer ==='4'?'primary' :''" @click="answerOne($store.state.detailDate[question.quesNo-1].answer,'1')">D</el-button>
+          <el-button class="circle_btn" size="mini" circle
+                     :type="$store.state.detailDate[question.quesNo-1].answer ==='4'?'primary' :''"
+                     @click="$store.state.detailDate[question.quesNo-1].answer === 4">D
+          </el-button>
           {{ question.choice4 }}
           <el-row>
             <el-col :span="3">
@@ -35,13 +47,25 @@
             <h3 class="box-center">二、多选题(共{{ exam_date[2].length }}题，合计{{ getAllScore(exam_date[2]) }}分)</h3>
           </div>
           <h3 class="box-center">{{ question.quesNo }}、{{ replace_stem(question.stem) }}</h3>
-          <el-button class="circle_btn" size="mini" circle :type="$store.state.detailDate[question.quesNo-1].answer.includes('1')?'primary':''" @click="anwserGroup(question.quesNo,'1')">A</el-button>
+          <el-button class="circle_btn" size="mini" circle
+                     :type="$store.state.detailDate[question.quesNo-1].answer.includes('1')?'primary':''"
+                     @click="anwserGroup(question.quesNo,1)">A
+          </el-button>
           {{ question.choice1 }}<br>
-          <el-button class="circle_btn" size="mini" circle :type="$store.state.detailDate[question.quesNo-1].answer.includes('2')?'primary':''" @click="anwserGroup(question.quesNo,'2')">B</el-button>
+          <el-button class="circle_btn" size="mini" circle
+                     :type="$store.state.detailDate[question.quesNo-1].answer.includes('2')?'primary':''"
+                     @click="anwserGroup(question.quesNo,2)">B
+          </el-button>
           {{ question.choice2 }}<br>
-          <el-button class="circle_btn" size="mini" circle :type="$store.state.detailDate[question.quesNo-1].answer.includes('3')?'primary':''" @click="anwserGroup(question.quesNo,'3')">C</el-button>
+          <el-button class="circle_btn" size="mini" circle
+                     :type="$store.state.detailDate[question.quesNo-1].answer.includes('3')?'primary':''"
+                     @click="anwserGroup(question.quesNo,3)">C
+          </el-button>
           {{ question.choice3 }}<br>
-          <el-button class="circle_btn" size="mini" circle :type="$store.state.detailDate[question.quesNo-1].answer.includes('4')?'primary':''" @click="anwserGroup(question.quesNo,'4')">D</el-button>
+          <el-button class="circle_btn" size="mini" circle
+                     :type="$store.state.detailDate[question.quesNo-1].answer.includes('4')?'primary':''"
+                     @click="anwserGroup(question.quesNo,4)">D
+          </el-button>
           {{ question.choice4 }}
           <el-row>
             <el-col :span="3">
@@ -60,9 +84,15 @@
             <h3 class="box-center">三、判断题(共{{ exam_date[3].length }}题，合计{{ getAllScore(exam_date[3]) }}分)</h3>
           </div>
           <h3 class="box-center">{{ question.quesNo }}、{{ replace_stem(question.stem) }}</h3>
-          <el-button class="circle_btn" size="mini" circle :type="$store.state.detailDate[question.quesNo-1].answer === 1?'primary':''" @click="$store.state.detailDate[question.quesNo-1].answer = 1">A</el-button>
+          <el-button class="circle_btn" size="mini" circle
+                     :type="$store.state.detailDate[question.quesNo-1].answer === 1?'primary':''"
+                     @click="$store.state.detailDate[question.quesNo-1].answer = 1">A
+          </el-button>
           正确<br>
-          <el-button class="circle_btn" size="mini" circle :type="$store.state.detailDate[question.quesNo-1].answer === 2?'primary':''" @click="$store.state.detailDate[question.quesNo-1].answer = 2">B</el-button>
+          <el-button class="circle_btn" size="mini" circle
+                     :type="$store.state.detailDate[question.quesNo-1].answer === 2?'primary':''"
+                     @click="$store.state.detailDate[question.quesNo-1].answer = 2">B
+          </el-button>
           错误<br>
           <el-row>
             <el-col :span="3">
@@ -80,7 +110,7 @@
           <div slot="header" class="clearfix">
             <h3 class="box-center">四、填空题(共{{ exam_date[4].length }}题，合计{{ getAllScore(exam_date[4]) }}分)</h3>
           </div>
-          <h3 class="box-center" v-html="question.quesNo+'、'+replace_stem_judge(replace_stem(question.stem))" />
+          <h3 class="box-center" v-html="question.quesNo+'、'+replace_stem_judge(replace_stem(question.stem))"/>
           <!--          题干传过来字符串，用{}表示空的位置，使用jquery来替代{}字符为<input type="text">,然后使用v-html来转换为____，题干题干中间可以有多个____，-->
           <!--                另外，input好像都要绑定一个数据v-model，这样正好可以获取用户输入的答案，比如：v-model="ruleForm.resource[index]"-->
           <el-row>
@@ -100,7 +130,8 @@
             <h3 class="box-center">五、简答题(共{{ exam_date[5].length }}题，合计{{ getAllScore(exam_date[5]) }}分)</h3>
           </div>
           <h3 class="box-center">{{ question.quesNo }}、{{ replace_stem(question.stem) }}</h3>
-          <el-input v-model="$store.state.detailDate[question.quesNo-1].answer" type="textarea" :rows="5" resize="none" maxlength="500" />
+          <el-input v-model="$store.state.detailDate[question.quesNo-1].answer" type="textarea" :rows="5" resize="none"
+                    maxlength="500"/>
           <el-row>
             <el-col :span="3">
               <el-button :disabled="preDisabled" @click="prex">上一题</el-button>
@@ -112,7 +143,8 @@
         </div>
       </div>
     </div>
-    <el-button style="margin-top: 50px; margin-left: 500px" type="primary" @click="goSubmit">交卷</el-button>
+    <el-button style="margin-top: 50px; margin-left: 500px" type="primary" @click="goSubmit(this.isCheat)">交卷
+    </el-button>
   </el-card>
 </template>
 <script>
@@ -120,10 +152,9 @@ import request from '@/utils/request'
 
 export default {
   name: 'Display',
-  props: ['exam_date', 'quesNos'],
+  props: ['exam_date', 'quesNos', 'details', 'examId', 'times', 'isCheat'],
   data() {
     return {
-      details: 1,
       preDisabled: true // 上禁用按钮,下禁用在vuex中
     }
   },
@@ -157,9 +188,6 @@ export default {
     })
   },
   methods: {
-    answerOne(no, select) {
-
-    },
     anwserGroup(no, select) {
       // 存在的话就取消，不存在就添加
       if (this.$store.state.detailDate[no - 1].answer.includes(select)) {
@@ -223,35 +251,58 @@ export default {
       }
       return sums
     },
-    goSubmit() {
-      this.$confirm('您确定要交卷吗，交卷后将无法修改', '是否交卷', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消'
-      })
-        .then(async() => {
-          this.submitDate(this.num + 1)
+    goSubmit(ischeat) {
+      if (ischeat) {
+        this.submitDate(this.num + 1)
+        alert("强制交卷")
+        request({
+          url: '/exam/stu/submit/' + this.$store.getters.name + '/' + this.examId + '/' + this.times,
+          method: 'Get'
+        }).then(response => {
           this.$message({
             type: 'success',
             message: ' 提交成功!'
           })
         })
-        .catch(err => { console.error(err) })
+      } else {
+        this.$confirm('您确定要交卷吗，交卷后将无法修改', '是否交卷', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消'
+        }).then(async() => {
+          this.submitDate(this.num + 1)
+          request({
+            url: '/exam/stu/submit/' + this.$store.getters.name + '/' + this.examId + '/' + this.times,
+            method: 'Get'
+          }).then(response => {
+            alert(response)
+            this.$message({
+              type: 'success',
+              message: ' 提交成功!'
+            })
+          })
+
+        }).catch(err => {
+          console.error(err)
+        })
+      }
     }
   }
 }
 </script>
 
 <style lang="scss">
-.circle_btn{
+.circle_btn {
   width: 25px;
   height: 25px;
   margin-bottom: 10px;
 }
-.blank{
+
+.blank {
   border: none;
   padding: 0 5px;
   border-bottom: 1px solid;
 }
+
 /* 填空题样式 */
 .input-box {
   display: inline-flex;
@@ -263,7 +314,7 @@ export default {
   height: 18px;
   min-width: 50px;
   /* font family is very important */
-  font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
   font-size: 14px;
 }
 
@@ -292,6 +343,7 @@ export default {
   margin: 0;
   padding: 0 10px;
 }
+
 .question-score {
   background-color: #f4f4f4;
   border-radius: 15px;

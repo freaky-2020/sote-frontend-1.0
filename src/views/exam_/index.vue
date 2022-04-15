@@ -7,10 +7,13 @@
           <!--          目标组件中props中的数据名 = 当前组件的数据-->
         </el-col>
         <el-col :span="15" :xs="24">
-          <Display v-if="flag" :exam_date="examDate" :quesNos="quesNos" :details="$route.query.details"/>
+          <Display ref="display" v-if="flag" :exam_date="examDate" :quesNos="quesNos" :details="details" :examId="exam_id" :times="times" :isCheat="isCheat" />
         </el-col>
         <el-col :span="3" :xs="24">
           <Countdown v-if="$route.query.isView===undefined" :exam-value="JSON.parse($route.query.examValue)" />
+        </el-col>
+        <el-col :span="3" :xs="24">
+          <Detector/>
         </el-col>
       </el-row>
     </div>
@@ -34,25 +37,27 @@ import Card from './components/Card'
 import Display from './components/Display'
 import Countdown from './components/Countdown'
 import request from '@/utils/request'
+import Detector from '@/views/exam_/components/detect'
 
 export default {
-  components: { Card, Display, Countdown },
+  components: { Detector, Card, Display, Countdown },
   data() {
     return {
       flag: false,
       paperId: this.$route.query.paperId,
+      details: this.$route.query.details,
       examDate: null,
       examValue: null,
-      quesNos: null
-      examValue: null,
       quesNos: null,
-      totalNum:10,
+      totalNum:this.$route.query.cuttingTimes,
       scNum:0,
       tipsFlag:false,
       cutFlag:false,
       exam_id:this.$route.query.examId,
       examinee_id:this.$store.getters.name,
       present_time:1,
+      times: this.$route.query.times,
+      isCheat:false
     }
   },
   created() {
@@ -92,7 +97,6 @@ export default {
     },
     updateSc(){
       this.tipsFlag = false
-
       request({
         url:"exam/invi/updateSc",
         method:'Get',
@@ -112,7 +116,8 @@ export default {
       if(this.cutFlag){
         this.getSc()
         if(this.scNum+1>=this.totalNum){
-          alert("强制交卷")
+          this.isCheat=true
+          this.$refs.display.goSubmit(this.isCheat)
           request({
             url:"exam/invi/updateCheat",
             method:'Get',
@@ -122,6 +127,8 @@ export default {
               present_time:this.present_time,
               isCheat:1
             }
+          }).then(response=>{
+            console.log(response)
           })
         }else{
           this.tipsFlag=true

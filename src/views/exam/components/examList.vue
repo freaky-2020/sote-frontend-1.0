@@ -53,7 +53,9 @@ export default {
                   paperId: item.examInfo.paperId,
                   details: res['success'].stuExam.details,
                   examValue: JSON.stringify(res['success']),
-                  examId: item.examInfo.examId
+                  examId: item.examInfo.examId,
+                  times: item.time+1,
+                  cuttingTimes:item.examInfo.cuttingTimes
                 }
             })
           } else {
