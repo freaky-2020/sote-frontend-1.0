@@ -289,6 +289,7 @@ export const asyncRoutes = [
   {
     path: '/judge',
     component: Layout,
+    meta: { title: '审批', icon: 'el-icon-s-check',roles: ['ADMIN'] },
     children: [
       {
         path: 'judge',
@@ -301,6 +302,7 @@ export const asyncRoutes = [
   {
     path: '/bank',
     component: Layout,
+    meta: { title: '试题管理', icon: 'el-icon-files',roles: ['ADMIN'] },
     children: [
       {
         path: 'bank',
@@ -319,6 +321,18 @@ export const asyncRoutes = [
 
 
   {
+    path: '/',
+    component: Layout,
+    redirect: '/dashboard',
+    meta: { title: '主页', icon: 'dashboard',roles: ['TEACHER'] },
+    children: [{
+      path: 'dashboard',
+      name: 'Dashboard',
+      component: () => import('@/views/dashboard/index'),
+      meta: { title: '主页', icon: 'dashboard',roles: ['TEACHER'] }
+    }]
+  },
+  {
     path: '/design',
     component: Layout,
     meta: { title: '设计试卷', icon: 'el-icon-edit',roles: ['TEACHER'] },
@@ -329,7 +343,8 @@ export const asyncRoutes = [
         component: () => import('@/views/design/design'),
         meta: { title: '设计试卷', icon: 'el-icon-edit',roles: ['TEACHER'] },
       },
-    ]
+    ],
+    hidden: true
   },
   {
     path: '/teacherexam',
@@ -384,24 +399,14 @@ export const asyncRoutes = [
       },
     ]
   },
-  {
-    path: '/',
-    component: Layout,
-    redirect: '/dashboard',
-    meta: { title: '主页', icon: 'dashboard',roles: ['TEACHER'] },
-    children: [{
-      path: 'dashboard',
-      name: 'Dashboard',
-      component: () => import('@/views/dashboard/index'),
-      meta: { title: '主页', icon: 'dashboard',roles: ['TEACHER'] }
-    }]
-  },
+
 
 
   {
     path: '/',
     component: Layout,
     redirect: '/dashboard',
+    meta: { title: '主页', icon: 'dashboard', roles: ['STUDENT']},
     children: [{
       path: 'dashboard',
       name: 'Dashboard',
@@ -412,6 +417,7 @@ export const asyncRoutes = [
   {
     path: '/exam',
     component: Layout,
+    meta: { title: '我的考试',icon: 'form', roles: ['STUDENT'] },
     children: [
       {
         path: 'index',
@@ -424,6 +430,7 @@ export const asyncRoutes = [
   {
     path: '/record',
     component: Layout,
+    meta: { title: '考试记录',icon: 'form', roles: ['STUDENT'] },
     children: [
       {
         path: 'index',
@@ -436,6 +443,7 @@ export const asyncRoutes = [
     path: '/exam_',
     component: Layout,
     redirect: '/exam/index',
+    meta: { title: '考试主体', icon: 'user', roles: ['STUDENT']  },
     children: [
       {
         path: 'index',
@@ -452,7 +460,7 @@ export const asyncRoutes = [
 ];
 
 const createRouter = () => new Router({
-  mode: 'history',
+  // mode: 'history',
   // mode: 'history', // require service support
   scrollBehavior: () => ({ y: 0 }),
   routes: constantRoutes
