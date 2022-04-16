@@ -32,14 +32,14 @@
         </el-table-column>
         <el-table-column
           label="修改人编号"
-          width="180">
+          width="100">
           <template slot-scope="scope">
             <span style="margin-left: 10px">{{ scope.row.requestUserName }}</span>
           </template>
         </el-table-column>
         <el-table-column
           label="题目内容"
-          width="180">
+          width="100">
           <template slot-scope="scope">
             <div slot="reference" class="name-wrapper">
               <span v-html="scope.row.stem"></span>
@@ -48,25 +48,25 @@
         </el-table-column>
         <el-table-column
           label="题目类型"
-          width="150">
+          width="100">
           <template slot-scope="scope">
             <div slot="reference" class="name-wrapper">
               <span>{{mapType[scope.row.typeId]}}</span>
             </div>
           </template>
         </el-table-column>
-        <el-table-column
-          label="难度"
-          width="100">
-          <template slot-scope="scope">
-            <div slot="reference" class="name-wrapper">
-              <span>{{mapLevel[scope.row.difficultyId]}}</span>
-            </div>
-          </template>
-        </el-table-column>
+<!--        <el-table-column-->
+<!--          label="难度"-->
+<!--          width="80">-->
+<!--          <template slot-scope="scope">-->
+<!--            <div slot="reference" class="name-wrapper">-->
+<!--              <span>{{mapLevel[scope.row.difficultyId]}}</span>-->
+<!--            </div>-->
+<!--          </template>-->
+<!--        </el-table-column>-->
         <el-table-column
           label="答案"
-          width="180">
+          width="100">
           <template slot-scope="scope">
             <div slot="reference" class="name-wrapper">
               <span>{{getAnswer(scope.row)}}</span>
@@ -75,7 +75,7 @@
         </el-table-column>
         <el-table-column
           label="试题科目"
-          width="170">
+          width="100">
           <template slot-scope="scope">
             <div slot="reference" class="name-wrapper">
               <span>{{formatter(scope.row)}}</span>
