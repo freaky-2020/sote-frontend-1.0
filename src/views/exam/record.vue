@@ -1,17 +1,18 @@
 // 我的试卷页面
 <template>
-  <div id="myExam">
+  <div class="background-container">
+    <div id="myExam" class="article-container">
     <!--    <div class="title">我的试卷</div>-->
     <div class="wrapper">
       <ul class="top">
         <li class="order">考试记录</li>
         <li class="search-li">
           <div class="icon">
-            <el-input type="text" placeholder="考试名称" class="search" v-model="key" size="mini"></el-input>
+            <el-input type="text" placeholder="考试名称" class="search" v-model="key" size="medium"></el-input>
             <!--            <i class="el-icon-search"></i>-->
           </div>
         </li>
-        <li><el-button type="primary" @click="search()" size="mini">搜索记录</el-button></li>
+        <li><el-button type="primary" @click="search()" size="medium">搜索记录</el-button></li>
       </ul>
       <ul class="paper" v-loading="loading">
         <li class="item" v-for="(item,index) in pagination.records" :key="index">
@@ -23,7 +24,7 @@
           <div class="info">
             <i class="el-icon-time"></i><span>{{item.examDate.slice(0,16)}}开始</span>
             <span>满分{{item.totalScore}}分</span>
-            <el-button type="primary" size="mini" @click="toExamMsg(item.examCode)" style="float: right">查看试卷</el-button>
+            <el-button type="primary" size="medium" @click="toExamMsg(item.examCode)" style="float: right">查看试卷</el-button>
           </div>
         </li>
       </ul>
@@ -39,6 +40,7 @@
         </el-pagination>
       </div>
     </div>
+  </div>
   </div>
 </template>
 
@@ -270,7 +272,7 @@ li{
   margin: 20px;
 }
 #myExam {
-  width: 90%;
+  width: 100%;
   margin: 0 auto;
 }
 #myExam .title {

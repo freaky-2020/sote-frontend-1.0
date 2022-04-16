@@ -21,6 +21,7 @@
         border
         fit
         highlight-current-row
+        v-if="this.radio !==3"
         ref="multipleTable">
         <el-table-column
           type="selection"
@@ -30,7 +31,7 @@
           label="修改人编号"
           width="180">
           <template slot-scope="scope">
-            <span style="margin-left: 10px">{{ scope.row.userName }}</span>
+            <span style="margin-left: 10px">{{ scope.row.requestUserName }}</span>
           </template>
         </el-table-column>
         <el-table-column
@@ -38,25 +39,51 @@
           width="180">
           <template slot-scope="scope">
             <div slot="reference" class="name-wrapper">
-              <span v-html="scope.row.question.stem"></span>
+              <span v-html="scope.row.stem"></span>
+            </div>
+          </template>
+        </el-table-column>
+        <el-table-column
+          label="题目类型"
+          width="150">
+          <template slot-scope="scope">
+            <div slot="reference" class="name-wrapper">
+              <span>{{mapType[scope.row.typeId]}}</span>
+            </div>
+          </template>
+        </el-table-column>
+        <el-table-column
+          label="难度"
+          width="100">
+          <template slot-scope="scope">
+            <div slot="reference" class="name-wrapper">
+              <span>{{mapLevel[scope.row.difficultyId]}}</span>
             </div>
           </template>
         </el-table-column>
         <el-table-column
           label="答案"
-          :formatter="getAnswer"
           width="180">
+          <template slot-scope="scope">
+            <div slot="reference" class="name-wrapper">
+              <span>{{getAnswer(scope.row)}}</span>
+            </div>
+          </template>
         </el-table-column>
         <el-table-column
           label="试题科目"
-          :formatter="formatter"
           width="170">
+          <template slot-scope="scope">
+            <div slot="reference" class="name-wrapper">
+              <span>{{formatter(scope.row)}}</span>
+            </div>
+          </template>
         </el-table-column>
         <el-table-column
           label="修改时间">
           <template slot-scope="scope">
             <div slot="reference" class="name-wrapper">
-              <el-tag size="medium">{{ scope.row.updateTime }}</el-tag>
+              <el-tag size="medium">{{ scope.row.requireTime }}</el-tag>
             </div>
           </template>
         </el-table-column>
@@ -66,7 +93,104 @@
             <el-button
               size="mini"
               type="primary"
-              @click="viewIt(scope.row)">查看</el-button>
+              @click="viewIt(scope.row,1)">查看</el-button>
+            <el-button
+              size="mini"
+              type="success"
+              @click="pass(scope.row)">通过</el-button>
+            <el-button
+              size="mini"
+              type="danger"
+              @click="disPass(scope.row)">驳回</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+
+      <el-table
+        :data="newTable.slice((page-1)*limit, page*limit)"
+        style="width: 100%"
+        border
+        fit
+        highlight-current-row
+        v-if="this.radio ===3"
+        ref="multipleTable">
+        <el-table-column
+          type="selection"
+          width="55">
+        </el-table-column>
+        <el-table-column
+          label="修改人编号"
+          width="180">
+          <template slot-scope="scope">
+            <span style="margin-left: 10px">{{ scope.row.after.requestUserName }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column
+          label="题目内容"
+          width="180">
+          <template slot-scope="scope">
+            <div slot="reference" class="name-wrapper">
+              <span v-html="scope.row.before.stem"></span>
+              <br>
+              <span style="color: red" v-html="scope.row.after.stem"></span>
+            </div>
+          </template>
+        </el-table-column>
+        <el-table-column
+          label="题目类型"
+          width="150">
+          <template slot-scope="scope">
+            <div slot="reference" class="name-wrapper">
+              <span>{{mapType[scope.row.before.typeId]}}</span>
+              <br>
+              <span style="color: red">{{mapType[scope.row.after.typeId]}}</span>
+            </div>
+          </template>
+        </el-table-column>
+        <el-table-column
+          label="难度"
+          width="100">
+          <template slot-scope="scope">
+            <div slot="reference" class="name-wrapper">
+              <span>{{mapLevel[scope.row.before.difficultyId]}}</span>
+              <br>
+              <span style="color: red">{{mapLevel[scope.row.after.difficultyId]}}</span>
+            </div>
+          </template>
+        </el-table-column>
+        <el-table-column
+          label="答案"
+          width="180">
+          <template slot-scope="scope">
+            <span>{{getAnswer(scope.row.before)}}</span>
+            <br>
+            <span style="color: red">{{getAnswer(scope.row.after)}}</span>
+          </template>
+        </el-table-column>
+        <el-table-column
+          label="试题科目"
+          width="170">
+          <template slot-scope="scope">
+            <span>{{formatter(scope.row.before)}}</span>
+            <br>
+            <span style="color: red">{{formatter(scope.row.after)}}</span>
+          </template>
+        </el-table-column>
+        <el-table-column
+          label="修改时间">
+          <template slot-scope="scope">
+            <div slot="reference" class="name-wrapper">
+              <el-tag size="medium">{{ scope.row.after.requireTime }}</el-tag>
+            </div>
+          </template>
+        </el-table-column>
+        <el-table-column
+          label="操作">
+          <template slot-scope="scope">
+            <el-button
+              size="mini"
+              type="primary"
+              @click="viewIt(scope.row,2)">查看</el-button>
             <el-button
               size="mini"
               type="primary"
@@ -93,13 +217,14 @@
       </div>
 
       <div>
-        <el-dialog  title="题库导题" :visible.sync="isDisplay" top="100px"  width="90%">
+        <el-dialog  title="具体审批" :visible.sync="isDisplay" top="100px" width="90%">
           <el-scrollbar style="height: 400px" wrap-style="overflow-x:hidden;">
-            <display ></display>>
+            <Display style="height: 400px"  :questionData="questionData" :val="val"></Display>
           </el-scrollbar>
-          <el-footer style="text-align: center;height: 20px" class="dialog-footer">
-            <el-button type="primary" size="small" @click="pass">通过</el-button>
-            <el-button type="info" size="small" @click="disPass">驳回</el-button>
+          <el-footer style="text-align: center;height: 30px" class="dialog-footer">
+            <div style="margin-top: 10px">
+              <el-button type="primary"  @click="pass(questionData)">通过</el-button>
+              <el-button type="danger"  @click="disPass(questionData)">驳回</el-button></div>
           </el-footer>
         </el-dialog>
       </div>
@@ -109,17 +234,19 @@
 
 <script>
 import request from '@/utils/request'
-import display from '@/views/display/display'
+import Display from '@/views/judge/components/Display'
 export default {
   name: 'judge',
-  components:{display},
-
+  components:{Display},
   data(){
     return{
       total: 0,
       page: 1,
       limit: 10,
       radio: 1,
+      isDisplay:false,
+      questionData:[],
+      val:0,
       mapLevel: {
         1: '简单',
         2: '适中',
@@ -174,106 +301,239 @@ export default {
           label: '压轴'
         }
       ],
-      updateItems:[
-        {
-          updateType:1,
-          userName:'3',
-          question:{
-            answer: "2",
-            bankId: 1,
-            choice1: "2",
-            choice2: "2x",
-            choice3: "0dd",
-            choice4: "∞",
-            difficultyId: 1,
-            id: 1,
-            makerId: 3,
-            paperId: 1,
-            quesNo: 1,
-            remark: "",
-            score: 10,
-            stem: "<p>y=x^2+1关于x的导数为？</p>",
-            subjectId: 1,
-            typeId: 1
-          },
-          updateTime:'123124',
-        },
-        {
-          updateType:2,
-          userName:'2',
-          question:{
-            answer: "2",
-            bankId: 1,
-            choice1: "2",
-            choice2: "2x",
-            choice3: "0dd",
-            choice4: "∞",
-            difficultyId: 1,
-            id: 1,
-            makerId: 3,
-            paperId: 1,
-            quesNo: 1,
-            remark: "",
-            score: 10,
-            stem: "<p>y=x^2+1关于x的导数为？</p>",
-            subjectId: 1,
-            typeId: 1
-          },
-          updateTime:'4124124',
-        },
-        {
-          updateType:3,
-          userName:'1',
-          question:{
-            answer: "2",
-            bankId: 1,
-            choice1: "2",
-            choice2: "2x",
-            choice3: "0dd",
-            choice4: "∞",
-            difficultyId: 1,
-            id: 1,
-            makerId: 3,
-            paperId: 1,
-            quesNo: 1,
-            remark: "",
-            score: 10,
-            stem: "<p>y=x^2+1关于x的导数为？</p>",
-            subjectId: 1,
-            typeId: 1
-          },
-          updateTime:'124124',
-        }
-      ]
+      updateData:[],
+      addData:[],
+      deleteData:[],
     }
   },
   methods:{
-    fetchData() {
+    fetchAll(){
+      this.fetchAddData()
+      this.fetchDeleteData()
+      this.fetchUpdateData()
+    },
+    fetchAddData() {
       request({
-        url: '/bank/judge/get',
+        url: '/bank/required/getRequire/add',
         methods: 'Get',
       }).then(response => {
         console.log(response)
-        this.tableData = response
-        console.log(this.tableData)
+        this.addData = response
       }).catch( err =>{
         console.log(err)
       })
     },
-    pass(){
+    fetchDeleteData() {
       request({
-        url: '/bank/judge/pass',
+        url: '/bank/required/getRequire/delete',
         methods: 'Get',
       }).then(response => {
         console.log(response)
-        this.tableData = response
-        console.log(this.tableData)
+        this.deleteData = response
       }).catch( err =>{
         console.log(err)
       })
     },
-    disPass(){
-
+    fetchUpdateData() {
+      request({
+        url: '/bank/required/getRequire/update',
+        methods: 'Get',
+      }).then(response => {
+        console.log(response)
+        for(let i=0;i<response.length;i++){
+          if(response[i].before === null){
+            response[i].before= {
+              stem: '本题目在题库中已被删除',
+              answer:'',
+            }
+          }
+        }
+        this.updateData = response
+      }).catch( err =>{
+        console.log(err)
+      })
+    },
+    deleteAll(all){
+      if(all.length !== 0){
+        let ids = ''
+        for(let i=0;i<all.length;i++){
+          ids= ids + all[i].id
+          if(i !== all.length-1){
+            ids= ids  + ','
+          }
+        }
+        console.log(ids)
+        this.$confirm('此操作将删除所选所有题目，确定吗？', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          request({
+            url: '/bank/question/delete',
+            method: 'Delete',
+            params: {ids}
+          }).then(response => {
+            console.log(response)
+          }).catch( err =>{
+            console.log(err)
+          })
+          for(let i=0;i<all.length;i++){
+            this.form = this.form.filter((d) => {
+              return d !== all[i]
+            })
+          }
+          this.$message({
+            type: 'success',
+            message: '删除成功!'
+          });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });
+        })
+      }
+      else{
+        //此处将this.$refs.multipleTable.selection这个数组传给后端并请求新的数据
+        this.$message.error('请选择批量删除的题目');
+      }
+    },
+    handleDelete(row){
+      this.$confirm('此操作将删除所选题目，确定吗？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        request({
+          url: '/bank/question/delete/'+row.id,
+          method: 'Delete',
+        }).then(response => {
+          console.log(response)
+        }).catch( err =>{
+          console.log(err)
+        })
+        this.form = this.form.filter((q) => {
+          return q !== row
+        })
+        this.$message({
+          type: 'success',
+          message: '删除成功!'
+        });
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        });
+      })
+    },
+    pass(row){
+      if(row.doWay===1){
+        row.decision = 1
+        request({
+          url: '/bank/required/judge/add',
+          method: 'Get',
+          params:row
+        }).then(response => {
+          this.$message({
+            type: 'info',
+            message: response
+          });
+          this.fetchAddData()
+        }).catch( err =>{
+          console.log(err)
+        })
+      }
+      if(row.after !== undefined){
+        let rows = []
+        rows[0] = row.after
+        request({
+          url: '/bank/required/judge/update/' +1,
+          method: 'Post',
+          data: rows,
+        }).then(response => {
+          this.$message({
+            type: 'success',
+            message: response
+          });
+          this.fetchUpdateData()
+        }).catch(err => {
+          console.log(err)
+        })
+      }
+      else if(row.doWay===3) {
+        row.decision = 1
+        request({
+          url: '/bank/required/judge/delete',
+          method: 'Get',
+          params: row,
+        }).then(response => {
+          this.$message({
+            type: 'success',
+            message: response
+          });
+          this.fetchAll()
+        }).catch(err => {
+          console.log(err)
+        })
+      }
+      this.isDisplay =false
+    },
+    disPass(row){
+      if(row.doWay===1){
+        row.decision = 0
+        request({
+          url: '/bank/required/judge/add',
+          methods: 'Get',
+          params:row
+        }).then(response => {
+          this.$message({
+            type: 'info',
+            message: response
+          });
+          this.fetchAddData()
+        }).catch( err =>{
+          console.log(err)
+        })
+      }
+      if(row.after !== undefined){
+        let rows = []
+        rows[0] = row.after
+        request({
+          url: '/bank/required/judge/update' +1,
+          method: 'Post',
+          data: rows
+          ,
+          dataType: 'json',
+          headers: {
+            'Content-Type': 'application/json;charset=utf-8',
+          }
+        }).then(response => {
+          this.$message({
+            type: 'info',
+            message: response
+          });
+          this.fetchUpdateData()
+        }).catch(err => {
+          console.log(err)
+        })
+      }
+      else if(row.doWay===3) {
+        row.decision = 0
+        request({
+          url: '/bank/required/judge/delete',
+          methods: 'Get',
+          params: row
+        }).then(response => {
+          this.$message({
+            type: 'success',
+            message: response
+          });
+          this.fetchDeleteData()
+        }).catch(err => {
+          console.log(err)
+        })
+      }
+      this.isDisplay = false
     },
     allPass(){
 
@@ -281,8 +541,7 @@ export default {
     allDisPass(){
 
     },
-    getAnswer(rows){
-      let row =rows.question
+    getAnswer(row){
       if(row.typeId===1){
         return this.mapAnswer[row.answer]
       }
@@ -306,8 +565,7 @@ export default {
         return row.answer.replace(/<(style|script|iframe)[^>]*?>[\s\S]+?<\/\1\s*>/gi,'').replace(/<[^>]+?>/g,'').replace(/\s+/g,' ').replace(/ /g,' ').replace(/>/g,' ');
       }
     },
-    formatter(rows){
-      let row =rows.question
+    formatter(row){
       for(let i=0;i<this.optionsSubject.length;i++){
         if(this.optionsSubject[i].id===row.subjectId){
           return this.optionsSubject[i].subjectName
@@ -324,8 +582,10 @@ export default {
         console.log(err)
       })
     },
-    viewIt(){
-
+    viewIt(item,val){
+      this.questionData = item
+      this.val = val
+      this.isDisplay = true
     },
     handleSizeChange(val) {
       console.log(`每页 ${val} 条`)
@@ -339,12 +599,22 @@ export default {
   },
   computed: {
     newTable() {
-      return this.updateItems.filter((u) => {
-        return u.updateType === this.radio
-      })
+      if(this.radio === 1){
+        this.total =this.addData.length
+        return this.addData
+      }
+      if(this.radio === 2){
+        this.total =this.deleteData.length
+        return this.deleteData
+      }
+      if(this.radio === 3){
+        this.total =this.updateData.length
+        return this.updateData
+      }
     },
   },
   mounted() {
+    this.fetchAll()
     this.fetchMapSubject()
   }
 }

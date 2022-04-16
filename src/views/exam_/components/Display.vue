@@ -44,6 +44,8 @@
           </el-row>
         </div>
       </div>
+
+
       <div v-for="(question,index) in exam_data[2]" :key="index+'2'">
         <div v-if="num === (index+exam_data[1].length)">
           <div slot="header" class="clearfix">
@@ -172,7 +174,7 @@
         </div>
       </div>
     </div>
-    <el-button style="margin-top: 50px; margin-left: 500px; margin-right: 2px" type="primary" @click="goSubmit(isCheat)">交卷
+    <el-button style="margin-top: 50px; margin-left: 500px" type="primary" @click="goSubmit(false)">交卷
     </el-button>
   </el-card>
 </template>
@@ -189,6 +191,7 @@ export default {
       preDisabled: true // 上禁用按钮,下禁用在vuex中
     }
   },
+
   computed: {
     num() {
       return this.$store.state.numX
@@ -304,19 +307,19 @@ export default {
       }
       return sums
     },
-    goSubmit(ischeat) {
-      if (ischeat) {
+    goSubmit(isCheat) {
+      if (isCheat) {
         this.submitData(this.num + 1)
-        alert("强制交卷")
-        request({
-          url: '/exam/stu/submit/' + this.$store.getters.name + '/' + this.examId + '/' + this.times,
-          method: 'Get'
-        }).then(response => {
-          this.$message({
-            type: 'success',
-            message: ' 提交成功!'
+        this.$alert('强制交卷', '通知', {
+          confirmButtonText: '确定',
+        }).then(async ()=>{
+          request({
+            url: '/exam/stu/submit/' + this.$store.getters.name + '/' + this.examId + '/' + this.times,
+            method: 'Get'
+          }).then(response => {
           })
-        })
+          this.$router.push({name:'Dashboard'})
+        });
       } else {
         this.$confirm('您确定要交卷吗，交卷后将无法修改', '是否交卷', {
           confirmButtonText: '确定',
@@ -327,13 +330,12 @@ export default {
             url: '/exam/stu/submit/' + this.$store.getters.name + '/' + this.examId + '/' + this.times,
             method: 'Get'
           }).then(response => {
-            alert(response)
             this.$message({
               type: 'success',
               message: ' 提交成功!'
             })
+            this.$router.push({name:'Dashboard'})
           })
-
         }).catch(err => {
           console.error(err)
         })

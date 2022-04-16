@@ -10,7 +10,7 @@
 <!--        <el-input v-model="form.examId" />-->
 <!--      </el-form-item>-->
       <el-form-item label="考试科目" prop="subjectId">
-        <el-select v-model="form.subjectId" placeholder="选择考试科目" >
+        <el-select id="selectSubject" v-model="form.subjectId" placeholder="选择考试科目" style="width: 35%" >
           <el-option v-for="item in subjectBox"
                       :key="item.id"
                      :value="item.id"
@@ -78,7 +78,7 @@
         </div>
       </el-form-item>
       <el-form-item label="考试时长" prop="durationTime">
-        <el-input v-model="form.durationTime" style="width: 200px" placeholder=""></el-input>
+        <el-input v-model="form.durationTime"  style="width: 35%" placeholder=""></el-input>
         <span>&nbsp;分钟</span>
       </el-form-item>
       <el-form-item label="考试须知">
@@ -100,11 +100,11 @@
         <el-button type="text" @click.native.prevent="stuDialogVisible = true">点击指定考生</el-button>
       </el-form-item>
       <el-form-item label="允许切屏次数" prop="cuttingTimes">
-        <el-input v-model="form.cuttingTimes" style="width: 200px" placeholder=""></el-input>
+        <el-input v-model="form.cuttingTimes"  style="width: 35%" placeholder=""></el-input>
         <span>&nbsp;次</span>
       </el-form-item>
       <el-form-item label="允许参加次数" prop="allowableTime">
-        <el-input v-model="form.allowableTime" style="width: 200px" placeholder=""></el-input>
+        <el-input v-model="form.allowableTime" style="width: 35%" placeholder=""></el-input>
         <span>&nbsp;次</span>
       </el-form-item>
 
@@ -293,7 +293,9 @@ export default {
             this.$router.push({ name: 'Design',query:{paperId:res.paperId,word:res.word} })
             // this.$router.push({ path: 'design/design' })
           })
-          alert('添加成功');
+          this.$alert('添加成功', '通知', {
+            confirmButtonText: '确定',
+          }).then()
         } else {
           console.log('操作失败');
           return false;
@@ -344,9 +346,9 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="scss" scoped>
 .h3title{
-  color: gray;
+  color: #00509d;
   //background-color: lightgrey;
   height: 40px;
   border-bottom: 1px solid lightgrey;
@@ -357,14 +359,17 @@ export default {
 .el-radio{
   height: 30px;
 }
-.el-button--primary {
-  background: #304156 !important;
-  border-color: #304156 !important;
+#selectSubject .el-input {
+  width: 200px!important;
 }
-.el-button--primary:hover {
-  background: #5979a0 !important;
-  border-color: #304156 !important;
-  color: #FFF !important;
-}
+/*.el-button--primary {*/
+/*  background: #304156 !important;*/
+/*  border-color: #304156 !important;*/
+/*}*/
+/*.el-button--primary:hover {*/
+/*  background: #5979a0 !important;*/
+/*  border-color: #304156 !important;*/
+/*  color: #FFF !important;*/
+/*}*/
 </style>
 

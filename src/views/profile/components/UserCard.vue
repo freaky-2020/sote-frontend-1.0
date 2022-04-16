@@ -41,10 +41,10 @@ export default {
       type: Object,
       default: () => {
         return {
-          name: '',
-          email: '',
-          avatar: '',
-          role: ''
+          name: 'aaaa',
+          email: 'aa',
+          avatar: 'aa',
+          role: 'aa'
         }
       }
     }

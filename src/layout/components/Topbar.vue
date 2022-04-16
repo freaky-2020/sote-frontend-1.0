@@ -1,17 +1,27 @@
 <template>
   <div class="top-nav">
-    <div class="log">sote考试系统</div>
+    <div class="log" >
+      <router-link to="/dashboard" class="router-test"  >
+        <div style="padding:2px 0">
+          <img width="40"
+               src="../../assets/images/img.png" />
+          <img width="80"
+               src="../../assets/images/sote-o.png"/>
+        </div>
+
+      </router-link>
+
+    </div>
 
     <el-menu
       menu-trigger="hover"
-
       :background-color="variables.menuBg"
       :text-color="variables.menuText"
-
       :active-text-color="variables.menuActiveText"
       :default-active="activeMenu"
-      mode="horizontal" @select="handleSelect">
-      <div v-for="item in routes" :key="item.path" class="nav-item">
+      mode="horizontal"
+      @select="handleSelect">
+      <div v-for="item in permission_routes" :key="item.path" class="nav-item">
         <app-link :to="resolvePath(item)">
           <el-menu-item v-if="!item.hidden" :index="item.path"
           >{{ item.meta ? item.meta.title : item.children[0].meta.title }}
@@ -30,12 +40,9 @@
           <i class="el-icon-caret-bottom" />
         </div>
         <el-dropdown-menu slot="dropdown" class="user-dropdown">
-          <router-link to="/">
+          <router-link to="/profile">
             <el-dropdown-item>个人主页</el-dropdown-item>
           </router-link>
-          <a href="https://github.com/PanJiaChen/vue-admin-template/" target="_blank">
-            <el-dropdown-item>Github</el-dropdown-item>
-          </a>
 <!--          <a href="https://panjiachen.github.io/vue-element-admin-site/#/" target="_blank">-->
 <!--            <el-dropdown-item>Docs</el-dropdown-item>-->
 <!--          </a>-->
@@ -54,13 +61,14 @@ import { constantRoutes } from '@/router'
 import { isExternal } from '@/utils/validate'
 import AppLink from './Sidebar/Link'
 import { mapGetters } from 'vuex'
-
+import soteO from '@/assets/images/sote-o.svg'
 
 export default {
 
 
   components: {
-    AppLink
+    AppLink,
+    soteO,
   },
   data() {
     return {
@@ -69,7 +77,7 @@ export default {
   },
 
   computed:{
-    ...mapGetters(['avatar']),
+    ...mapGetters(['avatar','permission_routes']),
     variables() {
       return variables
     },

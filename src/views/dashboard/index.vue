@@ -1,8 +1,34 @@
 <template>
   <div class="dashboard-container">
-    <div class="dashboard-text">name: {{ name }}</div>
-    <div class="dashboard-text">name: {{ this.$store.getters.roles }}</div>
-    <panel-group></panel-group>
+    <div class="background-container">
+      <panel-group></panel-group>
+<!--          <div class="chart-div" style="width:60% ;height: 450px">-->
+<!--            <mix-chart></mix-chart>-->
+<!--          </div>-->
+<!--          <div id="donut-chart" style="width:30% ;height: 450px">-->
+<!--            <donut-chart></donut-chart>-->
+<!--          </div>-->
+      <el-row :gutter="32" >
+        <el-col :span="17" >
+          <div class="chart-div" style="height: 450px">
+<!--            <span></span>-->
+            <mix-chart></mix-chart>
+          </div>
+        </el-col>
+        <el-col :span="7" >
+
+                <div class="chart-div" style="height: 350px">
+<!--                  <el-collapse v-model="activeName" accordion>-->
+<!--                    <el-collapse-item title="近期考试" name="1">-->
+                      <donut-chart ></donut-chart>
+<!--                    </el-collapse-item>-->
+<!--                  </el-collapse>-->
+                </div>
+        </el-col>
+      </el-row>
+      <el-divider></el-divider>
+    </div>
+
   </div>
 </template>
 
@@ -10,7 +36,8 @@
 import { mapGetters } from 'vuex'
 
 import PanelGroup from '@/views/dashboard/components/PanelGroup'
-
+import MixChart from '@/components/Charts/MixChart'
+import DonutChart from '@/components/Charts/DonutChart'
 
 const lineChartData = {
   newVisitis: {
@@ -35,6 +62,8 @@ export default {
   name: 'Dashboard',
   components:{
     PanelGroup,
+    MixChart,
+    DonutChart,
   },
   methods:{
     handleSetLineChartData(type) {
@@ -52,11 +81,14 @@ export default {
 <style lang="scss" scoped>
 .dashboard {
   &-container {
-    margin: 30px;
+    //margin: 30px;
   }
   &-text {
     font-size: 30px;
     line-height: 46px;
   }
+}
+.chart-div{
+  box-shadow: 4px 4px 40px rgba(0, 0, 0, .05);
 }
 </style>
