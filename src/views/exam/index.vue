@@ -1,6 +1,7 @@
 // 我的试卷页面
 <template>
-  <div id="myExam">
+  <div class="background-container">
+  <div id="myExam" class="article-container">
 <!--    <div class="title">我的试卷</div>-->
     <div class="wrapper">
       <ul class="top">
@@ -13,15 +14,13 @@
         </el-tabs>
 
         <li class="search-li">
-          <div class="icon">
-            <el-input type="text" placeholder="试卷名称" class="search" v-model="key" size="mini"></el-input>
-<!--            <i class="el-icon-search"></i>-->
-          </div>
+          <el-input type="text" placeholder="试卷名称" class="search" v-model="key" size="medium"> </el-input>
+          <el-button type="primary" size="medium" icon="el-icon-search" circle></el-button>
+          <!--            <i class="el-icon-search"></i>-->
         </li>
-        <li><el-button type="primary" size="mini">搜索试卷</el-button></li>
         <li>
           <el-tooltip content="输入老师告知的口令加入一场考试" placement="bottom" effect="light">
-          <el-button type="info" icon="el-icon-circle-plus-outline" @click.native.prevent="wordDialogVisible=true" size="mini">加入考试</el-button>
+          <el-button type="info" icon="el-icon-circle-plus-outline" @click.native.prevent="wordDialogVisible=true" size="medium">加入考试</el-button>
           </el-tooltip>
         </li>
       </ul>
@@ -44,8 +43,8 @@
 <!--      </ul>-->
       <div class="pagination">
         <el-pagination
+          background
           v-if="displayExam!=null"
-
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
           :current-page="current"
@@ -70,7 +69,7 @@
       </div>
     </el-dialog>
   </div>
-
+  </div>
 </template>
 
 <script>
@@ -244,6 +243,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+::-webkit-scrollbar {
+  //滚动条宽高，如果不需要显示滚动条可设置宽高为0
+  width: 0px;
+  height: 0px;
+}
+
 li{
   list-style-type:none;
 }
@@ -339,7 +345,7 @@ li{
   display: flex;
 }
 .wrapper .top li {
-  margin: 20px;
+  margin: 8px;
 }
 #myExam {
   background-color: #ffffff;

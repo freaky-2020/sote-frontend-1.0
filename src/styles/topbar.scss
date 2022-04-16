@@ -12,12 +12,12 @@
 
   .log {
     padding: 0 20px;
-    line-height: 56px;
+    line-height: 30px;
     font-size: 24px;
     font-weight: bold;
     color: $menuText;
     float: left;
-    margin-right: 50px;
+    margin-right: 20px;
   }
 
   .el-menu {
@@ -29,6 +29,7 @@
       display: inline-block;
 
       .el-menu-item {
+        font-size: 16px !important;
         color: white;
 
         &:hover {
@@ -55,7 +56,7 @@
       display: inline-block;
       padding: 0 8px;
       height: 100%;
-      font-size: 18px;
+      font-size: 22px;
       color: #5a5e66;
       vertical-align: text-bottom;
 

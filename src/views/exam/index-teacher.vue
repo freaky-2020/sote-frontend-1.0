@@ -1,7 +1,7 @@
 // 我的试卷页面
 <template>
-  <div id="myExam">
-    <!--    <div class="title">我的试卷</div>-->
+  <div class="background-container">
+    <div id="myExam" class="article-container">
     <div class="wrapper">
       <ul class="top">
         <el-tabs v-model="activeExamsName" type="card">
@@ -21,7 +21,7 @@
           </div>
         </li>
         <li>
-            <el-button type="info" icon="el-icon-circle-plus-outline" @click.native.prevent="goToCreate" size="mini">添加考试</el-button>
+            <el-button type="info" icon="el-icon-circle-plus-outline" @click.native.prevent="goToCreate" size="medium">添加考试</el-button>
         </li>
       </ul>
 
@@ -42,7 +42,7 @@
             <span>   考试时长{{item.durationTime}}分钟</span>
             <div class="nomargin" style="float: right">
               <el-dropdown @command="handleCommand(item)" trigger="click">
-                <el-button  class="nomargin" icon="el-icon-edit" size="mini">编辑<i class="el-icon-arrow-down el-icon--right"></i></el-button>
+                <el-button  class="nomargin" icon="el-icon-edit" size="small">编辑<i class="el-icon-arrow-down el-icon--right"></i></el-button>
                 <el-dropdown-menu slot="dropdown">
                   <el-dropdown-item command="edit">编辑考试信息</el-dropdown-item>
                   <el-dropdown-item command="design">设计考试题目</el-dropdown-item>
@@ -50,8 +50,8 @@
                 </el-dropdown-menu>
               </el-dropdown>
               <el-button  class="nomargin" @click="judge(item)" icon="el-icon-document-checked" size="mini">批阅</el-button>
-              <el-button v-if="activeExamsName === 'published'" class="nomargin" @click="grade(item)" icon="el-icon-s-data" size="mini">成绩分析</el-button>
-              <el-button v-if="activeExamsName === 'finished' " size="mini" type="primary" @click="publishExam(item)" >公布成绩</el-button>
+              <el-button v-if="activeExamsName === 'published'" class="nomargin" @click="grade(item)" icon="el-icon-s-data" size="small">成绩分析</el-button>
+              <el-button v-if="activeExamsName === 'finished' " size="small" type="primary" @click="publishExam(item)" >公布成绩</el-button>
             </div>
           </div>
         </li>
@@ -61,7 +61,7 @@
       <div class="pagination">
         <el-pagination
           v-if="displayExam!=null"
-
+          background
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
           :current-page="current"
@@ -107,7 +107,7 @@
       </span>
     </el-dialog>
   </div>
-
+  </div>
 </template>
 
 <script>
@@ -455,7 +455,7 @@ li{
   //margin-right: 14px;
 }
 .paper .item {
-  width: 80%;
+  width: 100%;
   border-radius: 6px;
   padding: 20px 30px;
   border: 1px solid #eee;

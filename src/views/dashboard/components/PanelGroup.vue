@@ -24,7 +24,7 @@
         </div>
         <div class="card-panel-description">
           <div class="card-panel-text">
-            阅卷管理
+            考务管理
           </div>
 <!--          <count-to :start-val="0" :end-val="13600" :duration="3600" class="card-panel-num" />-->
           <div >correct</div>
@@ -115,11 +115,11 @@ export default {
       }
 
       .icon-money {
-        background: #f4516c;
+        background: #004f94;
       }
 
       .icon-shopping {
-        background: #34bfa3
+        background: #ff9d31
       }
     }
 
@@ -132,11 +132,11 @@ export default {
     }
 
     .icon-money {
-      color: #f4516c;
+      color: #004f94;
     }
 
     .icon-shopping {
-      color: #34bfa3
+      color: #ffa034
     }
 
     .card-panel-icon-wrapper {

@@ -101,7 +101,7 @@ export default {
 
 <style lang="scss">
 .editor {
-  width: 80%;
+  width: 100%;
   float:right;
   position: relative;
 }

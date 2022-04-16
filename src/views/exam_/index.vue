@@ -3,14 +3,14 @@
     <div>
       <el-row :gutter="20">
         <el-col :span="5" :xs="24">
-          <Card v-if="flag" :exam_date="examDate" :quesNos="quesNos" :details="$route.query.details"/>
+          <Card v-if="flag1 && flag2" :exam_data="examData" :quesNos="quesNos" :details="details" :detailData="detailData" />
           <!--          目标组件中props中的数据名 = 当前组件的数据-->
         </el-col>
         <el-col :span="15" :xs="24">
-          <Display ref="display" v-if="flag" :exam_date="examDate" :quesNos="quesNos" :details="details" :examId="exam_id" :times="times" :isCheat="isCheat" />
+          <Display ref="display" v-if="flag1 && flag2" :exam_data="examData" :quesNos="quesNos" :details="details" :detailData="detailData" :examId="exam_id" :times="present_time" :isCheat="isCheat" />
         </el-col>
         <el-col :span="3" :xs="24">
-          <Countdown v-if="$route.query.isView===undefined" :exam-value="JSON.parse($route.query.examValue)" />
+          <Countdown v-if="$route.query.isView===undefined&&flag2&&flag3" :exam-value="JSON.parse($route.query.examValue)" :detailData="detailData" :progress="progress"/>
         </el-col>
         <el-col :span="3" :xs="24">
           <Detector/>
@@ -43,10 +43,13 @@ export default {
   components: { Detector, Card, Display, Countdown },
   data() {
     return {
-      flag: false,
+      flag1: false,
+      flag2: false,
+      flag3: false,
       paperId: this.$route.query.paperId,
       details: this.$route.query.details,
-      examDate: null,
+      examData: null,
+      detailData: null,
       examValue: null,
       quesNos: null,
       totalNum:this.$route.query.cuttingTimes,
@@ -55,32 +58,68 @@ export default {
       cutFlag:false,
       exam_id:this.$route.query.examId,
       examinee_id:this.$store.getters.name,
-      present_time:1,
-      times: this.$route.query.times,
-      isCheat:false
+      present_time:this.$route.query.times,
+      isCheat:false,
+      progress: 0
     }
   },
   created() {
-    this.fetchData()
+    this.fetchExamData()
+    this.fetchDetailData()
     let examValue = JSON.parse(this.$route.query.examValue)
     this.paperId = examValue.examInfo.paperId
   },
+  computed: {
+    num() {
+      return this.$store.state.numX
+    }
+  },
+  updated() {
+    this.progressCount()
+  },
+  watch: {
+    num(now, old) {
+      this.progressCount()
+    }
+  },
   methods: {
-    fetchData() {
+    fetchExamData() {
       request({
         url: 'exam/paper/' + this.paperId + '/get',
         method: 'get'
       }).then(response => {
         console.log(response)
-        this.examDate = response
-        this.flag = true
+        this.examData = response
+        this.flag1 = true
         this.getQuesNos()
       }).catch(err => {
         console.log(err)
       })
     },
+    fetchDetailData() {
+      request({
+        url: 'exam/detail/get/' + this.details,
+        method: 'get'
+      }).then(response => {
+        console.log(response)
+        this.detailData = response
+        this.flag2 = true
+      }).catch(err => {
+        console.log(err)
+      })
+    },
     getQuesNos() {
-      this.quesNos = this.examDate[1].length + this.examDate[2].length + this.examDate[3].length + this.examDate[4].length + this.examDate[5].length
+      this.quesNos = this.examData[1].length + this.examData[2].length + this.examData[3].length + this.examData[4].length + this.examData[5].length
+    },
+    progressCount() {
+      this.flag3 = true
+      let progress = 0
+      for (let i = 0; i<this.detailData.length;i++) {
+        if(this.detailData[i].answer !== null){
+          progress ++
+        }
+      }
+      this.progress = progress
     },
     getSc(){
       request({
@@ -136,20 +175,20 @@ export default {
       }
     },
   },
-  mounted() {
-    this.getSc()
-    // 监听滚动
-    // window.addEventListener("scroll", this.handleScroll);
-    // 监听浏览器窗口变化
-    window.addEventListener("resize", this.pageHidden);
-    // // 监听页面可见性
-    window.addEventListener("visibilitychange", this.pageHidden);
-  },
-  destroyed() {
-    window.removeEventListener("visibilitychange", this.pageHidden);
-    // window.removeEventListener("scroll", this.handleScroll);
-    window.removeEventListener("resize", this.pageHidden);
-  },
+  // mounted() {
+  //   this.getSc()
+  //   // 监听滚动
+  //   // window.addEventListener("scroll", this.handleScroll);
+  //   // 监听浏览器窗口变化
+  //   window.addEventListener("resize", this.pageHidden);
+  //   // // 监听页面可见性
+  //   window.addEventListener("visibilitychange", this.pageHidden);
+  // },
+  // destroyed() {
+  //   window.removeEventListener("visibilitychange", this.pageHidden);
+  //   // window.removeEventListener("scroll", this.handleScroll);
+  //   window.removeEventListener("resize", this.pageHidden);
+  // },
 }
 </script>
 <style lang="scss">

@@ -1,10 +1,10 @@
 <template>
   <el-card>
     <div>
-      <div v-for="(question,index) in exam_date[1]" :key="index+'1'">
+      <div v-for="(question,index) in exam_data[1]" :key="index+'1'">
         <div v-if="num === index">
           <div slot="header" class="clearfix">
-            <h3 class="box-center">一、单选题(共{{ exam_date[1].length }}题，合计{{ getAllScore(exam_date[1]) }}分)</h3>
+            <h3 class="box-center">一、单选题(共{{ exam_data[1].length }}题，合计{{ getAllScore(exam_data[1]) }}分)</h3>
           </div>
           <h3 class="box-center">{{ question.quesNo }}、{{ replace_stem(question.stem) }}</h3>
           <!--              <p class="question-score">多选题 0分</p>-->
@@ -12,59 +12,23 @@
           <!--              上面的那个id，用来答题卡定位...ques_no代表题号，因为没法直接取得所有试题的序号，只能取出一种题型的序号-->
           <!--              choice也需要再嵌套一层，因为id用来显示是否选中按钮，同时也不同用四个按钮，直接一个for循环-->
           <el-button class="circle_btn" size="mini" circle
-                     :type="$store.state.detailDate[question.quesNo-1].answer === '1'?'primary':''"
-                     @click="$store.state.detailDate[question.quesNo-1].answer === 1">A
+                     :type="detailData[question.quesNo-1].answer === '1'?'primary':''"
+                     @click="answerOne(question.quesNo-1, '1')">A
           </el-button>
           {{ question.choice1 }}<br>
           <el-button class="circle_btn" size="mini" circle
-                     :type="$store.state.detailDate[question.quesNo-1].answer ==='2'?'primary' :''"
-                     @click="$store.state.detailDate[question.quesNo-1].answer === 2">B
+                     :type="detailData[question.quesNo-1].answer ==='2'?'primary' :''"
+                     @click="answerOne(question.quesNo-1, '2')">B
           </el-button>
           {{ question.choice2 }}<br>
           <el-button class="circle_btn" size="mini" circle
-                     :type="$store.state.detailDate[question.quesNo-1].answer ==='3'?'primary' :''"
-                     @click="$store.state.detailDate[question.quesNo-1].answer === 3">C
+                     :type="detailData[question.quesNo-1].answer ==='3'?'primary' :''"
+                     @click="answerOne(question.quesNo-1, '3')">C
           </el-button>
           {{ question.choice3 }}<br>
           <el-button class="circle_btn" size="mini" circle
-                     :type="$store.state.detailDate[question.quesNo-1].answer ==='4'?'primary' :''"
-                     @click="$store.state.detailDate[question.quesNo-1].answer === 4">D
-          </el-button>
-          {{ question.choice4 }}
-          <el-row>
-            <el-col :span="3">
-              <el-button :disabled="preDisabled" @click="prex">上一题</el-button>
-            </el-col>
-            <el-col :span="6">
-              <el-button :disabled="$store.state.nextDisabled" @click="next">下一题</el-button>
-            </el-col>
-          </el-row>
-        </div>
-      </div>
-      <div v-for="(question,index) in exam_date[2]" :key="index+'2'">
-        <div v-if="num === (index+exam_date[1].length)">
-          <div slot="header" class="clearfix">
-            <h3 class="box-center">二、多选题(共{{ exam_date[2].length }}题，合计{{ getAllScore(exam_date[2]) }}分)</h3>
-          </div>
-          <h3 class="box-center">{{ question.quesNo }}、{{ replace_stem(question.stem) }}</h3>
-          <el-button class="circle_btn" size="mini" circle
-                     :type="$store.state.detailDate[question.quesNo-1].answer.includes('1')?'primary':''"
-                     @click="anwserGroup(question.quesNo,1)">A
-          </el-button>
-          {{ question.choice1 }}<br>
-          <el-button class="circle_btn" size="mini" circle
-                     :type="$store.state.detailDate[question.quesNo-1].answer.includes('2')?'primary':''"
-                     @click="anwserGroup(question.quesNo,2)">B
-          </el-button>
-          {{ question.choice2 }}<br>
-          <el-button class="circle_btn" size="mini" circle
-                     :type="$store.state.detailDate[question.quesNo-1].answer.includes('3')?'primary':''"
-                     @click="anwserGroup(question.quesNo,3)">C
-          </el-button>
-          {{ question.choice3 }}<br>
-          <el-button class="circle_btn" size="mini" circle
-                     :type="$store.state.detailDate[question.quesNo-1].answer.includes('4')?'primary':''"
-                     @click="anwserGroup(question.quesNo,4)">D
+                     :type="detailData[question.quesNo-1].answer ==='4'?'primary' :''"
+                     @click="answerOne(question.quesNo-1, '4')">D
           </el-button>
           {{ question.choice4 }}
           <el-row>
@@ -78,20 +42,58 @@
         </div>
       </div>
 
-      <div v-for="(question,index) in exam_date[3]" :key="index+'3'">
-        <div v-if="num === (index+exam_date[1].length+exam_date[2].length)">
+
+      <div v-for="(question,index) in exam_data[2]" :key="index+'2'">
+        <div v-if="num === (index+exam_data[1].length)">
           <div slot="header" class="clearfix">
-            <h3 class="box-center">三、判断题(共{{ exam_date[3].length }}题，合计{{ getAllScore(exam_date[3]) }}分)</h3>
+            <h3 class="box-center">二、多选题(共{{ exam_data[2].length }}题，合计{{ getAllScore(exam_data[2]) }}分)</h3>
           </div>
           <h3 class="box-center">{{ question.quesNo }}、{{ replace_stem(question.stem) }}</h3>
           <el-button class="circle_btn" size="mini" circle
-                     :type="$store.state.detailDate[question.quesNo-1].answer === 1?'primary':''"
-                     @click="$store.state.detailDate[question.quesNo-1].answer = 1">A
+                     :type="judgeGroup(detailData[question.quesNo-1].answer, '1')?'primary':''"
+                     @click="answerGroup(question.quesNo-1,'1')">A
+          </el-button>
+          {{ question.choice1 }}<br>
+          <el-button class="circle_btn" size="mini" circle
+                     :type="judgeGroup(detailData[question.quesNo-1].answer, '2')?'primary':''"
+                     @click="answerGroup(question.quesNo-1,'2')">B
+          </el-button>
+          {{ question.choice2 }}<br>
+          <el-button class="circle_btn" size="mini" circle
+                     :type="judgeGroup(detailData[question.quesNo-1].answer, '3')?'primary':''"
+                     @click="answerGroup(question.quesNo-1,'3')">C
+          </el-button>
+          {{ question.choice3 }}<br>
+          <el-button class="circle_btn" size="mini" circle
+                     :type="judgeGroup(detailData[question.quesNo-1].answer, '4')?'primary':''"
+                     @click="answerGroup(question.quesNo-1,'4')">D
+          </el-button>
+          {{ question.choice4 }}
+          <el-row>
+            <el-col :span="3">
+              <el-button :disabled="preDisabled" @click="prex">上一题</el-button>
+            </el-col>
+            <el-col :span="6">
+              <el-button :disabled="$store.state.nextDisabled" @click="next">下一题</el-button>
+            </el-col>
+          </el-row>
+        </div>
+      </div>
+
+      <div v-for="(question,index) in exam_data[3]" :key="index+'3'">
+        <div v-if="num === (index+exam_data[1].length+exam_data[2].length)">
+          <div slot="header" class="clearfix">
+            <h3 class="box-center">三、判断题(共{{ exam_data[3].length }}题，合计{{ getAllScore(exam_data[3]) }}分)</h3>
+          </div>
+          <h3 class="box-center">{{ question.quesNo }}、{{ replace_stem(question.stem) }}</h3>
+          <el-button class="circle_btn" size="mini" circle
+                     :type="detailData[question.quesNo-1].answer === '1'?'primary':''"
+                     @click="answerOne(question.quesNo-1, '1')">A
           </el-button>
           正确<br>
           <el-button class="circle_btn" size="mini" circle
-                     :type="$store.state.detailDate[question.quesNo-1].answer === 2?'primary':''"
-                     @click="$store.state.detailDate[question.quesNo-1].answer = 2">B
+                     :type="detailData[question.quesNo-1].answer === '2'?'primary':''"
+                     @click="answerOne(question.quesNo-1, '2')">B
           </el-button>
           错误<br>
           <el-row>
@@ -105,12 +107,13 @@
         </div>
       </div>
 
-      <div v-for="(question,index) in exam_date[4]" :key="index+'4'">
-        <div v-if="num === (index+exam_date[1].length+exam_date[2].length+exam_date[3].length)">
+      <div v-for="(question,index) in exam_data[4]" :key="index+'4'">
+        <div v-if="num === (index+exam_data[1].length+exam_data[2].length+exam_data[3].length)">
           <div slot="header" class="clearfix">
-            <h3 class="box-center">四、填空题(共{{ exam_date[4].length }}题，合计{{ getAllScore(exam_date[4]) }}分)</h3>
+            <h3 class="box-center">四、填空题(共{{ exam_data[4].length }}题，合计{{ getAllScore(exam_data[4]) }}分)</h3>
           </div>
-          <h3 class="box-center" v-html="question.quesNo+'、'+replace_stem_judge(replace_stem(question.stem))"/>
+          <h3 class="box-center" v-html="question.quesNo+'、'+replace_stem_judge(replace_stem(question.stem),question.quesNo-1)"/>
+          <el-input v-model="detailData[question.quesNo-1].answer" style="max-width: 100px;min-width: 50px;margin-right: 10px"/>
           <!--          题干传过来字符串，用{}表示空的位置，使用jquery来替代{}字符为<input type="text">,然后使用v-html来转换为____，题干题干中间可以有多个____，-->
           <!--                另外，input好像都要绑定一个数据v-model，这样正好可以获取用户输入的答案，比如：v-model="ruleForm.resource[index]"-->
           <el-row>
@@ -124,13 +127,13 @@
         </div>
       </div>
 
-      <div v-for="(question,index) in exam_date[5]" :key="index+'5'">
-        <div v-if="num === (index+exam_date[1].length+exam_date[2].length+exam_date[3].length+exam_date[4].length)">
+      <div v-for="(question,index) in exam_data[5]" :key="index+'5'">
+        <div v-if="num === (index+exam_data[1].length+exam_data[2].length+exam_data[3].length+exam_data[4].length)">
           <div slot="header" class="clearfix">
-            <h3 class="box-center">五、简答题(共{{ exam_date[5].length }}题，合计{{ getAllScore(exam_date[5]) }}分)</h3>
+            <h3 class="box-center">五、简答题(共{{ exam_data[5].length }}题，合计{{ getAllScore(exam_data[5]) }}分)</h3>
           </div>
           <h3 class="box-center">{{ question.quesNo }}、{{ replace_stem(question.stem) }}</h3>
-          <el-input v-model="$store.state.detailDate[question.quesNo-1].answer" type="textarea" :rows="5" resize="none"
+          <el-input v-model="detailData[question.quesNo-1].answer" type="textarea" :rows="5" resize="none"
                     maxlength="500"/>
           <el-row>
             <el-col :span="3">
@@ -143,7 +146,7 @@
         </div>
       </div>
     </div>
-    <el-button style="margin-top: 50px; margin-left: 500px" type="primary" @click="goSubmit(this.isCheat)">交卷
+    <el-button style="margin-top: 50px; margin-left: 500px" type="primary" @click="goSubmit(false)">交卷
     </el-button>
   </el-card>
 </template>
@@ -152,12 +155,15 @@ import request from '@/utils/request'
 
 export default {
   name: 'Display',
-  props: ['exam_date', 'quesNos', 'details', 'examId', 'times', 'isCheat'],
+  props: ['exam_data','detailData', 'quesNos', 'details', 'examId', 'times', 'isCheat'],
   data() {
     return {
+      // count: 0,
+      // judgeAnswer: [],
       preDisabled: true // 上禁用按钮,下禁用在vuex中
     }
   },
+
   computed: {
     num() {
       return this.$store.state.numX
@@ -172,51 +178,53 @@ export default {
         this.$store.commit('nextDisableFalse')
       }
       this.preDisabled = now === 0
-      this.submitDate(old + 1) // 当num值改变时，提交上一个题的答案
+      this.submitData(old + 1) // 当num值改变时，提交上一个题的答案
     }
   },
-  created() {
-    this.fetchData()
-  },
-  mounted() {
-    const inputs = document.querySelectorAll('.input-box__label')
-    const labels = document.querySelectorAll('.input-box__input')
-    inputs.forEach(function(input, index) {
-      labels[index].addEventListener('input', (e) => {
-        input.innerHTML = e.target.value
-      })
-    })
-  },
   methods: {
-    anwserGroup(no, select) {
-      // 存在的话就取消，不存在就添加
-      if (this.$store.state.detailDate[no - 1].answer.includes(select)) {
-        // includes()方法判断是否包含某一元素,返回true或false表示是否包含元素，对NaN一样有效
-        const x = this.$store.state.detailDate[no - 1].answer.indexOf(select) // 判断数组中是否有选中的id,如果有则去掉
-        if (x > -1) {
-          this.$store.state.detailDate[no - 1].answer.splice(x, 1)
-        }
-      } else {
-        this.$store.state.detailDate[no - 1].answer = this.$store.state.detailDate[no - 1].answer + ',' + select
+    answerOne(no, select) {
+      if(this.detailData[no].answer === select){
+        this.detailData[no].answer = null
+      }
+      else{
+        this.detailData[no].answer = select
       }
     },
-    fetchData() {
-      request({
-        url: 'exam/detail/get/' + this.details,
-        method: 'get'
-      }).then(response => {
-        console.log(response)
-        this.$store.commit('setDetailDate', response)
-      }).catch(err => {
-        console.log(err)
-      })
+    judgeGroup(answer, select){
+      if (answer === null){
+        return false
+      }
+      else{
+        return answer.includes(select)
+      }
     },
-    submitDate(num) {
+    answerGroup(no, select) {
+      if(this.detailData[no].answer === null){
+        this.detailData[no].answer = select
+      }
+      else if (this.detailData[no].answer.indexOf(select) > -1) {
+        const x = this.detailData[no].answer.indexOf(select)
+        if (x > -1) {
+          if((x + 1) === this.detailData[no].answer.length)
+            this.detailData[no].answer = this.detailData[no].answer.slice(0, x-1)
+          else{
+            this.detailData[no].answer = this.detailData[no].answer.replace(select+',','')
+          }
+          if ((this.detailData[no].answer.includes('1') === false) && (this.detailData[no].answer.includes('2') === false) && (this.detailData[no].answer.includes('3') === false) && (this.detailData[no].answer.includes('4') === false)) {
+            this.detailData[no].answer = null
+          }
+        }
+      }
+      else {
+        this.detailData[no].answer = this.detailData[no].answer + ',' + select
+      }
+    },
+    submitData(num) {
       request({
         url: 'exam/detail/answer' + '/' + this.details + '/' + num,
         method: 'get',
         params: {
-          answer: this.$store.state.detailDate[num - 1].answer
+          answer: this.detailData[num - 1].answer
         }
       }).then(response => {
         console.log(response)
@@ -230,11 +238,24 @@ export default {
     replace_stem(stem) {
       return stem.replace(/<(style|script|iframe)[^>]*?>[\s\S]+?<\/\1\s*>/gi, '').replace(/<[^>]+?>/g, '').replace(/\s+/g, ' ').replace(/ /g, ' ').replace(/>/g, ' ')
     },
-    replace_stem_judge(stem) {
-      return stem.replaceAll('{}', '<div class="input-box">\n' +
-        '  <label class="input-box__label"></label>\n' +
-        '  <input v-model="$store.state.detailDate[question.quesNo-1].answer" type="text" class="input-box__input"/>\n' +
-        '</div>')
+    replace_stem_judge(stem,no) {
+      // let count = 0
+      while(stem.indexOf('{}') !== -1 ) {
+        stem = stem.replace('{}','___')
+        // count++;
+      }
+      if(this.detailData[no].answer === ''){
+        this.detailData[no].answer = null
+      }
+      // this.count = count
+      // if(this.detailData[no].answer !== null) {
+      //   if(this.detailData[no].answer.includes('|')) {
+      //     this.judgeAnswer = this.detailData[no].answer.split('|')
+      //   }
+      // }else{
+      //   this.judgeAnswer = []
+      // }
+      return stem
     },
     next() {
       if (this.num < this.quesNos - 1) {
@@ -251,36 +272,35 @@ export default {
       }
       return sums
     },
-    goSubmit(ischeat) {
-      if (ischeat) {
-        this.submitDate(this.num + 1)
-        alert("强制交卷")
-        request({
-          url: '/exam/stu/submit/' + this.$store.getters.name + '/' + this.examId + '/' + this.times,
-          method: 'Get'
-        }).then(response => {
-          this.$message({
-            type: 'success',
-            message: ' 提交成功!'
+    goSubmit(isCheat) {
+      if (isCheat) {
+        this.submitData(this.num + 1)
+        this.$alert('强制交卷', '通知', {
+          confirmButtonText: '确定',
+        }).then(async ()=>{
+          request({
+            url: '/exam/stu/submit/' + this.$store.getters.name + '/' + this.examId + '/' + this.times,
+            method: 'Get'
+          }).then(response => {
           })
-        })
+          this.$router.push({name:'Dashboard'})
+        });
       } else {
         this.$confirm('您确定要交卷吗，交卷后将无法修改', '是否交卷', {
           confirmButtonText: '确定',
           cancelButtonText: '取消'
         }).then(async() => {
-          this.submitDate(this.num + 1)
+          this.submitData(this.num + 1)
           request({
             url: '/exam/stu/submit/' + this.$store.getters.name + '/' + this.examId + '/' + this.times,
             method: 'Get'
           }).then(response => {
-            alert(response)
             this.$message({
               type: 'success',
               message: ' 提交成功!'
             })
+            this.$router.push({name:'Dashboard'})
           })
-
         }).catch(err => {
           console.error(err)
         })
@@ -301,47 +321,6 @@ export default {
   border: none;
   padding: 0 5px;
   border-bottom: 1px solid;
-}
-
-/* 填空题样式 */
-.input-box {
-  display: inline-flex;
-  align-items: center;
-  box-sizing: border-box;
-  position: relative;
-  border: none;
-  border-bottom: 1px solid;
-  height: 18px;
-  min-width: 50px;
-  /* font family is very important */
-  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
-  font-size: 14px;
-}
-
-.input-box__label {
-  display: inline-block;
-  font-size: inherit;
-  line-height: normal;
-  visibility: hidden;
-  font-family: inherit;
-  height: 13px;
-  padding: 0 10px;
-}
-
-.input-box__input {
-  box-sizing: border-box;
-  position: absolute;
-  display: inline-block;
-  font-size: inherit;
-  font-family: inherit;
-  line-height: normal;
-  border-bottom: inherit;
-  height: 100%;
-  width: 100%;
-  outline: 0;
-  border: 0;
-  margin: 0;
-  padding: 0 10px;
 }
 
 .question-score {

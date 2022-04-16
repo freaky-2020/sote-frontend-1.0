@@ -1,9 +1,9 @@
 <template>
   <div class="webrtc_face_detector">
     <div>
-      <div>
-        <el-button class="el-button" @click="fnOpen">开启监控</el-button>
-        <el-button class="el-button" @click="fnClose">结束监控</el-button>
+      <div class="button">
+        <el-button  @click="fnOpen">开启监控</el-button>
+        <el-button  @click="fnClose">结束监控</el-button>
       </div>
 <!--      <div>-->
 <!--        <span style="margin-right: 20px;"-->
@@ -161,7 +161,9 @@ export default {
       } else {
         this.times=this.times+1
         if(this.times>20){
-          alert("未检测到人脸")
+          this.$alert('未检测到人脸', '通知', {
+            confirmButtonText: '确定',
+          }).then()
           request({
             url:"exam/invi/updateCheat",
             method:'Get',
@@ -234,15 +236,18 @@ export default {
 /*  color: white;*/
 /*  margin: 10px;*/
 /*}*/
-.el-button{
-  position: relative;
-  right: 0;
-  bottom: 0;
+.button{
+  position: fixed;
+  right: 90px;
+  bottom: 270px;
 }
 .see {
-  position: absolute;
+  position: fixed;
+
   right: 0;
+
   bottom: 0;
+
 }
 .see canvas {
   position: absolute;

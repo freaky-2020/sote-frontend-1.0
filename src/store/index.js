@@ -22,7 +22,6 @@ const store = new Vuex.Store({
     quesNo:1,
     sum:0,
     nextDisabled: false, // 下禁用按钮
-    detailDate: null,
     isDown:false,
     fillItems:[
       {id:1,input:'',},
