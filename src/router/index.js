@@ -152,18 +152,19 @@ export const constantRoutes = [
       }
     ]
   },
-  // {
-  //   path: '/grading',
-  //   component: Layout,
-  //   children: [
-  //     {
-  //       path: 'grading',
-  //       name: 'Grading',
-  //       component: () => import('@/views/grading/grading'),
-  //       meta: { title: '老师给学生批卷', icon: 'el-icon-menu' }
-  //     },
-  //   ]
-  // },
+  {
+    path: '/grading',
+    component: Layout,
+    hidden:true,
+        children: [
+          {
+            path: 'grading',
+            name: 'Grading',
+            component: () => import('@/views/grading/grading'),
+        meta: { title: '批卷',  icon: 'el-icon-menu' }
+      },
+    ]
+  },
   {
     path: '/bank',
     component: Layout,
@@ -191,6 +192,20 @@ export const constantRoutes = [
         name: 'paperinfo',
         component: () => import('@/views/createpaper/examInfo'),
         meta: { title: '创建试卷', icon: 'clipboard' }
+      }
+    ]
+  },
+
+  {
+    path: '/result',
+    component: Layout,
+    hidden: true,
+    children: [
+      {
+        path: 'result',
+        name: 'Result',
+        component: () => import('@/views/result/result'),
+        meta: { title: '成绩查看', icon: 'clipboard' }
       }
     ]
   },

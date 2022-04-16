@@ -41,7 +41,7 @@
             <i class="el-icon-time"></i><span>{{item.startTime.slice(0,16)}}到{{item.deadline.slice(0,16)}}可进入</span>
             <span>   考试时长{{item.durationTime}}分钟</span>
             <div class="nomargin" style="float: right">
-              <el-dropdown @command="handleCommand" trigger="click">
+              <el-dropdown @command="handleCommand(item)" trigger="click">
                 <el-button  class="nomargin" icon="el-icon-edit" size="mini">编辑<i class="el-icon-arrow-down el-icon--right"></i></el-button>
                 <el-dropdown-menu slot="dropdown">
                   <el-dropdown-item command="edit">编辑考试信息</el-dropdown-item>
@@ -50,7 +50,7 @@
                 </el-dropdown-menu>
               </el-dropdown>
               <el-button  class="nomargin" @click="judge(item)" icon="el-icon-document-checked" size="mini">批阅</el-button>
-              <el-button v-if="activeExamsName === 'published'" class="nomargin" @click="grade" icon="el-icon-s-data" size="mini">成绩分析</el-button>
+              <el-button v-if="activeExamsName === 'published'" class="nomargin" @click="grade(item)" icon="el-icon-s-data" size="mini">成绩分析</el-button>
               <el-button v-if="activeExamsName === 'finished' " size="mini" type="primary" @click="publishExam(item)" >公布成绩</el-button>
             </div>
           </div>
@@ -187,15 +187,12 @@ export default {
 
   },
   methods: {
-    handleCommand(command) {
-      this.$message('click on item ' + command);
-      if (command === 'edit') {
-
-      } else if (command === 'delete') {
-
-      } else if (command === 'design') {
-        this.$router.push({ name: 'Design', query: {} })
-      }
+    handleCommand(item) {
+        this.$router.push({ name: 'Design',
+          query: {
+            paperId:item.paperId,
+            examId:item.examId,
+          } })
     },
     editExamInfo() {
 
@@ -316,8 +313,10 @@ export default {
         }
       })
     },
-    grade() {
-      this.$router.push({ name: 'Grade', query: {} })
+    grade(item) {
+      this.$router.push({ name: 'Grade', query: {
+        examId:item.examId
+        } })
     },
     handleCopy(text, event) {
       clip(text, event)

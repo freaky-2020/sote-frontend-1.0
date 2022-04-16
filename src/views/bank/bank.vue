@@ -37,9 +37,7 @@
        <el-button  size="small" @click="fetchData" icon="el-icon-search">查询</el-button>
        <el-button size="small" @click="clear" icon="el-icon-refresh">清除</el-button>
        <div style="float: right;">
-<!--         <el-button size="small" @click="isAddByText=true"  >文本增题</el-button>-->
-         <el-button size="small" v-if="topicType === undefined" @click="addBySelf"  >新增试题</el-button>
-<!--         <el-button size="small" @click="updateAll($refs.multipleTable.selection)" >批量修改</el-button>-->
+         <el-button size="small" v-if="topicType === undefined" @click="addBySelf">新增试题</el-button>
          <el-button size="small" v-if="topicType === undefined" @click="deleteAll($refs.multipleTable.selection)"  >批量删除</el-button>
          <el-button size="small" @click="$refs.import.$el.click()">导出</el-button>
        </div>
@@ -57,9 +55,6 @@
              :value="item.value">
            </el-option>
          </el-select>
-       </div>
-       <div>
-         <el-button @click="debug">test</el-button>
        </div>
      </div>
      <JsonExcel
@@ -423,42 +418,31 @@ export default {
       this.fetchData()
     },
     handleDelete(row){
+      let ids =row.id
       this.$confirm('此操作将删除所选题目，确定吗？', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
         request({
-          url: '/bank/question/delete/'+row.id,
-          method: 'Delete',
+          url: '/bank/required/'+ this.$store.getters.name +'/delete',
+          method: 'get',
+          params: { ids },
         }).then(response => {
           console.log(response)
+          this.$message({
+            type: 'success',
+            message: response,
+          });
         }).catch( err =>{
           console.log(err)
         })
-        this.form = this.form.filter((q) => {
-          return q !== row
-        })
-        this.$message({
-          type: 'success',
-          message: '删除成功!'
-        });
       }).catch(() => {
         this.$message({
           type: 'info',
           message: '已取消删除'
         });
       })
-    },
-    updateAll(all){
-      console.log(all)
-      if(all.length !== 0){
-        this.isUpdateAll=true
-      }
-      else{
-        //此处将this.$refs.multipleTable.selection这个数组传给后端并请求新的数据
-        this.$message.error('请选择批量修改的题目');
-      }
     },
     deleteAll(all){
       if(all.length !== 0){
@@ -476,7 +460,7 @@ export default {
           type: 'warning'
         }).then(() => {
           request({
-            url: '/bank/question/delete',
+            url: '/bank/required/'+this.$store.getters.name +'/delete',
             method: 'Delete',
             params: {ids}
           }).then(response => {
