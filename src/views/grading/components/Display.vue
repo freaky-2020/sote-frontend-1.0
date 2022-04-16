@@ -3,32 +3,56 @@
     <div>
       <div  v-for="(question,index) in exam_date" :key="index+'5'">
         <div v-if="question.quesNo===num">
-          <div slot="header" class="clearfix">
-            <h3 class="box-center">简答题(共{{ exam_date.length }}题，合计{{ getAllScore(exam_date) }}分)</h3>
+          <div slot="header" class="clearfix" style="font-size: 20px;">
+            <span class="box-center">简答题(共{{ exam_date.length }}题，合计{{ getAllScore(exam_date) }}分)</span>
+            <div style="float: right" v-if="$store.state.isDown === true">
+              <span style="text-align: right;margin-right: 10px">姓名：{{stuData[userNum].user.realName}}</span>
+              <span style="text-align: right">编号：{{stuData[userNum].user.userName}}</span>
+            </div>
           </div>
           <h3 class="box-center">{{ index+1 }}、{{ replace_stem(question.stem) }}   ({{question.score}}分)</h3>
           <el-row v-if="$store.state.isDown === false">
             <el-col :span="3">
               <el-button :disabled="preDisabled" @click="prex">上一题</el-button>
             </el-col>
-            <el-col :span="6">
+            <el-col :span="13">
               <el-button :disabled="$store.state.nextDisabled" @click="next">下一题</el-button>
             </el-col>
-            <el-col  :span="9">
+            <el-col  :span="4">
               <el-button  type="primary" @click="gradingThis(question.quesNo)">批改此题</el-button>
             </el-col>
+            <el-col  :span="4">
+              <el-button  type="primary" @click="toMyExam">结束批改</el-button>
+            </el-col>
           </el-row>
+          <div v-if="$store.state.isDown === true">
+            <span></span>
+            学生答案：
+            <br>
+            <br>
+            <span style="color: blue;margin-bottom: 10px" >{{stuData[userNum].examDetail.answer}}</span>
+            <br>
+            <br>
+            <span>参考答案：</span>
+            <span style="color: blue" v-html="stuData[userNum].examDetail.realAnswer"></span>
+          </div>
           <el-row v-if="$store.state.isDown === true">
             <el-col :span="3">
-              <el-button :disabled="preDisabled" @click="prex">上一学生</el-button>
+              <el-button size="small" @click="preUser">上一学生</el-button>
             </el-col>
-            <el-col :span="6">
-              <el-button :disabled="$store.state.nextDisabled" @click="next">下一学生</el-button>
+            <el-col :span="3">
+              <el-button size="small" @click="nextUser">下一学生</el-button>
             </el-col>
-            <el-col :span="9">
-              打分：<el-input style="width: 100px;margin-right: 30px" ></el-input>
-              <el-button  type="primary" @click="gradingDown(question.quesNo-1)">批改完成</el-button>
+
+            <el-col :span="14">
+              打分：<el-input size="small" style="width: 100px;margin-right: 10px" v-model="stuData[userNum].examDetail.score"></el-input>
             </el-col>
+              <el-col :span="2">
+                <el-button  size="small" type="primary" @click="submitGrading(stuData[userNum].examDetail.id,3)">保存</el-button>
+              </el-col>
+              <el-col :span="2">
+                <el-button  size="small" type="primary" @click="gradingDown(question.quesNo-1)">结束批改</el-button>
+              </el-col>
           </el-row>
         </div>
       </div>
@@ -44,7 +68,7 @@ export default {
   data() {
     return {
       isDown:this.$store.state.isDown,
-      details: 6,
+      inputScore:0,
       preDisabled: true, // 上禁用按钮
     }
   },
@@ -54,6 +78,9 @@ export default {
     },
     nextDisabled() {
       return this.$store.state.nextDisabled
+    },
+    userNum(){
+      return this.$store.state.userNum
     }
   },
   watch: {
@@ -65,12 +92,16 @@ export default {
         this.$store.commit('nextDisableFalse')
       }
       this.preDisabled = now === this.exam_date[0].quesNo
-    }
+    },
+    userNum(){
+
+    },
   },
   created() {
     this.fetchData()
   },
   mounted() {
+    console.log(this.stuData)
     const inputs = document.querySelectorAll('.input-box__label')
     const labels = document.querySelectorAll('.input-box__input')
     inputs.forEach(function(input, index) {
@@ -80,13 +111,25 @@ export default {
     })
   },
   methods: {
-    fetchData() {
+    submitGrading(val,type){
       request({
-        url: 'exam/detail/get/' + this.details,
-        method: 'get'
+        url: 'exam/mark/markScore/' + val,
+        method: 'get',
+        params: {
+          score: this.stuData[this.userNum].examDetail.score
+        }
       }).then(response => {
         console.log(response)
-        this.detailDate = response
+        this.$message(response)
+        if(response === '批阅成功'){
+          if(type===1){
+            this.$store.commit('reduceUserNum')
+          }
+          if(type===2){
+            this.$store.commit('addUserNum',this.stuData.length-1)
+          }
+        }
+        this.inputScore = 0
       }).catch(err => {
         console.log(err)
       })
@@ -118,6 +161,12 @@ export default {
       this.$store.commit('reduceNum')
       this.submitDate(this.num)
     },
+    preUser(){
+      this.submitGrading(this.stuData[this.userNum].examDetail.id,1)
+    },
+    nextUser(){
+      this.submitGrading(this.stuData[this.userNum].examDetail.id,2)
+    },
     getAllScore(form) {
       let sums = 0
       for (let i = 0; i < form.length; i++) {
@@ -130,6 +179,21 @@ export default {
     },
     gradingDown(){
       this.$store.commit('gradingDown')
+    },
+    toMyExam(){
+      if(confirm('是否结束批改？')){
+        if(confirm('是否立即公布考试结果?')){
+          request({
+            url: 'exam/info/publish/' + this.examId,
+            method: 'get',
+          }).then(response => {
+            console.log(response)
+          }).catch(err => {
+            console.log(err)
+          })
+        }
+        this.$router.push({ name: 'teacherExam', query: {} })
+      }
     }
   }
 }

@@ -12,7 +12,7 @@
         <!--        <i class="iconfont icon-icon-time"></i><span>限时{{item.durationTime}}分钟</span>-->
         <br/>
         <span>考试时长{{ item.examInfo.durationTime }}分钟</span>
-
+        <el-button v-if="item.examInfo.isPublic === 1" style="float:right;" @click="grade(item)">查看成绩</el-button>
         <!--            <i class="iconfont icon-fenshu"></i><span>满分{{item.totalScore}}分</span>-->
         <!--            <el-tag type="info">{{item.subject}}</el-tag>-->
       </div>
@@ -40,6 +40,14 @@ export default {
     'getExamInfo'
   ],
   methods: {
+    grade(item) {
+      this.$router.push({ name: 'Result',
+        query: {
+          userName:this.userName,
+          examId:item.examInfo.examId,
+          isTeacher:true
+        } })
+    },
     toExam(item) {
       this.$confirm('你将进入考试，准备好了吗', '提示', {
         confirmButtonText: '好了',

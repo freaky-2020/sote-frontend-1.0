@@ -5,11 +5,11 @@
     <div class="wrapper">
       <ul class="top">
         <el-tabs v-model="activeExamsName" type="card">
-          <el-tab-pane label="全部" name="all" ></el-tab-pane>
-          <el-tab-pane label="开放中" name="ongoing"></el-tab-pane>
-          <el-tab-pane label="未开始" name="future"></el-tab-pane>
-          <el-tab-pane label="已结束" name="finished"></el-tab-pane>
-          <el-tab-pane label="已发布" name="published"></el-tab-pane>
+          <el-tab-pane label="全部" name="all"  @click="current=1"></el-tab-pane>
+          <el-tab-pane label="开放中" name="ongoing" @click="current=1"></el-tab-pane>
+          <el-tab-pane label="未开始" name="future" @click="current=1"></el-tab-pane>
+          <el-tab-pane label="已结束" name="finished" @click="current=1"></el-tab-pane>
+          <el-tab-pane label="已公布" name="published" @click="current=1"></el-tab-pane>
         </el-tabs>
 
         <li class="search-li">
@@ -25,12 +25,12 @@
       <ul class="paper" v-if="displayExam!=null">
         <li class="item"
             v-for="(item,index) in newDisplayExam.slice((current-1)*pageSize,current*pageSize)" :key="index">
-          <h4 @click="toExam(item)">{{item.examName}}</h4>
+          <h4>{{item.examName}}</h4>
           <p class="examName">科目：{{item.subjectName}}</p>
           <p class="examName">考试须知：{{item.examNote}}</p>
           <div class="info">
             <span>考试口令：{{item.word}}  </span>
-            <el-button type="text" icon="el-icon-document-copy" @click="handleCopy(item.word,$event)">
+            <el-button type="text" icon="el-icon-document-copy" @click="copyLink(item.word)">
             </el-button>
             <br/>
             <span>允许考试&nbsp;{{item.allowableTime}}&nbsp;次 允许切屏&nbsp;{{item.cuttingTimes}}&nbsp;次</span>
@@ -38,7 +38,7 @@
             <i class="el-icon-time"></i><span>{{item.startTime.slice(0,16)}}到{{item.deadline.slice(0,16)}}可进入</span>
             <span>   考试时长{{item.durationTime}}分钟</span>
             <div class="nomargin" style="float: right">
-              <el-dropdown @command="handleCommand" trigger="click">
+              <el-dropdown @command="handleCommand(item)" trigger="click">
                 <el-button  class="nomargin" icon="el-icon-edit" size="small">编辑<i class="el-icon-arrow-down el-icon--right"></i></el-button>
                 <el-dropdown-menu slot="dropdown">
                   <el-dropdown-item command="edit">编辑考试信息</el-dropdown-item>
@@ -46,8 +46,9 @@
                   <el-dropdown-item command="delete">删除考试</el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
-              <el-button  class="nomargin" @click="judge(item)" icon="el-icon-document-checked" size="small">批阅</el-button>
-              <el-button  class="nomargin" @click="grade" icon="el-icon-s-data" size="small">成绩分析</el-button>
+              <el-button  class="nomargin" @click="judge(item)" icon="el-icon-document-checked" size="mini">批阅</el-button>
+              <el-button v-if="activeExamsName === 'published'" class="nomargin" @click="grade(item)" icon="el-icon-s-data" size="small">成绩分析</el-button>
+              <el-button v-if="activeExamsName === 'finished' " size="small" type="primary" @click="publishExam(item)" >公布成绩</el-button>
             </div>
           </div>
         </li>
@@ -121,7 +122,7 @@ export default {
   data() {
     return {
       judgeDialog:false,
-      examineeId:1904011106,
+      examineeId:this.$store.getters.name,
       activeExamsName:'all',
       wordDialogVisible:false,
       word:null,
@@ -151,7 +152,9 @@ export default {
     }
   },
   computed:{
+
     displayExam:function(){
+      this.current=1
       if(this.activeExamsName=== 'all'){
         return this.allExam
       }else if(this.activeExamsName ==='ongoing'){
@@ -171,7 +174,10 @@ export default {
     }
   },
   watch: {
-
+    name(){
+      this.current =1
+      this.getExamInfo()
+    }
   },
   created() {
     this.getAllSubject()//1
@@ -183,15 +189,24 @@ export default {
 
   },
   methods: {
-    handleCommand(command) {
-      this.$message('click on item ' + command);
-      if (command === 'edit') {
-
-      } else if (command === 'delete') {
-
-      } else if (command === 'design') {
-        this.$router.push({ name: 'Design', query: {} })
-      }
+    copyLink(val) { // 复制链接
+      console.log(val, '复制链接')
+      let url = val // 后台接口返回的链接地址
+      let inputNode = document.createElement('input')  // 创建input
+      inputNode.value = url // 赋值给 input 值
+      document.body.appendChild(inputNode) // 插入进去
+      inputNode.select() // 选择对象
+      document.execCommand('Copy') // 原生调用执行浏览器复制命令
+      inputNode.className = 'oInput'
+      inputNode.style.display = 'none' // 隐藏
+      this.$message.success('复制成功')
+    },
+    handleCommand(item) {
+        this.$router.push({ name: 'Design',
+          query: {
+            paperId:item.paperId,
+            examId:item.examId,
+          } })
     },
     editExamInfo() {
 
@@ -239,7 +254,7 @@ export default {
       }
     },
     //获取当前所有考试信息
-    getExamInfo() {
+    getExamInfo(val) {
       request({
         // url:'/exam/info/query',
         // url:'/exam/stu/getExam/stu/{userName}'+this.userName
@@ -257,14 +272,11 @@ export default {
         this.allExam = this.ongoingExam.concat(this.futureExam).concat(this.finishedExam).concat(this.publishedExam)
         console.log(this.allExam)
         this.loading = false
+        if(val === 1){
+          this.activeExamsName = 'published'
+        }
+        val = 0
       })
-      // this.$axios(`/api/exams/${this.current}/${this.size}`).then(res => {
-      //   this.pagination = res.data.data
-      //   this.loading = false
-      //   console.log(this.pagination)
-      // }).catch(error => {
-      //   console.log(error)
-      // })
     },
     goToCreate() {
       this.$router.push({ path: '/createexam/examinfo', })
@@ -272,12 +284,7 @@ export default {
     enterExam() {
       request({
         url: '/exam/stu/join/' + this.word,
-        // url:`/exam/stu/join/${this.word}`,
         method: 'Get',
-        // data:{
-        //   // word:this.word,
-        //   examineeId:1904011106,
-        // }
         params: { examineeId: this.examineeId }
       }).then(res => {
         console.log(res)
@@ -306,7 +313,7 @@ export default {
         params: {rule: this.select},
       }).then(res => {
         console.log(res)
-        if(res.indexOf('考试')){
+        if(res.indexOf('答卷') !== -1){
           if(confirm(res+'是否进入简答题批阅?')){
             this.$router.push({ name: 'Grading',
               query: {
@@ -320,38 +327,46 @@ export default {
         }
       })
     },
-    grade() {
-      this.$router.push({ name: 'Grade', query: {} })
+    grade(item) {
+      this.$router.push({ name: 'Grade', query: {
+        examId:item.examId
+        } })
     },
-    toExam(item) {
-      request({
-        url: '/exam/stu/start/' + this.examineeId + '/' + item.examInfo.examId + '/' + (item.time + 1),
-        method: 'Get',
-      }).then(res => {
-        console.log(res)
-        Object.keys(res).forEach(key => {
-          console.log(key)
-          if (key === 'success') {
-            console.log(res['success'])
-            this.$router.push({ name: 'Exam_', query: { examValue: JSON.stringify(res['success']) } })
-          } else {
-            alert(key)
-            this.$emit("getExamInfo")
+
+    publishExam(item){
+      if(confirm('是否公布考试结果?')){
+        request({
+          url: 'exam/info/try/publish/' + item.examId,
+          method: 'get',
+        }).then(response => {
+          if(response.indexOf('成绩与答案') !== -1){
+            alert(response)
+            this.getExamInfo(1)
           }
+          else if(response.indexOf('未全部批阅') !== -1){
+            if(confirm(response)){
+              request({
+                url: 'exam/info/publish/' + item.examId,
+                method: 'get',
+              }).then(response => {
+                alert(response)
+              }).catch(err => {
+                console.log(err)
+              })
+              this.getExamInfo(1)
+            }
+          }
+          else{
+            alert(response)
+          }
+        }).catch(err => {
+          console.log(err)
         })
-      })
+      }
     },
-    handleCopy(text, event) {
-      clip(text, event)
-    },
-    clipboardSuccess() {
-      this.$message({
-        message: '复制成功',
-        type: 'success',
-        duration: 1500
-      })
-    }
-  }
+
+  },
+
 }
 </script>
 

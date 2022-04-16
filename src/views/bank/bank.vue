@@ -453,42 +453,31 @@ export default {
       this.fetchData()
     },
     handleDelete(row){
+      let ids =row.id
       this.$confirm('此操作将删除所选题目，确定吗？', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
         request({
-          url: '/bank/question/delete/'+row.id,
-          method: 'Delete',
+          url: '/bank/required/'+ this.$store.getters.name +'/delete',
+          method: 'get',
+          params: { ids },
         }).then(response => {
           console.log(response)
+          this.$message({
+            type: 'success',
+            message: response,
+          });
         }).catch( err =>{
           console.log(err)
         })
-        this.form = this.form.filter((q) => {
-          return q !== row
-        })
-        this.$message({
-          type: 'success',
-          message: '删除成功!'
-        });
       }).catch(() => {
         this.$message({
           type: 'info',
           message: '已取消删除'
         });
       })
-    },
-    updateAll(all){
-      console.log(all)
-      if(all.length !== 0){
-        this.isUpdateAll=true
-      }
-      else{
-        //此处将this.$refs.multipleTable.selection这个数组传给后端并请求新的数据
-        this.$message.error('请选择批量修改的题目');
-      }
     },
     deleteAll(all){
       if(all.length !== 0){
@@ -506,7 +495,7 @@ export default {
           type: 'warning'
         }).then(() => {
           request({
-            url: '/bank/question/delete',
+            url: '/bank/required/'+this.$store.getters.name +'/delete',
             method: 'Delete',
             params: {ids}
           }).then(response => {

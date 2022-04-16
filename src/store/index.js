@@ -18,6 +18,9 @@ const store = new Vuex.Store({
   getters,
   state: {
     numX: 0,
+    userNum:0,
+    quesNo:1,
+    sum:0,
     nextDisabled: false, // 下禁用按钮
     isDown:false,
     fillItems:[
@@ -49,6 +52,28 @@ const store = new Vuex.Store({
     ]
   },
   mutations: {
+    addSum(state){
+      state.sum +=1
+    },
+    setQuesNo(state,val){
+      state.quesNo = val
+    },
+    gradingThis(state){
+      state.isDown = true
+    },
+    addUserNum(state,max){
+      if(state.userNum<max){
+        state.userNum += 1
+      }
+    },
+    reduceUserNum(state){
+      if(state.userNum>0){
+        state.userNum -= 1
+      }
+    },
+    setUserNum(state,val){
+      state.userNum = val
+    },
     addNum(state) {
       state.numX += 1
     },
@@ -68,8 +93,8 @@ const store = new Vuex.Store({
     nextDisableFalse(state) {
       state.nextDisabled = false
     },
-    gradingThis(state){
-      state.isDown = true
+    setDetailDate(state, response) {
+      state.detailDate = response
     },
     gradingDown(state){
       state.isDown = false

@@ -283,7 +283,6 @@ export default {
 
     },
     editSubmit(){
-      alert('正在编辑')
       this.$refs.form.validate((valid) => {
         if (valid) {
           this.question.createTime=null
@@ -292,11 +291,14 @@ export default {
             this.updateFill(this.copyFillItems)
           }
           request({
-            url: '/bank/question/update',
-            method: 'put',
+            url: '/bank/required/'+this.$store.getters.name +'/update',
+            method: 'get',
             params:this.question,
           }).then(response => {
-            console.log(response)
+            this.$message({
+              type: 'success',
+              message: response,
+            });
           }).catch( err =>{
             console.log(err)
           })
@@ -315,13 +317,15 @@ export default {
           if(this.editQuestion.typeId===4){
             this.updateFill(this.copyFillItems)
           }
-          alert('正在创建')
           request({
-            url: '/bank/question/add',
-            method: 'post',
+            url: '/bank/required/'+this.$store.getters.name +'/add',
+            method: 'get',
             params:this.editQuestion,
           }).then(response => {
-            console.log(response)
+            this.$message({
+              type: 'success',
+              message: response,
+            });
           }).catch( err =>{
             console.log(err)
           })

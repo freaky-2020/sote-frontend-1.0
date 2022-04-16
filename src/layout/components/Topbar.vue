@@ -21,7 +21,7 @@
       :default-active="activeMenu"
       mode="horizontal"
       @select="handleSelect">
-      <div v-for="item in routes" :key="item.path" class="nav-item">
+      <div v-for="item in permission_routes" :key="item.path" class="nav-item">
         <app-link :to="resolvePath(item)">
           <el-menu-item v-if="!item.hidden" :index="item.path"
           >{{ item.meta ? item.meta.title : item.children[0].meta.title }}
@@ -78,7 +78,7 @@ export default {
   },
 
   computed:{
-    ...mapGetters(['avatar']),
+    ...mapGetters(['avatar','permission_routes']),
     variables() {
       return variables
     },

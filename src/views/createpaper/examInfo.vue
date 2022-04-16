@@ -293,7 +293,9 @@ export default {
             this.$router.push({ name: 'Design',query:{paperId:res.paperId,word:res.word} })
             // this.$router.push({ path: 'design/design' })
           })
-          alert('添加成功');
+          this.$alert('添加成功', '通知', {
+            confirmButtonText: '确定',
+          }).then()
         } else {
           console.log('操作失败');
           return false;
