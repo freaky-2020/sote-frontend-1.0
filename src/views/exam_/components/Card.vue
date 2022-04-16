@@ -4,6 +4,7 @@
       <div class="title_content">答题卡</div>
     </div>
     <div v-if="exam_data[1].length!==0">
+      
       <div class="card-content-title">单选题(共{{ exam_data[1].length }}题，合计{{ getAllScore(exam_data[1]) }}分)</div><br>
       <el-button v-for="(question,index) in exam_data[1]" :key="index+'1'" :type="detailData[question.quesNo-1].answer !== null?'primary':''" size="mini" class="buton" @click="setNum(index)">{{ question.quesNo }}</el-button>
 <!--      <el-button v-for="(question,index) in exam_data[1]" :key="index+'1'" v-show="iscolor[question.quesNo]==='grey'" :type="detailData[question.quesNo-1].answer !== null?'primary':''" size="mini" class="buton" @click="setNum(index)">{{ question.quesNo }}</el-button>-->
