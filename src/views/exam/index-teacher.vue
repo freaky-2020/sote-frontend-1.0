@@ -46,7 +46,7 @@
                   <el-dropdown-item command="delete">删除考试</el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
-              <el-button  class="nomargin" @click="judge(item)" icon="el-icon-document-checked" size="mini">批阅</el-button>
+              <el-button  class="nomargin" @click="judge(item)" icon="el-icon-document-checked" size="small">批阅</el-button>
               <el-button v-if="activeExamsName === 'published'" class="nomargin" @click="grade(item)" icon="el-icon-s-data" size="small">成绩分析</el-button>
               <el-button v-if="activeExamsName === 'finished' " size="small" type="primary" @click="publishExam(item)" >公布成绩</el-button>
             </div>
@@ -364,9 +364,10 @@ export default {
         })
       }
     },
-
-  },
-
+    handleCopy(text, event) {
+      clip(text, event)
+    },
+  }
 }
 </script>
 
@@ -463,7 +464,7 @@ li{
 //}
 .item .info i {
   margin-right: 5px;
-  color: #0076e1;
+  color: #0195ff;
 }
 .item .info span {
   //margin-right: 14px;
@@ -477,8 +478,8 @@ li{
   transition: all 0.6s ease;
 }
 .paper .item:hover {
-  box-shadow: 0 0 4px 2px rgba(149, 172, 197, 0.45);
-  transform: scale(1.015);
+  box-shadow: 0 0 4px 2px rgba(140, 193, 248, 0.45);
+  transform: scale(1.01);
 }
 .paper .item .info {
   font-size: 13px;
