@@ -30,12 +30,9 @@
           <i class="el-icon-caret-bottom" />
         </div>
         <el-dropdown-menu slot="dropdown" class="user-dropdown">
-          <router-link to="/">
+          <router-link to="/profile">
             <el-dropdown-item>个人主页</el-dropdown-item>
           </router-link>
-          <a href="https://github.com/PanJiaChen/vue-admin-template/" target="_blank">
-            <el-dropdown-item>Github</el-dropdown-item>
-          </a>
 <!--          <a href="https://panjiachen.github.io/vue-element-admin-site/#/" target="_blank">-->
 <!--            <el-dropdown-item>Docs</el-dropdown-item>-->
 <!--          </a>-->
