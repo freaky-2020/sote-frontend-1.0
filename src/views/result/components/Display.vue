@@ -15,7 +15,7 @@
               <span>{{question.choice3}}</span><br>
               <el-button size="mini" style="margin-bottom: 5px;margin-right: 10px" :type="examDetails[index].answer ==='4'?'primary':''">D</el-button>
               <span>{{question.choice4}}</span><br>
-              <span style="color: red">正确答案：{{map[question.answer]}}</span>
+              <span style="color: green">正确答案：{{map[question.answer]}}</span>
             </div>
             <h3 v-if="exam_date.papers[index].typeId===1 && exam_date.papers[index+1].typeId ===2">二、多选题</h3>
             <div v-if="question.typeId === 2">
@@ -28,7 +28,7 @@
               <span>{{question.choice3}}</span><br>
               <el-button size="mini" style="margin-bottom: 5px;margin-right: 10px" :type="examDetails[index].answer.indexOf('4') !==-1?'primary':''">D</el-button>
               <span>{{question.choice4}}</span><br>
-              <span style="color: red">正确答案：{{getAnswer(question.answer)}}</span>
+              <span style="color: green">正确答案：{{getAnswer(question.answer)}}</span>
             </div>
             <h3 v-if="exam_date.papers[index].typeId===2 && exam_date.papers[index+1].typeId ===3">三、判断题</h3>
             <div v-if="question.typeId === 3">
@@ -37,8 +37,8 @@
               <span>{{question.choice1}}</span>
               <el-button size="mini" style="margin-bottom: 5px;margin-right: 10px" :type="examDetails[index].answer.indexOf('2') !==-1?'primary':''">错误</el-button>
               <span>{{question.choice2}}</span><br>
-              <span style="color: red">正确答案：</span>
-              <span style="color: red" v-html="question.answer==='1'?'正确':'错误'"></span>
+              <span style="color: green">正确答案：</span>
+              <span style="color: green" v-html="question.answer==='1'?'正确':'错误'"></span>
             </div>
             <h3 v-if="exam_date.papers[index].typeId===3 && exam_date.papers[index+1].typeId ===4">四、填空题</h3>
             <div v-if="question.typeId ===4">
@@ -47,8 +47,8 @@
               <span>{{examDetails[index].answer}}</span>
               <br>
               <br>
-              <span style="color: red">正确答案：</span>
-              <span style="color: red" v-html="question.answer"></span>
+              <span style="color: green">正确答案：</span>
+              <span style="color: green" v-html="question.answer"></span>
             </div>
             <h3 v-if="exam_date.papers[index].typeId===4 && exam_date.papers[index+1].typeId ===5">五、综合题</h3>
             <div v-if="question.typeId ===5">
@@ -57,8 +57,8 @@
               <span v-html="exam_date.papers[index].answer"></span>
               <br>
               <br>
-              <span style="color: red">正确答案：</span>
-              <span style="color: red" v-html="question.answer"></span>
+              <span style="color: green">正确答案：</span>
+              <span style="color: green" v-html="question.answer"></span>
               <br>
               <br>
               <span>考生得分：   </span>
@@ -105,14 +105,14 @@
           <h3>四、填空题</h3>
           <div  v-for="(question,index) in paperData[4]" :key="index">
             <h5 :id="'a'+question.quesNo" v-html="question.quesNo + '、'+question.stem+'('+question.score+'分)'"> </h5>
-            <span style="color: red">正确答案：</span>
-            <span style="color: red" v-html="question.answer"></span>
+            <span style="color: green">正确答案：</span>
+            <span style="color: green" v-html="question.answer"></span>
           </div>
           <h3>五、简答题</h3>
           <div  v-for="(question,index) in paperData[5]" :key="index">
             <h5 :id="'a'+question.quesNo" v-html="question.quesNo + '、'+question.stem+'('+question.score+'分)'"> </h5>
-            <span style="color: red">正确答案：</span>
-            <span style="color: red" v-html="question.answer"></span>
+            <span style="color: green">正确答案：</span>
+            <span style="color: green" v-html="question.answer"></span>
           </div>
         </div>
       </el-scrollbar>

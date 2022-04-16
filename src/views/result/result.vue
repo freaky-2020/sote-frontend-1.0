@@ -63,7 +63,6 @@ export default {
         console.log(response)
         this.examDate = response[0]
         this.$store.commit('setNum', this.examDate.papers[0].quesNo)
-        this.getQuesNos()
         this.flag = true
       }).catch(err => {
         console.log(err)
