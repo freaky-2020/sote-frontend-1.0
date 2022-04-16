@@ -110,7 +110,8 @@
           <div slot="header" class="clearfix">
             <h3 class="box-center">四、填空题(共{{ exam_data[4].length }}题，合计{{ getAllScore(exam_data[4]) }}分)</h3>
           </div>
-          <h3 class="box-center" v-html="question.quesNo+'、'+replace_stem_judge(replace_stem(question.stem))"/>
+          <h3 class="box-center" v-html="question.quesNo+'、'+replace_stem_judge(replace_stem(question.stem),question.quesNo-1)"/>
+          <el-input v-model="detailData[question.quesNo-1].answer" style="max-width: 100px;min-width: 50px;margin-right: 10px"/>
           <!--          题干传过来字符串，用{}表示空的位置，使用jquery来替代{}字符为<input type="text">,然后使用v-html来转换为____，题干题干中间可以有多个____，-->
           <!--                另外，input好像都要绑定一个数据v-model，这样正好可以获取用户输入的答案，比如：v-model="ruleForm.resource[index]"-->
           <el-row>
@@ -143,7 +144,7 @@
         </div>
       </div>
     </div>
-    <el-button style="margin-top: 50px; margin-left: 500px" type="primary" @click="goSubmit(isCheat)">交卷
+    <el-button style="margin-top: 50px; margin-left: 500px; margin-right: 2px" type="primary" @click="goSubmit(isCheat)">交卷
     </el-button>
   </el-card>
 </template>
@@ -155,6 +156,8 @@ export default {
   props: ['exam_data','detailData', 'quesNos', 'details', 'examId', 'times', 'isCheat'],
   data() {
     return {
+      // count: 0,
+      // judgeAnswer: [],
       preDisabled: true // 上禁用按钮,下禁用在vuex中
     }
   },
@@ -174,18 +177,6 @@ export default {
       this.preDisabled = now === 0
       this.submitData(old + 1) // 当num值改变时，提交上一个题的答案
     }
-  },
-  created() {
-    this.fetchData()
-  },
-  mounted() {
-    const inputs = document.querySelectorAll('.input-box__label')
-    const labels = document.querySelectorAll('.input-box__input')
-    inputs.forEach(function(input, index) {
-      labels[index].addEventListener('input', (e) => {
-        input.innerHTML = e.target.value
-      })
-    })
   },
   methods: {
     answerOne(no, select) {
@@ -225,10 +216,6 @@ export default {
         this.detailData[no].answer = this.detailData[no].answer + ',' + select
       }
     },
-    answerBlank(no) {
-      alert(this.detailData[no].answer)
-      return this.detailData[no].answer
-    },
     submitData(num) {
       request({
         url: 'exam/detail/answer' + '/' + this.details + '/' + num,
@@ -248,11 +235,24 @@ export default {
     replace_stem(stem) {
       return stem.replace(/<(style|script|iframe)[^>]*?>[\s\S]+?<\/\1\s*>/gi, '').replace(/<[^>]+?>/g, '').replace(/\s+/g, ' ').replace(/ /g, ' ').replace(/>/g, ' ')
     },
-    replace_stem_judge(stem) {
-      return stem.replaceAll('{}', '<div class="input-box">\n' +
-        '  <label class="input-box__label"></label>\n' +
-        '  <input v-model="answerBlank(question.quesNo-1)" type="text" class="input-box__input"/>\n' +
-        '</div>')
+    replace_stem_judge(stem,no) {
+      // let count = 0
+      while(stem.indexOf('{}') !== -1 ) {
+        stem = stem.replace('{}','___')
+        // count++;
+      }
+      if(this.detailData[no].answer === ''){
+        this.detailData[no].answer = null
+      }
+      // this.count = count
+      // if(this.detailData[no].answer !== null) {
+      //   if(this.detailData[no].answer.includes('|')) {
+      //     this.judgeAnswer = this.detailData[no].answer.split('|')
+      //   }
+      // }else{
+      //   this.judgeAnswer = []
+      // }
+      return stem
     },
     next() {
       if (this.num < this.quesNos - 1) {
@@ -319,47 +319,6 @@ export default {
   border: none;
   padding: 0 5px;
   border-bottom: 1px solid;
-}
-
-/* 填空题样式 */
-.input-box {
-  display: inline-flex;
-  align-items: center;
-  box-sizing: border-box;
-  position: relative;
-  border: none;
-  border-bottom: 1px solid;
-  height: 18px;
-  min-width: 50px;
-  /* font family is very important */
-  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
-  font-size: 14px;
-}
-
-.input-box__label {
-  display: inline-block;
-  font-size: inherit;
-  line-height: normal;
-  visibility: hidden;
-  font-family: inherit;
-  height: 12px;
-  padding: 0 10px;
-}
-
-.input-box__input {
-  box-sizing: border-box;
-  position: absolute;
-  display: inline-block;
-  font-size: inherit;
-  font-family: inherit;
-  line-height: normal;
-  border-bottom: inherit;
-  height: 100%;
-  width: 100%;
-  outline: 0;
-  border: 0;
-  margin: 0;
-  padding: 0 10px;
 }
 
 .question-score {

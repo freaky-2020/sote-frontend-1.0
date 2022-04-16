@@ -176,20 +176,20 @@ export default {
       }
     },
   },
-  mounted() {
-    this.getSc()
-    // 监听滚动
-    // window.addEventListener("scroll", this.handleScroll);
-    // 监听浏览器窗口变化
-    window.addEventListener("resize", this.pageHidden);
-    // // 监听页面可见性
-    window.addEventListener("visibilitychange", this.pageHidden);
-  },
-  destroyed() {
-    window.removeEventListener("visibilitychange", this.pageHidden);
-    // window.removeEventListener("scroll", this.handleScroll);
-    window.removeEventListener("resize", this.pageHidden);
-  },
+  // mounted() {
+  //   this.getSc()
+  //   // 监听滚动
+  //   // window.addEventListener("scroll", this.handleScroll);
+  //   // 监听浏览器窗口变化
+  //   window.addEventListener("resize", this.pageHidden);
+  //   // // 监听页面可见性
+  //   window.addEventListener("visibilitychange", this.pageHidden);
+  // },
+  // destroyed() {
+  //   window.removeEventListener("visibilitychange", this.pageHidden);
+  //   // window.removeEventListener("scroll", this.handleScroll);
+  //   window.removeEventListener("resize", this.pageHidden);
+  // },
 }
 </script>
 <style lang="scss">

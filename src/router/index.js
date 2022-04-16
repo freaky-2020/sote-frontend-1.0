@@ -142,18 +142,6 @@ export const constantRoutes = [
     hidden: true
   },
   {
-    path: '/exam_results',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/exam_results/index'),
-        name: 'Exam_results',
-        meta: { title: '考试结果', icon: 'user' }
-      }
-    ]
-  },
-  {
     path: '/grading',
     component: Layout,
     hidden: true,
