@@ -19,7 +19,6 @@
     </div>
     <el-dialog title="提示" :visible.sync="tipsFlag" width="480px" class="commonDialog multi clickLight" center :close-on-click-modal="false">
       <div class="dialogTipsbox" >
-
         最多只能切屏{{totalNum}}次，你还可切换{{totalNum-scNum-1}}次，
         <br />
         <br />

@@ -1,6 +1,6 @@
 <template>
 <div class="background-container">
-  <div class="article-container" style="margin-right: 17%">
+  <div  style="margin-right: 17%">
     <h3 class="pagetitle">考生成绩</h3>
     <div style="margin: 15px 0">
       <el-input placeholder="请输入内容" v-model="input" class="input-with-select">
@@ -37,19 +37,9 @@
         </template>
       </el-table-column>
       <el-table-column
-        label="专业"
-        width="150">
-        <template slot-scope="scope">
-          <div slot="reference" class="name-wrapper">
-            <el-tag size="medium">{{ scope.row.user.userUnit }}</el-tag>
-          </div>
-        </template>
-      </el-table-column>
-      <el-table-column
         :label=" '成绩'"
         sortable
-        align="center"
-        width="180">
+        align="center">
         <el-table-column
           :label=" '主观题    满分:' + this.tableData[0].maxNonSynScore"
           width="130">
@@ -83,13 +73,11 @@
           </div>
         </template>
       </el-table-column>
-      <el-table-column align="center"
-                       width="150px">
+      <el-table-column align="center">
         <template slot-scope="scope">
           <el-button
             size="medium"
             type="info"
-
             @click="viewDetail(scope.row)">详细信息</el-button>
         </template>
       </el-table-column>
@@ -112,7 +100,7 @@
 <!--    <pie></pie>-->
   </div>
   <div  class="chart-div" style="height: 350px;width: 200px;position:relative;top:-300px;left: 85%">
-    <donut-chart ></donut-chart>
+    <donut-chart :data="chartData"></donut-chart>
   </div>
 </div>
 

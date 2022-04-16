@@ -24,6 +24,16 @@ export default {
     height: {
       type: String,
       default: '100%'
+    },
+    data:{
+      type:Array,
+      default:[
+        { value:0,name:'90~100'},
+        { value:0,name:'80~89'},
+        { value:0,name:'70~79'},
+        { value:0,name:'60~69'},
+        { value:0,name:'<60'},
+      ]
     }
   },
   data() {
@@ -103,13 +113,7 @@ export default {
             labelLine: {
               show: false
             },
-            data: [
-              { value: 25, name: '90~100' },
-              { value: 15, name: '80~89' },
-              { value: 17, name: '70~79' },
-              { value: 13, name: '60~69' },
-              { value: 2, name: '<60' }
-            ]
+            data: this.data
           },
         ]
       })

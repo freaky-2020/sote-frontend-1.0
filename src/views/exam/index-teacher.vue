@@ -33,7 +33,7 @@
           <p class="examName">考试须知：{{item.examNote}}</p>
           <div class="info">
             <span>考试口令：{{item.word}}  </span>
-            <el-button type="text" icon="el-icon-document-copy" @click="handleCopy(item.word,$event)">
+            <el-button type="text" icon="el-icon-document-copy" @click="copyLink(item.word)">
             </el-button>
             <br/>
             <span>允许考试&nbsp;{{item.allowableTime}}&nbsp;次 允许切屏&nbsp;{{item.cuttingTimes}}&nbsp;次</span>
@@ -156,6 +156,7 @@ export default {
   },
   computed:{
     displayExam:function(){
+      this.current=1
       if(this.activeExamsName=== 'all'){
         return this.allExam
       }else if(this.activeExamsName ==='ongoing'){
@@ -318,8 +319,17 @@ export default {
         examId:item.examId
         } })
     },
-    handleCopy(text, event) {
-      clip(text, event)
+    copyLink(val) { // 复制链接
+      console.log(val, '复制链接')
+      let url = val // 后台接口返回的链接地址
+      let inputNode = document.createElement('input')  // 创建input
+      inputNode.value = url // 赋值给 input 值
+      document.body.appendChild(inputNode) // 插入进去
+      inputNode.select() // 选择对象
+      document.execCommand('Copy') // 原生调用执行浏览器复制命令
+      inputNode.className = 'oInput'
+      inputNode.style.display = 'none' // 隐藏
+      this.$message.success('复制成功')
     },
     publishExam(item){
       if(confirm('是否公布考试结果?')){
@@ -352,7 +362,7 @@ export default {
         })
       }
     }
-  }
+  },
 }
 </script>
 

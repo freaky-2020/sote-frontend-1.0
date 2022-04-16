@@ -455,13 +455,13 @@ export const asyncRoutes = [
     path: '/exam_',
     component: Layout,
     redirect: '/exam/index',
-    meta: { title: '考试主体', icon: 'user', roles: ['STUDENT']  },
+    meta: { title: '考试主体', icon: 'user', roles: ['STUDENT','TEACHER']  },
     children: [
       {
         path: 'index',
         component: () => import('@/views/exam_/index'),
         name: 'Exam_',
-        meta: { title: '考试主体', icon: 'user', roles: ['STUDENT']  }
+        meta: { title: '考试主体', icon: 'user', roles: ['STUDENT','TEACHER']  }
       }
     ],
     hidden: true
