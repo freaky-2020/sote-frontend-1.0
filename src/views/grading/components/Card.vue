@@ -150,6 +150,7 @@ export default {
 
 <style lang="scss" scoped>
 .buton{
+
   margin-bottom: 5px;
 }
 </style>

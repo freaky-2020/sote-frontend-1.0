@@ -169,17 +169,6 @@ $bg:#ececec;
     color: black;
   }
 }
-//显示时按钮样式
-.el-button--primary { //需要更改的按钮类型
-  background: #304156 !important;
-  border-color: #304156 !important;
-}
-//移入时按钮样式
-.el-button--primary:hover {
-  background: #5979a0 !important;
-  border-color: #304156 !important;
-  color: #FFF !important;
-}
 .loginFormcard{
   background:rgba(255,255,255,0.8);
   border-radius: 10px;

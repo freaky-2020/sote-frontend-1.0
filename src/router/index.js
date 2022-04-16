@@ -60,7 +60,8 @@ export const constantRoutes = [
         component: () => import('@/views/design/design'),
         meta: { title: '设计试卷', icon: 'el-icon-edit' }
       },
-    ]
+    ],
+    hidden: true,
   },
   {
     path: '/stu',
@@ -72,6 +73,7 @@ export const constantRoutes = [
       component: () => import('@/views/dashboard/index-stu'),
       meta: { title: '主页', icon: 'dashboard' }
     }]
+
   },
   {
     path: '/admin',
@@ -158,9 +160,11 @@ export const constantRoutes = [
         path: 'grade',
         name: 'Grade',
         component: () => import('@/views/grade/grade'),
-        meta: { title: '老师查看学生的成绩', icon: 'el-icon-s-check' }
+        meta: { title: '查看成绩', icon: 'el-icon-s-check' }
       },
     ]
+    ,
+    hidden: true,
   },
   {
     path: '/exam_',
@@ -174,7 +178,7 @@ export const constantRoutes = [
         meta: { title: '考试主体', icon: 'user' }
       }
     ],
-    hidden: true
+    hidden: false
   },
   {
     path: '/exam_results',
@@ -251,13 +255,16 @@ export const constantRoutes = [
         component: () => import('@/views/exam/record'),
         meta: { title: '考试记录',icon: 'form' }
       },
-    ]
+
+    ],
+    hidden: true,
   },
   {
     path: '/visualization',
     component: () => import('@/views/visualization/index'),
     hidden: false,
     meta: { title: '可视化',icon: '' }
+
   },
 
 

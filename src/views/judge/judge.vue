@@ -1,10 +1,13 @@
 <template>
-  <div>
+  <div class="background-container">
+    <div class="app-container">
     <div style="margin: 10px">
+      <h3 class="h3title">
       <i class="el-icon-s-check"></i>
-      <span style="font-size:30px;color: indianred">题库审批</span>
+      <span >题库审批</span>
+      </h3>
     </div>
-    <el-divider></el-divider>
+<!--    <el-divider></el-divider>-->
     <div style="margin: 20px;">
       <el-radio-group v-model="radio">
         <el-radio :label="1">增加操作</el-radio>
@@ -12,8 +15,8 @@
         <el-radio :label="3">修改操作</el-radio>
       </el-radio-group>
       <div style="float: right;margin-bottom: 10px">
-        <el-button size="small" @click="allPass">批量通过</el-button>
-        <el-button size="small" @click="allDisPass">批量驳回</el-button>
+        <el-button type="primary" size="medium" @click="allPass">批量通过</el-button>
+        <el-button type="danger" size="medium" @click="allDisPass">批量驳回</el-button>
       </div>
       <el-table
         :data="newTable.slice((page-1)*limit, page*limit)"
@@ -28,14 +31,14 @@
         </el-table-column>
         <el-table-column
           label="修改人编号"
-          width="180">
+          width="100">
           <template slot-scope="scope">
             <span style="margin-left: 10px">{{ scope.row.userName }}</span>
           </template>
         </el-table-column>
         <el-table-column
           label="题目内容"
-          width="180">
+          min-width="45%">
           <template slot-scope="scope">
             <div slot="reference" class="name-wrapper">
               <span v-html="scope.row.question.stem"></span>
@@ -45,7 +48,7 @@
         <el-table-column
           label="答案"
           :formatter="getAnswer"
-          width="180">
+          min-width="30">
         </el-table-column>
         <el-table-column
           label="试题科目"
@@ -53,7 +56,8 @@
           width="170">
         </el-table-column>
         <el-table-column
-          label="修改时间">
+          label="修改时间"
+          min-width="25%">
           <template slot-scope="scope">
             <div slot="reference" class="name-wrapper">
               <el-tag size="medium">{{ scope.row.updateTime }}</el-tag>
@@ -61,11 +65,12 @@
           </template>
         </el-table-column>
         <el-table-column
+          width="240px"
           label="操作">
           <template slot-scope="scope">
             <el-button
               size="mini"
-              type="primary"
+              type="info"
               @click="viewIt(scope.row)">查看</el-button>
             <el-button
               size="mini"
@@ -103,6 +108,7 @@
           </el-footer>
         </el-dialog>
       </div>
+    </div>
     </div>
   </div>
 </template>
@@ -351,5 +357,10 @@ export default {
 </script>
 
 <style scoped>
-
+.h3title{
+  color: #00509d;
+//background-color: lightgrey;
+  height: 40px;
+  border-bottom: 1px solid lightgrey;
+}
 </style>

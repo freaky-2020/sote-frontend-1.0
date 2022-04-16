@@ -344,6 +344,13 @@ export default {
     handleCopy(text, event) {
       clip(text, event)
     },
+    clipboardSuccess() {
+      this.$message({
+        message: '复制成功',
+        type: 'success',
+        duration: 1500
+      })
+    }
   }
 }
 </script>
