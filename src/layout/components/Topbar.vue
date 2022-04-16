@@ -6,7 +6,7 @@
           <img width="40"
                src="../../assets/images/img.png" />
           <img width="80"
-               src="../../assets/images/sote-o.png"/>
+               src="../../assets/images/sote-o-w.png"/>
         </div>
 
       </router-link>
@@ -36,7 +36,8 @@
     <div class="right-menu">
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
-          <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">
+<!--          <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">-->
+          <img src="../../assets/images/personphoto.png" class="user-avatar">
           <i class="el-icon-caret-bottom" />
         </div>
         <el-dropdown-menu slot="dropdown" class="user-dropdown">

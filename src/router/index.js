@@ -212,6 +212,7 @@ export const asyncRoutes = [
       }
     ]
   },
+
   {
     path: '/grade',
     component: Layout,

@@ -146,7 +146,7 @@
         </div>
       </div>
     </div>
-    <el-button style="margin-top: 50px; margin-left: 500px" type="primary" @click="goSubmit(false)">交卷
+    <el-button style="margin-top: 50px; margin-left: 90%" type="primary" @click="goSubmit(false)">交卷
     </el-button>
   </el-card>
 </template>

@@ -13,12 +13,9 @@
         </el-tabs>
 
         <li class="search-li">
-          <div class="icon">
-            <el-input type="text" placeholder="试卷名称" class="search" v-model="key" size="mini">
-              <el-button slot="append" icon="el-icon-search"></el-button>
-            </el-input>
+            <el-input type="text" placeholder="试卷名称" class="search" v-model="key" size="medium"> </el-input>
+            <el-button slot="append"  size="medium" icon="el-icon-search"></el-button>
             <!--            <i class="el-icon-search"></i>-->
-          </div>
         </li>
         <li>
             <el-button type="info" icon="el-icon-circle-plus-outline" @click.native.prevent="goToCreate" size="medium">添加考试</el-button>
@@ -49,7 +46,7 @@
                   <el-dropdown-item command="delete">删除考试</el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
-              <el-button  class="nomargin" @click="judge(item)" icon="el-icon-document-checked" size="mini">批阅</el-button>
+              <el-button  class="nomargin" @click="judge(item)" icon="el-icon-document-checked" size="small">批阅</el-button>
               <el-button v-if="activeExamsName === 'published'" class="nomargin" @click="grade(item)" icon="el-icon-s-data" size="small">成绩分析</el-button>
               <el-button v-if="activeExamsName === 'finished' " size="small" type="primary" @click="publishExam(item)" >公布成绩</el-button>
             </div>
@@ -334,9 +331,7 @@ export default {
         examId:item.examId
         } })
     },
-    handleCopy(text, event) {
-      clip(text, event)
-    },
+
     publishExam(item){
       if(confirm('是否公布考试结果?')){
         request({
