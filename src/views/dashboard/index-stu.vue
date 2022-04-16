@@ -1,8 +1,6 @@
 <template>
   <div class="dashboard-container">
     <div class="background-container">
-      <div class="dashboard-text">name: {{ name }}</div>
-      <div class="dashboard-text">name: {{ this.$store.getters.roles }}</div>
       <panel-group-stu></panel-group-stu>
 <!--          <div class="chart-div" style="width:60% ;height: 450px">-->
 <!--            <mix-chart></mix-chart>-->
