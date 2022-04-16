@@ -2,7 +2,7 @@
   <div class="filter-container" v-if="isShow">
     <div style="margin-bottom: 20px">
       <div style="float:left;display:inline; padding-top:10px;margin-bottom: 10px">
-        <span v-show="!isEditTitle" style="color: #1482f0">{{topicTitle}}</span>
+        <el-tag type="info" v-show="!isEditTitle" style="color: #F19E00FF ;font-size: 15px">{{topicTitle}}</el-tag>
         <!--        <el-input-->
         <!--          type="text"-->
         <!--          v-show="isEditTitle"-->
@@ -13,34 +13,41 @@
         <!--        </el-input>-->
         <!--        <el-button size="small" @click="editTitle" type="primary" style="margin-left: 10px" icon="el-icon-edit" circle></el-button>-->
 <!--        这一部分是计算总分 总题目数的部分-->
-        【共
-        <span style="color: red">{{form.length}}</span>道试题，合计
-        <span style="color: red">{{sum}}</span>分】
+        共<span type="danger" style="color: #f19e00;font-size: 15px">{{form.length}} </span>题,
+        合计<span type="danger" style="color: #f19e00;font-size: 15px">{{sum}} </span>分
+
       </div>
       <div style="float:right;margin-bottom: 10px">
-        <el-button size="mini" @click="isAddByBank=true" style="margin-left: 10px">题库选题</el-button>
-        <el-button size="mini" @click="isEditQuestion=true" style="margin-left: 10px">新增试题</el-button>
+        <el-button type="primary" @click="isAddByBank=true" style="margin-left: 10px"
+                   icon="el-icon-folder-add" size="medium" plain>题库选题</el-button>
+        <el-button type="success" @click="isEditQuestion=true" style="margin-left: 10px"
+                   icon="el-icon-circle-plus-outline" size="medium" plain>新增试题</el-button>
 <!--        <el-button size="mini" @click="isAddByText=true"  style="margin-left: 10px">模板导题</el-button>-->
-        <el-button size="mini" @click="deleteTopic"  style="margin-left: 10px">删除本题</el-button>
+        <el-button type="danger" @click="deleteTopic"  style="margin-left: 10px"
+                   icon="el-icon-delete" size="medium" plain>删除本题</el-button>
       </div>
     </div>
+<!--    :row-style="{height:0+'px'}"-->
+<!--    :cell-style="{padding:0+'px'}"-->
+<!--    :header-cell-style="{padding:'0px'}"-->
     <div style="text-align: center">
       <el-table
+
         :data="form"
-        style="width: 90%"
+        style="width: 100%"
         border
         fit
         highlight-current-row>
         <el-table-column
-          label="题目序号"
-          width="180">
+          label="序号"
+          width="70px">
           <template slot-scope="scope">
             <span style="margin-left: 10px">{{ scope.row.quesNo }}</span>
           </template>
         </el-table-column>
         <el-table-column
           label="题目内容"
-          width="180">
+          min-width="43%">
           <template slot-scope="scope">
             <div slot="reference" class="name-wrapper">
               <span v-html="scope.row.stem"></span>
@@ -48,8 +55,13 @@
           </template>
         </el-table-column>
         <el-table-column
+          label="答案"
+          :formatter="getAnswer"
+          min-width="25%">
+        </el-table-column>
+        <el-table-column
           label="分数"
-          width="180"
+          min-width="17%"
           prop="score">
           <template slot="header" slot-scope="scope">
             <span style="margin-right: 50px">分数</span>
@@ -72,13 +84,8 @@
           </template>
         </el-table-column>
         <el-table-column
-          label="答案"
-          :formatter="getAnswer"
-          width="180">
-        </el-table-column>
-        <el-table-column
           label="难度"
-          width="170">
+          min-width="15%">
           <template slot-scope="scope">
             <div slot="reference">
               <el-tag size="medium" >{{ mapLevel[scope.row.difficultyId] }}</el-tag>
@@ -86,6 +93,7 @@
           </template>
         </el-table-column>
         <el-table-column
+          width="150px"
           label="操作">
           <template slot-scope="scope">
             <el-button
@@ -323,7 +331,6 @@ export default {
   created() {
   },
   updated() {
-
   },
   watch: {
     examForm() {

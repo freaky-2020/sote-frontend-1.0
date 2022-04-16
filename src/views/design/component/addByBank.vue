@@ -1,12 +1,14 @@
 <template>
   <div>
-    <el-dialog  title="题库导题" :visible.sync="isAddByBank" :before-close="dialogClose" top="100px"  width="90%">
-      <el-scrollbar style="height: 400px" wrap-style="overflow-x:hidden;">
+    <el-dialog  title="题库导题" :visible.sync="isAddByBank" :before-close="dialogClose" top="5%"  width="80%"
+                style="height: 90%">
+      <el-scrollbar style="height: 480px" wrap-style="overflow-x:hidden;">
         <bank ref="bank" :topicType="topicType" @bankToExamSubmit="bankToExamSubmit"></bank>
+
       </el-scrollbar>
       <el-footer style="text-align: center;height: 20px" class="dialog-footer">
-        <el-button type="primary" size="small" @click="bankToExam">确定</el-button>
-        <el-button type="info" size="small" @click="dialogClose">取消</el-button>
+        <el-button type="primary" size="medium" @click="bankToExam">确定</el-button>
+        <el-button type="info" size="medium" @click="dialogClose">取消</el-button>
       </el-footer>
     </el-dialog>
   </div>
@@ -135,5 +137,22 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+.el-dialog__wrapper{
+  .el-dialog__header {
+    background: #1468A4!important;
+  }
+  /* 弹出层设置背景色 底部*/
+  .el-dialog__footer {
+    background-color: #5ABEF2 !important;
+  }
+  /* 弹出层设置背景色 身体部份*/
+  .el-dialog__body{
+    background:#1468A4!important;
+    background-size: 100% ,100%;
+  }
+
+}
+
+
 </style>

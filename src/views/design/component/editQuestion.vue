@@ -1,13 +1,14 @@
 <template>
   <div>
-    <el-dialog :title="editStatus === 'edit'?'编辑试题':'创建试题'" :visible.sync="isEditQuestion"
-               :before-close="dialogClose" top="50px" width=80%>
-      <div style="border: solid 1px #f4f4f5">
-        <el-scrollbar style="height: 500px" wrap-style="overflow-x:hidden;">
+    <el-dialog :title="editStatus ==='edit'?'编辑试题':'创建试题'" :visible.sync="isEditQuestion"
+               :before-close="dialogClose" top="50px" width="65%"
+               style="height: 90%">
+      <div style="border: solid 1px #f4f4f5; margin: 0 5% 0 5% ;">
+        <el-scrollbar style="height: 500px " wrap-style="overflow-x:hidden;">
           <div>
-            <el-form :inline="true" ref="form"  :model="editQuestion">
-              <el-form-item label="试题类型" prop="typeId" style="margin-top: 10px;margin-left: 10px">
-                <el-select :disabled="editQuestion.createTime !== undefined || topicType !==undefined" size="medium" v-model="editQuestion.typeId" placeholder="请选择">
+            <el-form :inline="true" ref="form"  :model="editQuestion" style="margin: 15px ">
+              <el-form-item label="试题类型" prop="typeId" style="margin-top: 5px;margin-left: 10px;width:29%">
+                <el-select :disabled="editQuestion.createTime !== undefined || topicType !==undefined" size="medium" v-model="editQuestion.typeId" placeholder="请选择类型">
                   <el-option
                     v-for="item in optionsType"
                     :key="item.value"
@@ -16,8 +17,8 @@
                   </el-option>
                 </el-select>
               </el-form-item>
-              <el-form-item label="试题科目" prop="subjectId" style="margin-top: 10px;margin-left: 75px">
-                <el-select size="medium" :disabled="editQuestion.createTime !== undefined" v-model="editQuestion.subjectId" placeholder="请选择">
+              <el-form-item label="试题科目" prop="subjectId" style="margin-top: 5px;margin-left: 10px;width:29%">
+                <el-select size="medium" :disabled="editQuestion.createTime !== undefined" v-model="editQuestion.subjectId" placeholder="请选择科目">
                   <el-option
                     v-for="item in optionsSubject"
                     :key="item.id"
@@ -26,14 +27,15 @@
                   </el-option>
                 </el-select>
               </el-form-item>
-              <br>
+<!--              <br>-->
 <!--              <el-form-item style="margin-left: 10px" label="分数" prop="score">-->
 <!--                <el-input-->
 <!--                  size="small"-->
 <!--                  style="width: 200px;" v-model="editQuestion.score"></el-input>-->
 <!--              </el-form-item>-->
-              <el-form-item  style="margin-left: 10px" label="难度" prop="difficultyId">
-                <el-select size="medium" v-model="editQuestion.difficultyId" placeholder="请选择">
+              <el-form-item  style="margin-top: 5px;margin-left: 10px;width:29%" label="试题难度" prop="difficultyId">
+<!--                <label slot="label">难&emsp;度</label>-->
+                <el-select size="medium" v-model="editQuestion.difficultyId" placeholder="请选择难度">
                   <el-option
                     v-for="item in optionsLevel"
                     :key="item.value"
@@ -111,7 +113,7 @@
                   </el-radio-group>
                 </div>
 
-                <div v-if="editQuestion.typeId === 4" style="margin-top: 10px;margin-left: 75px">
+                <div v-if="editQuestion.typeId === 4" style="margin-top: 10px;margin-left: 10px">
                   <div v-for="(item)  in  copyFillItems.slice(0 , copyFillSum)" :key="item.id" style="margin-top: 5px">
                     <el-input style="width: 80%" placeholder="请输入内容" @change="updateFill(copyFillItems)" v-model="item.input">
                       <template slot="prepend">答案{{ item.id }}</template>
@@ -123,12 +125,17 @@
                   </el-row>
                 </div>
 
-                <div v-if="editQuestion.typeId === 5">
-                  <el-row type="flex" style="margin-top: 10px">
-                    <span style="margin-right: 10px;margin-left: 10px">试题答案</span>
+                <el-form-item  v-if="editQuestion.typeId === 5" style="margin-right: 10px;margin-left: 10px" label="试题答案" prop="difficultyId">
+                  <el-row type="flex">
                     <editor-wang justify="end" v-model="editQuestion.answer"></editor-wang>
                   </el-row>
-                </div>
+                </el-form-item>
+<!--                <div v-if="editQuestion.typeId === 5">-->
+<!--                  <el-row type="flex" style="margin-top: 10px">-->
+<!--                    <span style="margin-right: 10px;margin-left: 10px">试题答案</span>-->
+<!--                    <editor-wang justify="end" v-model="editQuestion.answer"></editor-wang>-->
+<!--                  </el-row>-->
+<!--                </div>-->
               </div>
 
               <el-form-item  style="margin-right: 10px;margin-left: 10px" label="试题解析" prop="difficultyId">
@@ -138,16 +145,17 @@
               </el-form-item>
             </el-form>
           </div>
+          <el-row  v-if="isDesign === undefined" type="flex" justify="end" style="margin-top: 5px">
+            <el-button type="success" @click="editStatus === 'edit' ? editSubmit():createSubmit()">确定</el-button>
+            <el-button @click="dialogClose">取消</el-button>
+          </el-row>
+          <el-row v-if="isDesign" type="flex" justify="end" style="margin-top: 5px">
+            <el-button type="info" @click="editStatus === 'edit' ? editDesign():addToExam()">确定</el-button>
+            <el-button @click="dialogClose">取消</el-button>
+          </el-row>
         </el-scrollbar>
       </div>
-      <el-row  v-if="isDesign === undefined" type="flex" justify="end" style="margin-top: 5px">
-        <el-button type="success" @click="editStatus === 'edit' ? editSubmit():createSubmit()">确定</el-button>
-        <el-button @click="dialogClose">取消</el-button>
-      </el-row>
-      <el-row v-if="isDesign" type="flex" justify="end" style="margin-top: 5px">
-        <el-button type="info" @click="editStatus === 'edit' ? editDesign():addToExam()">确定</el-button>
-        <el-button @click="dialogClose">取消</el-button>
-      </el-row>
+
     </el-dialog>
   </div>
 </template>

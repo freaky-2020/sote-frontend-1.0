@@ -5,7 +5,13 @@
     <el-form id="loginForm" ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
 
       <div class="title-container">
-        <h3 class="title">sote 在线考试系统</h3>
+        <h3 class="title">
+          <img width="60"
+               src="../../assets/images/img.png" />
+          <img width="80"
+               src="../../assets/images/sote-o.png"/>
+          考试系统
+        </h3>
       </div>
 
       <el-form-item prop="username">
@@ -268,9 +274,9 @@ $dark_gray:#889aa4;
     position: relative;
 
     .title {
-      font-size: 26px;
+      font-size: 20px;
       //color: $light_gray;
-      margin: 0px auto 40px auto;
+      margin: 0px auto 30px auto;
       text-align: center;
       font-weight: bold;
     }

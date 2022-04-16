@@ -85,11 +85,11 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-li {
-  list-style-type: none;
-}
-
-.paper {
+  li{
+    list-style-type:none;
+    margin: 10px;
+  }
+  .paper {
   h4 {
     cursor: pointer;
   }
@@ -99,58 +99,51 @@ li {
   }
 }
 
-//.wrapper .top .order {
-//  cursor: pointer;
-//}
-//.wrapper .top .order:hover {
-//  color: #0195ff;
-//  border-bottom: 2px solid #0195ff;
-//}
-//.wrapper .top .order:visited {
-//  color: #0195ff;
-//  border-bottom: 2px solid #0195ff;
-//}
-.item .info i {
-  margin-right: 5px;
-  color: #0195ff;
-}
-
-.item .info span {
-  //margin-right: 14px;
-}
-
-.paper .item {
-  width: 360px;
-  border-radius: 6px;
-  padding: 20px 30px;
-  border: 1px solid #eee;
-  box-shadow: 0 0 4px 2px rgba(217, 222, 234, 0.3);
-  transition: all 0.6s ease;
-}
-
-.paper .item:hover {
-  box-shadow: 0 0 4px 2px rgba(140, 193, 248, 0.45);
-  transform: scale(1.03);
-}
-
-.paper .item .info {
-  font-size: 13px;
-  color: #88949b;
-}
-
-.paper .item .examName {
-  font-size: 14px;
-  color: #88949b;
-}
-
-.paper * {
-  margin: 12px 0;
-}
-
-.wrapper .paper {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-}
+  //.wrapper .top .order {
+    //  cursor: pointer;
+    //}
+  //.wrapper .top .order:hover {
+    //  color: #0195ff;
+    //  border-bottom: 2px solid #0195ff;
+    //}
+  //.wrapper .top .order:visited {
+    //  color: #0195ff;
+    //  border-bottom: 2px solid #0195ff;
+    //}
+  .item .info i {
+    margin-right: 5px;
+    color: #0195ff;
+  }
+  .item .info span {
+    //margin-right: 14px;
+  }
+  .paper .item {
+    width: 360px;
+    border-radius: 6px;
+    padding: 20px 30px;
+    border: 1px solid #eee;
+    box-shadow: 0 0 4px 2px rgba(217,222,234,0.3);
+    transition: all 0.6s ease;
+  }
+  .paper .item:hover {
+    box-shadow: 0 0 4px 2px rgba(140, 193, 248, 0.45);
+    transform: scale(1.03);
+  }
+  .paper .item .info {
+    font-size: 13px;
+    color: #88949b;
+  }
+  .paper .item .examName {
+    font-size: 14px;
+    color: #88949b;
+  }
+  .paper * {
+    margin: 12px 0;
+  }
+  .wrapper .paper {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
 
 </style>

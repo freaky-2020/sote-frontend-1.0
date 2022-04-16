@@ -1,16 +1,26 @@
 <template>
   <div class="top-nav">
-    <div class="log">sote考试系统</div>
+    <div class="log" >
+      <router-link to="/dashboard" class="router-test"  >
+        <div style="padding:2px 0">
+          <img width="40"
+               src="../../assets/images/img.png" />
+          <img width="80"
+               src="../../assets/images/sote-o.png"/>
+        </div>
+
+      </router-link>
+
+    </div>
 
     <el-menu
       menu-trigger="hover"
-
       :background-color="variables.menuBg"
       :text-color="variables.menuText"
-
       :active-text-color="variables.menuActiveText"
       :default-active="activeMenu"
-      mode="horizontal" @select="handleSelect">
+      mode="horizontal"
+      @select="handleSelect">
       <div v-for="item in routes" :key="item.path" class="nav-item">
         <app-link :to="resolvePath(item)">
           <el-menu-item v-if="!item.hidden" :index="item.path"
@@ -51,13 +61,14 @@ import { constantRoutes } from '@/router'
 import { isExternal } from '@/utils/validate'
 import AppLink from './Sidebar/Link'
 import { mapGetters } from 'vuex'
-
+import soteO from '@/assets/images/sote-o.svg'
 
 export default {
 
 
   components: {
-    AppLink
+    AppLink,
+    soteO,
   },
   data() {
     return {
