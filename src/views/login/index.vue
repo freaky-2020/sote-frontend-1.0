@@ -120,6 +120,9 @@ export default {
     }
   },
   methods: {
+    goToRegister(){
+      this.$router.push({path:'/register'})
+    },
     showPwd() {
       if (this.passwordType === 'password') {
         this.passwordType = ''
