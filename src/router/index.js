@@ -50,6 +50,28 @@ export const constantRoutes = [
       meta: { title: '主页', icon: 'dashboard' }
     }]
   },
+  {
+    path: '/stu',
+    component: Layout,
+    redirect: '/dashboard',
+    children: [{
+      path: 'dashboard',
+      name: 'Dashboard',
+      component: () => import('@/views/dashboard/index-stu'),
+      meta: { title: '主页', icon: 'dashboard' }
+    }]
+  },
+  {
+    path: '/admin',
+    component: Layout,
+    redirect: '/dashboard',
+    children: [{
+      path: 'dashboard',
+      name: 'Dashboard',
+      component: () => import('@/views/dashboard/index-admin'),
+      meta: { title: '主页', icon: 'dashboard' }
+    }]
+  },
   // {
   //   path: '/design',
   //   component: Layout,

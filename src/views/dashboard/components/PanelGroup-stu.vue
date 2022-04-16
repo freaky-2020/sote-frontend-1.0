@@ -1,51 +1,51 @@
 <template>
-  <el-row :gutter="40" class="panel-group">
+  <el-row :gutter="30" class="panel-group">
 
-    <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
-      <div class="card-panel" @click="goToCreate">
+    <el-col :xs="12" :sm="12" :lg="8" class="card-panel-col">
+      <div class="card-panel" @click="goToExam">
         <div class="card-panel-icon-wrapper icon-money">
           <svg-icon icon-class="clipboard" class-name="card-panel-icon" />
         </div>
         <div class="card-panel-description">
           <div class="card-panel-text">
-            创建考试
+            所有考试
           </div>
           <div >
-            new exam
+             exams
           </div>
 <!--          <count-to :start-val="0" :end-val="9280" :duration="3200" class="card-panel-num" />-->
         </div>
       </div>
     </el-col>
-    <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
-      <div class="card-panel" @click="handleSetLineChartData('shoppings')">
+    <el-col :xs="12" :sm="12" :lg="8" class="card-panel-col">
+      <div class="card-panel" @click="goToRecord">
         <div class="card-panel-icon-wrapper icon-shopping">
           <svg-icon icon-class="documentation" class-name="card-panel-icon" />
         </div>
         <div class="card-panel-description">
           <div class="card-panel-text">
-            考务管理
+            考试记录
           </div>
 <!--          <count-to :start-val="0" :end-val="13600" :duration="3600" class="card-panel-num" />-->
-          <div >correct</div>
+          <div >records</div>
         </div>
       </div>
     </el-col>
-    <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
-      <div class="card-panel" @click="handleSetLineChartData()">
-        <div class="card-panel-icon-wrapper icon-people">
-          <svg-icon icon-class="peoples" class-name="card-panel-icon" />
-        </div>
-        <div class="card-panel-description">
-          <div class="card-panel-text">
-            考生管理
-          </div>
-          <div>examinees</div>
-<!--          <count-to :start-val="0" :end-val="102400" :duration="2600" class="card-panel-num" />-->
-        </div>
-      </div>
-    </el-col>
-    <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
+<!--    <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">-->
+<!--      <div class="card-panel" @click="handleSetLineChartData()">-->
+<!--        <div class="card-panel-icon-wrapper icon-people">-->
+<!--          <svg-icon icon-class="peoples" class-name="card-panel-icon" />-->
+<!--        </div>-->
+<!--        <div class="card-panel-description">-->
+<!--          <div class="card-panel-text">-->
+<!--            考生管理-->
+<!--          </div>-->
+<!--          <div>examinees</div>-->
+<!--&lt;!&ndash;          <count-to :start-val="0" :end-val="102400" :duration="2600" class="card-panel-num" />&ndash;&gt;-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </el-col>-->
+    <el-col :xs="12" :sm="12" :lg="8" class="card-panel-col">
       <div class="card-panel" @click="handleSetLineChartData('messages')">
         <div class="card-panel-icon-wrapper icon-message">
           <svg-icon icon-class="message" class-name="card-panel-icon" />
@@ -72,11 +72,11 @@ export default {
     handleSetLineChartData(type) {
       this.$emit('handleSetLineChartData', type)
     },
-    goToCreate(){
-      this.$router.push({ path: '/createexam/examinfo', })
+    goToExam(){
+      this.$router.push({ path: '/exam/index', })
     },
-    goToExamList(){
-      this.$router.push({ path: '/teacherexam/index', })
+    goToRecord(){
+      this.$router.push({ path: '/record/index', })
     }
   }
 }
