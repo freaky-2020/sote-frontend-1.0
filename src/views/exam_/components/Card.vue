@@ -6,6 +6,8 @@
     <div v-if="exam_data[1].length!==0">
       <div class="card-content-title">单选题(共{{ exam_data[1].length }}题，合计{{ getAllScore(exam_data[1]) }}分)</div><br>
       <el-button v-for="(question,index) in exam_data[1]" :key="index+'1'" :type="detailData[question.quesNo-1].answer !== null?'primary':''" size="mini" class="buton" @click="setNum(index)">{{ question.quesNo }}</el-button>
+<!--      <el-button v-for="(question,index) in exam_data[1]" :key="index+'1'" v-show="iscolor[question.quesNo]==='grey'" :type="detailData[question.quesNo-1].answer !== null?'primary':''" size="mini" class="buton" @click="setNum(index)">{{ question.quesNo }}</el-button>-->
+<!--      <el-button v-for="(question,index) in exam_data[1]" :key="index+'1'" v-show="iscolor[question.quesNo]==='red'" :type="detailData[question.quesNo-1].answer !== null?'primary':''" size="mini" class="el-icon-s-flag" :style="{color:iscolor[question.quesNo-1]}" @click="setNum(index)"></el-button>-->
     </div>
     <div v-if="exam_data[2].length!==0">
       <div class="card-content-title">多选题(共{{ exam_data[2].length }}题，合计{{ getAllScore(exam_data[2]) }}分)</div><br>
@@ -29,7 +31,7 @@
 <script>
 export default {
   name: 'Card',
-  props: ['exam_data', 'quesNos', 'detailData'],
+  props: ['exam_data', 'quesNos', 'detailData','iscolor'],
   // 父子组件之间数据传递，该数据在子组件中不能随便更改，会报错
   data() {
     return {

@@ -6,11 +6,14 @@
           <div slot="header" class="clearfix">
             <h3 class="box-center">一、单选题(共{{ exam_data[1].length }}题，合计{{ getAllScore(exam_data[1]) }}分)</h3>
           </div>
-          <h3 class="box-center">{{ question.quesNo }}、{{ replace_stem(question.stem) }}</h3>
-          <!--              <p class="question-score">多选题 0分</p>-->
-
-          <!--              上面的那个id，用来答题卡定位...ques_no代表题号，因为没法直接取得所有试题的序号，只能取出一种题型的序号-->
-          <!--              choice也需要再嵌套一层，因为id用来显示是否选中按钮，同时也不同用四个按钮，直接一个for循环-->
+          <span>
+              {{ question.quesNo+'、'+replace_stem(question.stem) }}
+          </span>
+          <span>
+            <h6 class="question-score" style="margin:0;padding:0;">单选题 {{ question.score }}分</h6>
+<!--            <i class="el-icon-s-flag" :style="{color:iscolor[question.quesNo-1]}" @click="colorChange(question.quesNo-1)"></i>-->
+          </span>
+          <br>
           <el-button class="circle_btn" size="mini" circle
                      :type="detailData[question.quesNo-1].answer === '1'?'primary':''"
                      @click="answerOne(question.quesNo-1, '1')">A
@@ -46,7 +49,14 @@
           <div slot="header" class="clearfix">
             <h3 class="box-center">二、多选题(共{{ exam_data[2].length }}题，合计{{ getAllScore(exam_data[2]) }}分)</h3>
           </div>
-          <h3 class="box-center">{{ question.quesNo }}、{{ replace_stem(question.stem) }}</h3>
+          <span>
+              {{ question.quesNo+'、'+replace_stem(question.stem) }}
+          </span>
+          <span>
+            <h6 class="question-score" style="margin:0;padding:0;">多选题 {{ question.score }}分</h6>
+            <i class="iconfont icon-new-23 flag-sign02" nav-class="icon-new-23" flagid="qid_a170c17" title="标记试题"></i>
+          </span>
+          <br>
           <el-button class="circle_btn" size="mini" circle
                      :type="judgeGroup(detailData[question.quesNo-1].answer, '1')?'primary':''"
                      @click="answerGroup(question.quesNo-1,'1')">A
@@ -83,7 +93,14 @@
           <div slot="header" class="clearfix">
             <h3 class="box-center">三、判断题(共{{ exam_data[3].length }}题，合计{{ getAllScore(exam_data[3]) }}分)</h3>
           </div>
-          <h3 class="box-center">{{ question.quesNo }}、{{ replace_stem(question.stem) }}</h3>
+          <span>
+              {{ question.quesNo+'、'+replace_stem(question.stem) }}
+          </span>
+          <span>
+            <h6 class="question-score" style="margin:0;padding:0;">判断题 {{ question.score }}分</h6>
+            <i class="iconfont icon-new-23 flag-sign02" nav-class="icon-new-23" flagid="qid_a170c17" title="标记试题"></i>
+          </span>
+          <br>
           <el-button class="circle_btn" size="mini" circle
                      :type="detailData[question.quesNo-1].answer === '1'?'primary':''"
                      @click="answerOne(question.quesNo-1, '1')">A
@@ -110,7 +127,12 @@
           <div slot="header" class="clearfix">
             <h3 class="box-center">四、填空题(共{{ exam_data[4].length }}题，合计{{ getAllScore(exam_data[4]) }}分)</h3>
           </div>
-          <h3 class="box-center" v-html="question.quesNo+'、'+replace_stem_judge(replace_stem(question.stem),question.quesNo-1)"/>
+          <span class="box-center" v-html="question.quesNo+'、'+replace_stem_judge(replace_stem(question.stem),question.quesNo-1)"/>
+          <span>
+            <h6 class="question-score" style="margin:0;padding:0;">填空题 {{ question.score }}分</h6>
+            <i class="iconfont icon-new-23 flag-sign02" nav-class="icon-new-23" flagid="qid_a170c17" title="标记试题"></i>
+          </span>
+          <br>
           <el-input v-model="detailData[question.quesNo-1].answer" style="max-width: 100px;min-width: 50px;margin-right: 10px"/>
           <!--          题干传过来字符串，用{}表示空的位置，使用jquery来替代{}字符为<input type="text">,然后使用v-html来转换为____，题干题干中间可以有多个____，-->
           <!--                另外，input好像都要绑定一个数据v-model，这样正好可以获取用户输入的答案，比如：v-model="ruleForm.resource[index]"-->
@@ -130,7 +152,13 @@
           <div slot="header" class="clearfix">
             <h3 class="box-center">五、简答题(共{{ exam_data[5].length }}题，合计{{ getAllScore(exam_data[5]) }}分)</h3>
           </div>
-          <h3 class="box-center">{{ question.quesNo }}、{{ replace_stem(question.stem) }}</h3>
+          <span>
+              {{ question.quesNo+'、'+replace_stem(question.stem) }}
+          </span>
+          <span>
+            <h6 class="question-score" style="margin:0;padding:0;">简答题 {{ question.score }}分</h6>
+          </span>
+          <br>
           <el-input v-model="detailData[question.quesNo-1].answer" type="textarea" :rows="5" resize="none"
                     maxlength="500"/>
           <el-row>
@@ -153,7 +181,7 @@ import request from '@/utils/request'
 
 export default {
   name: 'Display',
-  props: ['exam_data','detailData', 'quesNos', 'details', 'examId', 'times', 'isCheat'],
+  props: ['exam_data','detailData', 'quesNos', 'details', 'examId', 'times', 'isCheat','iscolor'],
   data() {
     return {
       // count: 0,
@@ -179,6 +207,13 @@ export default {
     }
   },
   methods: {
+    // colorChange(no){
+    //   if(this.iscolor[no] === 'grey')
+    //     this.iscolor[no] = 'red'
+    //   else{
+    //     this.iscolor[no] = 'grey'
+    //   }
+    // },
     answerOne(no, select) {
       if(this.detailData[no].answer === select){
         this.detailData[no].answer = null
@@ -309,10 +344,14 @@ export default {
 </script>
 
 <style lang="scss">
+.flag{
+   color: crimson;
+}
 .circle_btn {
   width: 25px;
   height: 25px;
-  margin-bottom: 10px;
+  margin-top: 6px;
+  margin-bottom: 4px;
 }
 
 .blank {
