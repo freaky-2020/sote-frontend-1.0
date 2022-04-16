@@ -14,7 +14,7 @@
 
         <li class="search-li">
             <el-input type="text" placeholder="试卷名称" class="search" v-model="key" size="medium"> </el-input>
-            <el-button type="primary" size="medium" icon="el-icon-search" circle></el-button>
+            <el-button slot="append"  size="medium" icon="el-icon-search"></el-button>
             <!--            <i class="el-icon-search"></i>-->
         </li>
         <li>
@@ -448,7 +448,7 @@ li{
 //}
 .item .info i {
   margin-right: 5px;
-  color: #0195ff;
+  color: #0076e1;
 }
 .item .info span {
   //margin-right: 14px;
@@ -462,8 +462,8 @@ li{
   transition: all 0.6s ease;
 }
 .paper .item:hover {
-  box-shadow: 0 0 4px 2px rgba(140, 193, 248, 0.45);
-  transform: scale(1.01);
+  box-shadow: 0 0 4px 2px rgba(149, 172, 197, 0.45);
+  transform: scale(1.015);
 }
 .paper .item .info {
   font-size: 13px;

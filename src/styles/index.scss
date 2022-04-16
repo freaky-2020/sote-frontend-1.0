@@ -75,8 +75,15 @@ div:focus {
   background: #ffffff;
 }
 .background-container{
+  height: 100%;
   padding: 20px 10% 20px 10%;
-  background-color: #f4f4f4
+  //background-color: #f4f4f4
+  background-color: #f9f9f9;
+  //background-image: url("/file.png");
+  /*position:fixed;*/
+  background-size:90% ;
+  background-repeat: no-repeat;
+  //background-position:90% 90%;
 
 }
 .pagetitle{
