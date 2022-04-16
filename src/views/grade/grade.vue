@@ -1,6 +1,6 @@
 <template>
 <div class="background-container">
-  <div  style="margin-right: 17%">
+  <div style="margin-right: 17%">
     <h3 class="pagetitle">考生成绩</h3>
     <div style="margin: 15px 0">
       <el-input placeholder="请输入内容" v-model="input" class="input-with-select">
@@ -78,6 +78,7 @@
           <el-button
             size="medium"
             type="info"
+
             @click="viewDetail(scope.row)">详细信息</el-button>
         </template>
       </el-table-column>

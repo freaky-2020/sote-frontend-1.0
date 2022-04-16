@@ -11,9 +11,8 @@
           class="el-icon-time"></i><span>{{ item.examInfo.startTime.slice(0, 16) }}到{{ item.examInfo.deadline.slice(0, 16) }}可进入</span>
         <!--        <i class="iconfont icon-icon-time"></i><span>限时{{item.durationTime}}分钟</span>-->
         <br/>
-        <span style="margin-right: 50px">考试时长{{ item.examInfo.durationTime }}分钟</span>
-        <el-button v-if="item.examInfo.isPublic === 1" @click="grade(item)">查看成绩</el-button>
-
+        <span>考试时长{{ item.examInfo.durationTime }}分钟</span>
+        <el-button v-if="item.examInfo.isPublic === 1" style="float:right;" @click="grade(item)">查看成绩</el-button>
         <!--            <i class="iconfont icon-fenshu"></i><span>满分{{item.totalScore}}分</span>-->
         <!--            <el-tag type="info">{{item.subject}}</el-tag>-->
       </div>
@@ -59,7 +58,7 @@ export default {
         request({
           url: '/exam/stu/start/' + this.userName + '/' + item.examInfo.examId + '/' + (item.time + 1),
           method: 'Get'
-        }).then(res => {11
+        }).then(res => {
           console.log(res)
           Object.keys(res).forEach(key => {
             console.log(key)

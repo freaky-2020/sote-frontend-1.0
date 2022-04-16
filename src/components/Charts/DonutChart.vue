@@ -28,11 +28,11 @@ export default {
     data:{
       type:Array,
       default:[
-        { value:0,name:'90~100'},
-        { value:0,name:'80~89'},
-        { value:0,name:'70~79'},
-        { value:0,name:'60~69'},
-        { value:0,name:'<60'},
+        { value: 25, name: '90~100' },
+        { value: 15, name: '80~89' },
+        { value: 17, name: '70~79' },
+        { value: 13, name: '60~69' },
+        { value: 2, name: '<60' }
       ]
     }
   },

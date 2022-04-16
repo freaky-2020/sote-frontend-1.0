@@ -33,19 +33,7 @@ import AppMain from '@/layout/components/AppMain'
  * all roles can be accessed
  */
 export const constantRoutes = [
-  {
-    path: '/result',
-    component: Layout,
-    hidden: true,
-    children: [
-      {
-        path: 'result',
-        name: 'Result',
-        component: () => import('@/views/result/result'),
-        meta: { title: '成绩查看', icon: 'clipboard' }
-      }
-    ]
-  },
+
   {
     path: '/login',
     component: () => import('@/views/login/index'),
@@ -59,32 +47,6 @@ export const constantRoutes = [
     hidden: true,
   },
 
-  // {
-  //   path: '/display',
-  //   component: Layout,
-  //   children: [
-  //     {
-  //       path: 'display',
-  //       name: 'Display',
-  //       component: () => import('@/views/display/display'),
-  //       meta: { title: '考试主体', icon: 'el-icon-s-check' }
-  //     },
-  //   ]
-  // },
-
-
-
-
-  // {
-  //   path: '/fillblank',
-  //   component: Layout,
-  //   children: [{
-  //     path: 'fillblank',
-  //     name: 'Grading',
-  //     component:()=> import('@/views/exam_/components/fillblank'),
-  //   }],
-  //   hidden: true
-  // },
 
   {
     path: '/404',
@@ -92,117 +54,6 @@ export const constantRoutes = [
     hidden: true
   },
 
-
-  // {
-  //   path: '/example',
-  //   component: Layout,
-  //   redirect: '/example/table',
-  //   name: 'Example',
-  //   meta: { title: 'Example', icon: 'el-icon-s-help' },
-  //   children: [
-  //     {
-  //       path: 'table',
-  //       name: 'Table',
-  //       component: () => import('@/views/table/index'),
-  //       meta: { title: 'Table', icon: 'table' }
-  //     },
-  //     {
-  //       path: 'tree',
-  //       name: 'Tree',
-  //       component: () => import('@/views/tree/index'),
-  //       meta: { title: 'Tree', icon: 'tree' }
-  //     },
-  //     {
-  //       path: 'tab',
-  //       name: 'Tab',
-  //       component: () => import('@/views/table/table'),
-  //       meta: { title: 'Tab', icon: 'table' }
-  //     }
-  //   ]
-  // },
-
-  // {
-  //   path: '/form',
-  //   component: Layout,
-  //   children: [
-  //     {
-  //       path: 'index',
-  //       name: 'Form',
-  //       component: () => import('@/views/form/index'),
-  //       meta: { title: 'Form', icon: 'form' }
-  //     }
-  //   ]
-  // },
-
-  // {
-  //   path: '/nested',
-  //   component: Layout,
-  //   redirect: '/nested/menu1',
-  //   name: 'Nested',
-  //   meta: {
-  //     title: 'Nested',
-  //     icon: 'nested'
-  //   },
-  //   children: [
-  //     {
-  //       path: 'menu1',
-  //       component: () => import('@/views/nested/menu1/index'), // Parent router-view
-  //       name: 'Menu1',
-  //       meta: { title: 'Menu1' },
-  //       children: [
-  //         {
-  //           path: 'menu1-1',
-  //           component: () => import('@/views/nested/menu1/menu1-1'),
-  //           name: 'Menu1-1',
-  //           meta: { title: 'Menu1-1' }
-  //         },
-  //         {
-  //           path: 'menu1-2',
-  //           component: () => import('@/views/nested/menu1/menu1-2'),
-  //           name: 'Menu1-2',
-  //           meta: { title: 'Menu1-2' },
-  //           children: [
-  //             {
-  //               path: 'menu1-2-1',
-  //               component: () => import('@/views/nested/menu1/menu1-2/menu1-2-1'),
-  //               name: 'Menu1-2-1',
-  //               meta: { title: 'Menu1-2-1' }
-  //             },
-  //             {
-  //               path: 'menu1-2-2',
-  //               component: () => import('@/views/nested/menu1/menu1-2/menu1-2-2'),
-  //               name: 'Menu1-2-2',
-  //               meta: { title: 'Menu1-2-2' }
-  //             }
-  //           ]
-  //         },
-  //         {
-  //           path: 'menu1-3',
-  //           component: () => import('@/views/nested/menu1/menu1-3'),
-  //           name: 'Menu1-3',
-  //           meta: { title: 'Menu1-3' }
-  //         }
-  //       ]
-  //     },
-  //     {
-  //       path: 'menu2',
-  //       component: () => import('@/views/nested/menu2/index'),
-  //       name: 'Menu2',
-  //       meta: { title: 'menu2' }
-  //     }
-  //   ]
-  // },
-
-  // {
-  //   path: 'external-link',
-  //   component: Layout,
-  //   children: [
-  //     {
-  //       path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
-  //       meta: { title: 'External Link', icon: 'link' }
-  //     }
-  //   ]
-  // },
   {
     path: '/profile',
     component: Layout,
@@ -217,74 +68,10 @@ export const constantRoutes = [
       }
     ]
   },
-  // {
-  //   path: '/exam_publish',
-  //   component: Layout,
-  //   redirect: '/exam_publish/index',
-  //   children: [
-  //     {
-  //       path: 'index',
-  //       component: () => import('@/views/exam_publish/index'),
-  //       name: 'Exam_publish',
-  //       meta: { title: 'Exam_publish', icon: 'user' }
-  //     }
-  //   ]
-  // },
-  // {
-  //   path: 'external-link',
-  //   component: Layout,
-  //   children: [
-  //     {
-  //       path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
-  //       meta: { title: 'External Link', icon: 'link' }
-  //     }
-  //   ]
-  // },
-  // {
-  //   path: '/Invigilate',
-  //   component: Layout,
-  //   name: '监考',
-  //   meta: { title: '监考', icon: 'link' },
-  //   children: [
-  //     {
-  //       path: 'index',
-  //       component: ()=>import('@/views/Invigilate/index'),
-  //       name: '监考',
-  //       meta: { title: '监考页', icon: 'link' }  //页面需要的权限
-  //     }]
-  // },
-  // {
-  //   path: '/detect',
-  //   component: Layout,
-  //   name: '检测',
-  //   meta: { title: '检测', icon: 'link' },
-  //   children: [
-  //     {
-  //       path: 'index',
-  //       component: ()=>import('@/views/detect/index'),
-  //       name: '检测',
-  //       meta: { title: '检测页', icon: 'link' }  //页面需要的权限
-  //     }]
-  // },
 
-  // 404 page must be placed at the end !!!
-  // { path: '*', redirect: '/404', hidden: true }
 ]
 
 export const asyncRoutes = [
-  {
-    path: '/permission',
-    component: Layout,
-    name: '权限测试',
-    meta: { title: '权限测试', icon: 'link',roles: ['STUDENT'] }, //页面需要的权限
-    children: [
-      {
-        path: 'index',
-        component: ()=>import('@/views/permission/index'),
-        name: '权限测试页',
-        meta: { title: '权限测试页', icon: 'link',roles: ['STUDENT'] }  //页面需要的权限
-      }]
-  },
   {
     path: '/',
     component: Layout,
@@ -295,43 +82,8 @@ export const asyncRoutes = [
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index-admin'),
       meta: { title: '主页', icon: 'dashboard',roles: ['ADMIN'] },
-    }]
+    }],
   },
-
-  {
-    path: '/judge',
-    component: Layout,
-    meta: { title: '审批', icon: 'el-icon-s-check',roles: ['ADMIN'] },
-    children: [
-      {
-        path: 'judge',
-        name: 'Judge',
-        component: () => import('@/views/judge/judge'),
-        meta: { title: '审批', icon: 'el-icon-s-check',roles: ['ADMIN'] }
-      },
-    ]
-  },
-  {
-    path: '/bank',
-    component: Layout,
-    meta: { title: '试题管理', icon: 'el-icon-files',roles: ['ADMIN'] },
-    children: [
-      {
-        path: 'bank',
-        name: 'Bank',
-        component: () => import('@/views/bank/bank'),
-        meta: { title: '试题管理', icon: 'el-icon-files',roles: ['ADMIN'] }
-      },
-    ]
-  },
-  {
-    path: '/visualization',
-    component: () => import('@/views/visualization/index'),
-    hidden: false,
-    meta: { title: '可视化',icon: '',roles: ['ADMIN'] }
-  },
-
-
   {
     path: '/',
     component: Layout,
@@ -344,6 +96,68 @@ export const asyncRoutes = [
       meta: { title: '主页', icon: 'dashboard',roles: ['TEACHER'] }
     }]
   },
+
+  {
+    path: '/',
+    component: Layout,
+    redirect: '/dashboard',
+    meta: { title: '主页', icon: 'dashboard', roles: ['STUDENT']},
+    children: [{
+      path: 'dashboard',
+      name: 'Dashboard',
+      component: () => import('@/views/dashboard/index-stu'),
+      meta: { title: '主页', icon: 'dashboard', roles: ['STUDENT']}
+    }],
+
+  },
+  {
+    path: '/judge',
+    component: Layout,
+    meta: { title: '审批', icon: 'el-icon-s-check',roles: ['ADMIN'] },
+    children: [
+      {
+        path: 'judge',
+        name: 'Judge',
+        component: () => import('@/views/judge/judge'),
+        meta: { title: '审批', icon: 'el-icon-s-check',roles: ['ADMIN'] }
+      },
+    ],
+  },
+  {
+    path: '/bank',
+    component: Layout,
+    meta: { title: '试题管理', icon: 'el-icon-files',roles: ['ADMIN','TEACHER'] },
+    children: [
+      {
+        path: 'bank',
+        name: 'Bank',
+        component: () => import('@/views/bank/bank'),
+        meta: { title: '试题管理', icon: 'el-icon-files',roles: ['ADMIN','TEACHER'] }
+      },
+    ]
+  },
+  {
+    path: '/visualization',
+    component: () => import('@/views/visualization/index'),
+
+    meta: { title: '可视化',icon: '',roles: ['ADMIN'] }
+  },
+
+
+  {
+    path: '/result',
+    component: Layout,
+    hidden: true,
+    children: [
+      {
+        path: 'result',
+        name: 'Result',
+        component: () => import('@/views/result/result'),
+        meta: { title: '成绩查看', icon: 'clipboard',roles: ['STUDENT','TEACHER','ADMIN'] }
+      }
+    ]
+  },
+
   {
     path: '/design',
     component: Layout,
@@ -409,23 +223,11 @@ export const asyncRoutes = [
         component: () => import('@/views/grade/grade'),
         meta: { title: '老师查看学生的成绩', icon: 'el-icon-s-check',roles: ['TEACHER'] }
       },
-    ]
+    ],
+    hidden: true
   },
 
 
-
-  {
-    path: '/',
-    component: Layout,
-    redirect: '/dashboard',
-    meta: { title: '主页', icon: 'dashboard', roles: ['STUDENT']},
-    children: [{
-      path: 'dashboard',
-      name: 'Dashboard',
-      component: () => import('@/views/dashboard/index-stu'),
-      meta: { title: '主页', icon: 'dashboard', roles: ['STUDENT']}
-    }]
-  },
   {
     path: '/exam',
     component: Layout,

@@ -125,7 +125,7 @@ export default {
   data() {
     return {
       judgeDialog:false,
-      examineeId:1904011106,
+      examineeId:this.$store.getters.name,
       activeExamsName:'all',
       wordDialogVisible:false,
       word:null,
@@ -176,7 +176,10 @@ export default {
     }
   },
   watch: {
-
+    name(){
+      this.current =1
+      this.getExamInfo()
+    }
   },
   created() {
     this.getAllSubject()//1
@@ -188,6 +191,18 @@ export default {
 
   },
   methods: {
+    copyLink(val) { // 复制链接
+      console.log(val, '复制链接')
+      let url = val // 后台接口返回的链接地址
+      let inputNode = document.createElement('input')  // 创建input
+      inputNode.value = url // 赋值给 input 值
+      document.body.appendChild(inputNode) // 插入进去
+      inputNode.select() // 选择对象
+      document.execCommand('Copy') // 原生调用执行浏览器复制命令
+      inputNode.className = 'oInput'
+      inputNode.style.display = 'none' // 隐藏
+      this.$message.success('复制成功')
+    },
     handleCommand(item) {
         this.$router.push({ name: 'Design',
           query: {
@@ -319,17 +334,8 @@ export default {
         examId:item.examId
         } })
     },
-    copyLink(val) { // 复制链接
-      console.log(val, '复制链接')
-      let url = val // 后台接口返回的链接地址
-      let inputNode = document.createElement('input')  // 创建input
-      inputNode.value = url // 赋值给 input 值
-      document.body.appendChild(inputNode) // 插入进去
-      inputNode.select() // 选择对象
-      document.execCommand('Copy') // 原生调用执行浏览器复制命令
-      inputNode.className = 'oInput'
-      inputNode.style.display = 'none' // 隐藏
-      this.$message.success('复制成功')
+    handleCopy(text, event) {
+      clip(text, event)
     },
     publishExam(item){
       if(confirm('是否公布考试结果?')){
@@ -361,7 +367,7 @@ export default {
           console.log(err)
         })
       }
-    }
+    },
   },
 }
 </script>

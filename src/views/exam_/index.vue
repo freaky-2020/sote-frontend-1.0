@@ -13,7 +13,7 @@
           <Countdown v-if="$route.query.isView===undefined&&flag2&&flag3" :exam-value="JSON.parse($route.query.examValue)" :detailData="detailData" :progress="progress"/>
         </el-col>
         <el-col :span="3" :xs="24">
-          <Detector/>
+          <Detector v-show="this.$route.query.isView===undefined"/>
         </el-col>
       </el-row>
     </div>
@@ -64,7 +64,9 @@ export default {
   },
   created() {
     this.fetchExamData()
-    this.fetchDetailData()
+    if(this.$route.query.isView===undefined){
+      this.fetchDetailData()
+    }
     let examValue = JSON.parse(this.$route.query.examValue)
     this.paperId = examValue.examInfo.paperId
   },
@@ -174,20 +176,25 @@ export default {
       }
     },
   },
-  // mounted() {
-  //   this.getSc()
-  //   // 监听滚动
-  //   // window.addEventListener("scroll", this.handleScroll);
-  //   // 监听浏览器窗口变化
-  //   window.addEventListener("resize", this.pageHidden);
-  //   // // 监听页面可见性
-  //   window.addEventListener("visibilitychange", this.pageHidden);
-  // },
-  // destroyed() {
-  //   window.removeEventListener("visibilitychange", this.pageHidden);
-  //   // window.removeEventListener("scroll", this.handleScroll);
-  //   window.removeEventListener("resize", this.pageHidden);
-  // },
+  mounted() {
+    if(this.$route.query.isView===undefined){
+      this.getSc()
+      // 监听滚动
+      // window.addEventListener("scroll", this.handleScroll);
+      // 监听浏览器窗口变化
+      window.addEventListener("resize", this.pageHidden);
+      // // 监听页面可见性
+      window.addEventListener("visibilitychange", this.pageHidden);
+    }
+
+  },
+  destroyed() {
+    if(this.$route.query.isView===undefined){
+      window.removeEventListener("visibilitychange", this.pageHidden);
+      // window.removeEventListener("scroll", this.handleScroll);
+      window.removeEventListener("resize", this.pageHidden);
+    }
+  },
 }
 </script>
 <style lang="scss">
