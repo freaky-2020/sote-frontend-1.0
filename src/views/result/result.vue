@@ -3,11 +3,23 @@
     <div>
       <el-row :gutter="20">
         <el-col :span="8" :xs="24">
-          <Card v-if="flag" :exam_date="examDate" :quesNos="quesNos" :userName="$route.query.userName" :realName="$route.query.realName"/>
+          <Card v-if="flag"
+                :exam_date="examDate"
+                :paperData="paperData"
+                :quesNos="quesNos"
+                :userName="$route.query.userName"
+                :realName="$route.query.realName"/>
           <!--          目标组件中props中的数据名 = 当前组件的数据-->
         </el-col>
         <el-col :span="15" :xs="24">
-          <Display v-if="flag" :exam_date="examDate" :quesNos="quesNos" :isTeacher="isTeacher" @fetchAllQues="fetchAllQues"/>
+          <Display
+            v-if="flag"
+            :exam_date="examDate"
+            :paperData="paperData"
+            :quesNos="quesNos"
+            :isTeacher="isTeacher"
+            :isView="$route.query.isView"
+            @fetchAllQues="fetchAllQues"/>
         </el-col>
       </el-row>
     </div>
@@ -27,14 +39,20 @@ export default {
       isTeacher:false,
       paperId: undefined,
       examId:undefined,
-      examDate: null,
+      examDate: undefined,
+      paperData:undefined,
       quesNos: 0,
     }
   },
   created() {
     this.examId =this.$route.query.examId
     this.isTeacher = this.$route.query.isTeacher
-    this.fetchAllQues()
+    if(this.$route.query.isView === undefined){
+      this.fetchAllQues()
+    }
+    if(this.$route.query.isView !== undefined){
+      this.fetchPaper()
+    }
   },
   methods: {
     fetchAllQues(){
@@ -45,14 +63,23 @@ export default {
         console.log(response)
         this.examDate = response[0]
         this.$store.commit('setNum', this.examDate.papers[0].quesNo)
-        this.getQuesNos()
         this.flag = true
       }).catch(err => {
         console.log(err)
       })
     },
-    getQuesNos() {
-      this.quesNos = this.examDate.papers.length
+    fetchPaper(){
+      request({
+        url: 'exam/paper/' + this.$route.query.paperId +'/get',
+        method: 'get'
+      }).then(response => {
+        this.paperData = response
+        console.log(this.paperData)
+        this.flag =true
+        this.$store.commit('setNum', this.examDate.papers[0].quesNo)
+      }).catch(err => {
+        console.log(err)
+      })
     },
   }
 }

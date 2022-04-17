@@ -15,7 +15,7 @@
 
         <li class="search-li">
           <el-input type="text" placeholder="试卷名称" class="search" v-model="key" size="medium"> </el-input>
-          <el-button type="primary" size="medium" icon="el-icon-search" circle></el-button>
+          <el-button slot="append" size="medium" icon="el-icon-search"></el-button>
           <!--            <i class="el-icon-search"></i>-->
         </li>
         <li>

@@ -41,7 +41,8 @@ export default {
   ],
   methods: {
     grade(item) {
-      this.$router.push({ name: 'Result',
+      this.$router.push({
+        name: 'Result',
         query: {
           userName:this.userName,
           examId:item.examInfo.examId,
@@ -120,7 +121,7 @@ export default {
     //}
   .item .info i {
     margin-right: 5px;
-    color: #0195ff;
+    color: #0076e1;
   }
   .item .info span {
     //margin-right: 14px;
@@ -134,8 +135,8 @@ export default {
     transition: all 0.6s ease;
   }
   .paper .item:hover {
-    box-shadow: 0 0 4px 2px rgba(140, 193, 248, 0.45);
-    transform: scale(1.03);
+    box-shadow: 0 0 4px 2px rgba(149, 172, 197, 0.45);
+    transform: scale(1.015);
   }
   .paper .item .info {
     font-size: 13px;

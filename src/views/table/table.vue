@@ -102,7 +102,7 @@
         </el-pagination>
       </div>
 
-      <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
+      <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" :befor-close="cancel">
         <el-form ref="form" :rules="rules" :model="form" label-width="120px">
           <el-form-item label="身份" prop="roleId">
             <el-select v-model="form.roleId" placeholder="请选择">
@@ -129,8 +129,7 @@
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="dialogStatus==='create'?createData(form):updateData(form, form.userName)">确认</el-button>
-            <el-button @click="cancel" :befor-close="cancel">取消</el-button>
-            <el-button @click="request">请求</el-button>
+            <el-button @click="cancel">取消</el-button>
           </el-form-item>
         </el-form>
       </el-dialog>
@@ -220,7 +219,6 @@ export default {
       this.dialogFormVisible = true
     },
     cancel(){
-      this.form = JSON.parse(localStorage.getItem('obj'))
       this.dialogFormVisible = false
     },
     add(){
@@ -246,7 +244,11 @@ export default {
               this.nnewTable.splice(i,1,form)
             }
           }
-          alert('submit!');
+          this.$notify({
+            title: '成功',
+            message: '编辑用户成功',
+            type: 'success'
+          });
           this.dialogFormVisible = false
         } else {
           alert('请按照修改规则修改用户');
@@ -267,7 +269,11 @@ export default {
             console.log(err)
           })
           this.tableData.push(form)
-          alert('submit!');
+          this.$notify({
+            title: '成功',
+            message: '添加用户成功',
+            type: 'success'
+          });
           this.dialogFormVisible = false
         } else {
           alert('请按照添加规则添加用户');

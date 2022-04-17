@@ -1,10 +1,13 @@
 <template>
-  <div>
+  <div class="background-container">
+    <div class="app-container">
     <div style="margin: 10px">
+      <h3 class="h3title">
       <i class="el-icon-s-check"></i>
-      <span style="font-size:30px;color: indianred">题库审批</span>
+      <span >题库审批</span>
+      </h3>
     </div>
-    <el-divider></el-divider>
+<!--    <el-divider></el-divider>-->
     <div style="margin: 20px;">
       <el-radio-group v-model="radio">
         <el-radio :label="1">增加操作</el-radio>
@@ -12,12 +15,14 @@
         <el-radio :label="3">修改操作</el-radio>
       </el-radio-group>
       <div style="float: right;margin-bottom: 10px">
-        <el-button size="small" @click="allPass">批量通过</el-button>
-        <el-button size="small" @click="allDisPass">批量驳回</el-button>
+        <el-button type="primary" size="medium" @click="allPass">批量通过</el-button>
+        <el-button type="danger" size="medium" @click="allDisPass">批量驳回</el-button>
       </div>
       <el-table
         :data="newTable.slice((page-1)*limit, page*limit)"
         style="width: 100%"
+        :header-cell-style="{'text-align':'center'}"
+        :cell-style="{'text-align':'center'}"
         border
         fit
         highlight-current-row
@@ -25,45 +30,45 @@
         ref="multipleTable">
         <el-table-column
           type="selection"
-          width="55">
+          width="40">
         </el-table-column>
         <el-table-column
           label="修改人编号"
-          width="180">
+          width="120">
           <template slot-scope="scope">
             <span style="margin-left: 10px">{{ scope.row.requestUserName }}</span>
           </template>
         </el-table-column>
         <el-table-column
           label="题目内容"
-          width="180">
+          width="160">
           <template slot-scope="scope">
             <div slot="reference" class="name-wrapper">
-              <span v-html="scope.row.stem"></span>
+              <span>{{getLittleStem(scope.row.stem)}}</span>
             </div>
           </template>
         </el-table-column>
         <el-table-column
           label="题目类型"
-          width="150">
+          width="100">
           <template slot-scope="scope">
             <div slot="reference" class="name-wrapper">
               <span>{{mapType[scope.row.typeId]}}</span>
             </div>
           </template>
         </el-table-column>
-        <el-table-column
-          label="难度"
-          width="100">
-          <template slot-scope="scope">
-            <div slot="reference" class="name-wrapper">
-              <span>{{mapLevel[scope.row.difficultyId]}}</span>
-            </div>
-          </template>
-        </el-table-column>
+<!--        <el-table-column-->
+<!--          label="难度"-->
+<!--          width="80">-->
+<!--          <template slot-scope="scope">-->
+<!--            <div slot="reference" class="name-wrapper">-->
+<!--              <span>{{mapLevel[scope.row.difficultyId]}}</span>-->
+<!--            </div>-->
+<!--          </template>-->
+<!--        </el-table-column>-->
         <el-table-column
           label="答案"
-          width="180">
+          width="100">
           <template slot-scope="scope">
             <div slot="reference" class="name-wrapper">
               <span>{{getAnswer(scope.row)}}</span>
@@ -72,7 +77,7 @@
         </el-table-column>
         <el-table-column
           label="试题科目"
-          width="170">
+          width="100">
           <template slot-scope="scope">
             <div slot="reference" class="name-wrapper">
               <span>{{formatter(scope.row)}}</span>
@@ -80,6 +85,7 @@
           </template>
         </el-table-column>
         <el-table-column
+          width="150"
           label="修改时间">
           <template slot-scope="scope">
             <div slot="reference" class="name-wrapper">
@@ -110,35 +116,37 @@
         :data="newTable.slice((page-1)*limit, page*limit)"
         style="width: 100%"
         border
+        :header-cell-style="{'text-align':'center'}"
+        :cell-style="{'text-align':'center'}"
         fit
         highlight-current-row
         v-if="this.radio ===3"
         ref="multipleTable">
         <el-table-column
           type="selection"
-          width="55">
+          width="40">
         </el-table-column>
         <el-table-column
           label="修改人编号"
-          width="180">
+          width="120">
           <template slot-scope="scope">
             <span style="margin-left: 10px">{{ scope.row.after.requestUserName }}</span>
           </template>
         </el-table-column>
         <el-table-column
           label="题目内容"
-          width="180">
+          width="160">
           <template slot-scope="scope">
             <div slot="reference" class="name-wrapper">
-              <span v-html="scope.row.before.stem"></span>
+              <span>{{getLittleStem(scope.row.before.stem)}}</span>
               <br>
-              <span style="color: red" v-html="scope.row.after.stem"></span>
+              <span style="color: red">{{getLittleStem(scope.row.after.stem)}}</span>
             </div>
           </template>
         </el-table-column>
         <el-table-column
           label="题目类型"
-          width="150">
+          width="100">
           <template slot-scope="scope">
             <div slot="reference" class="name-wrapper">
               <span>{{mapType[scope.row.before.typeId]}}</span>
@@ -148,19 +156,8 @@
           </template>
         </el-table-column>
         <el-table-column
-          label="难度"
-          width="100">
-          <template slot-scope="scope">
-            <div slot="reference" class="name-wrapper">
-              <span>{{mapLevel[scope.row.before.difficultyId]}}</span>
-              <br>
-              <span style="color: red">{{mapLevel[scope.row.after.difficultyId]}}</span>
-            </div>
-          </template>
-        </el-table-column>
-        <el-table-column
           label="答案"
-          width="180">
+          width="100">
           <template slot-scope="scope">
             <span>{{getAnswer(scope.row.before)}}</span>
             <br>
@@ -169,7 +166,7 @@
         </el-table-column>
         <el-table-column
           label="试题科目"
-          width="170">
+          width="100">
           <template slot-scope="scope">
             <span>{{formatter(scope.row.before)}}</span>
             <br>
@@ -177,6 +174,7 @@
           </template>
         </el-table-column>
         <el-table-column
+          width="150"
           label="修改时间">
           <template slot-scope="scope">
             <div slot="reference" class="name-wrapper">
@@ -228,6 +226,7 @@
           </el-footer>
         </el-dialog>
       </div>
+    </div>
     </div>
   </div>
 </template>
@@ -499,10 +498,9 @@ export default {
         let rows = []
         rows[0] = row.after
         request({
-          url: '/bank/required/judge/update' +1,
+          url: '/bank/required/judge/update/' +0,
           method: 'Post',
-          data: rows
-          ,
+          data: rows,
           dataType: 'json',
           headers: {
             'Content-Type': 'application/json;charset=utf-8',
@@ -535,6 +533,17 @@ export default {
       }
       this.isDisplay = false
     },
+    getLittleStem(stem){
+      stem = stem.replace(/<(style|script|iframe)[^>]*?>[\s\S]+?<\/\1\s*>/gi,'').replace(/<[^>]+?>/g,'').replace(/\s+/g,' ').replace(/ /g,' ').replace(/>/g,' ');
+      if(stem === undefined){
+        return ''
+      }
+      else if (stem.length > 14) {
+        //最长固定显示4个字符
+        return stem.slice(0, 14) + "...";
+      }
+      return stem
+    },
     allPass(){
 
     },
@@ -562,7 +571,11 @@ export default {
         return row.answer
       }
       else{
-        return row.answer.replace(/<(style|script|iframe)[^>]*?>[\s\S]+?<\/\1\s*>/gi,'').replace(/<[^>]+?>/g,'').replace(/\s+/g,' ').replace(/ /g,' ').replace(/>/g,' ');
+        row.answer = row.answer.replace(/<(style|script|iframe)[^>]*?>[\s\S]+?<\/\1\s*>/gi,'').replace(/<[^>]+?>/g,'').replace(/\s+/g,' ').replace(/ /g,' ').replace(/>/g,' ');
+        if (row.answer.length > 10) {
+          //最长固定显示4个字符
+          return row.answer.slice(0, 10) + "...";
+        }
       }
     },
     formatter(row){
@@ -621,5 +634,10 @@ export default {
 </script>
 
 <style scoped>
-
+.h3title{
+  color: #00509d;
+//background-color: lightgrey;
+  height: 40px;
+  border-bottom: 1px solid lightgrey;
+}
 </style>

@@ -39,8 +39,7 @@
       <el-table-column
         :label=" '成绩'"
         sortable
-        align="center"
-        width="180">
+        align="center">
         <el-table-column
           :label=" '主观题    满分:' + this.tableData[0].maxNonSynScore"
           width="130">

@@ -44,9 +44,8 @@ export const constantRoutes = [
     path: '/register',
     name: 'register',
     component: () => import('@/views/login/register'),
-    hidden: true,
+    hidden: true
   },
-
 
   {
     path: '/404',
@@ -67,7 +66,7 @@ export const constantRoutes = [
         meta: { title: 'Profile', icon: 'user', noCache: true }
       }
     ]
-  },
+  }
 
 ]
 
@@ -76,24 +75,24 @@ export const asyncRoutes = [
     path: '/',
     component: Layout,
     redirect: '/dashboard',
-    meta: { title: '主页', icon: 'dashboard',roles: ['ADMIN'] },
+    meta: { title: '主页', icon: 'dashboard', roles: ['ADMIN'] },
     children: [{
       path: 'dashboard',
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index-admin'),
-      meta: { title: '主页', icon: 'dashboard',roles: ['ADMIN'] },
-    }],
+      meta: { title: '主页', icon: 'dashboard', roles: ['ADMIN'] }
+    }]
   },
   {
     path: '/',
     component: Layout,
     redirect: '/dashboard',
-    meta: { title: '主页', icon: 'dashboard',roles: ['TEACHER'] },
+    meta: { title: '主页', icon: 'dashboard', roles: ['TEACHER'] },
     children: [{
       path: 'dashboard',
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: '主页', icon: 'dashboard',roles: ['TEACHER'] }
+      meta: { title: '主页', icon: 'dashboard', roles: ['TEACHER'] }
     }]
   },
 
@@ -101,48 +100,60 @@ export const asyncRoutes = [
     path: '/',
     component: Layout,
     redirect: '/dashboard',
-    meta: { title: '主页', icon: 'dashboard', roles: ['STUDENT']},
+    meta: { title: '主页', icon: 'dashboard', roles: ['STUDENT'] },
     children: [{
       path: 'dashboard',
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index-stu'),
-      meta: { title: '主页', icon: 'dashboard', roles: ['STUDENT']}
-    }],
+      meta: { title: '主页', icon: 'dashboard', roles: ['STUDENT'] }
+    }]
 
   },
   {
     path: '/judge',
     component: Layout,
-    meta: { title: '审批', icon: 'el-icon-s-check',roles: ['ADMIN'] },
+    meta: { title: '审批', icon: 'el-icon-s-check', roles: ['ADMIN'] },
     children: [
       {
         path: 'judge',
         name: 'Judge',
         component: () => import('@/views/judge/judge'),
-        meta: { title: '审批', icon: 'el-icon-s-check',roles: ['ADMIN'] }
-      },
-    ],
+        meta: { title: '题库审批', icon: 'el-icon-s-check', roles: ['ADMIN'] }
+      }
+    ]
+  },
+  {
+    path: '/table',
+    component: Layout,
+    meta: { title: '用户管理', icon: 'el-icon-s-check', roles: ['ADMIN'] },
+    children: [
+      {
+        path: 'table',
+        name: 'Table',
+        component: () => import('@/views/table/table'),
+        meta: { title: '用户管理', icon: 'el-icon-s-check', roles: ['ADMIN'] }
+      }
+    ]
   },
   {
     path: '/bank',
     component: Layout,
-    meta: { title: '试题管理', icon: 'el-icon-files',roles: ['ADMIN','TEACHER'] },
+    meta: { title: '试题管理', icon: 'el-icon-files', roles: ['ADMIN', 'TEACHER'] },
     children: [
       {
         path: 'bank',
         name: 'Bank',
         component: () => import('@/views/bank/bank'),
-        meta: { title: '试题管理', icon: 'el-icon-files',roles: ['ADMIN','TEACHER'] }
-      },
+        meta: { title: '试题管理', icon: 'el-icon-files', roles: ['ADMIN', 'TEACHER'] }
+      }
     ]
   },
   {
     path: '/visualization',
     component: () => import('@/views/visualization/index'),
 
-    meta: { title: '可视化',icon: '',roles: ['ADMIN'] }
+    meta: { title: '数据分析', icon: '', roles: ['ADMIN'] }
   },
-
 
   {
     path: '/result',
@@ -153,7 +164,7 @@ export const asyncRoutes = [
         path: 'result',
         name: 'Result',
         component: () => import('@/views/result/result'),
-        meta: { title: '成绩查看', icon: 'clipboard',roles: ['STUDENT','TEACHER','ADMIN'] }
+        meta: { title: '成绩查看', icon: 'clipboard', roles: ['STUDENT', 'TEACHER', 'ADMIN'] }
       }
     ]
   },
@@ -161,117 +172,113 @@ export const asyncRoutes = [
   {
     path: '/design',
     component: Layout,
-    meta: { title: '设计试卷', icon: 'el-icon-edit',roles: ['TEACHER'] },
+    meta: { title: '设计试卷', icon: 'el-icon-edit', roles: ['TEACHER'] },
     children: [
       {
         path: 'design',
         name: 'Design',
         component: () => import('@/views/design/design'),
-        meta: { title: '设计试卷', icon: 'el-icon-edit',roles: ['TEACHER'] },
-      },
+        meta: { title: '设计试卷', icon: 'el-icon-edit', roles: ['TEACHER'] }
+      }
     ],
     hidden: true
   },
   {
     path: '/teacherexam',
     component: Layout,
-    meta: { title: '我创建的考试',icon: 'form',roles: ['TEACHER'] },
+    meta: { title: '我创建的考试', icon: 'form', roles: ['TEACHER'] },
     children: [
       {
         path: 'index',
         name: 'teacherExam',
         component: () => import('@/views/exam/index-teacher'),
-        meta: { title: '我创建的考试',icon: 'form',roles: ['TEACHER'] }
-      },
+        meta: { title: '我创建的考试', icon: 'form', roles: ['TEACHER'] }
+      }
     ]
   },
   {
     path: '/grading',
     component: Layout,
-    meta: { title: '老师给学生批卷', icon: 'el-icon-menu',roles: ['TEACHER'] },
+    meta: { title: '老师给学生批卷', icon: 'el-icon-menu', roles: ['TEACHER'] },
     children: [
       {
         path: 'grading',
         name: 'Grading',
         component: () => import('@/views/grading/grading'),
-        meta: { title: '老师给学生批卷', icon: 'el-icon-menu',roles: ['TEACHER'] }
-      },
+        meta: { title: '老师给学生批卷', icon: 'el-icon-menu', roles: ['TEACHER'] }
+      }
     ],
     hidden: true
   },
   {
     path: '/createexam',
     component: Layout,
-    meta: { title: '创建试卷', icon: 'clipboard' ,roles: ['TEACHER']},
+    meta: { title: '创建考试', icon: 'clipboard', roles: ['TEACHER'] },
     children: [
       {
         path: 'examinfo',
         name: 'paperinfo',
         component: () => import('@/views/createpaper/examInfo'),
-        meta: { title: '创建试卷', icon: 'clipboard' ,roles: ['TEACHER']}
+        meta: { title: '创建考试', icon: 'clipboard', roles: ['TEACHER'] }
       }
     ]
   },
+
   {
     path: '/grade',
     component: Layout,
-    meta: { title: '老师查看学生的成绩', icon: 'el-icon-s-check',roles: ['TEACHER'] },
+    meta: { title: '老师查看学生的成绩', icon: 'el-icon-s-check', roles: ['TEACHER'] },
     children: [
       {
         path: 'grade',
         name: 'Grade',
         component: () => import('@/views/grade/grade'),
-        meta: { title: '老师查看学生的成绩', icon: 'el-icon-s-check',roles: ['TEACHER'] }
-      },
-    ],
-    hidden: true
-  },
-
-
-  {
-    path: '/exam',
-    component: Layout,
-    meta: { title: '我的考试',icon: 'form', roles: ['STUDENT'] },
-    children: [
-      {
-        path: 'index',
-        name:'stuExam',
-        component: () => import('@/views/exam/index'),
-        meta: { title: '我的考试',icon: 'form', roles: ['STUDENT'] }
-      },
-    ]
-  },
-  {
-    path: '/record',
-    component: Layout,
-    meta: { title: '考试记录',icon: 'form', roles: ['STUDENT'] },
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/exam/record'),
-        meta: { title: '考试记录',icon: 'form', roles: ['STUDENT'] }
-      },
-    ]
-  },
-  {
-    path: '/exam_',
-    component: Layout,
-    redirect: '/exam/index',
-    meta: { title: '考试主体', icon: 'user', roles: ['STUDENT','TEACHER']  },
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/exam_/index'),
-        name: 'Exam_',
-        meta: { title: '考试主体', icon: 'user', roles: ['STUDENT','TEACHER']  }
+        meta: { title: '老师查看学生的成绩', icon: 'el-icon-s-check', roles: ['TEACHER'] }
       }
     ],
     hidden: true
   },
 
+  {
+    path: '/exam',
+    component: Layout,
+    meta: { title: '我的考试', icon: 'form', roles: ['STUDENT'] },
+    children: [
+      {
+        path: 'index',
+        name: 'stuExam',
+        component: () => import('@/views/exam/index'),
+        meta: { title: '我的考试', icon: 'form', roles: ['STUDENT'] }
+      }
+    ]
+  },
+
+  {
+    path: '/record',
+    component: Layout,
+    meta: { title: '考试记录', icon: 'form', roles: ['STUDENT'] },
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/exam/record'),
+        meta: { title: '考试记录', icon: 'form', roles: ['STUDENT'] }
+      }
+    ]
+  },
+  {
+    path: '/exam_',
+
+    meta: { title: '考试主体', icon: 'user', roles: ['STUDENT', 'TEACHER'] },
+
+    component: () => import('@/views/exam_/index'),
+    name: 'Exam_',
+
+    hidden: true
+  },
+
 
   { path: '*', redirect: '/404', hidden: true }
-];
+]
 
 const createRouter = () => new Router({
   // mode: 'history',

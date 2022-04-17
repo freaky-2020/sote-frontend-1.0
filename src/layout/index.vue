@@ -1,13 +1,8 @@
 <template>
   <div :class="classObj" class="app-wrapper">
-<!--    &lt;!&ndash; 改动的地方 start&ndash;&gt;-->
-<!--    我是topBar我是topBar我是topBar我是topBar我是topBar我是topBar-->
-<!--    &lt;!&ndash; 改动的地方 end&ndash;&gt;-->
-<!--    // 改的地方start-->
     <topbar/>
 <!--    // 改的地方end-->
     <div v-if="device==='mobile'&&sidebar.opened" class="drawer-bg" @click="handleClickOutside" />
-
 <!--    <sidebar  v-if="!sidebar.hide" class="sidebar-container" />-->
     <div :class="{sidebarHide: sidebar.hide}" class="main-container">
       <div :class="{'fixed-header':fixedHeader}">
@@ -58,7 +53,8 @@ export default {
     handleClickOutside() {
       this.$store.dispatch('app/closeSideBar', { withoutAnimation: false })
     }
-  }
+  },
+
 }
 </script>
 

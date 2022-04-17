@@ -156,9 +156,10 @@ export default {
     },
     toPreview(){
       this.$router.push({
-        name: 'Exam_',
+        name: 'Result',
         query:{
           paperId:this.paperId,
+          examId:this.$route.query.examId,
           isView:true,
         }
       })
