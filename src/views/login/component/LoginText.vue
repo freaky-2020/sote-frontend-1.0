@@ -7,11 +7,11 @@
       </a>
       <a class="menu__item" href="#">
         <span class="menu__item-name">教考分离</span>
-        <span class="menu__item-label">基于创新性教学机制</span>
+        <span class="menu__item-label">基于创新性教学体系</span>
       </a>
       <a class="menu__item" href="#">
-        <span class="menu__item-name">高并发</span>
-        <span class="menu__item-label">高可用的分布式架构</span>
+        <span class="menu__item-name">安全保障</span>
+        <span class="menu__item-label">健全的题库审批机制</span>
       </a>
       <a class="menu__item" href="#">
         <span class="menu__item-name">智能易用</span>
