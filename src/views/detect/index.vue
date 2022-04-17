@@ -197,6 +197,7 @@ export default {
     },
     // 成功启动视频媒体流
     fnSuccess(stream) {
+      alert('获取到了stream')
       window.stream = stream; // 使流对浏览器控制台可用
       this.videoEl.srcObject = stream;
       this.videoEl.play();
