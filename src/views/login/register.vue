@@ -1,25 +1,12 @@
 <template>
 
+<!--  <div class="register-container" >-->
   <div class="register-container" :style="backStyles">
     <el-card shadow="hover" class="formcard" box-shadow="100px">
     <el-form ref="registerForm" :model="registerForm" :rules="registerRules" class="register-form" auto-complete="on" label-position="left">
       <div class="title-container">
         <h3 class="title">注册</h3>
       </div>
-      <el-form-item prop="No">
-        <span class="svg-container">
-          <svg-icon icon-class="user" />
-        </span>
-        <el-input
-          ref="username"
-          v-model="registerForm.No"
-          placeholder="账号"
-          name="No"
-          type="text"
-          tabindex="1"
-          auto-complete="on"
-        />
-      </el-form-item>
 
       <el-form-item prop="username">
         <span class="svg-container">
@@ -28,7 +15,7 @@
         <el-input
           ref="username"
           v-model="registerForm.username"
-          placeholder="用户名"
+          placeholder="账号"
           name="username"
           type="text"
           tabindex="1"
@@ -81,14 +68,14 @@ export default {
 
     const validateUsername = (rule, value, callback) => {
       if (!validUsername(value)) {
-        callback(new Error('Please enter the correct user name'))
+        callback(new Error('请输入正确的账号'))
       } else {
         callback()
       }
     }
     const validatePassword = (rule, value, callback) => {
       if (value.length < 6) {
-        callback(new Error('The password can not be less than 6 digits'))
+        callback(new Error('密码至少是6位'))
       } else {
         callback()
       }
@@ -100,6 +87,7 @@ export default {
         backgroundRepeat:'no-repeat',
         // backgroundSize:'100% 100%',
         position: 'fixed',
+        bottom:0
       },
       registerForm: {
         username: undefined,
@@ -137,22 +125,23 @@ export default {
     handleRegister() {
       //
       request({
-        url: '',
+        url: '/auth/user/add',
         method: 'Post',
         params: {
-          No: this.registerForm.No,
-          Name: this.registerForm.username,
-          Pwd: this.registerForm.password
+          roleId:3,
+          userStatus:1,
+          userName: this.registerForm.username,
+          password: this.registerForm.password
         }
       }).then(response => {
-        if (response !== -1) {
+        if (response ===true ) {
           this.$notify({
             title: '注册成功',
             message: '注册成功',
             type: 'success',
             duration: 2000
           })
-          this.$router.push('/register')
+          this.$router.push('/login')
         } else {
           this.$notify({
             title: '注册失败',
