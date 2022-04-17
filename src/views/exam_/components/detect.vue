@@ -2,8 +2,8 @@
   <div class="webrtc_face_detector">
     <div>
       <div class="button">
-        <el-button  @click="fnOpen">开启监控</el-button>
-        <el-button  @click="fnClose">结束监控</el-button>
+<!--        <el-button  @click="fnOpen">开启监控</el-button>-->
+<!--        <el-button  @click="fnClose">结束监控</el-button>-->
       </div>
 <!--      <div>-->
 <!--        <span style="margin-right: 20px;"-->
@@ -220,6 +220,9 @@ export default {
         this.videoEl.srcObject = null;
       }
     },
+  },
+  created() {
+    this.fnOpen()
   },
   beforeDestroy() {
     this.fnClose();
