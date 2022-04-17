@@ -30,48 +30,102 @@
             <template slot="title">
               <span style="float:left;font-weight:520;font-size:15px;color:#003b6e;">单选题</span>
             </template>
-            <topic-form  v-if="isFetched" :topicType="1" topicTitle=单选题 :examForm.sync="examForm[1]"
+            <topic-form  v-if="isFetched" :topicType="1" topicTitle=单选题 :examForm.sync="examForm[1]" :subjectId="$route.query.subjectId"
                          :scoreSums.sync="scoreItems[0]" :paperId="paperId" @fetchData="fetchData"></topic-form>
           </el-collapse-item>
           <el-collapse-item title="" name="2">
             <template slot="title">
               <span style="float:left;font-weight:520;font-size:15px;color:#003b6e;">多选题</span>
             </template>
-            <topic-form  v-if="isFetched" :topicType="2" topicTitle=多选题 :examForm.sync="examForm[2]"
+            <topic-form  v-if="isFetched" :topicType="2" topicTitle=多选题 :examForm.sync="examForm[2]" :subjectId="$route.query.subjectId"
                          :scoreSums.sync="scoreItems[1]" :paperId="paperId" @fetchData="fetchData"></topic-form>
           </el-collapse-item>
           <el-collapse-item title="" name="3">
             <template slot="title">
               <span style="float:left;font-weight:520;font-size:15px;color:#003b6e;">判断题</span>
             </template>
-            <topic-form  v-if="isFetched" :topicType="3" topicTitle=判断题 :examForm.sync="examForm[3]"
+            <topic-form  v-if="isFetched" :topicType="3" topicTitle=判断题 :examForm.sync="examForm[3]" :subjectId="$route.query.subjectId"
                          :scoreSums.sync="scoreItems[2]" :paperId="paperId" @fetchData="fetchData"></topic-form>
           </el-collapse-item>
           <el-collapse-item title="" name="4">
             <template slot="title">
               <span style="float:left;font-weight:520;font-size:15px;color:#003b6e;">填空题</span>
             </template>
-            <topic-form  v-if="isFetched" :topicType="4" topicTitle=填空题 :examForm.sync="examForm[4]"
+            <topic-form  v-if="isFetched" :topicType="4" topicTitle=填空题 :examForm.sync="examForm[4]" :subjectId="$route.query.subjectId"
                          :scoreSums.sync="scoreItems[3]" :paperId="paperId" @fetchData="fetchData"></topic-form>
           </el-collapse-item>
           <el-collapse-item title="" name="5">
             <template slot="title">
               <span style="float:left;font-weight:520;font-size:15px;color:#003b6e;">简答题</span>
             </template>
-            <topic-form  v-if="isFetched" :topicType="5" topicTitle=简答题 :examForm.sync="examForm[5]"
+            <topic-form  v-if="isFetched" :topicType="5" topicTitle=简答题 :examForm.sync="examForm[5]" :subjectId="$route.query.subjectId"
                          :scoreSums.sync="scoreItems[4]" :paperId="paperId" @fetchData="fetchData"></topic-form>
           </el-collapse-item>
         </el-collapse>
         <el-footer height="80px">
           <div style="position:relative;margin:40px;transform: translate(-50%);left: 50%" >
-            <el-button size="medium" type="primary" icon="el-icon-thumb" @click="designDialog =true">提交试卷</el-button>
+            <el-button size="medium" type="danger" icon="el-icon-s-opportunity" @click="aiDesign" >智能组卷</el-button>
             <el-button size="medium" type="info" icon="el-icon-view" @click="toPreview">预览试卷</el-button>
+            <el-button size="medium" type="primary" icon="el-icon-thumb" @click="designDialog =true">提交试卷</el-button>
           </div>
         </el-footer>
 
 
       </div>
     </div>
+
+    <el-dialog
+      title="智能组卷"
+      :visible.sync="isAiDesign"
+      width="80%"
+      center>
+      <el-form ref="form"  :model="aiForm" label-width="120px">
+        <el-form-item label="难度系数">
+          <el-select v-model="aiForm.diff">
+            <el-option
+              v-for="item in options"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="选择题数目">
+          <el-input v-model="aiForm.q1"></el-input>
+        </el-form-item>
+        <el-form-item label="单个选择题分数">
+          <el-input v-model="aiForm.c1"></el-input>
+        </el-form-item >
+        <el-form-item label="多选题个数">
+          <el-input v-model="aiForm.q2"></el-input>
+        </el-form-item>
+        <el-form-item label="单个多选题分数">
+          <el-input v-model="aiForm.c2"></el-input>
+        </el-form-item>
+        <el-form-item label="判断题个数">
+          <el-input v-model="aiForm.q3"></el-input>
+        </el-form-item>
+        <el-form-item label="单个判断题分数">
+          <el-input v-model="aiForm.c3"></el-input>
+        </el-form-item>
+        <el-form-item label="填空题个数">
+          <el-input v-model="aiForm.q4"></el-input>
+        </el-form-item>
+        <el-form-item label="单个填空题分数">
+          <el-input v-model="aiForm.c4"></el-input>
+        </el-form-item>
+        <el-form-item label="简答题个数">
+          <el-input v-model="aiForm.q5" ></el-input>
+        </el-form-item>
+        <el-form-item label="单个简答题分数">
+          <el-input v-model="aiForm.c5"></el-input>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="isAiDesign = false">取 消</el-button>
+        <el-button type="primary" @click="toAiDesign">确 定</el-button>
+      </span>
+    </el-dialog>
 
     <el-dialog
       title="提示"
@@ -98,6 +152,21 @@ export default {
   components: {topicForm},
   data() {
     return {
+      aiForm:{
+        diff:null,
+        subjectId:'',
+        q1:null,
+        q2:null,
+        q3:null,
+        q4:null,
+        q5:null,
+        c1:null,
+        c2:null,
+        c3:null,
+        c4:null,
+        c5:null,
+      },
+      isAiDesign:false,
       activeNames: ['1'],
       designDialog:false,
       isFetched:false,
@@ -106,6 +175,13 @@ export default {
       totalNum:0,
       totalScore:0,
       list: {},
+      options:[
+        {value:1,label:1},
+        {value:2,label:2},
+        {value:3,label:3},
+        {value:4,label:4},
+        {value:5,label:5},
+      ],
       examForm:{
         1:[],
         2:[],
@@ -133,7 +209,7 @@ export default {
       this.listLoading = true
       // console.log("8888")
       // console.log(this.$route.query.paperId)
-      return request({
+      request({
         url: '/exam/paper/'+this.$route.query.paperId+'/get',
         methods: 'Get'
       }).then(response => {
@@ -167,23 +243,38 @@ export default {
     editTestSubmit(){
       this.isEditTest = false
     },
-    // getAllScore(){
-    //   let sums = 0
-    //   for(let i = 0; i < this.form.length; i++){
-    //     sums+=this.form[i].score
-    //   }
-    //   this.sum = sums
-    // },
-    // getAllSum(){
-    //   let sums = 0
-    //   for(let i = 0; i < this.form.length; i++){
-    //     sums+=this.form[i].score
-    //   }
-    //   this.sum = sums
-    // }
+    aiDesign(){
+      if(confirm('智能组卷将会清空您目前已选题目，确认使用智能组卷吗')){
+        this.isAiDesign = true
+      }
+    },
+    toAiDesign(){
+      request({
+        url: '/exam/paper/auto/'+this.paperId,
+        methods: 'Get',
+        params: this.aiForm,
+      }).then(response => {
+        console.log(response)
+        if(response.indexOf('成功') !== -1){
+          this.$notify({
+            title: '成功',
+            message: response,
+            type: 'success'
+          });
+        }
+        else if(response.indexOf('不足')){
+          this.$notify.error({
+            title: '错误',
+            message: response,
+          });
+        }
+        this.fetchData()
+      })
+      this.isAiDesign = false
+    }
   },
   created() {
-
+    this.aiForm.subjectId = this.$route.query.subjectId
     this.fetchData()
   },
   watch:{

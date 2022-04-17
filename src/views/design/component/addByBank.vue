@@ -3,7 +3,7 @@
     <el-dialog  title="题库导题" :visible.sync="isAddByBank" :before-close="dialogClose" top="5%"  width="80%"
                 style="height: 90%">
       <el-scrollbar style="height: 480px" wrap-style="overflow-x:hidden;">
-        <bank ref="bank" :topicType="topicType" @bankToExamSubmit="bankToExamSubmit"></bank>
+        <bank ref="bank" :topicType="topicType" :subjectId="subjectId" @bankToExamSubmit="bankToExamSubmit"></bank>
 
       </el-scrollbar>
       <el-footer style="text-align: center;height: 20px" class="dialog-footer">
@@ -19,7 +19,7 @@ import bank from '@/views/bank/bank'
 import request from '@/utils/request'
 export default {
   name: 'addByBank',
-  props:['isAddByBank','topicType','paperId','fetchDataExam'],
+  props:['isAddByBank','topicType','paperId','fetchDataExam','subjectId'],
   components: {bank},
   data(){
     return{
@@ -133,6 +133,8 @@ export default {
     bankToExam(){
       this.$refs.bank.bankToExam()
     },
+  },
+  mounted() {
   }
 }
 </script>
