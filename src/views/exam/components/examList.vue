@@ -3,7 +3,10 @@
   <ul class="paper">
     <li class="item" v-for="(item,index) in displayExam" :key="index">
       <h4 @click="toExam(item)">{{ item.examInfo.examName }}</h4>
-      <p class="examName">科目：{{ item.examInfo.subjectName }}---{{ item.examInfo.examNote }}</p>
+      <el-row>
+        <el-col class="examName">科目：{{ item.examInfo.subjectName }}</el-col>
+        <el-col class="examName" style="margin-top: -5px">考试须知：{{ item.examInfo.examNote }}</el-col>
+      </el-row>
       <div class="info">
         <span>允许考试&nbsp;{{ item.examInfo.allowableTime }}&nbsp;次 已完成{{ item.time }}次</span>
         <br/>

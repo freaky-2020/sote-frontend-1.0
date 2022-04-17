@@ -37,7 +37,14 @@ const actions = {
     return new Promise((resolve, reject) => {
       login({ username: username.trim(), password: password }).then(response => {
         const { data } = response
-        if(response.code===401){
+        if(response.code===500){
+          this.$notify({
+            title: '账号或密码错误',
+            message: '账号或密码错误',
+            type: 'error',
+            duration: 2000
+          })
+        }else if(response.code===401){
         // if(false){
           commit('SET_TOKEN', data.tokenHead+data.refreshToken)
           setToken(data.tokenHead+data.refreshToken)
@@ -49,7 +56,7 @@ const actions = {
         }
       }).catch(error => {
         reject(error)
-        alert(error.message)
+        // alert(error.message)
       })
     })
   },

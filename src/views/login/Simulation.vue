@@ -1,86 +1,74 @@
 <template>
-
   <div class="login-container" :style="backStyles">
-    <div class="loginText">
-      <login-text></login-text>
-    </div>
     <el-card shadow="hover" class="loginFormcard" box-shadow="100px">
-    <el-form id="loginForm" ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
+      <el-form id="loginForm" ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form"
+               auto-complete="on" label-position="left">
 
-      <div class="title-container">
-        <h3 class="title">
-          <img width="60"
-               src="../../assets/images/img.png" />
-          <img width="80"
-               src="../../assets/images/sote-o.png"/>
-          考试系统
-        </h3>
-      </div>
-
-      <el-form-item prop="username">
+        <div class="title-container">
+          <h3 class="title">
+            <img width="60"
+                 src="../../assets/images/img.png"/>
+            <img width="80"
+                 src="../../assets/images/sote-o.png"/>
+            考试系统
+          </h3>
+        </div>
+        <el-radio-group style="margin-bottom: 10px" v-model="role">
+          <el-radio :label="1">学生</el-radio>
+          <el-radio :label="2">老师</el-radio>
+        </el-radio-group>
+        <el-form-item prop="username">
         <span class="svg-container">
-          <svg-icon icon-class="user" />
+          <svg-icon icon-class="user"/>
         </span>
-        <el-input
-          ref="username"
-          v-model="loginForm.username"
-          placeholder="用户名"
-          name="username"
-          type="text"
-          tabindex="1"
-          auto-complete="on"
-        />
-      </el-form-item>
+          <el-input
+            ref="username"
+            v-model="loginForm.username"
+            placeholder="用户名"
+            name="username"
+            type="text"
+            tabindex="1"
+            auto-complete="on"
+          />
+        </el-form-item>
 
-      <el-form-item prop="password">
+        <el-form-item prop="password">
         <span class="svg-container">
-          <svg-icon icon-class="password" />
+          <svg-icon icon-class="password"/>
         </span>
-        <el-input
-          :key="passwordType"
-          ref="password"
-          v-model="loginForm.password"
-          :type="passwordType"
-          placeholder="密码"
-          name="password"
-          tabindex="2"
-          auto-complete="on"
-          @keyup.enter.native="handleLogin"
-        />
-        <span class="show-pwd" @click="showPwd">
-          <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
+          <el-input
+            :key="passwordType"
+            ref="password"
+            v-model="loginForm.password"
+            :type="passwordType"
+            placeholder="密码"
+            name="password"
+            tabindex="2"
+            auto-complete="on"
+            @keyup.enter.native="handleLogin"
+          />
+          <span class="show-pwd" @click="showPwd">
+          <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'"/>
         </span>
-      </el-form-item>
-      <div style="width: 100%;text-align: right">
-        <el-link
-          type="primary"
-          style="margin-bottom: 20px;color:#304156;margin-right: 10px"
-          @click.native.prevent="forgetPwd"
-        >忘记密码</el-link>
-      </div>
-      <div>
-      <el-button :loading="loading" type="primary" style="width:47%;" @click.native.prevent="handleLogin">登录</el-button>
-      <el-button :loading="loading" type="plain" style="width:47%;float:right" @click.native.prevent="goToRegister">注册</el-button>
-      </div>
-    </el-form>
+        </el-form-item>
+
+        <div>
+          <el-button :loading="loading" type="primary" style="width:47%;" @click.native.prevent="handleLogin">登录
+          </el-button>
+        </div>
+      </el-form>
     </el-card>
-<!--    <index-li-zi></index-li-zi>-->
-    <el-link style="float:right;margin-top: 10px;margin-right: 10px" @click="toSimulation()">管理员模拟登录</el-link>
+    <!--    <index-li-zi></index-li-zi>-->
   </div>
-
 </template>
 
 <script>
 import { validUsername } from '@/utils/validate'
 import loginBackImg from '@/assets/login_images/login_back2.jpeg'
-import LoginText from '@/views/login/component/LoginText'
-// import IndexLiZi from '@/components/IndexLiZi'
+import request from '@/utils/request'
+
 export default {
-  components:{
-    // IndexLiZi,
-    LoginText
-  },
-  name: 'Login',
+  name: 'Simulation',
   data() {
     const validateUsername = (rule, value, callback) => {
       if (!validUsername(value)) {
@@ -97,6 +85,7 @@ export default {
       }
     }
     return {
+      role: 1,
       loginForm: {
         username: '',
         password: '123456'
@@ -108,13 +97,13 @@ export default {
       loading: false,
       passwordType: 'password',
       redirect: undefined,
-      backStyles:{
-        backgroundImage:`url(${loginBackImg})`,
-        backgroundSize:'cover',
-        backgroundRepeat:'no-repeat',
+      backStyles: {
+        backgroundImage: `url(${loginBackImg})`,
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
         // backgroundSize:'100% 100%',
         position: 'fixed',
-        bottom:0
+        bottom: 0
       }
     }
   },
@@ -127,12 +116,7 @@ export default {
     }
   },
   methods: {
-    toSimulation(){
-      this.$router.push({path:'/simulation'})
-    },
-    goToRegister(){
-      this.$router.push({path:'/register'})
-    },
+
     showPwd() {
       if (this.passwordType === 'password') {
         this.passwordType = ''
@@ -146,12 +130,35 @@ export default {
     handleLogin() {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
-          this.loading = true
-          this.$store.dispatch('user/login', this.loginForm).then(() => {
-            this.$router.push({ path: this.redirect || '/' })
-            this.loading = false
-          }).catch(() => {
-            this.loading = false
+          request({
+            url: '/auth/user/referee',
+            method: 'Get',
+            params: {
+              userName: this.loginForm.username,
+              password: this.loginForm.password
+            }
+          }).then(response => {
+            if (response === true) {
+              if (this.role === 1) {
+                this.loading = true
+                this.$store.dispatch('user/login', { username: 17864230, password: 123456 }).then(() => {
+                  this.$router.push({ path: this.redirect || '/' })
+                  this.loading = false
+                }).catch(() => {
+                  this.loading = false
+                })
+              } else {
+                this.loading = true
+                this.$store.dispatch('user/login', { username: 1901040301, password: 123456 }).then(() => {
+                  this.$router.push({ path: this.redirect || '/' })
+                  this.loading = false
+                }).catch(() => {
+                  this.loading = false
+                })
+              }
+            } else {
+              alert("账号或密码错误")
+            }
           })
         } else {
           console.log('error submit!!')
@@ -160,21 +167,18 @@ export default {
       })
     },
     forgetPwd() {
-      this.$router.push({ path: '/forgetPwd' } )
+      this.$router.push({ path: '/forgetPwd' })
     }
 
   }
 }
-
 </script>
-<!--<script>-->
-<!--import {wallbgcanvas} from '@/assets/js/wallbgcanvas'-->
-<!--</script>-->
+
 <style lang="scss">
 /* 修复input 背景不协调 和光标变色 */
 /* Detail see https://github.com/PanJiaChen/vue-element-admin/pull/927 */
 
-$bg:#ececec;
+$bg: #ececec;
 
 
 @supports (-webkit-mask: none) and (not (cater-color: black)) {
@@ -182,28 +186,23 @@ $bg:#ececec;
     color: black;
   }
 }
-.loginText{
-  position: absolute;
-  width:450px;
-  height: 450px;
-  left: 30%;
-  top: 45%;
-  margin:-225px 0 0 -225px;
-}
-.loginFormcard{
-  background:rgba(255,255,255,0.8);
+
+.loginFormcard {
+  background: rgba(255, 255, 255, 0.8);
   border-radius: 10px;
   position: absolute;
-  width:450px;
+  width: 450px;
   height: 450px;
-  left: 70%;
-  top: 45%;
+  left: 50%;
+  top: 50%;
 
-  margin:-225px 0 0 -225px;
+  margin: -225px 0 0 -225px;
 }
-.loginFormcard:hover{
-  background:rgba(255,255,255,0.95);
+
+.loginFormcard:hover {
+  background: rgba(255, 255, 255, 0.95);
 }
+
 /* reset element-ui css */
 .login-container {
   //background-image: url("/src/assets/login_images/login_back.jpeg");
@@ -240,8 +239,8 @@ $bg:#ececec;
 </style>
 
 <style lang="scss" scoped>
-$bg:#ececec;
-$dark_gray:#889aa4;
+$bg: #ececec;
+$dark_gray: #889aa4;
 //$light_gray:#eee;
 
 .login-container {

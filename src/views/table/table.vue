@@ -74,7 +74,8 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column>
+        <el-table-column
+          align="center">
           <template slot-scope="scope">
             <el-button
               size="mini"
@@ -275,7 +276,8 @@ export default {
             type: 'success'
           });
           this.dialogFormVisible = false
-        } else {
+        }
+        else {
           alert('请按照添加规则添加用户');
           return false;
         }
