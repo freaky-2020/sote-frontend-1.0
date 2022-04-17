@@ -1,100 +1,48 @@
 <template>
-  <div class="user-activity">
+  <div class="user-activity" @click="toDetail">
     <div class="post">
-      <div class="user-block">
-        <img class="img-circle" :src="'https://wpimg.wallstcn.com/57ed425a-c71e-4201-9428-68760c0537c4.jpg'+avatarPrefix">
-        <span class="username text-muted">Iron Man</span>
-        <span class="description">Shared publicly - 7:30 PM today</span>
+      <div v-if="activity!==null" class="user-block">
+        <img class="img-circle" :src="'https://img-qn.51miz.com/Element/00/92/43/35/a6a3a67f_E924335_853a9640.png'+avatarPrefix">
+        <svg-icon v-if="activity.infoNum !== 0" icon-class="message" />
+        <span class="username text-muted" >题目变更申请</span>
+        <span class="description">{{ activity.date }}</span>
       </div>
-      <p>
-        Lorem ipsum represents a long-held tradition for designers,
-        typographers and the like. Some people hate it and argue for
-        its demise, but others ignore the hate as they create awesome
-        tools to help create filler text for everyone from bacon lovers
-        to Charlie Sheen fans.
-      </p>
-      <ul class="list-inline">
-        <li>
-          <span class="link-black text-sm">
-            <i class="el-icon-share" />
-            Share
-          </span>
-        </li>
-        <li>
-          <span class="link-black text-sm">
-            <svg-icon icon-class="like" />
-            Like
-          </span>
-        </li>
-      </ul>
-    </div>
-    <div class="post">
-      <div class="user-block">
-        <img class="img-circle" :src="'https://wpimg.wallstcn.com/9e2a5d0a-bd5b-457f-ac8e-86554616c87b.jpg'+avatarPrefix">
-        <span class="username text-muted">Captain American</span>
-        <span class="description">Sent you a message - yesterday</span>
-      </div>
-      <p>
-        Lorem ipsum represents a long-held tradition for designers,
-        typographers and the like. Some people hate it and argue for
-        its demise, but others ignore the hate as they create awesome
-        tools to help create filler text for everyone from bacon lovers
-        to Charlie Sheen fans.
-      </p>
-      <ul class="list-inline">
-        <li>
-          <span class="link-black text-sm">
-            <i class="el-icon-share" />
-            Share
-          </span>
-        </li>
-        <li>
-          <span class="link-black text-sm">
-            <svg-icon icon-class="like" />
-            Like
-          </span>
-        </li>
-      </ul>
-    </div>
-    <div class="post">
-      <div class="user-block">
-        <img class="img-circle" :src="'https://wpimg.wallstcn.com/fb57f689-e1ab-443c-af12-8d4066e202e2.jpg'+avatarPrefix">
-        <span class="username">Spider Man</span>
-        <span class="description">Posted 4 photos - 2 days ago</span>
-      </div>
-      <div class="user-images">
-        <el-carousel :interval="6000" type="card" height="220px">
-          <el-carousel-item v-for="item in carouselImages" :key="item">
-            <img :src="item+carouselPrefix" class="image">
-          </el-carousel-item>
-        </el-carousel>
-      </div>
-      <ul class="list-inline">
-        <li><span class="link-black text-sm"><i class="el-icon-share" /> Share</span></li>
-        <li>
-          <span class="link-black text-sm">
-            <svg-icon icon-class="like" /> Like</span>
-        </li>
-      </ul>
+      <h4 v-if="activity.infoNum !== 0" style="margin-left: 50px">
+        您有{{ activity.infoNum }}条题目申请待处理！
+      </h4>
     </div>
   </div>
 </template>
 
 <script>
 const avatarPrefix = '?imageView2/1/w/80/h/80'
-const carouselPrefix = '?imageView2/2/h/440'
-
+import request from '@/utils/request'
 export default {
+  props:['account'],
   data() {
     return {
-      carouselImages: [
-        'https://wpimg.wallstcn.com/9679ffb0-9e0b-4451-9916-e21992218054.jpg',
-        'https://wpimg.wallstcn.com/bcce3734-0837-4b9f-9261-351ef384f75a.jpg',
-        'https://wpimg.wallstcn.com/d1d7b033-d75e-4cd6-ae39-fcd5f1c0a7c5.jpg',
-        'https://wpimg.wallstcn.com/50530061-851b-4ca5-9dc5-2fead928a939.jpg'
-      ],
+      activity: null,
       avatarPrefix,
-      carouselPrefix
+    }
+  },
+  created() {
+    this.fetchActivityData()
+  },
+  methods: {
+    fetchActivityData() {
+      request({
+        url: 'bank/required/info',
+        method: 'get',
+      }).then(response => {
+        console.log(response)
+        this.activity = response
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    toDetail () {
+      if(this.account.roleId === 1)
+      this.$router.push({ name: 'Judge' })
     }
   }
 }
@@ -129,15 +77,15 @@ export default {
 
     span {
       font-weight: 500;
-      font-size: 12px;
+      font-size: 14px;
     }
   }
 
   .post {
     font-size: 14px;
     border-bottom: 1px solid #d2d6de;
-    margin-bottom: 15px;
-    padding-bottom: 15px;
+    //margin-bottom: 15px;
+    //padding-bottom: 15px;
     color: #666;
 
     .image {
@@ -172,14 +120,5 @@ export default {
     }
   }
 
-}
-
-.box-center {
-  margin: 0 auto;
-  display: table;
-}
-
-.text-muted {
-  color: #777;
 }
 </style>

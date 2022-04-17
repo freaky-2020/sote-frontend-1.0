@@ -1,6 +1,9 @@
 <template>
 
   <div class="login-container" :style="backStyles">
+    <div class="loginText">
+      <login-text></login-text>
+    </div>
     <el-card shadow="hover" class="loginFormcard" box-shadow="100px">
     <el-form id="loginForm" ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
 
@@ -49,6 +52,7 @@
         </span>
       </el-form-item>
       <div style="width: 100%;text-align: right">
+        <el-link style="float:left;margin-bottom: 20px;margin-right: 10px" @click="toSimulation()">管理员模拟登录</el-link>
         <el-link
           type="primary"
           style="margin-bottom: 20px;color:#304156;margin-right: 10px"
@@ -62,7 +66,7 @@
     </el-form>
     </el-card>
 <!--    <index-li-zi></index-li-zi>-->
-    <el-link style="float:right;margin-top: 10px;margin-right: 10px" @click="toSimulation()">管理员模拟登录</el-link>
+
   </div>
 
 </template>
@@ -70,11 +74,12 @@
 <script>
 import { validUsername } from '@/utils/validate'
 import loginBackImg from '@/assets/login_images/login_back2.jpeg'
-
+import LoginText from '@/views/login/component/LoginText'
 // import IndexLiZi from '@/components/IndexLiZi'
 export default {
   components:{
     // IndexLiZi,
+    LoginText
   },
   name: 'Login',
   data() {
@@ -178,14 +183,22 @@ $bg:#ececec;
     color: black;
   }
 }
+.loginText{
+  position: absolute;
+  width:450px;
+  height: 450px;
+  left: 30%;
+  top: 45%;
+  margin:-225px 0 0 -225px;
+}
 .loginFormcard{
   background:rgba(255,255,255,0.8);
   border-radius: 10px;
   position: absolute;
   width:450px;
   height: 450px;
-  left: 50%;
-  top: 50%;
+  left: 70%;
+  top: 45%;
 
   margin:-225px 0 0 -225px;
 }

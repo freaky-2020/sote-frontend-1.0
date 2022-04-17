@@ -55,6 +55,8 @@
         <div>
           <el-button :loading="loading" type="primary" style="width:47%;" @click.native.prevent="handleLogin">登录
           </el-button>
+          <el-button :loading="loading" type="primary" style="width:47%;" @click.native.prevent="handleReturn">返回
+          </el-button>
         </div>
       </el-form>
     </el-card>
@@ -116,7 +118,9 @@ export default {
     }
   },
   methods: {
-
+    handleReturn(){
+      this.$router.push({path:'login'})
+    },
     showPwd() {
       if (this.passwordType === 'password') {
         this.passwordType = ''
@@ -141,7 +145,7 @@ export default {
             if (response === true) {
               if (this.role === 1) {
                 this.loading = true
-                this.$store.dispatch('user/login', { username: 17864230, password: 123456 }).then(() => {
+                this.$store.dispatch('user/login', { username: '17864230', password: 123456 }).then(() => {
                   this.$router.push({ path: this.redirect || '/' })
                   this.loading = false
                 }).catch(() => {
@@ -149,7 +153,7 @@ export default {
                 })
               } else {
                 this.loading = true
-                this.$store.dispatch('user/login', { username: 1901040301, password: 123456 }).then(() => {
+                this.$store.dispatch('user/login', { username: '1901040301', password: 123456 }).then(() => {
                   this.$router.push({ path: this.redirect || '/' })
                   this.loading = false
                 }).catch(() => {
@@ -174,7 +178,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 /* 修复input 背景不协调 和光标变色 */
 /* Detail see https://github.com/PanJiaChen/vue-element-admin/pull/927 */
 

@@ -6,26 +6,19 @@
 
     <div class="user-profile">
       <div class="box-center">
-        <pan-thumb :image="user.avatar" :height="'100px'" :width="'100px'" :hoverable="false">
-          <div>Hello</div>
-          {{ user.role }}
+        <pan-thumb :image="'https://tse1-mm.cn.bing.net/th/id/R-C.29a84eb867bf75b5327e7df3b1a7e32c?rik=iW9zjAJwqTB%2fdA&riu=http%3a%2f%2ftupian.qqw21.com%2farticle%2fUploadPic%2f2019-7%2f201971622263482217.jpeg&ehk=W4G6YV7SJ1LFEFGJ3r%2bsC66stsnts%2bGu%2b7tsCcMPWGA%3d&risl=&pid=ImgRaw&r=0&sres=1&sresct=1'" :height="'100px'" :width="'100px'">
         </pan-thumb>
       </div>
       <div class="box-center">
-        <div class="user-name text-center">{{ user.name }}</div>
-        <div class="user-role text-center text-muted">{{ user.role | uppercaseFirst }}</div>
+        <div class="user-name box-center">{{ account.realName }}</div>
+        <div class="user-role box-center text-muted" v-text="getRole(account.roleId)"></div>
       </div>
     </div>
 
     <div class="user-bio">
       <div class="user-education user-bio-section">
-        <div class="user-bio-section-header text-center"><span>学而不思则罔，思而不学则殆</span></div>
-        <!--        <div class="user-bio-section-header text-center"><svg-icon icon-class="education" /><span>中国石油大学（华东）</span></div>-->
-        <!--        <div class="user-bio-section-body">-->
-        <!--          <div class="text-muted">-->
-        <!--            JS in Computer Science from the University of Technology-->
-        <!--          </div>-->
-        <!--        </div>-->
+        <div class="user-bio-section-header box-center"><svg-icon icon-class="education" /><span>{{ this.account.userUniv }}</span></div>
+        <div class="user-bio-section-header box-center"><svg-icon icon-class="international" /><span>{{ this.account.userUnit }}</span></div>
       </div>
     </div>
   </el-card>
@@ -35,17 +28,23 @@
 import PanThumb from '@/components/PanThumb'
 
 export default {
+  props:['account'],
   components: { PanThumb },
-  props: {
-    user: {
-      type: Object,
-      default: () => {
-        return {
-          name: 'aaaa',
-          email: 'aa',
-          avatar: 'aa',
-          role: 'aa'
-        }
+  data(){
+    return{
+
+    }
+  },
+  methods:{
+    getRole(role){
+      if(role === 1){
+        return '管理员'
+      }
+      else if(role === 2){
+        return '教师'
+      }
+      else{
+        return '学生'
       }
     }
   }
