@@ -130,7 +130,6 @@
           <el-form-item>
             <el-button type="primary" @click="dialogStatus==='create'?createData(form):updateData(form, form.userName)">确认</el-button>
             <el-button @click="cancel" :befor-close="cancel">取消</el-button>
-            <el-button @click="request">请求</el-button>
           </el-form-item>
         </el-form>
       </el-dialog>
@@ -267,7 +266,11 @@ export default {
             console.log(err)
           })
           this.tableData.push(form)
-          alert('submit!');
+          this.$notify({
+            title: '成功',
+            message: '添加用户成功',
+            type: 'success'
+          });
           this.dialogFormVisible = false
         } else {
           alert('请按照添加规则添加用户');
