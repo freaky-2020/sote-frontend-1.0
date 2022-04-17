@@ -118,7 +118,20 @@ export const asyncRoutes = [
         path: 'judge',
         name: 'Judge',
         component: () => import('@/views/judge/judge'),
-        meta: { title: '审批', icon: 'el-icon-s-check', roles: ['ADMIN'] }
+        meta: { title: '题库审批', icon: 'el-icon-s-check', roles: ['ADMIN'] }
+      }
+    ]
+  },
+  {
+    path: '/table',
+    component: Layout,
+    meta: { title: '用户管理', icon: 'el-icon-s-check', roles: ['ADMIN'] },
+    children: [
+      {
+        path: 'table',
+        name: 'Table',
+        component: () => import('@/views/table/table'),
+        meta: { title: '用户管理', icon: 'el-icon-s-check', roles: ['ADMIN'] }
       }
     ]
   },
@@ -139,7 +152,7 @@ export const asyncRoutes = [
     path: '/visualization',
     component: () => import('@/views/visualization/index'),
 
-    meta: { title: '可视化', icon: '', roles: ['ADMIN'] }
+    meta: { title: '数据分析', icon: '', roles: ['ADMIN'] }
   },
 
   {
@@ -200,13 +213,13 @@ export const asyncRoutes = [
   {
     path: '/createexam',
     component: Layout,
-    meta: { title: '创建试卷', icon: 'clipboard', roles: ['TEACHER'] },
+    meta: { title: '创建考试', icon: 'clipboard', roles: ['TEACHER'] },
     children: [
       {
         path: 'examinfo',
         name: 'paperinfo',
         component: () => import('@/views/createpaper/examInfo'),
-        meta: { title: '创建试卷', icon: 'clipboard', roles: ['TEACHER'] }
+        meta: { title: '创建考试', icon: 'clipboard', roles: ['TEACHER'] }
       }
     ]
   },
