@@ -155,7 +155,12 @@ export default {
             this.loading = false
           })
         } else {
-          console.log('error submit!!')
+          this.$notify({
+            title: '请输入有效的账号密码',
+            message: '请输入有效的账号密码',
+            type: 'error',
+            duration: 2000
+          })
           return false
         }
       })
