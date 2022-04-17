@@ -15,7 +15,7 @@
       </a>
       <a class="menu__item" href="#">
         <span class="menu__item-name">智能易用</span>
-        <span class="menu__item-label">快速操作考试及试题</span>
+        <span class="menu__item-label">一键导出题目和试卷</span>
       </a>
 <!--      <a class="menu__item" href="#">-->
 <!--        <span class="menu__item-name">成绩分析</span>-->
@@ -81,7 +81,7 @@ html {
 }
 
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'SimSun', sans-serif;
   min-height: 100vh;
   color: #57585c;
   color: var(--color-text);

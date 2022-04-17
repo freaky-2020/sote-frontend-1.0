@@ -192,7 +192,7 @@ $bg:#ececec;
   position: absolute;
   width:450px;
   height: 450px;
-  left: 30%;
+  left: 25%;
   top: 45%;
   margin:-225px 0 0 -225px;
 }
