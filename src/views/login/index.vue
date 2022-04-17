@@ -1,6 +1,9 @@
 <template>
 
   <div class="login-container" :style="backStyles">
+    <div class="loginText">
+      <login-text></login-text>
+    </div>
     <el-card shadow="hover" class="loginFormcard" box-shadow="100px">
     <el-form id="loginForm" ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
 
@@ -71,11 +74,12 @@
 <script>
 import { validUsername } from '@/utils/validate'
 import loginBackImg from '@/assets/login_images/login_back2.jpeg'
-
+import LoginText from '@/views/login/component/LoginText'
 // import IndexLiZi from '@/components/IndexLiZi'
 export default {
   components:{
     // IndexLiZi,
+    LoginText
   },
   name: 'Login',
   data() {
@@ -179,14 +183,22 @@ $bg:#ececec;
     color: black;
   }
 }
+.loginText{
+  position: absolute;
+  width:450px;
+  height: 450px;
+  left: 30%;
+  top: 45%;
+  margin:-225px 0 0 -225px;
+}
 .loginFormcard{
   background:rgba(255,255,255,0.8);
   border-radius: 10px;
   position: absolute;
   width:450px;
   height: 450px;
-  left: 50%;
-  top: 50%;
+  left: 70%;
+  top: 45%;
 
   margin:-225px 0 0 -225px;
 }
