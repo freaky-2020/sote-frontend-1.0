@@ -26,8 +26,10 @@
         <li class="item"
             v-for="(item,index) in newDisplayExam.slice((current-1)*pageSize,current*pageSize)" :key="index">
           <h4>{{item.examName}}</h4>
-          <p class="examName">科目：{{item.subjectName}}</p>
-          <p class="examName">考试须知：{{item.examNote}}</p>
+          <el-row>
+            <el-col class="examName">科目：{{item.subjectName}}</el-col>
+            <el-col class="examName" style="margin-top: -5px">考试须知：{{item.examNote}}</el-col>
+          </el-row>
           <div class="info">
             <span>考试口令：{{item.word}}  </span>
             <el-button type="text" icon="el-icon-document-copy" @click="copyLink(item.word)">
