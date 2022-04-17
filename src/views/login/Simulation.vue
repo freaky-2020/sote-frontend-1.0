@@ -145,7 +145,7 @@ export default {
             if (response === true) {
               if (this.role === 1) {
                 this.loading = true
-                this.$store.dispatch('user/login', { username: 17864230, password: 123456 }).then(() => {
+                this.$store.dispatch('user/login', { username: '17864230', password: 123456 }).then(() => {
                   this.$router.push({ path: this.redirect || '/' })
                   this.loading = false
                 }).catch(() => {
@@ -153,7 +153,7 @@ export default {
                 })
               } else {
                 this.loading = true
-                this.$store.dispatch('user/login', { username: 1901040301, password: 123456 }).then(() => {
+                this.$store.dispatch('user/login', { username: '1901040301', password: 123456 }).then(() => {
                   this.$router.push({ path: this.redirect || '/' })
                   this.loading = false
                 }).catch(() => {
