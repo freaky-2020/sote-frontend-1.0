@@ -90,7 +90,7 @@ export default {
       role: 1,
       loginForm: {
         username: '',
-        password: '123456'
+        password: ''
       },
       loginRules: {
         username: [{ required: true, trigger: 'blur', validator: validateUsername }],
