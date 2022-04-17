@@ -49,6 +49,7 @@
         </span>
       </el-form-item>
       <div style="width: 100%;text-align: right">
+        <el-link style="float:left;margin-bottom: 20px;margin-right: 10px" @click="toSimulation()">管理员模拟登录</el-link>
         <el-link
           type="primary"
           style="margin-bottom: 20px;color:#304156;margin-right: 10px"
@@ -62,7 +63,7 @@
     </el-form>
     </el-card>
 <!--    <index-li-zi></index-li-zi>-->
-    <el-link style="float:right;margin-top: 10px;margin-right: 10px" @click="toSimulation()">管理员模拟登录</el-link>
+
   </div>
 
 </template>
