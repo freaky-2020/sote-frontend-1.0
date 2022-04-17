@@ -30,11 +30,6 @@ export default {
           timestamp: '2019/4/22',
           title: 'Build Template',
           content: 'PanJiaChen committed 2019/4/22 20:46'
-        },
-        {
-          timestamp: '2019/4/23',
-          title: 'Release New Version',
-          content: 'PanJiaChen committed 2019/4/23 20:46'
         }
       ]
     }

@@ -55,6 +55,8 @@
         <div>
           <el-button :loading="loading" type="primary" style="width:47%;" @click.native.prevent="handleLogin">登录
           </el-button>
+          <el-button :loading="loading" type="primary" style="width:47%;" @click.native.prevent="handleReturn">返回
+          </el-button>
         </div>
       </el-form>
     </el-card>
@@ -116,7 +118,9 @@ export default {
     }
   },
   methods: {
-
+    handleReturn(){
+      this.$router.push({path:'login'})
+    },
     showPwd() {
       if (this.passwordType === 'password') {
         this.passwordType = ''

@@ -3,11 +3,11 @@
     <div>
       <el-row :gutter="20">
         <el-col :span="5" :xs="24">
-          <Card v-if="flag1 && flag2" :exam_data="examData" :quesNos="quesNos" :details="details" :detailData="detailData" />
+          <Card v-if="flag1 && flag2" :exam_data="examData" :quesNos="quesNos" :details="details" :detailData="detailData" :iscolor="iscolor"/>
           <!--          目标组件中props中的数据名 = 当前组件的数据-->
         </el-col>
         <el-col :span="15" :xs="24">
-          <Display ref="display" v-if="flag1 && flag2" :exam_data="examData" :quesNos="quesNos" :details="details" :detailData="detailData" :examId="exam_id" :times="present_time" :isCheat="isCheat" />
+          <Display ref="display" v-if="flag1 && flag2" :exam_data="examData" :quesNos="quesNos" :details="details" :detailData="detailData" :examId="exam_id" :times="times" :isCheat="isCheat" :iscolor="iscolor" />
         </el-col>
         <el-col :span="3" :xs="24">
           <Countdown v-if="$route.query.isView===undefined&&flag2&&flag3" :exam-value="JSON.parse($route.query.examValue)" :detailData="detailData" :progress="progress"/>
@@ -59,7 +59,8 @@ export default {
       examinee_id:this.$store.getters.name,
       present_time:this.$route.query.times,
       isCheat:false,
-      progress: 0
+      progress: 0,
+      iscolor: []
     }
   },
   created() {
@@ -111,6 +112,9 @@ export default {
     },
     getQuesNos() {
       this.quesNos = this.examData[1].length + this.examData[2].length + this.examData[3].length + this.examData[4].length + this.examData[5].length
+      // for (let i=0;i<this.quesNos; i++){
+      //   this.iscolor.push('grey')
+      // }
     },
     progressCount() {
       this.flag3 = true
