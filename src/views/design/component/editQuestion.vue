@@ -18,7 +18,7 @@
                 </el-select>
               </el-form-item>
               <el-form-item label="试题科目" prop="subjectId" style="margin-top: 5px;margin-left: 10px;width:29%">
-                <el-select size="medium" :disabled="editQuestion.createTime !== undefined" v-model="editQuestion.subjectId" placeholder="请选择科目">
+                <el-select size="medium" :disabled="editQuestion.createTime !== undefined||subjectId !==undefined" v-model="editQuestion.subjectId" placeholder="请选择科目">
                   <el-option
                     v-for="item in optionsSubject"
                     :key="item.id"
@@ -178,7 +178,8 @@ export default {
     'topicType',
     'paperId',
     'isDesign',
-    'fetchDataExam'
+    'fetchDataExam',
+    'subjectId'
   ],
   components:{editorWang,everyQuestion},
   data(){
@@ -409,6 +410,7 @@ export default {
   beforeMount() {
     this.fetchMapSubject()
     this.editQuestion = this.question
+    this.editQuestion.subjectId=this.subjectId
     this.editQuestion.typeId = this.topicType
     console.log(this.$store.state.fillSum)
     // console.log(this.$store.state.fillItems)

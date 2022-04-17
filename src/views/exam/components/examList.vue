@@ -49,7 +49,6 @@ export default {
         query: {
           userName:this.userName,
           examId:item.examInfo.examId,
-          isTeacher:true
         } })
     },
     toExam(item) {
