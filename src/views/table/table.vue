@@ -74,7 +74,8 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column>
+        <el-table-column
+          align="center">
           <template slot-scope="scope">
             <el-button
               size="mini"

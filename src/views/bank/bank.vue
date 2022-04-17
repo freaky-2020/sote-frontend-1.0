@@ -496,22 +496,16 @@ export default {
         }).then(() => {
           request({
             url: '/bank/required/'+this.$store.getters.name +'/delete',
-            method: 'Delete',
+            method: 'get',
             params: {ids}
           }).then(response => {
-            console.log(response)
+            this.$message({
+              type: 'success',
+              message:response
+            });
           }).catch( err =>{
             console.log(err)
           })
-          for(let i=0;i<all.length;i++){
-            this.form = this.form.filter((d) => {
-              return d !== all[i]
-            })
-          }
-          this.$message({
-            type: 'success',
-            message: '删除成功!'
-          });
         }).catch(() => {
           this.$message({
             type: 'info',

@@ -545,7 +545,9 @@ export default {
       return stem
     },
     allPass(){
+      if(confirm('确定通过全部选中申请吗')){
 
+      }
     },
     allDisPass(){
 
