@@ -41,7 +41,7 @@
         sortable
         align="center">
         <el-table-column
-          :label=" '主观题    满分:' + this.tableData[0].maxNonSynScore"
+          :label=" '客观题    满分:' + this.tableData[0].maxNonSynScore"
           width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.nonSynScore }}</span>
@@ -49,7 +49,7 @@
         </el-table-column>
         <el-table-column
           prop="score"
-          :label=" '客观题    满分' + this.tableData[0].maxSynScore"
+          :label=" '主观题    满分' + this.tableData[0].maxSynScore"
           width="130">
           <template slot-scope="scope">
             <span>{{ scope.row.synScore }}</span>
