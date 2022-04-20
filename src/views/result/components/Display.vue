@@ -54,7 +54,7 @@
             <div v-if="question.typeId ===5">
               <h5 :id="'a'+question.quesNo" v-html="question.quesNo + '、'+question.stem+'('+question.score+'分)'"> </h5>
               <span>考生答案：</span>
-              <span v-html="exam_date.papers[index].answer"></span>
+              <span v-html="examDetails[index].answer"></span>
               <br>
               <br>
               <span style="color: green">正确答案：</span>

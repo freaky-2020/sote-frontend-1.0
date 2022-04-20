@@ -56,20 +56,18 @@
                 <span>{{questionData.before.choice4}}</span><br>
               </div>
               <div v-if="questionData.before.typeId === 2">
-                <el-button round size="mini" style="margin-bottom: 5px;margin-right: 10px" :type="questionData.before.answer.indexOf('1') !==-1?'success':''">A</el-button>
+                <el-button round size="mini" style="margin-bottom: 5px;margin-right: 10px" :type="questionData.before.answer.indexOf('1') !== -1?'success':''">A</el-button>
                 <span>{{questionData.before.choice1}}</span><br>
-                <el-button round size="mini" style="margin-bottom: 5px;margin-right: 10px" :type="questionData.before.answer.indexOf('2') !==-1?'success':''">B</el-button>
+                <el-button round size="mini" style="margin-bottom: 5px;margin-right: 10px" :type="questionData.before.answer.indexOf('2') !== -1?'success':''">B</el-button>
                 <span>{{questionData.before.choice2}}</span><br>
-                <el-button round size="mini" style="margin-bottom: 5px;margin-right: 10px" :type="questionData.before.answer.indexOf('3') !==-1?'success':''">C</el-button>
+                <el-button round size="mini" style="margin-bottom: 5px;margin-right: 10px" :type="questionData.before.answer.indexOf('3') !== -1?'success':''">C</el-button>
                 <span>{{questionData.before.choice3}}</span><br>
-                <el-button round size="mini" style="margin-bottom: 5px;margin-right: 10px" :type="questionData.before.answer.indexOf('4') !==-1?'success':''">D</el-button>
+                <el-button round size="mini" style="margin-bottom: 5px;margin-right: 10px" :type="questionData.before.answer.indexOf('4') !== -1?'success':''">D</el-button>
                 <span>{{questionData.before.choice4}}</span><br>
               </div>
               <div v-if="questionData.before.typeId === 3">
                 <el-button round size="mini" style="margin-bottom: 5px;margin-right: 10px" :type="questionData.before.answer.indexOf('1') !==-1?'primary':''">正确</el-button>
-                <span>{{questionData.choice1}}</span>
                 <el-button round size="mini" style="margin-bottom: 5px;margin-right: 10px" :type="questionData.before.answer.indexOf('2') !==-1?'primary':''">错误</el-button>
-                <span>{{questionData.choice2}}</span><br>
               </div>
               <div v-if="questionData.before.typeId ===4">
                 <span style="color: red">答案：</span>
@@ -96,21 +94,19 @@
                 <el-button round size="mini" style="margin-bottom: 5px;margin-right: 10px" :type="questionData.after.answer ==='4'?'success':''">D</el-button>
                 <span>{{questionData.after.choice4}}</span><br>
               </div>
-              <div v-if="questionData.typeId === 2">
-                <el-button round size="mini" style="margin-bottom: 5px;margin-right: 10px" :type="questionData.after.answer.indexOf('1') !==-1?'success':''">A</el-button>
-                <span>{{questionData.choice1}}</span><br>
-                <el-button round size="mini" style="margin-bottom: 5px;margin-right: 10px" :type="questionData.after.answer.indexOf('2') !==-1?'success':''">B</el-button>
-                <span>{{questionData.choice2}}</span><br>
-                <el-button round size="mini" style="margin-bottom: 5px;margin-right: 10px" :type="questionData.after.answer.indexOf('3') !==-1?'success':''">C</el-button>
-                <span>{{questionData.choice3}}</span><br>
-                <el-button round size="mini" style="margin-bottom: 5px;margin-right: 10px" :type="questionData.after.answer.indexOf('4') !==-1?'success':''">D</el-button>
-                <span>{{questionData.choice4}}</span><br>
+              <div v-if="questionData.after.typeId === 2">
+                <el-button round size="mini" style="margin-bottom: 5px;margin-right: 10px" :type="questionData.after.answer.indexOf('1') !== -1?'success':''">A</el-button>
+                <span>{{questionData.after.choice1}}</span><br>
+                <el-button round size="mini" style="margin-bottom: 5px;margin-right: 10px" :type="questionData.after.answer.indexOf('2') !== -1?'success':''">B</el-button>
+                <span>{{questionData.after.choice2}}</span><br>
+                <el-button round size="mini" style="margin-bottom: 5px;margin-right: 10px" :type="questionData.after.answer.indexOf('3') !== -1?'success':''">C</el-button>
+                <span>{{questionData.after.choice3}}</span><br>
+                <el-button round size="mini" style="margin-bottom: 5px;margin-right: 10px" :type="questionData.after.answer.indexOf('4') !== -1?'success':''">D</el-button>
+                <span>{{questionData.after.choice4}}</span><br>
               </div>
               <div v-if="questionData.after.typeId === 3">
-                <el-button round size="mini" style="margin-bottom: 5px;margin-right: 10px" :type="questionData.after.answer.indexOf('1') !==-1?'primary':''">正确</el-button>
-                <span>{{questionData.after.choice1}}</span>
-                <el-button round size="mini" style="margin-bottom: 5px;margin-right: 10px" :type="questionData.after.answer.indexOf('2') !==-1?'primary':''">错误</el-button>
-                <span>{{questionData.after.choice2}}</span><br>
+                <el-button round size="mini" style="margin-bottom: 5px;margin-right: 10px" :type="questionData.after.answer === '1'?'primary':''">正确</el-button>
+                <el-button round size="mini" style="margin-bottom: 5px;margin-right: 10px" :type="questionData.after.answer === '2'?'primary':''">错误</el-button>
               </div>
               <div v-if="questionData.after.typeId ===4">
                 <span style="color: red">答案：</span>
