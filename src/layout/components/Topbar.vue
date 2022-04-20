@@ -6,7 +6,7 @@
           <img width="40"
                src="../../assets/images/img.png" />
           <img width="80"
-               src="../../assets/images/sote-o-w.png"/>
+               src="../../assets/images/sote-o.png"/>
         </div>
 
       </router-link>
