@@ -19,7 +19,7 @@
           </div>
           <div class="select-item" >
 <!--            <span>科目:</span>-->
-            <el-select  v-model="queryForm.subjectId" placeholder="请选择科目" style="">
+            <el-select :disabled="topicType !== undefined|| subjectId!==undefined" v-model="queryForm.subjectId" placeholder="请选择科目" style="">
               <el-option
                 v-for="item in optionsSubject"
                 :key="item.id"
@@ -242,7 +242,7 @@ import JsonExcel from 'vue-json-excel'
 import request from '@/utils/request'
 export default {
   name: 'bank',
-  props:['topicType','bankToExamSubmit'],
+  props:['topicType','bankToExamSubmit','subjectId'],
   components:{ AddByText,editQuestion,JsonExcel},
   data(){
     return{
@@ -628,6 +628,7 @@ export default {
   beforeMount() {
     this.fetchData()
     this.fetchMapSubject()
+    this.queryForm.subjectId =this.subjectId
     this.queryForm.typeId = this.topicType
     console.log(this.$store.state.fillItems)
     console.log(this.fillItems)

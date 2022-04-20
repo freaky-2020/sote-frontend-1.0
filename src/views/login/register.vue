@@ -124,33 +124,48 @@ export default {
     },
     handleRegister() {
       //
-      request({
-        url: '/auth/user/add',
-        method: 'Post',
-        params: {
-          roleId:3,
-          userStatus:1,
-          userName: this.registerForm.username,
-          password: this.registerForm.password
-        }
-      }).then(response => {
-        if (response ===true ) {
-          this.$notify({
-            title: '注册成功',
-            message: '注册成功',
-            type: 'success',
-            duration: 2000
+      this.$refs.registerForm.validate(valid => {
+        if (valid) {
+          this.loading = true
+          request({
+            url: '/auth/user/add',
+            method: 'Post',
+            params: {
+              roleId:3,
+              userStatus:1,
+              userName: this.registerForm.username,
+              password: this.registerForm.password
+            }
+          }).then(response => {
+            if (response ===true ) {
+              this.$notify({
+                title: '注册成功',
+                message: '注册成功',
+                type: 'success',
+                duration: 2000
+              })
+              this.$router.push('/login')
+            } else {
+              this.$notify({
+                title: '注册失败',
+                message: '账号已存在',
+                type: 'error',
+                duration: 2000
+              })
+            }
           })
-          this.$router.push('/login')
+          this.loading = false
         } else {
           this.$notify({
-            title: '注册失败',
-            message: '账号已存在',
+            title: '请输入正确的账号密码',
+            message: '请输入正确的账号密码',
             type: 'error',
             duration: 2000
           })
+          return false
         }
       })
+
     }
   }
 }

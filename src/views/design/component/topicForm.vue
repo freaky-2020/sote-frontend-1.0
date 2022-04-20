@@ -112,6 +112,7 @@
       :isAddByBank="isAddByBank"
       :topicType="topicType"
       :paperId="paperId"
+      :subjectId="subjectId"
       @fetchDataExam="fetchDataExam"
       @addByBankclose="isAddByBank = false"></add-by-bank>
     <edit-question
@@ -120,6 +121,7 @@
       :topicType="topicType"
       :isDesign="true"
       :paperId="paperId"
+      :subjectId="subjectId"
       :isDisabled="true"
       :editStatus="editStatus"
       @fetchDataExam="fetchDataExam"
@@ -146,6 +148,7 @@ export default {
     },
     fetchData: Function,
     scoreSums: Number,
+    subjectId:Number,
   },
   components: { AddByText, addByBank, editQuestion },
   data() {

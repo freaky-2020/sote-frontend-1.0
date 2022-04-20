@@ -7,7 +7,7 @@
           <!--          目标组件中props中的数据名 = 当前组件的数据-->
         </el-col>
         <el-col :span="15" :xs="24">
-          <Display ref="display" v-if="flag1 && flag2" :exam_data="examData" :quesNos="quesNos" :details="details" :detailData="detailData" :examId="exam_id" :times="times" :isCheat="isCheat" :iscolor="iscolor" />
+          <Display ref="display" v-if="flag1 && flag2" :exam_data="examData" :quesNos="quesNos" :details="details" :detailData="detailData" :examId="exam_id" :times="present_time" :isCheat="isCheat" :iscolor="iscolor" />
         </el-col>
         <el-col :span="3" :xs="24">
           <Countdown v-if="$route.query.isView===undefined&&flag2&&flag3" :exam-value="JSON.parse($route.query.examValue)" :detailData="detailData" :progress="progress"/>
@@ -186,17 +186,17 @@ export default {
       // 监听滚动
       // window.addEventListener("scroll", this.handleScroll);
       // 监听浏览器窗口变化
-      // window.addEventListener("resize", this.pageHidden);
+      window.addEventListener("resize", this.pageHidden);
       // // // 监听页面可见性
-      // window.addEventListener("visibilitychange", this.pageHidden);
+      window.addEventListener("visibilitychange", this.pageHidden);
     }
 
   },
   destroyed() {
     if(this.$route.query.isView===undefined){
-      // window.removeEventListener("visibilitychange", this.pageHidden);
-      // // window.removeEventListener("scroll", this.handleScroll);
-      // window.removeEventListener("resize", this.pageHidden);
+      window.removeEventListener("visibilitychange", this.pageHidden);
+      // window.removeEventListener("scroll", this.handleScroll);
+      window.removeEventListener("resize", this.pageHidden);
     }
   },
 }

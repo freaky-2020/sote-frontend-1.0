@@ -290,7 +290,14 @@ export default {
           }).then(res=>{
             console.log(res)
             this.form.commend=res.word
-            this.$router.push({ name: 'Design',query:{paperId:res.paperId,word:res.word} })
+            this.$router.push({
+              name: 'Design',
+              query:{
+                paperId:res.paperId,
+                word:res.word,
+                subjectId:this.form.subjectId
+              }
+            })
             // this.$router.push({ path: 'design/design' })
           })
           this.$alert('添加成功', '通知', {

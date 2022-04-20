@@ -100,7 +100,7 @@ export default {
     return {
       loginForm: {
         username: '',
-        password: '123456'
+        password: ''
       },
       loginRules: {
         username: [{ required: true, trigger: 'blur', validator: validateUsername }],
@@ -155,7 +155,12 @@ export default {
             this.loading = false
           })
         } else {
-          console.log('error submit!!')
+          this.$notify({
+            title: '请输入有效的账号密码',
+            message: '请输入有效的账号密码',
+            type: 'error',
+            duration: 2000
+          })
           return false
         }
       })
@@ -187,7 +192,7 @@ $bg:#ececec;
   position: absolute;
   width:450px;
   height: 450px;
-  left: 30%;
+  left: 25%;
   top: 45%;
   margin:-225px 0 0 -225px;
 }
