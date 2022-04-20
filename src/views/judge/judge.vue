@@ -426,11 +426,12 @@ export default {
       })
     },
     pass(row){
+      console.log(row)
       if(row.doWay===1){
         row.decision = 1
         request({
           url: '/bank/required/judge/add',
-          method: 'Get',
+          method: 'Post',
           params:row
         }).then(response => {
           this.$message({
@@ -480,9 +481,10 @@ export default {
     disPass(row){
       if(row.doWay===1){
         row.decision = 0
+        console.log(row)
         request({
           url: '/bank/required/judge/add',
-          methods: 'Get',
+          method: 'Post',
           params:row
         }).then(response => {
           this.$message({
@@ -598,6 +600,7 @@ export default {
       })
     },
     viewIt(item,val){
+      console.log(item)
       this.questionData = item
       this.val = val
       this.isDisplay = true

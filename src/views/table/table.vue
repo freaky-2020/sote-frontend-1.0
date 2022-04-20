@@ -202,6 +202,7 @@ export default {
           url: '/auth/user/delete/'+deleteUser.userName,
           method: 'delete',
         }).then(response => {
+          this.fetchData()
           console.log(response)
         }).catch( err =>{
           console.log(err)
@@ -236,6 +237,7 @@ export default {
             method: 'put',
             params:form,
           }).then(response => {
+            this.fetchData()
             console.log(response)
           }).catch( err =>{
             console.log(err)
@@ -265,6 +267,7 @@ export default {
             method: 'post',
             params:form,
           }).then(response => {
+            this.fetchData()
             console.log(response)
           }).catch( err =>{
             console.log(err)

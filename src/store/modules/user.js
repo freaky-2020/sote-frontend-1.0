@@ -38,12 +38,8 @@ const actions = {
       login({ username: username.trim(), password: password }).then(response => {
         const { data } = response
         if(response.code===500){
-          this.$notify({
-            title: '账号或密码错误',
-            message: '账号或密码错误',
-            type: 'error',
-            duration: 2000
-          })
+          alert("账号或密码错误")
+          this.$router.push({path:"/login"})
         }else if(response.code===401){
         // if(false){
           commit('SET_TOKEN', data.tokenHead+data.refreshToken)

@@ -90,7 +90,7 @@ export default {
       role: 1,
       loginForm: {
         username: '',
-        password: '123456'
+        password: ''
       },
       loginRules: {
         username: [{ required: true, trigger: 'blur', validator: validateUsername }],
@@ -161,11 +161,21 @@ export default {
                 })
               }
             } else {
-              alert("账号或密码错误")
+              this.$notify({
+                title: '账号或密码错误',
+                message: '账号或密码错误',
+                type: 'error',
+                duration: 2000
+              })
             }
           })
         } else {
-          console.log('error submit!!')
+          this.$notify({
+            title: '请输入正确的账号密码',
+            message: '请输入正确的账号密码',
+            type: 'error',
+            duration: 2000
+          })
           return false
         }
       })
