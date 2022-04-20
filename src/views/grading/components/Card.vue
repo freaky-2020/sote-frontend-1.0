@@ -47,6 +47,13 @@
               <el-button type="primary" size="mini" @click="toUser(scope.row.user.userName)">转到该生</el-button>
             </template>
           </el-table-column>
+          <el-table-column
+            label="状态"
+            width="50px">
+            <template slot-scope="scope">
+              <el-button :type="scope.row.examDetail.isMark === 1?'success':''" size="mini" icon="el-icon-check" circle></el-button>
+            </template>
+          </el-table-column>
         </el-table>
 
         <div style="margin-top:20px;float: right;">

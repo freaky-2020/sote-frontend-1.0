@@ -3,12 +3,12 @@
     <div>
       <el-row :gutter="20">
         <el-col :span="8" :xs="24">
-          <Card v-if="flag &&this.paperId && this.stuData!==undefined" :exam_date="examDate" :quesNos="quesNos"
+          <Card v-if="flag && this.paperId && this.stuData!==undefined" :exam_date="examDate" :quesNos="quesNos"
                 @gradingThis="gradingThis" :stuData="stuData"/>
           <!--          目标组件中props中的数据名 = 当前组件的数据-->
         </el-col>
         <el-col :span="15" :xs="24">
-          <Display v-if="flag &&this.paperId && this.stuData!==undefined" :exam_date="examDate" :examId="examId" :quesNos="quesNos"
+          <Display v-if="flag && this.paperId && this.stuData!==undefined" :exam_date="examDate" :examId="examId" :quesNos="quesNos"
                    @gradingThis="gradingThis" :stuData="stuData"/>
         </el-col>
       </el-row>
