@@ -128,9 +128,7 @@ export default {
           if(type===2){
             this.$store.commit('addUserNum',this.stuData.length-1)
           }
-          else{
-            this.$emit('gradingThis',val)
-          }
+          this.$emit('gradingThis',val)
         }
         this.inputScore = 0
       }).catch(err => {

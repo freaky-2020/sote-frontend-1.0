@@ -17,11 +17,19 @@
       style="width: 100%"
       border
       fit
-      :default-sort = "{prop: 'score', order: 'descending'}"
+      :default-sort = "{prop: 'rank'}"
       highlight-current-row>
       <el-table-column
-        label="学号"
+        label="排名"
+        prop="rank"
         sortable
+        width="50">
+        <template slot-scope="scope">
+          <span style="margin-left: 10px">{{ scope.row.rank }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column
+        label="学号"
         width="150">
         <template slot-scope="scope">
           <span style="margin-left: 10px">{{ scope.row.user.userName }}</span>
@@ -38,7 +46,6 @@
       </el-table-column>
       <el-table-column
         :label=" '成绩'"
-        sortable
         align="center">
         <el-table-column
           :label=" '客观题    满分:' + this.tableData[0].maxNonSynScore"
