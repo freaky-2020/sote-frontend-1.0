@@ -166,19 +166,19 @@ export default {
     getChartData(){
       let v1=0,v2=0,v3=0,v4=0,v5=0
       for(let i=0;i<this.tableData.length;i++){
-        if(this.tableData[i].totalScore <60){
+        if(this.tableData[i].totalScore/this.tableData[i].maxScore*100 <60){
           v5 += 1
         }
-        else if(this.tableData[i].totalScore<=69){
+        else if(this.tableData[i].totalScore/this.tableData[i].maxScore*100 <=69){
           v4 += 1
         }
-        else if(this.tableData[i].totalScore<=79){
+        else if(this.tableData[i].totalScore/this.tableData[i].maxScore*100 <=79){
           v3 += 1
         }
-        else if(this.tableData[i].totalScore<=89){
+        else if(this.tableData[i].totalScore/this.tableData[i].maxScore*100 <=89){
           v2 += 1
         }
-        else if(this.tableData[i].totalScore<=100){
+        else if(this.tableData[i].totalScore/this.tableData[i].maxScore*100 <=100){
           v1 += 1
         }
       }
