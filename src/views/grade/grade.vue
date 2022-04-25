@@ -201,7 +201,6 @@ export default {
   computed: {
     newTableData: {
       get() {
-
         if (this.select === '1') {
           return this.tableData.filter((u) => {
             return u.user.userName.indexOf(this.input) !== -1

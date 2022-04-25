@@ -38,17 +38,17 @@
           </div>
           <el-row v-if="$store.state.isDown === true">
             <el-col :span="3">
-              <el-button size="small" @click="preUser">上一学生</el-button>
+              <el-button size="small" @click="preUser(question.quesNo)">上一学生</el-button>
             </el-col>
             <el-col :span="3">
-              <el-button size="small" @click="nextUser">下一学生</el-button>
+              <el-button size="small" @click="nextUser(question.quesNo)">下一学生</el-button>
             </el-col>
 
             <el-col :span="14">
               打分：<el-input size="small" style="width: 100px;margin-right: 10px" v-model="stuData[userNum].examDetail.score"></el-input>
             </el-col>
               <el-col :span="2">
-                <el-button  size="small" type="primary" @click="submitGrading(stuData[userNum].examDetail.id,3)">保存</el-button>
+                <el-button  size="small" type="primary" @click="submitGrading(stuData[userNum].examDetail.id,3,question.quesNo)">保存</el-button>
               </el-col>
               <el-col :span="2">
                 <el-button  size="small" type="primary" @click="gradingDown(question.quesNo-1)">结束批改</el-button>
@@ -69,7 +69,7 @@ export default {
     return {
       isDown:this.$store.state.isDown,
       inputScore:0,
-      preDisabled: true, // 上禁用按钮
+      preDisabled: true,
     }
   },
   computed: {
@@ -111,7 +111,7 @@ export default {
     })
   },
   methods: {
-    submitGrading(val,type){
+    submitGrading(val,type,item){
       request({
         url: 'exam/mark/markScore/' + val,
         method: 'get',
@@ -128,7 +128,7 @@ export default {
           if(type===2){
             this.$store.commit('addUserNum',this.stuData.length-1)
           }
-          this.$emit('gradingThis',val)
+          this.$emit('gradingThis',item)
         }
         this.inputScore = 0
       }).catch(err => {
@@ -162,11 +162,11 @@ export default {
       this.$store.commit('reduceNum')
       this.submitDate(this.num)
     },
-    preUser(){
-      this.submitGrading(this.stuData[this.userNum].examDetail.id,1)
+    preUser(item){
+      this.submitGrading(this.stuData[this.userNum].examDetail.id,1,item)
     },
-    nextUser(){
-      this.submitGrading(this.stuData[this.userNum].examDetail.id,2)
+    nextUser(item){
+      this.submitGrading(this.stuData[this.userNum].examDetail.id,2,item)
     },
     getAllScore(form) {
       let sums = 0
