@@ -17,11 +17,19 @@
       style="width: 100%"
       border
       fit
-      :default-sort = "{prop: 'score', order: 'descending'}"
+      :default-sort = "{prop: 'rank'}"
       highlight-current-row>
       <el-table-column
-        label="学号"
+        label="排名"
+        prop="rank"
         sortable
+        width="50">
+        <template slot-scope="scope">
+          <span style="margin-left: 10px">{{ scope.row.rank }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column
+        label="学号"
         width="150">
         <template slot-scope="scope">
           <span style="margin-left: 10px">{{ scope.row.user.userName }}</span>
@@ -38,7 +46,6 @@
       </el-table-column>
       <el-table-column
         :label=" '成绩'"
-        sortable
         align="center">
         <el-table-column
           :label=" '客观题    满分:' + this.tableData[0].maxNonSynScore"
@@ -159,19 +166,19 @@ export default {
     getChartData(){
       let v1=0,v2=0,v3=0,v4=0,v5=0
       for(let i=0;i<this.tableData.length;i++){
-        if(this.tableData[i].totalScore <60){
+        if(this.tableData[i].totalScore/this.tableData[i].maxScore*100 <60){
           v5 += 1
         }
-        else if(this.tableData[i].totalScore<=69){
+        else if(this.tableData[i].totalScore/this.tableData[i].maxScore*100 <=69){
           v4 += 1
         }
-        else if(this.tableData[i].totalScore<=79){
+        else if(this.tableData[i].totalScore/this.tableData[i].maxScore*100 <=79){
           v3 += 1
         }
-        else if(this.tableData[i].totalScore<=89){
+        else if(this.tableData[i].totalScore/this.tableData[i].maxScore*100 <=89){
           v2 += 1
         }
-        else if(this.tableData[i].totalScore<=100){
+        else if(this.tableData[i].totalScore/this.tableData[i].maxScore*100 <=100){
           v1 += 1
         }
       }

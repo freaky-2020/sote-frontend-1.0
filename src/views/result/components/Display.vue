@@ -19,23 +19,37 @@
             </div>
             <h3 v-if="exam_date.papers[index].typeId===1 && exam_date.papers[index+1].typeId ===2">二、多选题</h3>
             <div v-if="question.typeId === 2">
-              <h5 :id="'a'+question.quesNo" v-html="question.quesNo + '、'+question.stem+'('+question.score+'分)'"> </h5>
-              <el-button size="mini" style="margin-bottom: 5px;margin-right: 10px" :type="examDetails[index].answer.indexOf('1') !==-1?'primary':''">A</el-button>
-              <span>{{question.choice1}}</span><br>
-              <el-button size="mini" style="margin-bottom: 5px;margin-right: 10px" :type="examDetails[index].answer.indexOf('2') !==-1?'primary':''">B</el-button>
-              <span>{{question.choice2}}</span><br>
-              <el-button size="mini" style="margin-bottom: 5px;margin-right: 10px" :type="examDetails[index].answer.indexOf('3') !==-1?'primary':''">C</el-button>
-              <span>{{question.choice3}}</span><br>
-              <el-button size="mini" style="margin-bottom: 5px;margin-right: 10px" :type="examDetails[index].answer.indexOf('4') !==-1?'primary':''">D</el-button>
-              <span>{{question.choice4}}</span><br>
-              <span style="color: green">正确答案：{{getAnswer(question.answer)}}</span>
+              <div v-if="examDetails[index].answer !== null">
+                <h5 :id="'a'+question.quesNo" v-html="question.quesNo + '、'+question.stem+'('+question.score+'分)'"> </h5>
+                <el-button size="mini" style="margin-bottom: 5px;margin-right: 10px" :type="examDetails[index].answer.indexOf('1') !==-1?'primary':''">A</el-button>
+                <span>{{question.choice1}}</span><br>
+                <el-button size="mini" style="margin-bottom: 5px;margin-right: 10px" :type="examDetails[index].answer.indexOf('2') !==-1?'primary':''">B</el-button>
+                <span>{{question.choice2}}</span><br>
+                <el-button size="mini" style="margin-bottom: 5px;margin-right: 10px" :type="examDetails[index].answer.indexOf('3') !==-1?'primary':''">C</el-button>
+                <span>{{question.choice3}}</span><br>
+                <el-button size="mini" style="margin-bottom: 5px;margin-right: 10px" :type="examDetails[index].answer.indexOf('4') !==-1?'primary':''">D</el-button>
+                <span>{{question.choice4}}</span><br>
+                <span style="color: green">正确答案：{{getAnswer(question.answer)}}</span>
+              </div>
+              <div v-if="examDetails[index].answer === null">
+                <h5 :id="'a'+question.quesNo" v-html="question.quesNo + '、'+question.stem+'('+question.score+'分)'"> </h5>
+                <el-button size="mini" style="margin-bottom: 5px;margin-right: 10px">A</el-button>
+                <span>{{question.choice1}}</span><br>
+                <el-button size="mini" style="margin-bottom: 5px;margin-right: 10px">B</el-button>
+                <span>{{question.choice2}}</span><br>
+                <el-button size="mini" style="margin-bottom: 5px;margin-right: 10px">C</el-button>
+                <span>{{question.choice3}}</span><br>
+                <el-button size="mini" style="margin-bottom: 5px;margin-right: 10px">D</el-button>
+                <span>{{question.choice4}}</span><br>
+                <span style="color: green">正确答案：{{getAnswer(question.answer)}}</span>
+              </div>
             </div>
             <h3 v-if="exam_date.papers[index].typeId===2 && exam_date.papers[index+1].typeId ===3">三、判断题</h3>
             <div v-if="question.typeId === 3">
               <h5 :id="'a'+question.quesNo" v-html="question.quesNo + '、'+question.stem+'('+question.score+'分)'"> </h5>
-              <el-button size="mini" style="margin-bottom: 5px;margin-right: 10px" :type="examDetails[index].answer.indexOf('1') !==-1?'primary':''">正确</el-button>
+              <el-button size="mini" style="margin-bottom: 5px;margin-right: 10px" :type="examDetails[index].answer === 1?'primary':''">正确</el-button>
               <span>{{question.choice1}}</span>
-              <el-button size="mini" style="margin-bottom: 5px;margin-right: 10px" :type="examDetails[index].answer.indexOf('2') !==-1?'primary':''">错误</el-button>
+              <el-button size="mini" style="margin-bottom: 5px;margin-right: 10px" :type="examDetails[index].answer === 2?'primary':''">错误</el-button>
               <span>{{question.choice2}}</span><br>
               <span style="color: green">正确答案：</span>
               <span style="color: green" v-html="question.answer==='1'?'正确':'错误'"></span>
@@ -54,7 +68,7 @@
             <div v-if="question.typeId ===5">
               <h5 :id="'a'+question.quesNo" v-html="question.quesNo + '、'+question.stem+'('+question.score+'分)'"> </h5>
               <span>考生答案：</span>
-              <span v-html="exam_date.papers[index].answer"></span>
+              <span v-html="examDetails[index].answer"></span>
               <br>
               <br>
               <span style="color: green">正确答案：</span>
@@ -86,21 +100,34 @@
           </div>
           <h3>二、多选题</h3>
           <div  v-for="(question,index) in paperData[2]" :key="index">
-            <h5 :id="'a'+question.quesNo" v-html="question.quesNo + '、'+question.stem+'('+question.score+'分)'"> </h5>
-            <el-button size="mini" style="margin-bottom: 5px;margin-right: 10px" :type="question.answer.indexOf('1') !==-1?'primary':''">A</el-button>
-            <span>{{question.choice1}}</span><br>
-            <el-button size="mini" style="margin-bottom: 5px;margin-right: 10px" :type="question.answer.indexOf('2') !==-1?'primary':''">B</el-button>
-            <span>{{question.choice2}}</span><br>
-            <el-button size="mini" style="margin-bottom: 5px;margin-right: 10px" :type="question.answer.indexOf('3') !==-1?'primary':''">C</el-button>
-            <span>{{question.choice3}}</span><br>
-            <el-button size="mini" style="margin-bottom: 5px;margin-right: 10px" :type="question.answer.indexOf('4') !==-1?'primary':''">D</el-button>
-            <span>{{question.choice4}}</span><br>
+            <div v-if="question.answer !== null">
+              <h5 :id="'a'+question.quesNo" v-html="question.quesNo + '、'+question.stem+'('+question.score+'分)'"> </h5>
+              <el-button size="mini" style="margin-bottom: 5px;margin-right: 10px" :type="question.answer.indexOf('1') !==-1?'primary':''">A</el-button>
+              <span>{{question.choice1}}</span><br>
+              <el-button size="mini" style="margin-bottom: 5px;margin-right: 10px" :type="question.answer.indexOf('2') !==-1?'primary':''">B</el-button>
+              <span>{{question.choice2}}</span><br>
+              <el-button size="mini" style="margin-bottom: 5px;margin-right: 10px" :type="question.answer.indexOf('3') !==-1?'primary':''">C</el-button>
+              <span>{{question.choice3}}</span><br>
+              <el-button size="mini" style="margin-bottom: 5px;margin-right: 10px" :type="question.answer.indexOf('4') !==-1?'primary':''">D</el-button>
+              <span>{{question.choice4}}</span><br>
+            </div>
+            <div v-if="question.answer === null">
+              <h5 :id="'a'+question.quesNo" v-html="question.quesNo + '、'+question.stem+'('+question.score+'分)'"> </h5>
+              <el-button size="mini" style="margin-bottom: 5px;margin-right: 10px" >A</el-button>
+              <span>{{question.choice1}}</span><br>
+              <el-button size="mini" style="margin-bottom: 5px;margin-right: 10px" >B</el-button>
+              <span>{{question.choice2}}</span><br>
+              <el-button size="mini" style="margin-bottom: 5px;margin-right: 10px" >C</el-button>
+              <span>{{question.choice3}}</span><br>
+              <el-button size="mini" style="margin-bottom: 5px;margin-right: 10px" >D</el-button>
+              <span>{{question.choice4}}</span><br>
+            </div>
           </div>
           <h3>三、判断题</h3>
           <div  v-for="(question,index) in paperData[3]" :key="index">
             <h5 :id="'a'+question.quesNo" v-html="question.quesNo + '、'+question.stem+'('+question.score+'分)'"> </h5>
-            <el-button size="mini" style="margin-bottom: 5px;margin-right: 10px" :type="question.answer.indexOf('1') !==-1?'primary':''">正确</el-button>
-            <el-button size="mini" style="margin-bottom: 5px;margin-right: 10px" :type="question.answer.indexOf('2') !==-1?'primary':''">错误</el-button>
+            <el-button size="mini" style="margin-bottom: 5px;margin-right: 10px" :type="question.answer ===1?'primary':''">正确</el-button>
+            <el-button size="mini" style="margin-bottom: 5px;margin-right: 10px" :type="question.answer ===2?'primary':''">错误</el-button>
           </div>
           <h3>四、填空题</h3>
           <div  v-for="(question,index) in paperData[4]" :key="index">
