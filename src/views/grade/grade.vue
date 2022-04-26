@@ -85,7 +85,7 @@
           <el-button
             size="medium"
             type="info"
-
+            icon="el-icon-data-analysis"
             @click="viewDetail(scope.row)">详细信息</el-button>
         </template>
       </el-table-column>
