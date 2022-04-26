@@ -100,14 +100,12 @@ export default {
   },
   methods: {
     handleSelect(key, keyPath) {
-      this.setSidebarHide(route)
-
       //得到子级路由
       const route = this.routes.find(item => item.path === key)
+      console.log(route);
       this.$store.commit('permission/SET_CURRENT_ROUTES', route)
       // 把选中路由的子路由保存store
-
-
+      this.setSidebarHide(route)
     },
     resolvePath(item) {
       // 如果是个完成的url直接返回
@@ -153,7 +151,7 @@ export default {
     },
     // 通过当前路径找到二级菜单对应项，存到store，用来渲染左侧菜单
     initCurrentRoutes() {
-      this.setSidebarHide(route)
+
       const { path } = this.$route
       let route = this.routes.find(
         item => item.path === '/' + path.split('/')[1]
@@ -164,10 +162,11 @@ export default {
       }
       this.$store.commit('permission/SET_CURRENT_ROUTES', route)
 
+      this.setSidebarHide(route)
     },
     // 设置侧边栏的显示和隐藏
     setSidebarHide(route) {
-      if (!route.children || route.children.length === 1) {
+      if (route.children===undefined || !route.children || route.children.length === 1) {
         this.$store.dispatch('app/toggleSideBarHide', true)
       } else {
         this.$store.dispatch('app/toggleSideBarHide', false)
