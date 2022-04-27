@@ -154,6 +154,18 @@ export const asyncRoutes = [
     ]
   },
   {
+    path: '/examBank',
+    component: Layout,
+    redirect: '/examBank',
+    meta: { title: '试卷库', icon: 'dashboard', roles: ['ADMIN','TEACHER'] },
+    children: [{
+      path: 'examBank',
+      name: 'ExamBank',
+      component: () => import('@/views/examBank/examBank'),
+      meta: { title: '试卷库', icon: 'dashboard', roles: ['ADMIN','TEACHER'] }
+    }]
+  },
+  {
     path: '/visualization',
     component: () => import('@/views/visualization/index'),
 

@@ -13,7 +13,7 @@
           <Countdown v-if="$route.query.isView===undefined&&flag2&&flag3" :exam-value="JSON.parse($route.query.examValue)" :detailData="detailData" :progress="progress"/>
         </el-col>
         <el-col :span="3" :xs="24">
-          <Detector v-show="this.$route.query.isView===undefined"/>
+          <Detector v-show="this.$route.query.isView===undefined" :presentTime="present_time" :exam_id="exam_id" :examinee_id="examinee_id"/>
         </el-col>
       </el-row>
     </div>
@@ -60,6 +60,8 @@ export default {
       present_time:this.$route.query.times,
       isCheat:false,
       progress: 0,
+      isCut:null,
+      cutTime:0,
       iscolor: []
     }
   },
@@ -156,6 +158,23 @@ export default {
 
     },
     pageHidden(){
+      if(this.isCut===null){
+        this.isCut=setInterval(()=>{this.cutTime=this.cutTime+1},1000)
+      }else{
+        request({
+          url:"exam/invi/addTotalCuttingTime",
+          method:'Get',
+          params:{
+            exam_id:this.exam_id,
+            examinee_id:this.examinee_id,
+            present_time:this.present_time,
+            totalCuttingTime:this.cutTime
+          }
+        })
+        clearInterval(this.isCut)
+        this.cutTime=0
+        this.isCut=null
+      }
       this.cutFlag=!this.cutFlag
       if(this.cutFlag){
         this.getSc()
