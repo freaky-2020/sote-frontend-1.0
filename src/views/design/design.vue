@@ -17,7 +17,11 @@
   <!--    <div class="filter-container" align="center">-->
   <!--      <el-button @click="topicNum++" icon="el-icon-circle-plus-outline" type="success">添加大题</el-button>-->
   <!--    </div>-->
-      <h3 class="pagetitle">设计试卷试题</h3>
+      <h3 class="pagetitle" style="display: inline-block">设计试卷试题</h3>
+      <el-button style="float: right;margin-top: 15px;display: inline-block;"
+                 type="success" icon="el-icon-receiving" @click="isCopyPaper = true">试卷复用</el-button>
+      <el-button style="float: right;margin-top: 15px;display: inline-block;margin-right: 10px"
+                 type="danger" icon="el-icon-s-opportunity" @click="aiDesign" >智能组卷</el-button>
   <!--    这一部分是计算总分 总题目数的部分-->
 <!--      <div style="font-size: 30px">-->
 <!--        目前试题共-->
@@ -64,7 +68,6 @@
         </el-collapse>
         <el-footer height="80px">
           <div style="position:relative;margin:40px;transform: translate(-50%);left: 50%" >
-            <el-button size="medium" type="danger" icon="el-icon-s-opportunity" @click="aiDesign" >智能组卷</el-button>
             <el-button size="medium" type="info" icon="el-icon-view" @click="toPreview">预览试卷</el-button>
             <el-button size="medium" type="primary" icon="el-icon-thumb" @click="designDialog =true">提交试卷</el-button>
           </div>
@@ -138,6 +141,17 @@
     <el-button type="primary" @click="toPublish">确 定</el-button>
     </span>
     </el-dialog>
+
+    <el-dialog  title="试卷复用" :visible.sync="isCopyPaper" top="5%"  width="95%"
+                style="height: 90%">
+      <el-scrollbar style="height: 480px" wrap-style="overflow-x:hidden;">
+        <exam-bank ref="examBank" :isCopy="1" :subjectId="$route.query.subjectId" @copyPaper="copyPaper"></exam-bank>
+      </el-scrollbar>
+      <el-footer style="text-align: center;height: 20px" class="dialog-footer">
+        <el-button type="primary" size="medium" @click="copy">确定</el-button>
+        <el-button type="info" size="medium" @click="isCopyPaper = false ">取消</el-button>
+      </el-footer>
+    </el-dialog>
   </div>
   </div>
 </template>
@@ -146,10 +160,11 @@
 import topicForm from '@/views/design/component/topicForm'
 import axios from 'axios'
 import request from '@/utils/request'
+import examBank from '@/views/examBank/examBank'
 axios.defaults.baseURL=''
 
 export default {
-  components: {topicForm},
+  components: {topicForm,examBank},
   data() {
     return {
       aiForm:{
@@ -166,6 +181,7 @@ export default {
         c4:null,
         c5:null,
       },
+      isCopyPaper:false,
       isAiDesign:false,
       activeNames: ['1'],
       designDialog:false,
@@ -271,6 +287,26 @@ export default {
         this.fetchData()
       })
       this.isAiDesign = false
+    },
+    copy(){
+      if(confirm('复用试卷会将当前试卷清空，确定要复用试卷吗')){
+        this.isCopyPaper = false
+        this.$refs.examBank.copy()
+      }
+    },
+    copyPaper(paperId){
+      request({
+        url: '/exam/paper/addFromAlready/'+this.$route.query.paperId+'/'+paperId,
+        methods: 'Get'
+      }).then(response => {
+        console.log(response)
+        this.$notify({
+          title: '成功',
+          message: response,
+          type: 'success'
+        });
+        this.fetchData()
+      })
     }
   },
   created() {

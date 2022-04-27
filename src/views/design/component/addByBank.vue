@@ -4,7 +4,6 @@
                 style="height: 90%">
       <el-scrollbar style="height: 480px" wrap-style="overflow-x:hidden;">
         <bank ref="bank" :topicType="topicType" :subjectId="subjectId" @bankToExamSubmit="bankToExamSubmit"></bank>
-
       </el-scrollbar>
       <el-footer style="text-align: center;height: 20px" class="dialog-footer">
         <el-button type="primary" size="medium" @click="bankToExam">确定</el-button>

@@ -1,7 +1,11 @@
 <template>
   <el-card>
     <div slot="header" class="clearfix">
-      <div class="title_content">答题卡</div>
+      <div class="title_content">答题卡
+        <div style="float: right;margin: -5px" v-if=" paperData !== undefined">
+          <el-button type="info" size="mini" @click="endView" > 结束预览</el-button>
+        </div>
+      </div>
     </div>
     <el-scrollbar style="height: 550px" wrap-style="overflow-x:hidden;">
       <div v-if="exam_date !== undefined">
@@ -116,6 +120,9 @@ export default {
     setQuesNo(index){
       this.$store.commit('setQuesNo', index)
       this.$store.commit('addSum')
+    },
+    endView(){
+      this.$router.go(-1)
     }
   },
   mounted() {

@@ -71,6 +71,7 @@ import * as faceapi from "face-api.js";
 import request from '@/utils/request'
 export default {
   name: "Detector",
+  props:['presentTime','exam_id','examinee_id'],
   data() {
     return {
       nets: "mtcnn", // 模型
@@ -80,6 +81,11 @@ export default {
       canvasEl: null,
       timeout: 0,
       times:0,
+      isLeave:0,
+      isAlert:0,
+      leaveTimes:1,
+      isTimeStart:0,
+      myTimeout:null,
       // 视频媒体参数配置
       constraints: {
         audio: false,
@@ -154,29 +160,71 @@ export default {
       // 识别绘制人脸信息
       const result = await faceapi[this.detectFace](this.videoEl, this.options);
       if (result && !this.videoEl.paused) {
+        if(this.isLeave===1){
+          //记录离开次数
+          request({
+            url:"exam/invi/updateLeaveTimes",
+            method:"Get",
+            params:{
+              exam_id:this.exam_id,
+              examinee_id:this.examinee_id,
+              present_time:this.presentTime,
+              leaveTimes:this.leaveTimes,
+            }
+          }).then()
+          //记录离开总时间
+          console.log(this.times)
+          request({
+            url:"exam/invi/addUndetectedTime",
+            method:"Get",
+            params:{
+              exam_id:this.exam_id,
+              examinee_id:this.examinee_id,
+              present_time:this.presentTime,
+              undetectedTime:Math.ceil(this.times)
+            }
+          }).then(response=>{
+          })
+          this.isLeave=0
+        }
+        if(this.myTimeout!=null){
+          clearInterval(this.myTimeout)
+          this.myTimeout=null
+        }
         this.times=0
         const dims = faceapi.matchDimensions(this.canvasEl, this.videoEl, true);
         const resizeResults = faceapi.resizeResults(result, dims);
         faceapi.draw.drawDetections(this.canvasEl, resizeResults);
-      } else {
-        this.times=this.times+1
-        if(this.times>20){
-          this.$alert('未检测到人脸', '通知', {
-            confirmButtonText: '确定',
-          }).then()
-          request({
-            url:"exam/invi/updateCheat",
-            method:'Get',
-            params:{
-              exam_id:this.exam_id,
-              examinee_id:this.examinee_id,
-              present_time:this.present_time,
-              isCheat:1
-            }
-          }).then(response=>{
-            console.log(response)
-          })
-          this.times=0
+      } else {  //没检测到人脸
+        // this.times=this.times+1
+        if(this.myTimeout===null){
+          this.myTimeout = setInterval(()=>(this.times=this.times+1),1000)
+        }
+        if(this.times>10){
+          this.isLeave=1
+          if(this.isAlert===0){
+            this.isAlert=1
+            this.leaveTimes=this.leaveTimes+1
+            this.$alert('未检测到人脸', '通知', {
+              confirmButtonText: '确定',
+            }).then(()=>{
+              request({
+                url:"exam/invi/updateCheat",
+                method:'Get',
+                params:{
+                  exam_id:this.exam_id,
+                  examinee_id:this.examinee_id,
+                  present_time:this.presentTime,
+                  isCheat:1
+                }
+              }).then(response=>{
+                console.log(response)
+              })
+              this.isAlert=0
+            })
+          }
+          // clearInterval(this.myTimeout)
+          // this.times=0
         }
         this.canvasEl
           .getContext("2d")
@@ -205,7 +253,7 @@ export default {
     // 失败启动视频媒体流
     fnError(error) {
       console.log(error);
-      alert("视频媒体流获取错误" + error);
+      alert("由于网络原因无法打开摄像头，请退出考试重新加入" );
     },
     // 结束摄像头视频媒体
     fnClose() {
@@ -223,6 +271,18 @@ export default {
   },
   created() {
     this.fnOpen()
+    request({
+      url:"exam/invi/getLeaveTimes",
+      method:"Get",
+      params:{
+        exam_id:this.exam_id,
+        examinee_id:this.examinee_id,
+        present_time:this.presentTime,
+      }
+    }).then(response=>{
+      this.leaveTimes=response
+      console.log(this.leaveTimes)
+    })
   },
   beforeDestroy() {
     this.fnClose();
