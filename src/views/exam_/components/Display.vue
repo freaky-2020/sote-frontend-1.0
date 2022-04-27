@@ -7,11 +7,11 @@
             <h3 class="box-center">一、单选题(共{{ exam_data[1].length }}题，合计{{ getAllScore(exam_data[1]) }}分)</h3>
           </div>
           <span>
-              {{ question.quesNo+'、'+replace_stem(question.stem) }}
+              {{ index + 1 +'、'+replace_stem(question.stem) }}
           </span>
           <span>
             <h6 class="question-score" style="margin:0;padding:0;">单选题 {{ question.score }}分</h6>
-<!--            <i class="el-icon-s-flag" :style="{color:iscolor[question.quesNo-1]}" @click="colorChange(question.quesNo-1)"></i>-->
+            <i class="el-icon-s-flag" :class="iscolor[question.quesNo-1]==='grey'?'greyFlag':'redFlag'" @click="colorChange(question.quesNo-1)"></i>
           </span>
           <br>
           <el-button class="circle_btn" size="mini" circle
@@ -52,11 +52,11 @@
             <h3 class="box-center">二、多选题(共{{ exam_data[2].length }}题，合计{{ getAllScore(exam_data[2]) }}分)</h3>
           </div>
           <span>
-              {{ question.quesNo+'、'+replace_stem(question.stem) }}
+              {{ (index + 1 +exam_data[1].length) +'、'+replace_stem(question.stem) }}
           </span>
           <span>
             <h6 class="question-score" style="margin:0;padding:0;">多选题 {{ question.score }}分</h6>
-            <i class="iconfont icon-new-23 flag-sign02" nav-class="icon-new-23" flagid="qid_a170c17" title="标记试题"></i>
+            <i class="el-icon-s-flag" :class="iscolor[question.quesNo-1]==='grey'?'greyFlag':'redFlag'" @click="colorChange(question.quesNo-1)"></i>
           </span>
           <br>
           <el-button class="circle_btn" size="mini" circle
@@ -96,11 +96,11 @@
             <h3 class="box-center">三、判断题(共{{ exam_data[3].length }}题，合计{{ getAllScore(exam_data[3]) }}分)</h3>
           </div>
           <span>
-              {{ question.quesNo+'、'+replace_stem(question.stem) }}
+              {{ (index + 1 + exam_data[1].length + exam_data[2].length) +'、'+replace_stem(question.stem) }}
           </span>
           <span>
             <h6 class="question-score" style="margin:0;padding:0;">判断题 {{ question.score }}分</h6>
-            <i class="iconfont icon-new-23 flag-sign02" nav-class="icon-new-23" flagid="qid_a170c17" title="标记试题"></i>
+            <i class="el-icon-s-flag" :class="iscolor[question.quesNo-1]==='grey'?'greyFlag':'redFlag'" @click="colorChange(question.quesNo-1)"></i>
           </span>
           <br>
           <el-button class="circle_btn" size="mini" circle
@@ -129,10 +129,10 @@
           <div slot="header" class="clearfix">
             <h3 class="box-center">四、填空题(共{{ exam_data[4].length }}题，合计{{ getAllScore(exam_data[4]) }}分)</h3>
           </div>
-          <span class="box-center" v-html="question.quesNo+'、'+replace_stem_judge(replace_stem(question.stem),question.quesNo-1)"/>
+          <span class="box-center" v-html="(index + 1 + exam_data[1].length + exam_data[2].length + exam_data[3].length) +'、'+replace_stem_judge(replace_stem(question.stem),question.quesNo-1)"/>
           <span>
             <h6 class="question-score" style="margin:0;padding:0;">填空题 {{ question.score }}分</h6>
-            <i class="iconfont icon-new-23 flag-sign02" nav-class="icon-new-23" flagid="qid_a170c17" title="标记试题"></i>
+            <i class="el-icon-s-flag" :class="iscolor[question.quesNo-1]==='grey'?'greyFlag':'redFlag'" @click="colorChange(question.quesNo-1)"></i>
           </span>
           <br>
           <el-input v-model="detailData[question.quesNo-1].answer" style="max-width: 100px;min-width: 50px;margin-right: 10px"/>
@@ -155,10 +155,11 @@
             <h3 class="box-center">五、简答题(共{{ exam_data[5].length }}题，合计{{ getAllScore(exam_data[5]) }}分)</h3>
           </div>
           <span>
-              {{ question.quesNo+'、'+replace_stem(question.stem) }}
+              {{ (index+exam_data[1].length+exam_data[2].length+exam_data[3].length+exam_data[4].length + 1)+'、'+replace_stem(question.stem) }}
           </span>
           <span>
             <h6 class="question-score" style="margin:0;padding:0;">简答题 {{ question.score }}分</h6>
+            <i class="el-icon-s-flag" :class="iscolor[question.quesNo-1]==='grey'?'greyFlag':'redFlag'" @click="colorChange(question.quesNo-1)"></i>z
           </span>
           <br>
           <el-input v-model="detailData[question.quesNo-1].answer" type="textarea" :rows="5" resize="none"
@@ -210,13 +211,13 @@ export default {
     }
   },
   methods: {
-    // colorChange(no){
-    //   if(this.iscolor[no] === 'grey')
-    //     this.iscolor[no] = 'red'
-    //   else{
-    //     this.iscolor[no] = 'grey'
-    //   }
-    // },
+    colorChange(no){
+      if(this.iscolor[no] === 'grey')
+        this.$set(this.iscolor, no, 'red')   //在修改数据后实行强制更新,否则数据修改后，DOM不会更新
+      else{
+        this.$set(this.iscolor, no, 'grey')
+      }
+    },
     answerOne(no, select) {
       if(this.detailData[no].answer === select){
         this.detailData[no].answer = null
@@ -369,5 +370,11 @@ export default {
   color: #9d9d9d;
   margin-right: 6px;
   display: inline-block;
+}
+.redFlag{
+  color: red;
+}
+.greyFlag{
+  color: grey;
 }
 </style>

@@ -13,7 +13,7 @@
               <el-tab-pane label="个人信息" name="account">
                 <account v-if="flag" :account="account"/>
               </el-tab-pane>
-              <el-tab-pane v-if="account.roleId===1" label="消息通知" name="activity">
+              <el-tab-pane label="消息通知" name="activity">
                 <activity :account="account" />
               </el-tab-pane>
               <el-tab-pane label="时间线" name="timeline">
