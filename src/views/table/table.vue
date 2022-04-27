@@ -354,7 +354,7 @@ export default {
   }
 }
 </script>
-<style>
+<style lang="scss" scoped>
 .el-select .el-input {
   width: 150px;
 }
