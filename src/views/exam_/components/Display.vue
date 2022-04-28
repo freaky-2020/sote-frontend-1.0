@@ -207,7 +207,7 @@ export default {
         this.$store.commit('nextDisableFalse')
       }
       this.preDisabled = now === 0
-      this.submitData(old + 1) // 当num值改变时，提交上一个题的答案
+      this.submitData(this.numChangeQuesNo(old + 1)) // 当num值改变时，提交上一个题的答案
     }
   },
   methods: {
@@ -300,6 +300,16 @@ export default {
     },
     prex() {
       this.$store.commit('reduceNum')
+    },
+    numChangeQuesNo(num) {
+      var i = 1
+      for (; i <= 5; i++){
+        if(num - this.exam_data[i].length <= 0){
+          break
+        }
+        num = num - this.exam_data[i].length
+      }
+      return this.exam_data[i][num-1].quesNo
     },
     getAllScore(form) {
       let sums = 0
