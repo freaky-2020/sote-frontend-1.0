@@ -155,7 +155,7 @@ import JsonExcel from 'vue-json-excel'
 import request from '@/utils/request'
 export default {
   name: 'bank',
-  props:['topicType','bankToExamSubmit','subjectId','isCopy'],
+  props:['topicType','bankToExamSubmit','subjectId','isCopy','copyPaper'],
   components:{ AddByText,editQuestion,JsonExcel},
   data(){
     return{
