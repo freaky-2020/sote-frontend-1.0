@@ -76,13 +76,15 @@ export default {
     return {
       nets: "mtcnn", // 模型
       options: null, // 模型参数
-      detectFace: "detectSingleFace", // 单or多人脸
+      // detectFace: "detectSingleFace", // 单or多人脸
+      detectFace: "detectAllFaces", // 单or多人脸
       videoEl: null,
       canvasEl: null,
       timeout: 0,
       times:0,
       isLeave:0,
       isAlert:0,
+      alertDouble:0,
       leaveTimes:1,
       isTimeStart:0,
       myTimeout:null,
@@ -159,7 +161,8 @@ export default {
       console.log("Run");
       // 识别绘制人脸信息
       const result = await faceapi[this.detectFace](this.videoEl, this.options);
-      if (result && !this.videoEl.paused) {
+      console.log(result)
+      if (result.length!=0 && !this.videoEl.paused) {
         if(this.isLeave===1){
           //记录离开次数
           request({
@@ -194,6 +197,24 @@ export default {
         this.times=0
         const dims = faceapi.matchDimensions(this.canvasEl, this.videoEl, true);
         const resizeResults = faceapi.resizeResults(result, dims);
+        if(result.length>1&&this.alertDouble===0){
+          this.alertDouble=1
+          await this.$alert('检测到多个人脸', '通知', {
+            confirmButtonText: '确定',
+          }).then(()=>{
+            request({
+              url:"exam/invi/updateLeaveTimes",
+              method:"Get",
+              params:{
+                exam_id:this.exam_id,
+                examinee_id:this.examinee_id,
+                present_time:this.presentTime,
+                leaveTimes:this.leaveTimes+1,
+              }
+            }).then()
+            this.alertDouble=0
+          })
+        }
         faceapi.draw.drawDetections(this.canvasEl, resizeResults);
       } else {  //没检测到人脸
         // this.times=this.times+1
@@ -205,7 +226,7 @@ export default {
           if(this.isAlert===0){
             this.isAlert=1
             this.leaveTimes=this.leaveTimes+1
-            this.$alert('未检测到人脸', '通知', {
+            await this.$alert('未检测到人脸', '通知', {
               confirmButtonText: '确定',
             }).then(()=>{
               request({

@@ -68,8 +68,21 @@ export const constantRoutes = [
         path: 'index',
         component: () => import('@/views/profile/index'),
         name: 'Profile',
-        meta: { title: 'Profile', icon: 'user', noCache: true }
+        meta: { title: 'Profile'}
       }
+    ]
+  },
+  {
+    path: '/analyse',
+    component: Layout,
+    children: [
+      {
+        path:'index',
+        component:()=>import('@/views/analyse/index'),
+        name: 'Analyse',
+        meta: { title: 'Analyse'}
+      }
+
     ]
   }
 

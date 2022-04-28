@@ -76,7 +76,8 @@ export default {
     return {
       nets: "mtcnn", // 模型
       options: null, // 模型参数
-      detectFace: "detectSingleFace", // 单or多人脸
+      detectFace: "detectAllFaces", // 单or多人脸
+      // detectFace: "detectSingleFace", // 单or多人脸
       videoEl: null,
       canvasEl: null,
       timeout: 0,
@@ -151,8 +152,10 @@ export default {
     },
     // 节点对象执行递归识别绘制
     async fnRun() {
-      console.log("Run");
+      console.log("a");
       // 识别绘制人脸信息
+
+      console.log("this.detectFace")
       const result = await faceapi[this.detectFace](this.videoEl, this.options);
       if (result && !this.videoEl.paused) {
         this.times=0
