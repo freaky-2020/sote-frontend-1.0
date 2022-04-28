@@ -13,12 +13,12 @@
           <el-tab-pane label="已发布" name="published"></el-tab-pane>
         </el-tabs>
 
-        <li class="search-li">
+        <li class="search-li" style="margin-top: -8px">
           <el-input type="text" placeholder="试卷名称" class="search" v-model="key" size="medium"> </el-input>
           <el-button slot="append" size="medium" icon="el-icon-search"></el-button>
           <!--            <i class="el-icon-search"></i>-->
         </li>
-        <li>
+        <li style="margin-top: -9px">
           <el-tooltip content="输入老师告知的口令加入一场考试" placement="bottom" effect="light">
           <el-button type="info" icon="el-icon-circle-plus-outline" @click.native.prevent="wordDialogVisible=true" size="medium">加入考试</el-button>
           </el-tooltip>

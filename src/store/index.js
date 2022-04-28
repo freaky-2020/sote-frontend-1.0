@@ -49,9 +49,15 @@ const store = new Vuex.Store({
     ],
     question:[
       {id:'', main:'',type:'',score:'',answer:''}
-    ]
+    ],
+    examInfo: {
+      subjectId:'',
+    },
   },
   mutations: {
+    setExamInfo(state,val){
+      state.examInfo = val
+    },
     addSum(state){
       state.sum +=1
     },

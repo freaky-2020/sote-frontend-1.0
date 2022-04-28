@@ -10,7 +10,7 @@
 <!--        <el-input v-model="form.examId" />-->
 <!--      </el-form-item>-->
       <el-form-item label="考试科目" prop="subjectId">
-        <el-select id="selectSubject" v-model="form.subjectId" placeholder="选择考试科目" style="width: 35%" >
+        <el-select :disabled="isEdit !==undefined" id="selectSubject" v-model="form.subjectId" placeholder="选择考试科目" style="width: 35%" >
           <el-option v-for="item in subjectBox"
                       :key="item.id"
                      :value="item.id"
@@ -85,20 +85,22 @@
         <el-input v-model="form.examNote" type="textarea" />
       </el-form-item>
       <h3 class="h3title">参加方式</h3>
-      <el-form-item label="选择考试方式" prop="noticeWay">
-        <el-radio-group v-model="form.noticeWay" >
-<!--          免登录暂时取消-->
-<!--          <el-radio :label="1" >免登录考试：考生填写身份信息(如姓名、电话)，就可以参加考试</el-radio><br/>-->
-          <el-radio :label="1" >口令考试：考生需登录后输入考试口令参加考试(防止陌生人参加),口令由系统给出</el-radio><br/>
-<!--          <el-radio :label="3" >免登录+口令考试：考生须填写身份信息和考试口令才可以参加考试</el-radio><br/>-->
-          <el-radio :label="2" >指定考试：可指定考生或部门参加，考生需登录后参加考试</el-radio><br/>
-        </el-radio-group>
-      </el-form-item>
+      <div v-if="isEdit === undefined">
+        <el-form-item label="选择考试方式" prop="noticeWay">
+          <el-radio-group v-model="form.noticeWay" >
+            <!--          免登录暂时取消-->
+            <!--          <el-radio :label="1" >免登录考试：考生填写身份信息(如姓名、电话)，就可以参加考试</el-radio><br/>-->
+            <el-radio :label="1" >口令考试：考生需登录后输入考试口令参加考试(防止陌生人参加),口令由系统给出</el-radio><br/>
+            <!--          <el-radio :label="3" >免登录+口令考试：考生须填写身份信息和考试口令才可以参加考试</el-radio><br/>-->
+            <el-radio :label="2" >指定考试：可指定考生或部门参加，考生需登录后参加考试</el-radio><br/>
+          </el-radio-group>
+        </el-form-item>
 
-      <el-form-item label="选择考生" v-if="form.noticeWay===2">
-<!--        <el-input v-if="form.noticeWay===''" placeholder="请选择考试方式" :disabled="true"></el-input>-->
-        <el-button type="text" @click.native.prevent="stuDialogVisible = true">点击指定考生</el-button>
-      </el-form-item>
+        <el-form-item label="选择考生" v-if="form.noticeWay===2">
+          <!--        <el-input v-if="form.noticeWay===''" placeholder="请选择考试方式" :disabled="true"></el-input>-->
+          <el-button type="text" @click.native.prevent="stuDialogVisible = true">点击指定考生</el-button>
+        </el-form-item>
+      </div>
       <el-form-item label="允许切屏次数" prop="cuttingTimes">
         <el-input v-model="form.cuttingTimes"  style="width: 35%" placeholder=""></el-input>
         <span>&nbsp;次</span>
@@ -113,7 +115,7 @@
 <!--        <el-button @click.native.prevent="form.signatureDialogVisible = true" size="mini"  icon="el-icon-edit">预览</el-button>-->
 <!--      </el-form-item>-->
 
-      <el-form-item>
+      <el-form-item v-if="isEdit ===undefined">
         <el-button type="primary" @click.native.prevent="onSubmit('form')">保存，去设计试卷</el-button>
         <el-button @click="onCancel">取消</el-button>
       </el-form-item>
@@ -148,7 +150,7 @@ export default {
     signature,
     stuTable
   },
-
+  props:['isEdit','editOngoingDo'],
   data() {
     let checkInt = (rule, value, callback) => {
       if ((Number(value))&&(value)%1 === 0) {
@@ -213,7 +215,7 @@ export default {
           }
         }]
       },
-      allTime:'',
+      allTime:[],
       form: {
         examId:null,
         examName: '',
@@ -239,12 +241,26 @@ export default {
       }
     }
   },
+  computed:{
+    oldForm(){
+      return this.$store.state.examInfo
+    }
+  },
   watch:{
       allTime: {
         deep: true,
         handler(val) {
           this.form.deadline = val[1];
           this.form.startTime = val[0];
+        }
+      },
+      oldForm:{
+        deep:true,
+        immediate:true,
+        handler(){
+          this.form = this.oldForm
+          this.allTime[0] = this.oldForm.startTime
+          this.allTime[1] = this.oldForm.deadline
         }
       }
   },
@@ -347,6 +363,9 @@ export default {
         });
         this.form.classificationDialogVisible = false;
       }
+    },
+    editOngoing() {
+      this.$emit("editOngoingDo",this.form)
     }
   }
 }
