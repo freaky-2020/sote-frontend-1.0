@@ -35,7 +35,7 @@
     </div>
     <div v-if="exam_data[5].length!==0">
       <div class="card-content-title">简答题(共{{ exam_data[5].length }}题，合计{{ getAllScore(exam_data[5]) }}分)</div><br>
-      <span v-for="(question,index) in exam_data[1]" :key="index+'1'">
+      <span v-for="(question,index) in exam_data[5]" :key="index+'1'">
         <el-button v-if="iscolor[question.quesNo-1]==='grey'" :type="detailData[question.quesNo-1].answer !== null?'primary':''" size="mini" class="buton" @click="setNum(index+exam_data[1].length+exam_data[2].length+exam_data[3].length+exam_data[4].length)">{{ index+exam_data[1].length+exam_data[2].length+exam_data[3].length+exam_data[4].length + 1 }}</el-button>
         <el-button v-if="iscolor[question.quesNo-1]==='red'" :type="detailData[question.quesNo-1].answer !== null?'primary':''" size="mini" class="buton el-icon-s-flag" :style="{color:'red'}" @click="setNum(index+exam_data[1].length+exam_data[2].length+exam_data[3].length+exam_data[4].length)"></el-button>
       </span>
