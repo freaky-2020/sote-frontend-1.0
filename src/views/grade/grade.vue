@@ -73,26 +73,26 @@
         <div slot="header" class="clearfix">
           <span>及格分数/总分</span>
         </div>
-        <span style="color: red">{{scoreList.passNum}}</span>
+        <span style="color: red">{{scoreList.passScore}}</span>
         /{{scoreList.totalScore}}
       </el-card>
       <el-card class="box-card" style="display: inline-block;height: 120px;width: 9%">
         <div slot="header" class="clearfix">
           <span>及格率</span>
         </div>
-        {{scoreList.passRate*100+'%'}}
+        {{Math.round(scoreList.passRate*10000)/100+'%'}}
       </el-card>
       <el-card class="box-card" style="display: inline-block;height: 120px;width: 9%">
         <div slot="header" class="clearfix">
           <span>优秀率</span>
         </div>
-        {{scoreList.greatRate*100+'%'}}
+        {{Math.round(scoreList.greatRate*10000)/100+'%'}}
       </el-card>
       <el-card class="box-card" style="display: inline-block;height: 120px;width: 9%">
         <div slot="header" class="clearfix">
           <span>得分率</span>
         </div>
-        {{scoreList.getRate*100+'%'}}
+        {{Math.round(scoreList.getRate*10000)/100 +'%'}}
       </el-card>
       <el-card class="box-card" style="display: inline-block;height: 120px;width: 9%">
         <div slot="header" class="clearfix">
@@ -136,27 +136,30 @@
           style="width: 100%"
           border
           fit
+          :cell-style="{'text-align':'center'}"
           :default-sort = "{prop: 'rank'}"
           highlight-current-row>
           <el-table-column
             label="排名"
             prop="rank"
             sortable
-            width="50">
+            width="80">
             <template slot-scope="scope">
               <span style="margin-left: 10px">{{ scope.row.rank }}</span>
             </template>
           </el-table-column>
           <el-table-column
             label="学号"
-            width="120">
+            align="center"
+            width="110">
             <template slot-scope="scope">
               <span style="margin-left: 10px">{{ scope.row.user.userName }}</span>
             </template>
           </el-table-column>
           <el-table-column
             label="姓名"
-            width="100">
+            align="center"
+            width="90">
             <template slot-scope="scope">
               <div slot="reference" class="name-wrapper">
                 <el-tag size="medium">{{ scope.row.user.realName }}</el-tag>
@@ -175,14 +178,14 @@
             </el-table-column>
             <el-table-column
               prop="score"
-              :label=" '主观题    满分' + this.tableData[0].maxSynScore"
+              :label=" '主观题    满分:' + this.tableData[0].maxSynScore"
               width="120">
               <template slot-scope="scope">
                 <span>{{ scope.row.synScore }}</span>
               </template>
             </el-table-column>
             <el-table-column
-              :label=" '总分      满分' +this.tableData[0].maxScore"
+              :label=" '总分      满分:' +this.tableData[0].maxScore"
               width="110">
               <template slot-scope="scope">
                 <span>{{ scope.row.totalScore }}</span>
@@ -191,11 +194,13 @@
           </el-table-column>
           <el-table-column
             label="状态"
-            width="100">
+            align="center"
+            width="90">
             <template slot-scope="scope">
               <div slot="reference" class="name-wrapper">
                 <el-tag size="medium" type="success" v-if="scope.row.status === 1">正常结束</el-tag>
-                <el-tag size="medium" type="danger" v-if="scope.row.status === 0">缺考</el-tag>
+                <el-tag size="medium" type="warning" v-if="scope.row.status === 0">缺考</el-tag>
+                <el-tag size="medium" type="danger" v-if="scope.row.status === -1">疑似作弊</el-tag>
               </div>
             </template>
           </el-table-column>
@@ -203,42 +208,38 @@
             :label=" '监考数据'"
             align="center">
             <el-table-column
-              label="状态"
-              width="90">
+              label="切屏次数"
+              width="80">
               <template slot-scope="scope">
                 <div slot="reference" class="name-wrapper">
-                  <el-tag size="medium" type="success" v-if="scope.row.status === 1">正常结束</el-tag>
-                  <el-tag size="medium" type="danger" v-if="scope.row.status === 0">缺考</el-tag>
+                  <el-tag size="medium" type="success" >{{ scope.row.cuttingTime }}</el-tag>
                 </div>
               </template>
             </el-table-column>
             <el-table-column
-              label="状态"
-              width="90">
+              label="切屏时长 /s"
+              width="100">
               <template slot-scope="scope">
                 <div slot="reference" class="name-wrapper">
-                  <el-tag size="medium" type="success" v-if="scope.row.status === 1">正常结束</el-tag>
-                  <el-tag size="medium" type="danger" v-if="scope.row.status === 0">缺考</el-tag>
+                  <el-tag size="medium" type="success" >{{ scope.row.totalCuttingTime }}</el-tag>
                 </div>
               </template>
             </el-table-column>
             <el-table-column
-              label="状态"
+              label="离开次数"
               width="90">
               <template slot-scope="scope">
                 <div slot="reference" class="name-wrapper">
-                  <el-tag size="medium" type="success" v-if="scope.row.status === 1">正常结束</el-tag>
-                  <el-tag size="medium" type="danger" v-if="scope.row.status === 0">缺考</el-tag>
+                  <el-tag size="medium" type="success" >{{ scope.row.leaveTimes }}</el-tag>
                 </div>
               </template>
             </el-table-column>
             <el-table-column
-              label="状态"
-              width="90">
+              label="离开时长 /s"
+              width="100">
               <template slot-scope="scope">
                 <div slot="reference" class="name-wrapper">
-                  <el-tag size="medium" type="success" v-if="scope.row.status === 1">正常结束</el-tag>
-                  <el-tag size="medium" type="danger" v-if="scope.row.status === 0">缺考</el-tag>
+                  <el-tag size="medium" type="success" >{{ scope.row.undetectedTime }}</el-tag>
                 </div>
               </template>
             </el-table-column>
