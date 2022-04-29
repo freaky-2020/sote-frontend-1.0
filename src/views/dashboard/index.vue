@@ -1,6 +1,21 @@
 <template>
   <div class="dashboard-container">
     <div class="background-container">
+      <el-row>
+        <div class="box bg-primary-light pull-up">
+          <el-col :span="5" class="col-12 col-lg-3" >
+            <img src="@/assets/picture/custom-14.svg" alt="">
+          </el-col>
+          <el-col :span="15" class="col-12 col-lg-9">
+            <h2>Hello Johen, Welcome Back!</h2>
+            <p class="text-dark mb-0 font-size-16">
+              本周完成了 2 场考试，还有 3 场正在进行中
+            </p>
+          </el-col>
+        </div>
+      </el-row>
+
+
       <panel-group></panel-group>
 <!--          <div class="chart-div" style="width:60% ;height: 450px">-->
 <!--            <mix-chart></mix-chart>-->
@@ -8,6 +23,7 @@
 <!--          <div id="donut-chart" style="width:30% ;height: 450px">-->
 <!--            <donut-chart></donut-chart>-->
 <!--          </div>-->
+
       <el-row :gutter="32" >
         <el-col :span="17" >
           <div class="chart-div" style="height: 450px">

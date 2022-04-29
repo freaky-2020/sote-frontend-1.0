@@ -15,7 +15,8 @@
 
 <script>
 // 改的地方start
-import { Navbar, Sidebar, AppMain, Topbar } from './components'
+// TODO 引入Headbar
+import { Navbar, Sidebar, AppMain, Topbar, Headbar } from './components'
 // 改的地方end
 import ResizeMixin from './mixin/ResizeHandler'
 
@@ -28,6 +29,8 @@ export default {
     // 改的地方start
     Topbar,
     // 改的地方end
+    // TODO 引入Headbar
+    Headbar,
   },
   mixins: [ResizeMixin],
   computed: {

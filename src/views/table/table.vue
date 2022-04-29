@@ -1,5 +1,6 @@
 <template>
-  <div class="app-container">
+  <div class="background-container">
+    <div class="app-container">
     <div class="filter-container">
       <template>
         <el-radio-group v-model="radio">
@@ -11,7 +12,7 @@
           <span style="margin-left: 100px"></span>
         </template>
         <el-button
-          size="mini"
+          size="medium"
           type="success"
           @click="add">添加用户</el-button>
       </template>
@@ -136,6 +137,7 @@
       </el-dialog>
 
     </div>
+  </div>
   </div>
 </template>
 
@@ -354,7 +356,7 @@ export default {
   }
 }
 </script>
-<style>
+<style lang="scss" scoped>
 .el-select .el-input {
   width: 150px;
 }

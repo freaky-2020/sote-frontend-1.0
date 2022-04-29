@@ -607,7 +607,7 @@ li{
 //}
 .item .info i {
   margin-right: 5px;
-  color: #0195ff;
+  color: #5e7de2;
 }
 .item .info span {
   //margin-right: 14px;
@@ -615,13 +615,14 @@ li{
 .paper .item {
   width: 100%;
   border-radius: 6px;
-  padding: 20px 30px;
+  padding: 15px 30px;
   border: 1px solid #eee;
   box-shadow: 0 0 4px 2px rgba(217,222,234,0.3);
   transition: all 0.6s ease;
+  //background-color: #e2eafa;
 }
 .paper .item:hover {
-  box-shadow: 0 0 4px 2px rgba(140, 193, 248, 0.45);
+  box-shadow: 0 0 4px 2px rgba(149, 179, 225, 0.45);
   transform: scale(1.01);
 }
 .paper .item .info {
@@ -630,10 +631,10 @@ li{
 }
 .paper .item .examName {
   font-size: 14px;
-  color: #88949b;
+  color: #5b646b;
 }
 .paper * {
-  margin: 12px 0;
+  margin: 10px 0;
 }
 .wrapper .paper {
   display: flex;

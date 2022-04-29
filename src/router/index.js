@@ -68,7 +68,7 @@ export const constantRoutes = [
         path: 'index',
         component: () => import('@/views/profile/index'),
         name: 'Profile',
-        meta: { title: 'Profile'}
+        meta: { title: 'Profile', icon: 'user', noCache: true }
       }
     ]
   },
@@ -84,7 +84,20 @@ export const constantRoutes = [
   //     }
   //
   //   ]
-  // }
+  // },
+  {
+    path: '/introduction',
+    component: Layout,
+    hidden: false,
+    children: [
+      {
+        path: '',
+        component: () => import('@/views/introduction/index'),
+        meta: { title: '欢迎页', icon: 'user', noCache: true }
+      }
+    ]
+  },
+
 
 ]
 

@@ -1,17 +1,21 @@
 // sidebar
-$menuText: #ffffff;
+$menuText: #0c0c0c;
 //$menuActiveText:#409EFF;
-$subMenuActiveText: #f6cd00; //https://github.com/ElemeFE/element/issues/12951
+$subMenuActiveText:#5e7de2; //https://github.com/ElemeFE/element/issues/12951
 
-$menuBg: #012a6c;
-$menuHover: #304681;
+$menuBg: #ffffff;
+$menuHover: #fff5aa;
 
-$subMenuBg:#012a6c;
-$subMenuHover: #284479;
+$subMenuBg: #ffffff;
+$subMenuHover: #e3e3e3;
 
-$menuActiveText: #f6cd00;
+$menuActiveText: #5e7de2;
+
+$sideMenuBg: #eeeeee;
 
 $sideBarWidth: 210px;
+
+
 
 // 改的的地方start
 $topBarHeight: 56px;

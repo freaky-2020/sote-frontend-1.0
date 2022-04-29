@@ -373,7 +373,7 @@ export default {
 
 <style lang="scss" scoped>
 .h3title{
-  color: #00509d;
+  color: #5069c0;
   //background-color: lightgrey;
   height: 40px;
   border-bottom: 1px solid lightgrey;
