@@ -1,5 +1,5 @@
 <template>
-  <div :id="id" style="width: 100%;height: 100%"/>
+  <div :id="id" style="width: 100%;height: 350%"/>
 </template>
 
 <script>
@@ -61,8 +61,7 @@ name: "GradeChart",
   },
   methods: {
     initChart() {
-      let numData = this.numData
-      let proportionData = this.proportionData
+
       this.chart = echarts.init(document.getElementById(this.id))
 
       this.chart.setOption({
@@ -102,7 +101,7 @@ name: "GradeChart",
             type: 'value',
             name: '人数',
             min: 0,
-            max: this.maxNum,
+            max: this.maxNum+2,
             interval: Math.ceil(this.maxNum/5),
             axisLabel: {
               formatter: '{value} 个'
@@ -162,11 +161,11 @@ name: "GradeChart",
         if(this.maxNum<item.sCount){
           this.maxNum=item.sCount
         }
-        if(this.maxRate<item.proportion){
-          this.maxRate=item.proportion
+        if(this.maxRate<item.proportion*100){
+          this.maxRate=item.proportion*100
         }
         this.numData.push(item.sCount)
-        this.proportionData.push(item.proportion)
+        this.proportionData.push(item.proportion*100)
         console.log(this.numData)
       })
     }

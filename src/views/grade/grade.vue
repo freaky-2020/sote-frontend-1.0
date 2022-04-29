@@ -53,7 +53,7 @@
         <span>分数分段折线图</span>
       </div>
       <div  class="chart-div">
-<!--        <grade-chart :scoreData="scoreData"></grade-chart>-->
+        <grade-chart :scoreData="scoreData"></grade-chart>
       </div>
     </el-card>
     <div style="text-align: center">
@@ -277,10 +277,11 @@
 import request from '@/utils/request'
 import pie from '@/views/grade/components/pie'
 import DonutChart from '@/components/Charts/DonutChart'
+import GradeChart from '@/components/Charts/GradeChart'
 
 export default {
   name: 'grade',
-  components:{pie,DonutChart},
+  components:{pie,DonutChart,GradeChart},
   data(){
     return{
       page:1,
