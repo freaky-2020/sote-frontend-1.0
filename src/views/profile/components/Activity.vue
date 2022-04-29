@@ -1,5 +1,5 @@
 <template>
-  <div class="user-activity" @click="toDetail">
+  <div v-if="account.roleId===1" class="user-activity" @click="toDetail">
     <div class="post">
       <div v-if="activity!==null" class="user-block">
         <img class="img-circle" :src="'https://img-qn.51miz.com/Element/00/92/43/35/a6a3a67f_E924335_853a9640.png'+avatarPrefix">

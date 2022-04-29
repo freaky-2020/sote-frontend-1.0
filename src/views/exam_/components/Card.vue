@@ -6,25 +6,39 @@
     <div v-if="exam_data[1].length!==0">
 
       <div class="card-content-title">单选题(共{{ exam_data[1].length }}题，合计{{ getAllScore(exam_data[1]) }}分)</div><br>
-      <el-button v-for="(question,index) in exam_data[1]" :key="index+'1'" :type="detailData[question.quesNo-1].answer !== null?'primary':''" size="mini" class="buton" @click="setNum(index)">{{ question.quesNo }}</el-button>
-<!--      <el-button v-for="(question,index) in exam_data[1]" :key="index+'1'" v-show="iscolor[question.quesNo]==='grey'" :type="detailData[question.quesNo-1].answer !== null?'primary':''" size="mini" class="buton" @click="setNum(index)">{{ question.quesNo }}</el-button>-->
-<!--      <el-button v-for="(question,index) in exam_data[1]" :key="index+'1'" v-show="iscolor[question.quesNo]==='red'" :type="detailData[question.quesNo-1].answer !== null?'primary':''" size="mini" class="el-icon-s-flag" :style="{color:iscolor[question.quesNo-1]}" @click="setNum(index)"></el-button>-->
+<!--      <el-button v-for="(question,index) in exam_data[1]" :key="index+'1'" :type="detailData[question.quesNo-1].answer !== null?'primary':''" size="mini" class="buton" @click="setNum(index)">{{ question.quesNo }}</el-button>-->
+      <span v-for="(question,index) in exam_data[1]" :key="index+'1'">
+        <el-button v-if="iscolor[question.quesNo-1]==='grey'" :type="detailData[question.quesNo-1].answer !== null?'primary':''" size="mini" class="buton" @click="setNum(index)">{{ index + 1 }}</el-button>
+        <el-button v-if="iscolor[question.quesNo-1]==='red'" :type="detailData[question.quesNo-1].answer !== null?'primary':''" size="mini" class="buton el-icon-s-flag" :style="{color:'red'}" @click="setNum(index)"></el-button>
+      </span>
     </div>
     <div v-if="exam_data[2].length!==0">
       <div class="card-content-title">多选题(共{{ exam_data[2].length }}题，合计{{ getAllScore(exam_data[2]) }}分)</div><br>
-      <el-button v-for="(question,index) in exam_data[2]" :key="index+'2'" :type="detailData[question.quesNo-1].answer !== null?'primary':''" size="mini" class="buton" @click="setNum(index+exam_data[1].length)">{{ question.quesNo }}</el-button>
+      <span v-for="(question,index) in exam_data[2]" :key="index+'2'">
+        <el-button v-if="iscolor[question.quesNo-1]==='grey'" :type="detailData[question.quesNo-1].answer !== null?'primary':''" size="mini" class="buton" @click="setNum(index+exam_data[1].length)">{{ index+exam_data[1].length + 1 }}</el-button>
+        <el-button v-if="iscolor[question.quesNo-1]==='red'" :type="detailData[question.quesNo-1].answer !== null?'primary':''" size="mini" class="buton el-icon-s-flag" :style="{color:'red'}" @click="setNum(index+exam_data[1].length)"></el-button>
+      </span>
     </div>
     <div v-if="exam_data[3].length!==0">
       <div class="card-content-title">判断题(共{{ exam_data[3].length }}题，合计{{ getAllScore(exam_data[3]) }}分)</div><br>
-      <el-button v-for="(question,index) in exam_data[3]" :key="index+'3'" :type="detailData[question.quesNo-1].answer !== null?'primary':''" size="mini" class="buton" @click="setNum(index+exam_data[1].length+exam_data[2].length)">{{ question.quesNo }}</el-button>
+      <span v-for="(question,index) in exam_data[3]" :key="index+'3'">
+        <el-button v-if="iscolor[question.quesNo-1]==='grey'" :type="detailData[question.quesNo-1].answer !== null?'primary':''" size="mini" class="buton" @click="setNum(index+exam_data[1].length+exam_data[2].length)">{{ index+exam_data[1].length+exam_data[2].length + 1 }}</el-button>
+        <el-button v-if="iscolor[question.quesNo-1]==='red'" :type="detailData[question.quesNo-1].answer !== null?'primary':''" size="mini" class="buton el-icon-s-flag" :style="{color:'red'}" @click="setNum(index+exam_data[1].length+exam_data[2].length)"></el-button>
+      </span>
     </div>
     <div v-if="exam_data[4].length!==0">
       <div class="card-content-title">填空题(共{{ exam_data[4].length }}题，合计{{ getAllScore(exam_data[4]) }}分)</div><br>
-      <el-button v-for="(question,index) in exam_data[4]" :key="index+'4'" :type="detailData[question.quesNo-1].answer !== null?'primary':''" size="mini" class="buton" @click="setNum(index+exam_data[1].length+exam_data[2].length+exam_data[3].length)">{{ question.quesNo }}</el-button>
+      <span v-for="(question,index) in exam_data[4]" :key="index+'4'">
+        <el-button v-if="iscolor[question.quesNo-1]==='grey'" :type="detailData[question.quesNo-1].answer !== null?'primary':''" size="mini" class="buton" @click="setNum(index+exam_data[1].length+exam_data[2].length+exam_data[3].length)">{{ index+exam_data[1].length+exam_data[2].length+exam_data[3].length + 1 }}</el-button>
+        <el-button v-if="iscolor[question.quesNo-1]==='red'" :type="detailData[question.quesNo-1].answer !== null?'primary':''" size="mini" class="buton el-icon-s-flag" :style="{color:'red'}" @click="setNum(index+exam_data[1].length+exam_data[2].length+exam_data[3].length)"></el-button>
+      </span>
     </div>
     <div v-if="exam_data[5].length!==0">
       <div class="card-content-title">简答题(共{{ exam_data[5].length }}题，合计{{ getAllScore(exam_data[5]) }}分)</div><br>
-      <el-button v-for="(question,index) in exam_data[5]" :key="index+'5'" :type="detailData[question.quesNo-1].answer !== null?'primary':''" size="mini" class="buton" @click="setNum(index+exam_data[1].length+exam_data[2].length+exam_data[3].length+exam_data[4].length)">{{ question.quesNo }}</el-button>
+      <span v-for="(question,index) in exam_data[1]" :key="index+'1'">
+        <el-button v-if="iscolor[question.quesNo-1]==='grey'" :type="detailData[question.quesNo-1].answer !== null?'primary':''" size="mini" class="buton" @click="setNum(index+exam_data[1].length+exam_data[2].length+exam_data[3].length+exam_data[4].length)">{{ index+exam_data[1].length+exam_data[2].length+exam_data[3].length+exam_data[4].length + 1 }}</el-button>
+        <el-button v-if="iscolor[question.quesNo-1]==='red'" :type="detailData[question.quesNo-1].answer !== null?'primary':''" size="mini" class="buton el-icon-s-flag" :style="{color:'red'}" @click="setNum(index+exam_data[1].length+exam_data[2].length+exam_data[3].length+exam_data[4].length)"></el-button>
+      </span>
     </div>
   </el-card>
 </template>
