@@ -5,19 +5,18 @@
     <div class="wrapper">
       <ul class="top">
         <el-tabs v-model="activeExamsName" type="card">
-          <el-tab-pane label="全部" name="all" ></el-tab-pane>
-          <el-tab-pane label="开放中" name="ongoing"></el-tab-pane>
           <el-tab-pane label="未开始" name="future"></el-tab-pane>
+          <el-tab-pane label="开放中" name="ongoing"></el-tab-pane>
           <el-tab-pane label="已结束" name="finished"></el-tab-pane>
           <el-tab-pane label="已公布" name="published"></el-tab-pane>
         </el-tabs>
 
-        <li class="search-li">
+        <li class="search-li" style="margin-top: 0px">
             <el-input type="text" placeholder="试卷名称" class="search" v-model="key" size="medium"> </el-input>
             <el-button slot="append"  size="medium" icon="el-icon-search"></el-button>
             <!--            <i class="el-icon-search"></i>-->
         </li>
-        <li>
+        <li style="margin-top: 0px">
             <el-button type="info" icon="el-icon-circle-plus-outline" @click.native.prevent="goToCreate" size="medium">添加考试</el-button>
         </li>
       </ul>
@@ -40,17 +39,15 @@
             <i class="el-icon-time"></i><span>{{item.startTime.slice(0,16)}}到{{item.deadline.slice(0,16)}}可进入</span>
             <span>   考试时长{{item.durationTime}}分钟</span>
             <div class="nomargin" style="float: right">
-              <el-dropdown @command="handleCommand(item)" trigger="click">
-                <el-button  class="nomargin" icon="el-icon-edit" size="small">编辑<i class="el-icon-arrow-down el-icon--right"></i></el-button>
-                <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item command="edit">编辑考试信息</el-dropdown-item>
-                  <el-dropdown-item command="design">设计考试题目</el-dropdown-item>
-                  <el-dropdown-item command="delete">删除考试</el-dropdown-item>
-                </el-dropdown-menu>
-              </el-dropdown>
-              <el-button  class="nomargin" @click="judge(item)" icon="el-icon-document-checked" size="small">批阅</el-button>
-              <el-button v-if="activeExamsName === 'published'" class="nomargin" @click="grade(item)" icon="el-icon-s-data" size="small">成绩分析</el-button>
-              <el-button v-if="activeExamsName === 'finished' " size="small" type="primary" @click="publishExam(item)" >公布成绩</el-button>
+              <el-button class="nomargin" @click="editExamInfo(item)" icon="el-icon-document-checked" size="small">编辑考试</el-button>
+              <el-button v-if="activeExamsName === 'ongoing'||activeExamsName ==='future'"
+                         class="nomargin" @click="designExam(item)" icon="el-icon-document-checked" size="small">设计试卷</el-button>
+              <el-button class="nomargin" @click="deleteExam(item)" icon="el-icon-document-checked" size="small">删除考试</el-button>
+              <el-button v-if="activeExamsName === 'finished' " class="nomargin" @click="judge(item)" icon="el-icon-document-checked" size="small">批阅</el-button>
+              <el-button v-if="activeExamsName === 'published'"
+                         class="nomargin" @click="grade(item)" icon="el-icon-s-data" size="small">成绩分析</el-button>
+              <el-button v-if="activeExamsName === 'finished' "
+                         size="small" type="primary" @click="publishExam(item)" >公布成绩</el-button>
             </div>
           </div>
         </li>
@@ -64,7 +61,7 @@
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
           :current-page="current"
-          :page-sizes="[6, 9, 20, 30]"
+          :page-sizes="[5, 10, 20, 30]"
           :page-size="pageSize"
           layout="total, sizes, prev, pager, next, jumper"
           :total="newDisplayExam.length"
@@ -75,7 +72,6 @@
     <el-tooltip placement="top" content="回到顶部">
       <back-to-top class="myBackToTopStyle" :visibility-height="300" :back-position="50" transition-name="fade" />
     </el-tooltip>
-
     <el-dialog title="加入考试" :visible.sync="wordDialogVisible">
       <el-form >
         <el-form-item label="输入口令：">
@@ -87,7 +83,6 @@
         <el-button type="primary" @click="enterExam">确 定</el-button>
       </div>
     </el-dialog>
-
     <el-dialog
       title="提示"
       :visible.sync="judgeDialog"
@@ -105,6 +100,59 @@
     <el-button type="primary" @click="judgeSubmit">确 定</el-button>
       </span>
     </el-dialog>
+    <el-dialog
+      title="修改考试信息"
+      :visible.sync="isEditExam"
+      style="top:-55px"
+      width="80%">
+      <el-scrollbar style="height: 550px" wrap-style="overflow-x:hidden;">
+        <exam-info ref="examInfo" :isEdit="1" @editOngoingDo="editOngoingDo"></exam-info>
+      </el-scrollbar>
+      <el-footer style="text-align: center;height: 20px" class="dialog-footer">
+        <el-button type="primary" size="medium" @click="editOngoing">确定</el-button>
+        <el-button type="info" size="medium" @click="isEditExam = false ">取消</el-button>
+      </el-footer>
+    </el-dialog>
+      <el-dialog
+        title="修改考试信息"
+        :visible.sync="isEditFinished"
+        width="50%">
+        <div class="block" style="margin: 10px">
+          <span class="demonstration" style="margin: 10px">可考次数</span>
+          <el-input-number v-model="$store.state.examInfo.allowableTime"  :min="$store.state.examInfo.allowableTime" :max="10"></el-input-number>
+          <br>
+          <br>
+          <span class="demonstration" style="margin: 10px">截止日期</span>
+          <el-date-picker
+            v-model="$store.state.examInfo.deadline"
+            type="datetime"
+            value-format="yyyy-MM-dd HH:mm:ss"
+            placeholder="选择日期">
+          </el-date-picker>
+        </div>
+        <el-footer style="text-align: center;height: 20px" class="dialog-footer">
+          <el-button type="primary" size="medium" @click="editTwo">确定</el-button>
+          <el-button type="info" size="medium" @click="isEditFinished = false ">取消</el-button>
+        </el-footer>
+      </el-dialog>
+      <el-dialog
+        title="修改考试信息"
+        :visible.sync="isEditPublished"
+        width="50%">
+          <div class="block" style="margin: 10px">
+            <span class="demonstration" style="margin: 10px">截止日期</span>
+            <el-date-picker
+              v-model="$store.state.examInfo.deadline"
+              type="datetime"
+              value-format="yyyy-MM-dd HH:mm:ss"
+              placeholder="选择日期">
+            </el-date-picker>
+          </div>
+        <el-footer style="text-align: center;height: 20px" class="dialog-footer">
+          <el-button type="primary" size="medium" @click="editPublished">确定</el-button>
+          <el-button type="info" size="medium" @click="isEditPublished = false ">取消</el-button>
+        </el-footer>
+      </el-dialog>
   </div>
   </div>
 </template>
@@ -112,20 +160,29 @@
 <script>
 import BackToTop from '@/components/BackToTop'
 import request from '@/utils/request'
+import examInfo from '@/views/createpaper/examInfo'
 // import examListT from '@/views/exam/components/examListT'
 import clip from '@/utils/clipboard'
 
 export default {
   components:{
     BackToTop,
+    examInfo,
     // examListT,
   },
   // examName: 'myExam'
   data() {
     return {
+      examInfo: {
+        subjectId:'',
+      },
+      subjectId:null,
+      isEditPublished:false,
+      isEditFinished:false,
+      isEditExam:false,
       judgeDialog:false,
       examineeId:this.$store.getters.name,
-      activeExamsName:'all',
+      activeExamsName:'future',
       wordDialogVisible:false,
       word:null,
       allSubject:null,
@@ -141,7 +198,7 @@ export default {
 
       current: 1, //当前页
       total: null, //记录条数
-      pageSize: 6, //每页条数
+      pageSize: 5, //每页条数
       optionsJudge:[
         {
           value: 1,
@@ -202,18 +259,106 @@ export default {
       inputNode.style.display = 'none' // 隐藏
       this.$message.success('复制成功')
     },
-    handleCommand(item) {
+    designExam(item) {
         this.$router.push({ name: 'Design',
           query: {
             paperId:item.paperId,
             examId:item.examId,
           } })
     },
-    editExamInfo() {
-
+    editExamInfo(item) {
+      this.$store.commit('setExamInfo',item)
+      if(this.activeExamsName === 'future'){
+        this.isEditExam = true
+      }
+      else if(this.activeExamsName === 'finished'||this.activeExamsName === 'ongoing'){
+        this.isEditFinished = true
+      }
+      else if(this.activeExamsName === 'published'){
+        this.isEditPublished = true
+      }
     },
-    deleteExam() {
-
+    editOngoing(){
+      this.isEditExam = false
+      this.$refs.examInfo.editOngoing()
+    },
+    editOngoingDo(form){
+      request({
+        url: '/exam/info/update/'+form.examId,
+        methods: 'Get',
+        params: {
+          allowableTime:form.allowableTime,
+          durationTime:form.durationTime,
+          examName:form.examName,
+          startTime:form.startTime,
+          deadline:form.deadline,
+          examNote:form.examNote,
+        },
+      }).then(response => {
+        console.log(response)
+        this.$notify({
+          title: '成功',
+          message: '试卷信息修改成功',
+          type: 'success'
+        });
+        this.getExamInfo()
+      })
+    },
+    editTwo(){
+      this.isEditFinished = false
+      request({
+        url: '/exam/info/update/'+this.$store.state.examInfo.examId,
+        methods: 'Get',
+        params: {
+          allowableTime:this.$store.state.examInfo.allowableTime,
+          deadline:this.$store.state.examInfo.deadline,
+        },
+      }).then(response => {
+        console.log(response)
+        this.$notify({
+          title: '成功',
+          message: '试卷信息修改成功',
+          type: 'success'
+        });
+        this.getExamInfo()
+      })
+    },
+    editPublished(){
+      this.isEditPublished = false
+      request({
+        url: '/exam/info/update/'+this.$store.state.examInfo.examId,
+        methods: 'Get',
+        params: {
+          deadline:this.$store.state.examInfo.deadline,
+        },
+      }).then(response => {
+        console.log(response)
+        this.$notify({
+          title: '成功',
+          message: '试卷信息修改成功',
+          type: 'success'
+        });
+        this.getExamInfo()
+      })
+    },
+    deleteExam(item) {
+      if (confirm('确定删除此考试吗？')){
+        request({
+          url: '/exam/info/update/'+this.$store.state.examInfo.examId,
+          methods: 'Get',
+          params: {
+            deadline:this.$store.state.examInfo.deadline,
+          },
+        }).then(response => {
+          console.log(response)
+          this.$notify({
+            title: '成功',
+            message: '试卷信息修改成功',
+            type: 'success'
+          });
+          this.getExamInfo()
+        })
+      }
     },
     getAllSubject() {
       request({

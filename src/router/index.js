@@ -72,6 +72,19 @@ export const constantRoutes = [
       }
     ]
   },
+  // {
+  //   path: '/analyse',
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path:'index',
+  //       component:()=>import('@/views/analyse/index'),
+  //       name: 'Analyse',
+  //       meta: { title: 'Analyse'}
+  //     }
+  //
+  //   ]
+  // },
   {
     path: '/introduction',
     component: Layout,
