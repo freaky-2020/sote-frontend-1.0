@@ -76,8 +76,8 @@ export default {
     return {
       nets: "mtcnn", // 模型
       options: null, // 模型参数
-      detectFace: "detectAllFaces", // 单or多人脸
-      // detectFace: "detectSingleFace", // 单or多人脸
+      // detectFace: "detectAllFaces", // 单or多人脸
+      detectFace: "detectSingleFace", // 单or多人脸
       videoEl: null,
       canvasEl: null,
       timeout: 0,

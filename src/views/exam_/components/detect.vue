@@ -76,8 +76,8 @@ export default {
     return {
       nets: "mtcnn", // 模型
       options: null, // 模型参数
-      // detectFace: "detectSingleFace", // 单or多人脸
-      detectFace: "detectAllFaces", // 单or多人脸
+      detectFace: "detectSingleFace", // 单or多人脸
+      // detectFace: "detectAllFaces", // 单or多人脸
       videoEl: null,
       canvasEl: null,
       timeout: 0,
@@ -199,21 +199,21 @@ export default {
         const resizeResults = faceapi.resizeResults(result, dims);
         if(result.length>1&&this.alertDouble===0){
           this.alertDouble=1
-          await this.$alert('检测到多个人脸', '通知', {
-            confirmButtonText: '确定',
-          }).then(()=>{
-            request({
-              url:"exam/invi/updateLeaveTimes",
-              method:"Get",
-              params:{
-                exam_id:this.exam_id,
-                examinee_id:this.examinee_id,
-                present_time:this.presentTime,
-                leaveTimes:this.leaveTimes+1,
-              }
-            }).then()
-            this.alertDouble=0
-          })
+          // await this.$alert('检测到多个人脸', '通知', {
+          //   confirmButtonText: '确定',
+          // }).then(()=>{
+          //   request({
+          //     url:"exam/invi/updateLeaveTimes",
+          //     method:"Get",
+          //     params:{
+          //       exam_id:this.exam_id,
+          //       examinee_id:this.examinee_id,
+          //       present_time:this.presentTime,
+          //       leaveTimes:this.leaveTimes+1,
+          //     }
+          //   }).then()
+          //   this.alertDouble=0
+          // })
         }
         faceapi.draw.drawDetections(this.canvasEl, resizeResults);
       } else {  //没检测到人脸
