@@ -39,7 +39,7 @@
               label="比率">
               <template slot-scope="scope">
                 <div slot="reference" class="name-wrapper">
-                  <span>{{ scope.row.proportion*100+'%'}}</span>
+                  <span>{{ Math.round(scope.row.proportion*10000)/100+'%'}}</span>
                 </div>
               </template>
             </el-table-column>
