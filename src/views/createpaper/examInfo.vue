@@ -215,7 +215,7 @@ export default {
           }
         }]
       },
-      allTime:[],
+      allTime:'',
       form: {
         examId:null,
         examName: '',
@@ -258,9 +258,15 @@ export default {
         deep:true,
         immediate:true,
         handler(){
-          this.form = this.oldForm
-          this.allTime[0] = this.oldForm.startTime
-          this.allTime[1] = this.oldForm.deadline
+          if(this.isEdit === undefined){
+            this.allTime = ''
+          }
+          else if(this.oldForm !== undefined){
+            this.allTime = []
+            this.form = this.oldForm
+            this.allTime[0] = this.oldForm.startTime
+            this.allTime[1] = this.oldForm.deadline
+          }
         }
       }
   },
