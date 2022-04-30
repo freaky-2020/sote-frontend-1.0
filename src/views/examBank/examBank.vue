@@ -378,10 +378,10 @@ JsonExcel{
   }
 
 }
-.pagetitle{
-  color:#00509d;
-  height: 40px;
-  font-size: 20px;
-  border-bottom: 1px solid lightgrey;
-}
+//.pagetitle{
+//  color:#00509d;
+//  height: 40px;
+//  font-size: 20px;
+//  border-bottom: 1px solid lightgrey;
+//}
 </style>

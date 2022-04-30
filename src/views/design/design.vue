@@ -330,16 +330,16 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 topic-form{
   margin-bottom: 10px;
 }
-.pagetitle{
-  color:#00509d;
-  height: 40px;
-  font-size: 20px;
-  border-bottom: 1px solid lightgrey;
-}
+//.pagetitle{
+//  color:#00509d;
+//  height: 40px;
+//  font-size: 20px;
+//  border-bottom: 1px solid lightgrey;
+//}
 
 /* 创建三个不相等的列 */
 * {

@@ -89,7 +89,7 @@ export default {
   methods: {
     fetchExamData() {
       request({
-        url: 'exam/paper/' + this.paperId + '/get',
+        url: 'exam/paper/' + this.paperId + '/' + this.examinee_id + '/get',
         method: 'get'
       }).then(response => {
         console.log(response)
@@ -114,9 +114,9 @@ export default {
     },
     getQuesNos() {
       this.quesNos = this.examData[1].length + this.examData[2].length + this.examData[3].length + this.examData[4].length + this.examData[5].length
-      // for (let i=0;i<this.quesNos; i++){
-      //   this.iscolor.push('grey')
-      // }
+      for (let i=0;i<this.quesNos; i++){
+        this.iscolor.push('grey')
+      }
     },
     progressCount() {
       this.flag3 = true

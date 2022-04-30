@@ -153,7 +153,7 @@ export default {
   props:['isEdit','editOngoingDo'],
   data() {
     let checkInt = (rule, value, callback) => {
-      if ((Number(value))&&(value)%1 === 0) {
+      if ((Number(value))&&(value)%1 === 0&&value<180) {
         callback();
       }else {
         return callback(new Error('请输入整数！'));
@@ -178,7 +178,7 @@ export default {
         // expressage: [{ required: true, message: '请填写', trigger: 'change' }],
 
         allowableTime: [{ validator: checkInt, message: '请填写正整数',trigger: 'blur' }],
-        durationTime: [{ validator: checkInt, message: '请填写正整数',trigger: 'blur' }],
+        durationTime: [{ validator: checkInt, message: '请填写正整数且时长小于3小时',trigger: 'blur' }],
         cuttingTimes: [{ validator: checkInt, message: '请填写正整数',trigger: 'blur' }],
         // examId:[{ validator: checkInt, message: '请填写正整数',trigger: 'blur' }],
         examId: [{ required: true,validator: checkInt, message: '请输入唯一考试id,为正整数', trigger: 'blur' }],
@@ -379,7 +379,7 @@ export default {
 
 <style lang="scss" scoped>
 .h3title{
-  color: #00509d;
+  color: #5069c0;
   //background-color: lightgrey;
   height: 40px;
   border-bottom: 1px solid lightgrey;

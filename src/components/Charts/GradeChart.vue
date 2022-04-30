@@ -23,16 +23,16 @@ name: "GradeChart",
     scoreData:{
       type:Array,
       default:[
-        {getRate: '90%-100%',sCount:1,proportion:8,},
-        {getRate: '80%-90%',sCount:0,proportion:0,},
-        {getRate: '70%-80%',sCount:0,proportion:0,},
-        {getRate: '60%-70%',sCount:5,proportion:10,},
-        {getRate: '50%-60%',sCount:0,proportion:0,},
-        {getRate: '40%-50%',sCount:7,proportion:15,},
-        {getRate: '30%-40%',sCount:0,proportion:0,},
-        {getRate: '20%-30%',sCount:0,proportion:0,},
+        {getRate: '0%-10%',sCount:1,proportion:8,},
         {getRate: '10%-20%',sCount:0,proportion:0,},
-        {getRate: '0%-10%',sCount:0,proportion:0,},
+        {getRate: '20%-30%',sCount:0,proportion:0,},
+        {getRate: '30%-40%',sCount:5,proportion:10,},
+        {getRate: '40%-50%',sCount:0,proportion:0,},
+        {getRate: '50%-60%',sCount:7,proportion:15,},
+        {getRate: '60%-70%',sCount:0,proportion:0,},
+        {getRate: '70%-80%',sCount:0,proportion:0,},
+        {getRate: '80%-90%',sCount:0,proportion:0,},
+        {getRate: '90%-100%',sCount:0,proportion:0,},
       ]
     },
 
@@ -90,7 +90,7 @@ name: "GradeChart",
         xAxis: [
           {
             type: 'category',
-            data: ['90%-100%','80%-90%','70%-80%','60%-70%','50%-60%','40%-50%','30%-40%','20%-30%','10%-20%','0%-10%'],
+            data: ['0%-10%','10%-20%','20%-30%','30%-40%','40%-50%','50%-60%','60%-70%','70%-80%','80%-90%','90%-100%'],
             axisPointer: {
               type: 'shadow'
             }
@@ -111,8 +111,8 @@ name: "GradeChart",
             type: 'value',
             name: '比例',
             min: 0,
-            max: this.maxRate,
-            interval: this.maxRate/5,
+            max: Math.round(this.maxRate*1.2*10)/10,
+            interval: Math.round(this.maxRate/5*10)/10,
             axisLabel: {
               formatter: '{value} %'
             }
@@ -122,6 +122,7 @@ name: "GradeChart",
           {
             name: '人数',
             type: 'bar',
+            center: ['45%','50%'],
             tooltip: {
               valueFormatter: function (value) {
                 return value + ' 个';
