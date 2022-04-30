@@ -68,7 +68,7 @@
         </el-collapse>
         <el-footer height="80px">
           <div style="position:relative;margin:40px;transform: translate(-50%);left: 50%" >
-            <el-button size="medium" type="info" icon="el-icon-view" @click="toPreview">预览试卷</el-button>
+            <el-button size="medium" type="info" icon="el-icon-view" @click="toPreview" plain>预览试卷</el-button>
             <el-button size="medium" type="primary" icon="el-icon-thumb" @click="designDialog =true">提交试卷</el-button>
           </div>
         </el-footer>
