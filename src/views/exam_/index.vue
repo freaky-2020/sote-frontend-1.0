@@ -205,17 +205,17 @@ export default {
       // 监听滚动
       // window.addEventListener("scroll", this.handleScroll);
       // 监听浏览器窗口变化
-      // window.addEventListener("resize", this.pageHidden);
-      // // // // 监听页面可见性
-      // window.addEventListener("visibilitychange", this.pageHidden);
+      window.addEventListener("resize", this.pageHidden);
+      // // // 监听页面可见性
+      window.addEventListener("visibilitychange", this.pageHidden);
     }
 
   },
   destroyed() {
     if(this.$route.query.isView===undefined){
-      // window.removeEventListener("visibilitychange", this.pageHidden);
-      // // window.removeEventListener("scroll", this.handleScroll);
-      // window.removeEventListener("resize", this.pageHidden);
+      window.removeEventListener("visibilitychange", this.pageHidden);
+      // window.removeEventListener("scroll", this.handleScroll);
+      window.removeEventListener("resize", this.pageHidden);
     }
   },
 }
