@@ -48,8 +48,34 @@ name: "GradeChart",
     }
   },
   mounted() {
-    this.getData()
+    // this.getData()
+    console.log(this.scoreData)
+    // this.scoreData.forEach((item)=>{
+    //   if(this.maxNum<item.sCount){
+    //     this.maxNum=item.sCount
+    //   }
+    //   console.log(item.sCount)
+    //   if(this.maxRate<item.proportion*100){
+    //     this.maxRate=item.proportion*100
+    //   }
+    //   this.numData.push(item.sCount)
+    //   this.proportionData.push(item.proportion*100)
+    //   console.log(this.numData)
+    // })
+    let j
+    for(j = 0;j<this.scoreData.length;j++){
+        if(this.maxNum<this.scoreData[j].sCount){
+          this.maxNum=this.scoreData[j].sCount
+        }
+        console.log(this.scoreData[j].sCount)
+        if(this.maxRate<this.scoreData[j].proportion*100){
+          this.maxRate=this.scoreData[j].proportion*100
+        }
+        this.numData.push(this.scoreData[j].sCount)
+        this.proportionData.push(this.scoreData[j].proportion*100)
+    }
     this.initChart()
+
 
   },
   beforeDestroy() {
@@ -61,7 +87,7 @@ name: "GradeChart",
   },
   methods: {
     initChart() {
-
+      console.log(this.numData)
       this.chart = echarts.init(document.getElementById(this.id))
 
       this.chart.setOption({
@@ -157,7 +183,7 @@ name: "GradeChart",
       })
     },
     getData(){
-
+      console.log(this.scoreData)
       this.scoreData.forEach((item)=>{
         if(this.maxNum<item.sCount){
           this.maxNum=item.sCount
