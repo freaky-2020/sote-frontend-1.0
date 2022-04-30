@@ -1,61 +1,68 @@
 <template>
 <div class="background-container">
   <div>
-    <h3 class="pagetitle">考生成绩</h3>
-    <el-card class="box-card" style="display: inline-block;height: 400px;width: 25%">
-      <div slot="header" class="clearfix">
-        <span>分数分段表</span>
-      </div>
-      <div style="margin-top: -5px">
-        <el-table
-          size="mini"
-          :data="scoreData"
-          style="width: 100%"
-          border
-          :cell-style="{padding:'2px'}"
-          fit
-          highlight-current-row>
-          <el-table-column
-            label="得分率"
-            width="100">
-            <template slot-scope="scope">
-              <span>{{ scope.row.getRate}}</span>
-            </template>
-          </el-table-column>
-          <el-table-column
-            label="人数"
-            width="70">
-            <template slot-scope="scope">
-              <span>{{ scope.row.sCount }}</span>
-            </template>
-          </el-table-column>
-          <el-table-column
-            label="比率">
-            <template slot-scope="scope">
-              <div slot="reference" class="name-wrapper">
-                <span>{{ scope.row.proportion*100+'%'}}</span>
-              </div>
-            </template>
-          </el-table-column>
-        </el-table>
-      </div>
-    </el-card>
-    <el-card class="box-card" style="display: inline-block;height: 400px;width: 30%">
-      <div slot="header" class="clearfix">
-        <span>分数分段饼图</span>
-      </div>
-      <div  class="chart-div">
-        <donut-chart :data="chartData" style="width: 250px;height: 300px;margin-left: 40px"></donut-chart>
-      </div>
-    </el-card>
-    <el-card class="box-card" style="display: inline-block;height: 400px;width: 45%">
-      <div slot="header" class="clearfix">
-        <span>分数分段折线图</span>
-      </div>
-      <div  class="chart-div">
-        <grade-chart :scoreData="scoreData"></grade-chart>
-      </div>
-    </el-card>
+    <h3 class="pagetitle">
+      <el-tabs v-model="activity" type="card">
+        <el-tab-pane label="成绩分析" name="score"></el-tab-pane>
+        <el-tab-pane label="试卷分析" name="exam"></el-tab-pane>
+      </el-tabs>
+    </h3>
+    <div v-if="activity === 'score'">
+      <el-card class="box-card" style="display: inline-block;height: 400px;width: 25%">
+        <div slot="header" class="clearfix">
+          <span>分数分段表</span>
+        </div>
+        <div style="margin-top: -5px">
+          <el-table
+            size="mini"
+            :data="scoreData"
+            style="width: 100%"
+            border
+            :cell-style="{padding:'2px'}"
+            fit
+            highlight-current-row>
+            <el-table-column
+              label="得分率"
+              width="100">
+              <template slot-scope="scope">
+                <span>{{ scope.row.getRate}}</span>
+              </template>
+            </el-table-column>
+            <el-table-column
+              label="人数"
+              width="70">
+              <template slot-scope="scope">
+                <span>{{ scope.row.sCount }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column
+              label="比率">
+              <template slot-scope="scope">
+                <div slot="reference" class="name-wrapper">
+                  <span>{{ Math.round(scope.row.proportion*10000)/100+'%'}}</span>
+                </div>
+              </template>
+            </el-table-column>
+          </el-table>
+        </div>
+      </el-card>
+      <el-card class="box-card" style="display: inline-block;height: 400px;width: 30%">
+        <div slot="header" class="clearfix">
+          <span>分数分段饼图</span>
+        </div>
+        <div  class="chart-div">
+          <donut-chart :data="chartData" style="width: 250px;height: 300px;margin-left: 40px"></donut-chart>
+        </div>
+      </el-card>
+      <el-card class="box-card" style="display: inline-block;height: 400px;width: 45%">
+        <div slot="header" class="clearfix">
+          <span>分数分段折线图</span>
+        </div>
+        <div  class="chart-div">
+          <grade-chart :scoreData="scoreData"></grade-chart>
+        </div>
+      </el-card>
+    </div>
     <div style="text-align: center">
       <el-card class="box-card" style="display: inline-block;height: 120px;width: 15%">
         <div slot="header" class="clearfix">
@@ -119,6 +126,130 @@
         {{scoreList.diff}}
       </el-card>
     </div>
+    <div v-if="activity === 'exam'">
+      <el-table
+        :data="examQuesData.slice((newPage-1)*newLimit, newPage*newLimit)"
+        style="width: 100%"
+        border
+        size="medium"
+        fit
+        :cell-style="{'text-align':'center'}"
+        :header-cell-style="{'text-align':'center'}"
+        :default-sort = "{prop: 'rank'}"
+        highlight-current-row>
+        <el-table-column
+          label="题号"
+          prop="rank"
+          width="80">
+          <template slot-scope="scope">
+            <span style="margin-left: 10px">{{ scope.row.quesNo }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column
+          label="试题内容"
+          align="center"
+          width="250">
+          <template slot-scope="scope">
+            <div slot="reference" class="name-wrapper">
+              <span>{{getLittleStem(scope.row.stem)}}</span>
+            </div>
+          </template>
+        </el-table-column>
+        <el-table-column
+          label="试题类型"
+          width="100">
+          <template slot-scope="scope">
+            <div slot="reference" class="name-wrapper">
+              <el-tag size="medium">{{ mapType[scope.row.typeId] }}</el-tag>
+            </div>
+          </template>
+        </el-table-column>
+        <el-table-column
+          label="答案"
+          :formatter="getAnswer"
+          width="90">
+        </el-table-column>
+        <el-table-column
+          :label=" '选项占比分析'"
+          align="center">
+          <el-table-column
+            :label=" '选项A'"
+            width="100">
+            <template slot-scope="scope">
+              <span v-if="scope.row.typeId ===1 || scope.row.typeId ===2">{{ Math.round(scope.row.arate*10000)/100 +'%' }}</span>
+              <span v-else>-</span>
+            </template>
+          </el-table-column>
+          <el-table-column
+            prop="score"
+            :label=" '选项B'"
+            width="100">
+            <template slot-scope="scope">
+              <span v-if="scope.row.typeId ===1 || scope.row.typeId ===2">{{ Math.round(scope.row.brate*10000)/100 +'%'}}</span>
+              <span v-else>-</span>
+            </template>
+          </el-table-column>
+          <el-table-column
+            :label=" '选项C'"
+            width="100">
+            <template slot-scope="scope">
+              <span v-if="scope.row.typeId ===1 || scope.row.typeId ===2">{{ Math.round(scope.row.crate*10000)/100 +'%'}}</span>
+              <span v-else>-</span>
+            </template>
+          </el-table-column>
+          <el-table-column
+            :label=" '选项D'"
+            width="100">
+            <template slot-scope="scope">
+              <span v-if="scope.row.typeId ===1 || scope.row.typeId ===2">{{ Math.round(scope.row.drate*10000)/100 +'%'}}</span>
+              <span v-else>-</span>
+            </template>
+          </el-table-column>
+        </el-table-column>
+        <el-table-column
+          label="难度"
+          width="100">
+          <template slot-scope="scope">
+            <div slot="reference" class="name-wrapper">
+              <span>{{ mapLevel[scope.row.difficultyId] }}</span>
+            </div>
+          </template>
+        </el-table-column>
+        <el-table-column
+          label="均分/总分"
+          width="100">
+          <template slot-scope="scope">
+            <div slot="reference" class="name-wrapper">
+              <span>{{ scope.row.average }}/{{ scope.row.totalScore }}</span>
+            </div>
+          </template>
+        </el-table-column>
+        <el-table-column
+          sortable
+          prop="getRate"
+          label="得分率">
+          <template slot-scope="scope">
+            <div slot="reference" class="name-wrapper">
+              <span>{{ Math.round(scope.row.getRate*10000)/100 +'%' }}</span>
+            </div>
+          </template>
+        </el-table-column>
+      </el-table>
+      <div style="margin-top:20px;float: right;">
+        <el-pagination
+          background
+          @size-change="newHandleSizeChange"
+          @current-change="newHandleCurrentChange"
+          :current-page="newPage"
+          :page-sizes="[2, 5, 10, 100]"
+          :page-size="newLimit"
+          layout="total, sizes, prev, pager, next, jumper"
+          :total="newTotal">
+        </el-pagination>
+      </div>
+    </div>
+
+    <h3 class="pagetitle">考生成绩</h3>
     <div>
       <div>
         <div style="margin: 15px 0">
@@ -285,7 +416,22 @@ export default {
   components:{pie,DonutChart,GradeChart},
   data(){
     return{
-      page:1,
+      activity:'score',
+      examQuesData:[
+        {
+          quesNo:0,
+        stem:'',
+        answer:'',
+        arate:0,
+        brate:0,
+        crate:0,
+        drate:0,
+        getRate: 0,
+        average: 0,
+        totalScore: 0,
+        difficultyId:0,
+        },
+      ],
       scoreData:[
         {getRate: '90%-100%',sCount:0,proportion:0,},
         {getRate: '80%-90%',sCount:0,proportion:0,},
@@ -313,8 +459,12 @@ export default {
         diff:0,
       },
       examId: this.$route.query.examId,
+      page:1,
       limit:10,
       total:0,
+      newLimit:10,
+      newTotal:0,
+      newPage:1,
       select: '1',
       input: '',
       tableData:[],
@@ -325,6 +475,26 @@ export default {
         { value:0,name:'60%~69%'},
         { value:0,name:'<60%'},
       ],
+      mapAnswer: {
+        1: 'A',
+        2: 'B',
+        3: 'C',
+        4: 'D',
+        ',':''
+      },
+      mapType:{
+        1: '单选题',
+        2: '多选题',
+        3: '判断题',
+        4: '填空题',
+        5: '综合题'
+      },
+      mapLevel: {
+        1: '简单',
+        2: '适中',
+        3: '困难',
+        4: '压轴'
+      },
     }
   },
   methods: {
@@ -375,6 +545,18 @@ export default {
         console.log(err)
       })
     },
+    fetchExamQuesData(){
+      request({
+        url: '/exam/analysis/paperAnalysis/' + this.$route.query.examId,
+        methods: 'Get',
+      }).then(response => {
+        console.log(response)
+        this.examQuesData = response
+        this.newTotal = response.length
+      }).catch( err =>{
+        console.log(err)
+      })
+    },
     getChartData(){
       let v1=0,v2=0,v3=0,v4=0,v5=0
       for(let i=0;i<this.tableData.length;i++){
@@ -409,6 +591,54 @@ export default {
       console.log(`当前页: ${val}`)
       this.page = val
     },
+    newHandleSizeChange(val) {
+      console.log(`每页 ${val} 条`)
+      this.newLimit = val
+      this.newPage = 1
+    },
+    newHandleCurrentChange(val) {
+      console.log(`当前页: ${val}`)
+      this.newPage = val
+    },
+    getAnswer(row){
+      if(row.typeId===1){
+        return this.mapAnswer[row.answer]
+      }
+      else if(row.typeId===2){
+        let newAnswer = ''
+        for(let i=0;i<row.answer.length;i++){
+          newAnswer=`${newAnswer}${this.mapAnswer[row.answer[i]]}`
+        }
+        return newAnswer
+      }
+      else if(row.typeId === 3){
+        if(row.answer === "1"){
+          return '正确'
+        }
+        else return '错误'
+      }
+      else if(row.typeId === 4){
+        return row.answer
+      }
+      else{
+        row.answer = row.answer.replace(/<(style|script|iframe)[^>]*?>[\s\S]+?<\/\1\s*>/gi,'').replace(/<[^>]+?>/g,'').replace(/\s+/g,' ').replace(/ /g,' ').replace(/>/g,' ');
+        if (row.answer.length > 10) {
+          //最长固定显示4个字符
+          return row.answer.slice(0, 10) + "...";
+        }
+      }
+    },
+    getLittleStem(stem){
+      stem = stem.replace(/<(style|script|iframe)[^>]*?>[\s\S]+?<\/\1\s*>/gi,'').replace(/<[^>]+?>/g,'').replace(/\s+/g,' ').replace(/ /g,' ').replace(/>/g,' ');
+      if(stem === undefined){
+        return ''
+      }
+      else if (stem.length > 30) {
+        //最长固定显示4个字符
+        return stem.slice(0, 30) + "...";
+      }
+      return stem
+    },
   },
   computed: {
     newTableData: {
@@ -432,6 +662,7 @@ export default {
     this.fetchData()
     this.fetchScoreData()
     this.fetchScoreList()
+    this.fetchExamQuesData()
     console.log(this.scoreData)
   },
   beforeUpdate() {
