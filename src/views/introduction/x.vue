@@ -3,8 +3,12 @@
 <div class="navigation navigation_two">
   <div class="container">
     <div class="logo">
-      <a href=""><img class="img-responsive" src="static/picture/logo.png" alt="">
-      </a>
+      <div style="padding:2px 20px">
+        <img width="40"
+             src="../../assets/images/img.png" />
+        <img width="80"
+             src="../../assets/images/sote-o.png"/>
+      </div>
     </div>
     <div id="navigation" class="menu-wrap">
       <ul>
@@ -50,7 +54,7 @@
     </div>
     <!-- End: navigation  -->
     <div class="header_sign">
-      <a href="#" class="more-link"> Sign in</a>
+      <a href="#" class="more-link">登录</a>
     </div>
     <!-- End: Sign in -->
   </div>
@@ -63,99 +67,108 @@
 <!-- Start: Hero Section
 ==================================================-->
 <div class="slider_owl">
+  <el-carousel trigger="click" height="600px">
+    <el-carousel-item>
   <div class="hero-section hero_two">
     <div class="container">
-      <div class="row">
-        <div class="col-md-6 col-sm-12">
+
+      <el-row class="row">
+        <el-col :md="12" :sm="24" class="col-md-6 col-sm-12">
           <div class="hero_text">
-            <h2> Learn Anywhere <br>
+            <h2> e <br>
               Anytime From a <br>
               Device Only</h2>
             <p> Online learning is not the next big thing, <br>
               it is now the greatest thing ever. </p>
-            <a href="#" class="more-link"> Get Started </a>
+            <a href="#" class="more-link"> 开始使用 </a>
           </div>
           <!-- /.hero_text -->
-        </div>
+        </el-col>
         <!-- /.col-md-6 col-sm-12-->
 
-        <div class="col-md-6 col-sm-12">
+        <el-col :md="12" :sm="24" class="col-md-6 col-sm-12">
           <div class="hero_img">
-            <img src="static/picture/coding.png" alt="" class="coding">
+<!--            <img src="static/picture/coding.png" alt="" class="coding">-->
             <div class="hero_img_ani" id="scene">
-              <img src="static/picture/hero-men2.png" alt="" data-depth="0.10" class="layer">
+              <img src="@/assets/picture/hero-image.svg" alt="" data-depth="0.2" class="layer">
             </div>
             <div class="hero_stu">
               <h4> 13k+ Students</h4>
-              <img src="static/picture/hero_students.png" alt="">
+              <img src="@/assets/picture/hero_students.png" alt="">
             </div>
-            <img src="static/picture/pencil.png" alt="" class="pencil">
+            <img src="@/assets/picture/pencil.png" alt="" class="pencil">
             <!-- /.hero_stu-->
           </div>
-        </div>
+        </el-col>
         <!-- /.col-md-6 col-sm-12-->
-      </div>
+      </el-row>
       <!-- /. row -->
     </div>
     <!-- /. container -->
     <div class="hero_ellipse_icon">
-      <img class="ellipse1" src="static/picture/ellipse1.png" alt="">
-      <img class="ellipse2" src="static/picture/ellipse11.png" alt="">
-      <img class="ellipse3" src="static/picture/ellipse3.png" alt="">
-      <img class="ellipse4" src="static/picture/ellipse4.png" alt="">
-      <img class="ellipse7" src="static/picture/ellipse7.png" alt="">
-      <img class="ellipse8" src="static/picture/ellipse10.png" alt="">
-      <img class="ellipse6" src="static/picture/ellipse9.png" alt="">
+      <img class="ellipse1" src="@/assets/picture/ellipse1.png" alt="">
+      <img class="ellipse2" src="@/assets/picture/ellipse11.png" alt="">
+      <img class="ellipse3" src="@/assets/picture/ellipse3.png" alt="">
+      <img class="ellipse4" src="@/assets/picture/ellipse4.png" alt="">
+      <img class="ellipse7" src="@/assets/picture/ellipse7.png" alt="">
+      <img class="ellipse8" src="@/assets/picture/ellipse10.png" alt="">
+      <img class="ellipse6" src="@/assets/picture/ellipse9.png" alt="">
     </div>
     <!-- /.hero_ellipse_icon-->
   </div>
+    </el-carousel-item>
+    <el-carousel-item>
   <div class="hero-section hero_two">
     <div class="container">
-      <div class="row">
-        <div class="col-md-6 col-sm-12">
+      <el-row class="row">
+        <el-col :md="12" :sm="24" class="col-md-6 col-sm-12">
           <div class="hero_text">
             <h2> Learn Anywhere <br>
               Anytime From a <br>
               Device Only</h2>
             <p> Online learning is not the next big thing, <br>
               it is now the greatest thing ever. </p>
-            <a href="#" class="more-link"> Get Started </a>
+            <a href="#" class="more-link"> 开始使用 </a>
           </div>
           <!-- /.hero_text -->
-        </div>
+        </el-col>
         <!-- /.col-md-6 col-sm-12-->
 
-        <div class="col-md-6 col-sm-12">
+        <el-col :md="12" :sm="24" class="col-md-6 col-sm-12">
           <div class="hero_img">
-            <img src="static/picture/coding.png" alt="" class="coding">
+<!--            <img src="static/picture/coding.png" alt="" class="coding">-->
             <div class="hero_img_ani" id="scene4">
-              <img src="static/picture/hero-men3.png" alt="" data-depth="0.10" class="layer">
+              <img src="@/assets/picture/hero-image.svg" alt="" data-depth="0.10" class="layer">
             </div>
             <div class="hero_stu">
               <h4> 13k+ Students</h4>
-              <img src="static/picture/hero_students.png" alt="">
+              <img src="@/assets/picture/hero_students.png" alt="">
             </div>
-            <img src="static/picture/pencil.png" alt="" class="pencil">
+            <img src="@/assets/picture/pencil.png" alt="" class="pencil">
             <!-- /.hero_stu-->
           </div>
-        </div>
+        </el-col>
         <!-- /.col-md-6 col-sm-12-->
-      </div>
+      </el-row>
       <!-- /. row -->
     </div>
     <!-- /. container -->
     <div class="hero_ellipse_icon">
-      <img class="ellipse1" src="static/picture/ellipse1.png" alt="">
-      <img class="ellipse2" src="static/picture/ellipse11.png" alt="">
-      <img class="ellipse3" src="static/picture/ellipse3.png" alt="">
-      <img class="ellipse4" src="static/picture/ellipse4.png" alt="">
-      <img class="ellipse7" src="static/picture/ellipse7.png" alt="">
-      <img class="ellipse8" src="static/picture/ellipse10.png" alt="">
-      <img class="ellipse6" src="static/picture/ellipse9.png" alt="">
+      <img class="ellipse1" src="@/assets/picture/ellipse1.png" alt="">
+      <img class="ellipse2" src="@/assets/picture/ellipse11.png" alt="">
+      <img class="ellipse3" src="@/assets/picture/ellipse3.png" alt="">
+      <img class="ellipse4" src="@/assets/picture/ellipse4.png" alt="">
+      <img class="ellipse7" src="@/assets/picture/ellipse7.png" alt="">
+      <img class="ellipse8" src="@/assets/picture/ellipse10.png" alt="">
+      <img class="ellipse6" src="@/assets/picture/ellipse9.png" alt="">
     </div>
     <!-- /.hero_ellipse_icon-->
   </div>
+    </el-carousel-item>
+  </el-carousel>
+  <el-divider></el-divider>
 </div>
+
 <!-- End: Hero Section
 ==================================================-->
 
@@ -170,8 +183,8 @@
       <h3> Our Work Flow</h3>
     </div>
     <!-- End: Heading -->
-    <div class="row">
-      <div class="col-lg-4 col-md-6 col-sm-12">
+    <el-row class="row" :gutter="20">
+      <el-col :lg="8" :md="12" :sm="24" class="col-lg-4 col-md-6 col-sm-12">
         <!-- category 1 -->
         <div class="workflow_item">
           <i class="pe-7s-search"></i>
@@ -179,9 +192,9 @@
           <p>Lorem ipsum dolor sit amet can be sed diam nonumy eirmod keeps an
             the satriction of whole life that enter.</p>
         </div>
-      </div>
+      </el-col>
       <!--/ col-lg-4 col-md-6 col-sm-12  -->
-      <div class="col-lg-4 col-md-6 col-sm-12">
+      <el-col :lg="8" :md="12" :sm="24" class="col-lg-4 col-md-6 col-sm-12">
         <!-- category 1 -->
         <div class="workflow_item">
           <i class="pe-7s-date"></i>
@@ -189,9 +202,9 @@
           <p>Lorem ipsum dolor sit amet can be sed diam nonumy eirmod keeps an
             the satriction of whole life that enter.</p>
         </div>
-      </div>
+      </el-col>
       <!--/ col-lg-4 col-md-6 col-sm-12  -->
-      <div class="col-lg-4 col-md-6 col-sm-12">
+      <el-col :lg="8" :md="12" :sm="24">
         <!-- category 1 -->
         <div class="workflow_item">
           <i class="pe-7s-medal"></i>
@@ -199,9 +212,9 @@
           <p>Lorem ipsum dolor sit amet can be sed diam nonumy eirmod keeps an
             the satriction of whole life that enter.</p>
         </div>
-      </div>
+      </el-col>
       <!--/ col-lg-4 col-md-6 col-sm-12  -->
-    </div>
+    </el-row>
     <!--/ row - -->
   </div>
   <!--/ Container - -->
@@ -216,8 +229,8 @@
 <section class="about-section">
   <!-- Container -->
   <div class="container">
-    <div class="row">
-      <div class="col-md-6 col-sm-12">
+    <el-row class="row">
+      <el-row :md="12" :sm="24" class="col-md-6 col-sm-12">
         <div class="abt_rating">
           <h4> 4.9+</h4>
           <i class="fa fa-star"></i>
@@ -242,8 +255,8 @@
           <span> Active Courses</span>
         </div>
         <!-- /.abt_course-->
-      </div>
-      <div class="col-md-6 col-sm-12">
+      </el-row>
+      <el-col :md="12" :sm="24" class="col-md-6 col-sm-12">
         <div class="about_text">
           <h3> We Make Your Learning Through Awesome </h3>
           <p> Become the dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
@@ -251,9 +264,9 @@
             et justo duo dolores et ea rebum. Stet.</p>
           <a href="contact.html" class="more-link"> Learn More </a>
         </div>
-      </div>
+      </el-col>
       <!--/ col-md-12  -->
-    </div>
+    </el-row>
     <!--/ row - -->
   </div>
   <!--/ Container - -->
@@ -272,8 +285,8 @@
       <h3> Popular Categories </h3>
     </div>
     <!-- End: Heading -->
-    <div class="row">
-      <div class="col-md-12" id="popula_cat">
+    <el-row class="row">
+      <el-col :md="24" class="col-md-12" id="popula_cat">
         <!-- category 1 -->
         <div class="category-item">
           <img src="static/picture/cat-icon1.png" alt="image">
@@ -299,9 +312,9 @@
           <img src="static/picture/cat-icon2.png" alt="image">
           <h4>Design</h4>
         </div>
-      </div>
+      </el-col>
       <!--/ col-md-12  -->
-    </div>
+    </el-row>
     <!--/ row - -->
   </div>
   <!--/ Container - -->
@@ -320,8 +333,8 @@
       <h3> Our Featured Courses </h3>
     </div>
     <!-- End: Heading -->
-    <div class="row">
-      <div class="col-lg-4 col-md-6 col-sm-12">
+    <el-row class="row">
+      <el-col :lg="8" :md="12" :sm="24" class="col-lg-4 col-md-6 col-sm-12">
         <div class="feat_course_item">
           <img src="static/picture/courses1.jpg" alt="image">
           <div class="feat_cour_price">
@@ -347,7 +360,7 @@
             <a href="single-course.html"> <i class="arrow_right"></i> </a>
           </div>
         </div>
-      </div>
+      </el-col>
       <!-- /. col-lg-4 col-md-6 col-sm-12-->
 
       <div class="col-lg-4 col-md-6 col-sm-12">
@@ -495,7 +508,7 @@
         </div>
       </div>
       <!-- /. col-lg-4 col-md-6 col-sm-12-->
-    </div>
+    </el-row>
     <!-- /. row -->
     <div class="text-center">
       <a href="courses.html" class="more-link"> View All </a>
@@ -511,8 +524,8 @@
 <section class="best-book-section">
   <!-- Container -->
   <div class="container">
-    <div class="row">
-      <div class="col-lg-6 col-sm-12">
+    <el-row class="row">
+      <el-col :lg="12" :sm="24" class="col-lg-6 col-sm-12">
         <!-- Start: Heading -->
         <div class="base-header">
           <h3> Some Best Books </h3>
@@ -537,8 +550,8 @@
           <a href="#" class="more-link link-transparent"> Free Preview </a>
           <a href="#" class="more-link"> Download </a>
         </div>
-      </div>
-      <div class="col-lg-6 col-sm-12" id="best_book">
+      </el-col>
+      <el-col :lg="12" :sm="24"  class="col-lg-6 col-sm-12" id="best_book">
         <!-- Best Book Image 1 -->
         <div class="bbook_crs_item">
           <img src="static/picture/best_book.jpg" alt="image">
@@ -555,9 +568,9 @@
         <div class="bbook_crs_item">
           <img src="static/picture/best_book.jpg" alt="image">
         </div>
-      </div>
+      </el-col>
       <!--/ col-md-12  -->
-    </div>
+    </el-row>
     <!--/ row - -->
   </div>
   <!--/ Container - -->
@@ -572,13 +585,13 @@
 <section class="lfeedback-section">
   <!-- Container -->
   <div class="container">
-    <div class="row">
-      <div class="col-md-6 col-sm-12">
+    <el-row class="row">
+      <el-col :md="12" :sm="24" class="col-md-6 col-sm-12">
         <div class="lfeedback_img" id="scene3">
           <img src="static/picture/feedback.png" alt="image" class="layer" data-depth="0.28">
         </div>
-      </div>
-      <div class="col-md-6 col-sm-12" id="lfeedback_cur">
+      </el-col>
+      <el-col :md="12" :sm="24" class="col-md-6 col-sm-12" id="lfeedback_cur">
         <div class="lfeedback_item">
           <!-- Start: Heading -->
           <div class="base-header">
@@ -611,9 +624,9 @@
             <h5>Washington, United States</h5>
           </div>
         </div>
-      </div>
+      </el-col>
       <!--/ col-md-12  -->
-    </div>
+    </el-row>
     <!--/ row - -->
   </div>
   <!--/ Container - -->
@@ -627,8 +640,8 @@
 ==================================================-->
 <section class="newsletter-section pb-130">
   <div class="container">
-    <div class="row">
-      <div class="col-md-12 col-sm-12">
+    <el-row class="row">
+      <el-col :md="24" :sm="24" class="col-md-12 col-sm-12">
         <div class="newsletter_wrap">
           <!-- Start: Heading -->
           <div class="base-header">
@@ -644,8 +657,8 @@
           </div>
           <!-- Best Book Image 1 -->
         </div>
-      </div>
-    </div>
+      </el-col>
+    </el-row>
     <!-- /. row -->
   </div>
   <!-- /. container -->
@@ -659,10 +672,10 @@
 ==================================================-->
 <footer class="footertwo-section">
   <div class="container">
-    <div class="row">
+    <el-row class="row">
 
       <!-- Start: logo -->
-      <div class="col-lg-3 col-md-6 col-sm-12">
+      <el-col :lg="6" :md="12" :sm="24" class="col-lg-3 col-md-6 col-sm-12">
         <div class="footer_logo">
           <img src="static/picture/logo.png" alt="">
           <ul>
@@ -693,11 +706,11 @@
             </ul>
           </div>
         </div>
-      </div>
+      </el-col>
       <!-- End: logo -->
 
       <!-- Start: Quick Link -->
-      <div class="col-lg-3 col-md-6 col-sm-12">
+      <el-col :lg="6" :md="12" :sm="24" class="col-lg-3 col-md-6 col-sm-12">
         <div class="foo_widgetquick_lnk">
           <h5>Category</h5>
           <ul>
@@ -718,11 +731,11 @@
             </li>
           </ul>
         </div>
-      </div>
+      </el-col>
       <!-- End: Quick Link -->
 
       <!-- Start: Useful Link -->
-      <div class="col-lg-3 col-md-6 col-sm-12">
+      <el-col :lg="6" :md="12" :sm="24" class="col-lg-3 col-md-6 col-sm-12">
         <div class="foo_widgetuseful_lnk">
           <h5>Useful Links</h5>
           <ul>
@@ -743,11 +756,11 @@
             </li>
           </ul>
         </div>
-      </div>
+      </el-col>
       <!-- End: Social Link-->
 
       <!-- Start: Contact Form -->
-      <div class="col-lg-3 col-md-6 col-sm-12">
+      <el-col :lg="6" :md="12" :sm="24" class="col-lg-3 col-md-6 col-sm-12">
         <div class="foo_widget footer_contact_form">
           <h5>Send Message</h5>
           <form method="post" action="mailer.php">
@@ -756,9 +769,9 @@
             <input type="submit" id="submit-contact" class="btn-alt" value="Submit">
           </form>
         </div>
-      </div>
+      </el-col>
       <!-- End: Contact Form-->
-    </div>
+    </el-row>
   </div>
   <!-- Start:Subfooter -->
   <div class="subfooter">
@@ -768,3 +781,15 @@
 </footer>
 </div>
 </template>
+<script>
+
+</script>
+<style lang="scss" scoped>
+@import "../../styles/css/animate.css";
+@import "../../styles/css/hover.css";
+@import "../../styles/css/magnific-popup.css";
+//@import "../../styles/css/owl.carousel.css";
+@import "../../styles/css/responsive.css";
+@import "../../styles/css/slick.css";
+@import "../../styles/css/style.css";
+</style>

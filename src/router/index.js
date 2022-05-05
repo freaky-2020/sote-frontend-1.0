@@ -85,18 +85,18 @@ export const constantRoutes = [
   //
   //   ]
   // },
-  // {
-  //   path: '/introduction',
-  //   component: Layout,
-  //   hidden: false,
-  //   children: [
-  //     {
-  //       path: '',
-  //       component: () => import('@/views/introduction/index'),
-  //       meta: { title: '欢迎页', icon: 'user', noCache: true }
-  //     }
-  //   ]
-  // },
+  {
+    path: '/introduction',
+    component: Layout,
+    hidden: false,
+    children: [
+      {
+        path: '',
+        component: () => import('@/views/introduction/x'),
+        meta: { title: '欢迎页', icon: 'user', noCache: true }
+      }
+    ]
+  },
 
 
 ]
