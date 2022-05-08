@@ -286,13 +286,13 @@ ul {
 }
 
 section {
-  background: #F8F7F3;
+  background: #f3f3f8;
 }
 
 .base-header {
   padding-bottom: 40px;
   margin: auto;
-  text-align: left;
+  text-align: center;
 }
 
 
@@ -468,7 +468,7 @@ section {
 /*-----Navigationn-----*/
 
 .navigation {
-  background-color: #F8F7F3;
+  background-color: #f3f3f8;
   z-index: 9999;
   position: relative;
   padding: 10px 0px;
@@ -928,7 +928,7 @@ section {
 ------------------------------------------------------*/
 
 .hero-section {
-  background: #F8F7F3;
+  background: #f3f3f8;
   padding-top: 65px;
   padding-bottom: 130px;
   position: relative;
@@ -970,7 +970,7 @@ section {
 .hero_search input {
   color: #A9A9AB;
   font-size: 15px;
-  background: #F9F9F9;
+  /*background: #F9F9F9;*/
   box-shadow: none;
   border: 0px solid #fff;
   height: 54px;
@@ -1265,7 +1265,7 @@ section {
 ------------------------------------------------------*/
 
 .category-section {
-  background: #F8F7F3;
+  background: #f3f3f8;
   padding: 30px 0px 93px;
 }
 
@@ -1700,7 +1700,7 @@ section {
 .newsletter_form input {
   color: #A9A9AB;
   font-size: 15px;
-  background: #F9F9F9;
+  /*background: #F9F9F9;*/
   box-shadow: none;
   border: 0px solid #e6dcdc;
   height: 54px;
@@ -1738,7 +1738,7 @@ section {
 ------------------------------------------------------*/
 
 footer {
-  background: #F8F7F3;
+  background: #f3f3f8;
   padding-top: 96px;
 }
 
@@ -1972,6 +1972,8 @@ footer ul li {
   padding: 45px 40px 29px;
   border-radius: 12px;
   transition: .3s;
+  /*border: #1A5CD7 solid 1px;*/
+  box-shadow:  5px 10px 18px 0px rgba(196, 198, 220, 0.65);
   /*background: #d5dcf6;*/
   /*transition: 80%;*/
 }
@@ -2244,7 +2246,7 @@ footer ul li {
 /* Blog Wrap */
 .blog_container {
   padding: 130px 0px;
-  background: #F8F7F3;
+  background: #f3f3f8;
 }
 
 .blog_wrp {
@@ -2392,7 +2394,7 @@ footer ul li {
   font-weight: 400;
   color: #A9A9AB;
   font-size: 15px;
-  background: #F9F9F9;
+  /*background: #F9F9F9;*/
   box-shadow: none;
   border: 0px solid #e6dcdc;
   height: 54px;
@@ -2621,8 +2623,8 @@ footer ul li {
 .post_author img {
   position: relative;
   z-index: 9;
-  border-left: 15px solid #F8F7F3;
-  border-right: 15px solid #F8F7F3;
+  border-left: 15px solid #f3f3f8;
+  border-right: 15px solid #f3f3f8;
 }
 
 /* Comments */
@@ -2667,7 +2669,7 @@ footer ul li {
   font-weight: 500;
   position: relative;
   z-index: 9;
-  background: #F8F7F3;
+  background: #f3f3f8;
   display: table;
   margin: auto;
   padding: 15px 12px;
@@ -2873,7 +2875,7 @@ footer ul li {
 
 .single_course {
   padding: 130px 0px;
-  background: #F8F7F3;
+  background: #f3f3f8;
 }
 
 .single_course .col-lg-8 {
@@ -3378,7 +3380,7 @@ footer ul li {
 
 .contact-section {
   padding-top: 130px;
-  background: #F8F7F3;
+  background: #f3f3f8;
   padding-bottom: 122px;
 }
 
@@ -3749,7 +3751,7 @@ footer ul li {
     Teacher Page
 ------------------------------------------------------*/
 .teacher-section {
-  background: #F8F7F3;
+  background: #f3f3f8;
   padding-top: 122px;
   padding-bottom: 130px;
 }
@@ -4061,7 +4063,7 @@ footer ul li {
   height: 56px;
   outline: none;
   box-shadow: none;
-  background-color: #F9F9F9;
+  /*background-color: #F9F9F9;*/
   border: 5px solid #fff;
   border-radius: 10px;
   color: #717173;
@@ -4514,4 +4516,49 @@ aside.widget-event-quote {
   font-size: 18px;
   margin-top: 20px;
   margin-bottom: 40px;
+}
+.product-counter-section{
+  padding:100px 0px;
+  /*background: linear-gradient(45deg,#5069ca, #2a51cc);*/
+  background: linear-gradient(45deg, #1030d0, #e3e7f1);
+}
+.product-counter-section.overlay:before{
+  background:#2889e4;
+  opacity:0.9;
+}
+.product-counter-section .counter-title {
+  font-size: 28px;
+  line-height: 24px;
+  color: #fff;
+  margin-bottom: 2px;
+  font-weight: 500;
+}
+.product-counter-section .counter-text {
+  color: #fff;
+  margin:0;
+}
+.product-counter-section .counter-list {
+  font-size: 1.143rem;
+}
+.product-counter-section .counter-list li {
+  text-align: center;
+  margin: 0 32px;
+  display: inline-block;
+}
+.product-counter-section .counter-list .count {
+  font-size: 29px;
+  margin-bottom: 5px;
+  display: block;
+  font-weight: 700;
+  color: #fff;
+}
+.product-counter-section .counter-list li .number{
+  -webkit-transition:all 0.4s ease;
+  -moz-transition:all 0.4s ease;
+  transition:all 0.4s ease;
+}
+.product-counter-section .counter-list .title {
+  display: block;
+  font-size: 16px;
+  color: #fff;
 }

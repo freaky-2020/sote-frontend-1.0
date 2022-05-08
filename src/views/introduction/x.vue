@@ -1,7 +1,7 @@
 <template>
 <div>
 <div class="navigation navigation_two">
-  <div class="container">
+  <div class="container" id="topbar">
     <div class="logo">
       <div style="padding:2px 20px">
         <img width="40"
@@ -12,49 +12,21 @@
     </div>
     <div id="navigation" class="menu-wrap">
       <ul>
-        <li class="active has-sub"><a href="">Home</a>
-          <ul>
-            <li><a href="">Home One</a> </li>
-            <li><a href="index-two.html">Home Two</a> </li>
-          </ul>
+        <li class="active"><a href="#">主页</a>
         </li>
-        <li><a href="about.html">About</a></li>
-        <li class="has-sub"><a href="">Pages</a>
-          <ul>
-            <li><a href="course-category.html">Course Category</a> </li>
-            <li><a href="courses.html">Our Course</a> </li>
-            <li><a href="single-course.html">Course Details</a> </li>
-            <li><a href="login.html">Login Page</a> </li>
-            <li><a href="register.html">Register Page</a> </li>
-            <li><a href="teachers.html">Instructor Page</a> </li>
-            <li><a href="single-teacher.html">Instructor Details</a> </li>
-            <li><a href="events.html">Event Page</a> </li>
-            <li><a href="single-event.html">Event Details</a> </li>
-            <li><a href="gallery.html">Gallery Page</a> </li>
-            <li><a href="404.html">404 Page</a> </li>
-          </ul>
-        </li>
-        <li class="has-sub"><a href="courses.html"> Courses</a>
-          <ul>
-            <li><a href="course-category.html">Course Category</a> </li>
-            <li><a href="courses.html">Our Course</a> </li>
-            <li><a href="single-course.html">Course Details</a> </li>
-          </ul>
-        </li>
-        <li class="has-sub"><a href="blog.html">Blog</a>
-          <ul>
-            <li><a href="blog.html">Blog One</a> </li>
-            <li><a href="single-blog.html">Blog Details</a> </li>
-            <li><a href="events.html">Event Page</a> </li>
-            <li><a href="single-event.html">Event Details</a> </li>
-          </ul>
-        </li>
-        <li><a href="contact.html">Contact</a></li>
+        <li><a href="/register">注册</a></li>
+<!--        <li class="has-sub"><a href="">Pages</a>-->
+<!--          <ul>-->
+<!--            <li><a href="course-category.html">Course Category</a> </li>-->
+<!--            <li><a href="courses.html">Our Course</a> </li>-->
+<!--            <li><a href="single-course.html">Course Details</a> </li>-->
+<!--          </ul>-->
+<!--        </li>-->
       </ul>
     </div>
     <!-- End: navigation  -->
     <div class="header_sign">
-      <a href="#" class="more-link">登录</a>
+      <a href="/login" class="more-link">登录</a>
     </div>
     <!-- End: Sign in -->
   </div>
@@ -67,25 +39,24 @@
 <!-- Start: Hero Section
 ==================================================-->
 <div class="slider_owl">
-  <el-carousel trigger="click" height="600px">
+  <el-carousel trigger="click" height="550px">
     <el-carousel-item>
   <div class="hero-section hero_two">
     <div class="container">
-
       <el-row class="row">
         <el-col :md="12" :sm="24" class="col-md-6 col-sm-12">
           <div class="hero_text">
-            <h2> e <br>
-              Anytime From a <br>
-              Device Only</h2>
-            <p> Online learning is not the next big thing, <br>
-              it is now the greatest thing ever. </p>
+            <h4>完备、高效、安全的考试平台<br><br></h4>
+            <h2>Sote在线考试系统<br>
+            </h2>
+            <p>操作简单 | 安全审批 | 防作弊 | 智能阅卷<br>
+            </p>
+            <br>
             <a href="#" class="more-link"> 开始使用 </a>
           </div>
           <!-- /.hero_text -->
         </el-col>
         <!-- /.col-md-6 col-sm-12-->
-
         <el-col :md="12" :sm="24" class="col-md-6 col-sm-12">
           <div class="hero_img">
 <!--            <img src="static/picture/coding.png" alt="" class="coding">-->
@@ -94,7 +65,7 @@
             </div>
             <div class="hero_stu">
               <h4> 13k+ Students</h4>
-              <img src="@/assets/picture/hero_students.png" alt="">
+              <img src="@/assets/picture/hero_students.png" alt="" width="100%">
             </div>
             <img src="@/assets/picture/pencil.png" alt="" class="pencil">
             <!-- /.hero_stu-->
@@ -123,11 +94,12 @@
       <el-row class="row">
         <el-col :md="12" :sm="24" class="col-md-6 col-sm-12">
           <div class="hero_text">
-            <h2> Learn Anywhere <br>
-              Anytime From a <br>
-              Device Only</h2>
-            <p> Online learning is not the next big thing, <br>
-              it is now the greatest thing ever. </p>
+            <h4>Sote在线考试系统<br><br></h4>
+            <h2>教考分离机制<br>
+              </h2>
+            <p> 专注考试业务 | 将教考分离落于实处<br>
+            </p>
+            <br>
             <a href="#" class="more-link"> 开始使用 </a>
           </div>
           <!-- /.hero_text -->
@@ -138,7 +110,7 @@
           <div class="hero_img">
 <!--            <img src="static/picture/coding.png" alt="" class="coding">-->
             <div class="hero_img_ani" id="scene4">
-              <img src="@/assets/picture/hero-image.svg" alt="" data-depth="0.10" class="layer">
+              <img src="@/assets/picture/app development.svg" alt="" data-depth="0.10" class="layer">
             </div>
             <div class="hero_stu">
               <h4> 13k+ Students</h4>
@@ -166,13 +138,45 @@
   </div>
     </el-carousel-item>
   </el-carousel>
-  <el-divider></el-divider>
+
 </div>
 
 <!-- End: Hero Section
 ==================================================-->
-
-
+  <section class="product-counter-section">
+    <div class="product-counter-wrap">
+  <div class="container">
+    <el-row>
+      <el-col :lg="1" :span="2">
+        <img src="@/assets/picture/process-num-2.png">
+      </el-col>
+      <el-col :lg="11" :span="22" class="col-lg-6 col-12">
+        <div class="counter-content-wrap">
+          <h6 class="counter-title">
+            <strong>完成考试人次 1200+</strong></h6>
+          <p class="counter-text">High performing team worldwide</p>
+        </div>
+      </el-col>
+      <el-col :lg="12" :span="24" class="col-lg-6 col-12">
+        <ul class="counter-list list-inline text-right">
+          <li>
+            <span class="number count">500+</span>
+            <span class="title">使用用户</span>
+          </li>
+          <li>
+            <span class="number count">500+</span>
+            <span class="title">累计发布考试</span>
+          </li>
+          <li>
+            <span class="number count">4500+</span>
+            <span class="title">累计题目数量</span>
+          </li>
+        </ul>
+      </el-col>
+    </el-row>
+  </div>
+    </div>
+  </section>
 <!-- Start: Work Flow Section
 ==================================================-->
 <section class="workflow-section pt-120">
@@ -180,7 +184,7 @@
   <div class="container">
     <!-- Start: Heading -->
     <div class="base-header text-center">
-      <h3> Our Work Flow</h3>
+      <h3> 完备、高效、安全的考试平台 </h3>
     </div>
     <!-- End: Heading -->
     <el-row class="row" :gutter="20">
@@ -188,9 +192,8 @@
         <!-- category 1 -->
         <div class="workflow_item">
           <i class="pe-7s-search"></i>
-          <h4> Find Your Course </h4>
-          <p>Lorem ipsum dolor sit amet can be sed diam nonumy eirmod keeps an
-            the satriction of whole life that enter.</p>
+          <h4>智能高效</h4>
+          <p>提供完整的出题、组卷、发布、考试、批阅、统计、编辑流程，多条件供出题者遴选，手动及智能组卷并行</p>
         </div>
       </el-col>
       <!--/ col-lg-4 col-md-6 col-sm-12  -->
@@ -198,9 +201,8 @@
         <!-- category 1 -->
         <div class="workflow_item">
           <i class="pe-7s-date"></i>
-          <h4>Book Your Seat </h4>
-          <p>Lorem ipsum dolor sit amet can be sed diam nonumy eirmod keeps an
-            the satriction of whole life that enter.</p>
+          <h4>稳定易用</h4>
+          <p>高并发、高可用、考试环境稳定，用户体验良好，支持大量考生同时进行考试<br/></p>
         </div>
       </el-col>
       <!--/ col-lg-4 col-md-6 col-sm-12  -->
@@ -208,9 +210,8 @@
         <!-- category 1 -->
         <div class="workflow_item">
           <i class="pe-7s-medal"></i>
-          <h4> Instant Certified </h4>
-          <p>Lorem ipsum dolor sit amet can be sed diam nonumy eirmod keeps an
-            the satriction of whole life that enter.</p>
+          <h4>多业务场景支持 </h4>
+          <p>满足学生、员工练习及考试、各类资格考试、企事业招聘考试等，进行考生管理和题库建设等多应用场景</p>
         </div>
       </el-col>
       <!--/ col-lg-4 col-md-6 col-sm-12  -->
@@ -229,8 +230,11 @@
 <section class="about-section">
   <!-- Container -->
   <div class="container">
+    <div class="base-header text-center">
+      <h3> 核心功能 </h3>
+    </div>
     <el-row class="row">
-      <el-row :md="12" :sm="24" class="col-md-6 col-sm-12">
+      <el-col :md="12" :sm="24" class="col-md-6 col-sm-12">
         <div class="abt_rating">
           <h4> 4.9+</h4>
           <i class="fa fa-star"></i>
@@ -242,7 +246,7 @@
         </div>
         <!-- /.abt_rating-->
         <div class="about_img" id="scene2">
-          <img src="static/picture/about.png" alt="image" class="layer" data-depth="0.28">
+          <img src="@/assets/picture/pic1-accomplish.svg" alt="image" class="layer" data-depth="0.28">
         </div>
         <!-- /.about_img-->
         <div class="abt_course">
@@ -255,7 +259,7 @@
           <span> Active Courses</span>
         </div>
         <!-- /.abt_course-->
-      </el-row>
+      </el-col>
       <el-col :md="12" :sm="24" class="col-md-6 col-sm-12">
         <div class="about_text">
           <h3> We Make Your Learning Through Awesome </h3>
@@ -775,7 +779,7 @@
   </div>
   <!-- Start:Subfooter -->
   <div class="subfooter">
-    <p>Copyright &copy; 2021.Company name All rights reserved.<a target="_blank" href="https://sc.chinaz.com/moban/">&#x7F51;&#x9875;&#x6A21;&#x677F;</a></p>
+    <p>Copyright &copy; 2022. Examination system based on Separation Of Teaching and Examination on  All rights reserved.</p>
   </div>
   <!-- End:Subfooter -->
 </footer>
@@ -792,4 +796,11 @@
 @import "../../styles/css/responsive.css";
 @import "../../styles/css/slick.css";
 @import "../../styles/css/style.css";
+#topbar{
+ border-bottom: #bbbbbb solid 1px;
+}
+h4
+{
+  color: #5069ca;
+}
 </style>

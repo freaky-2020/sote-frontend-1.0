@@ -40,6 +40,11 @@ export const constantRoutes = [
     hidden: true
   },
   {
+    path: '/introduction',
+    hidden: true,
+    component: () => import('@/views/introduction/x'),
+  },
+  {
     path: '/simulation',
     name: 'Simulation',
     component:()=>import('@/views/login/Simulation'),
@@ -85,18 +90,7 @@ export const constantRoutes = [
   //
   //   ]
   // },
-  {
-    path: '/introduction',
-    component: Layout,
-    hidden: false,
-    children: [
-      {
-        path: '',
-        component: () => import('@/views/introduction/x'),
-        meta: { title: '欢迎页', icon: 'user', noCache: true }
-      }
-    ]
-  },
+
 
 
 ]

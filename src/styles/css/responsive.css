@@ -888,11 +888,11 @@
 
 @media (min-width:1200px) {
   .container {
-    max-width: 98%;
-    margin-right: 150px;
-    margin-left: 150px;
+    /*max-width: 98%;*/
+    margin-right: 10%;
+    margin-left: 10%;
   }
   .hero_text{
-    margin-left: 120px;
+    margin-left: 80px;
   }
 }
