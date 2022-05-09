@@ -182,7 +182,7 @@ export default {
       isEditExam:false,
       judgeDialog:false,
       examineeId:this.$store.getters.name,
-      activeExamsName:'future',
+      activeExamsName:'ongoing',
       wordDialogVisible:false,
       word:null,
       allSubject:null,
