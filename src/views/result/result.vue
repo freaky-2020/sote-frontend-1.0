@@ -4,6 +4,8 @@
       <el-row :gutter="20">
         <el-col :span="8" :xs="24">
           <Card v-if="flag"
+                @backTo="$emit('backTo')"
+                :viewFlag="viewFlag"
                 :exam_date="examDate"
                 :paperData="paperData"
                 :quesNos="quesNos"
@@ -32,15 +34,16 @@ import Display from './components/Display'
 import request from '@/utils/request'
 
 export default {
+  props:['paperId','isView'],
   components: { Card, Display},
   data() {
     return {
       flag: false,
       isTeacher:false,
-      paperId: undefined,
       examId:undefined,
       examDate: undefined,
       paperData:undefined,
+      viewFlag:undefined,
       quesNos: 0,
     }
   },
@@ -50,8 +53,11 @@ export default {
     if(this.$route.query.isView === undefined){
       this.fetchAllQues()
     }
-    if(this.$route.query.isView !== undefined){
+    if(this.$route.query.isView !== undefined || this.isView !== undefined){
       this.fetchPaper()
+    }
+    if(this.isView !== undefined){
+      this.viewFlag = true
     }
   },
   methods: {
@@ -69,8 +75,13 @@ export default {
       })
     },
     fetchPaper(){
+      let newPaperId = this.$route.query.paperId
+      if(this.paperId !==undefined){
+        newPaperId = this.paperId
+        alert(newPaperId)
+      }
       request({
-        url: 'exam/paper/' + this.$route.query.paperId +'/get',
+        url: 'exam/paper/' + newPaperId +'/get',
         method: 'get'
       }).then(response => {
         this.paperData = response

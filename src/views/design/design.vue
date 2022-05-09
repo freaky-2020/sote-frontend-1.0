@@ -145,12 +145,24 @@
     <el-dialog  title="试卷复用" :visible.sync="isCopyPaper" top="5%"  width="95%"
                 style="height: 90%">
       <el-scrollbar style="height: 480px" wrap-style="overflow-x:hidden;">
-        <exam-bank ref="examBank" :isCopy="1" :subjectId="$route.query.subjectId" @copyPaper="copyPaper"></exam-bank>
+        <exam-bank ref="examBank" :isCopy="1" :subjectId="$route.query.subjectId" @copyPaper="copyPaper" @viewDetails="viewDetails"></exam-bank>
       </el-scrollbar>
       <el-footer style="text-align: center;height: 20px" class="dialog-footer">
         <el-button type="primary" size="medium" @click="copy">确定</el-button>
         <el-button type="info" size="medium" @click="isCopyPaper = false ">取消</el-button>
       </el-footer>
+    </el-dialog>
+    <el-dialog   :visible.sync="isResult" top="2%"  width="95%"
+                style="height: 100%">
+      <div slot="title" style="height: 0px" v-if="false">
+      </div>
+      <div slot="header" style="height: 0px" v-if="false">
+      </div>
+      <el-scrollbar style="height: 620px" wrap-style="overflow-x:hidden;">
+        <result style="width: 100%;margin-top: -20px"  :paperId="viewPaperId" :isView="true" @backTo="backTo"></result>
+      </el-scrollbar>
+      <div slot="footer" v-if="false">
+      </div>
     </el-dialog>
   </div>
   </div>
@@ -161,10 +173,11 @@ import topicForm from '@/views/design/component/topicForm'
 import axios from 'axios'
 import request from '@/utils/request'
 import examBank from '@/views/examBank/examBank'
+import Result from '@/views/result/result'
 axios.defaults.baseURL=''
 
 export default {
-  components: {topicForm,examBank},
+  components: { Result, topicForm,examBank},
   data() {
     return {
       aiForm:{
@@ -181,6 +194,9 @@ export default {
         c4:null,
         c5:null,
       },
+      viewPaperId:0,
+      isView:undefined,
+      isResult:false,
       isCopyPaper:false,
       isAiDesign:false,
       activeNames: ['1'],
@@ -256,6 +272,11 @@ export default {
         }
       })
     },
+    viewDetails(val){
+      this.viewPaperId =val
+      this.isCopyPaper = false
+      this.isResult = true
+    },
     editTestSubmit(){
       this.isEditTest = false
     },
@@ -307,6 +328,11 @@ export default {
         });
         this.fetchData()
       })
+    },
+    backTo(){
+      this.isCopyPaper = true
+      this.isResult =false
+      this.isView = undefined
     }
   },
   created() {
