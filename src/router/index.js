@@ -215,13 +215,13 @@ export const asyncRoutes = [
   {
     path: '/design',
     component: Layout,
-    meta: { title: '设计试卷', icon: 'el-icon-edit', roles: ['TEACHER'] },
+    meta: { title: '设计试卷', icon: 'el-icon-edit', keepAlive:true, roles: ['TEACHER'] },
     children: [
       {
         path: 'design',
         name: 'Design',
         component: () => import('@/views/design/design'),
-        meta: { title: '设计试卷', icon: 'el-icon-edit', roles: ['TEACHER'] }
+        meta: { title: '设计试卷', icon: 'el-icon-edit',keepAlive:true, roles: ['TEACHER'] }
       }
     ],
     hidden: true

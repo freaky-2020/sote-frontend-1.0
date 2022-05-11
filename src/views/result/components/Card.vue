@@ -83,7 +83,7 @@
 import request from '@/utils/request'
 export default {
   name: 'Card',
-  props: ['exam_date','quesNos','userName','realName','paperData'],
+  props: ['exam_date','quesNos','userName','realName','paperData','viewFlag'],
   // 父子组件之间数据传递，该数据在子组件中不能随便更改，会报错
   data() {
     return {
@@ -125,7 +125,12 @@ export default {
       this.$store.commit('addSum')
     },
     endView(){
-      this.$router.go(-1)
+      if(this.viewFlag !==undefined){
+        this.$emit('backTo')
+      }
+      else{
+        this.$router.back()
+      }
     }
   },
   mounted() {
