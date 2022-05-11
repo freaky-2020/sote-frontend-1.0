@@ -26,7 +26,7 @@
     </div>
     <!-- End: navigation  -->
     <div class="header_sign">
-      <a href="/login" class="more-link">登录</a>
+      <a href="/#/login" class="more-link">登录</a>
     </div>
     <!-- End: Sign in -->
   </div>
@@ -229,50 +229,102 @@
 ==================================================-->
 <section class="about-section">
   <!-- Container -->
-  <div class="container">
+  <div class="container" @mousemove="parallax">
     <div class="base-header text-center">
       <h3> 核心功能 </h3>
     </div>
     <el-row class="row">
-      <el-col :md="12" :sm="24" class="col-md-6 col-sm-12">
+      <el-col :md="13" :sm="24" class="col-md-6 col-sm-12">
         <div class="abt_rating">
-          <h4> 4.9+</h4>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <span> User Rating</span>
+          <h4 class="redtitle"> 50+</h4>
+          <span>现有课程</span>
         </div>
         <!-- /.abt_rating-->
-        <div class="about_img" id="scene2">
-          <img src="@/assets/picture/pic1-accomplish.svg" alt="image" class="layer" data-depth="0.28">
+        <div >
+          <img  src="@/assets/picture/pic1-accomplish.png" alt="image" class="layer" data-depth="0.28"
+               data-speed="4">
         </div>
         <!-- /.about_img-->
         <div class="abt_course">
-          <h4>47K+</h4>
+          <h4 class="redtitle">4K+</h4>
           <i class="fa fa-heart"></i>
-          <i class="fa fa-heart"></i>
-          <i class="fa fa-heart"></i>
-          <i class="fa fa-heart"></i>
-          <i class="fa fa-heart"></i>
-          <span> Active Courses</span>
+          <span>现有题目</span>
         </div>
         <!-- /.abt_course-->
       </el-col>
-      <el-col :md="12" :sm="24" class="col-md-6 col-sm-12">
+      <el-col :md="11" :sm="24" class="col-md-6 col-sm-12">
         <div class="about_text">
-          <h3> We Make Your Learning Through Awesome </h3>
-          <p> Become the dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
-            invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam
-            et justo duo dolores et ea rebum. Stet.</p>
-          <a href="contact.html" class="more-link"> Learn More </a>
+          <h4 class="redtitle"> 01 </h4>
+          <h2> 题库管理 </h2>
+          <p> <a>支持多样化题型</a> | 包含单选、多选、填空、综合、判断等题型<br/>
+            <a>题库权限治理</a> | 限制题库访问和操作，实现题库安全<br/>
+            <a>题库操作审批制度</a> | 实现审批增加、删除、修改操作<br/>
+            <a>题库导出功能</a> | 一键筛选导出所需题目<br/>
+          </p>
+          <a href="/#/bank/bank" class="more-link"> 前往试用 </a>
         </div>
       </el-col>
       <!--/ col-md-12  -->
     </el-row>
+    <el-row class="row">
+      <el-col :md="13" :sm="24" class="col-md-6 col-sm-12">
+        <div class="about_text">
+          <h4 > 02 </h4>
+          <h2> 考试管理 </h2>
+          <p> <a>自由高效的组卷方式</a> | 包含手动择题组卷和按需智能组卷<br/>
+            <a>便捷的试卷复用功能</a> | 无需再次操作组卷<br/>
+            <a>简洁流畅的考试流程</a> | 实现完整易操作的整个考试流程<br/>
+            <a>智能省心的阅卷模式</a> | 智能选择批阅方式、客观题自动批阅<br/>
+            <a>全方位的成绩统计分析 </a> | 多角度展示学习效果<br/>
+          </p>
+          <a href="/#/bank/bank" class="more-link"> 前往试用 </a>
+        </div>
+      </el-col>
+      <el-col :md="11" :sm="24" class="col-md-6 col-sm-12">
+        <!-- /.abt_rating-->
+        <div >
+          <img  src="@/assets/picture/pic1-flaw.png" alt="image" class="layer" data-depth="0.28"
+                data-speed="4">
+        </div>
+        <!-- /.about_img-->
+      </el-col>
+      <!--/ col-md-12  -->
+    </el-row>
     <!--/ row - -->
+    <el-row class="row">
+      <el-col :md="13" :sm="24" class="col-md-6 col-sm-12">
+        <div class="abt_rating">
+          <h4 class="redtitle"> 50+</h4>
+          <span>现有课程</span>
+        </div>
+        <!-- /.abt_rating-->
+        <div >
+          <img  src="@/assets/picture/pic1-accomplish.png" alt="image" class="layer" data-depth="0.28"
+                data-speed="4">
+        </div>
+        <!-- /.about_img-->
+        <div class="abt_course">
+          <h4 class="redtitle">4K+</h4>
+          <i class="fa fa-heart"></i>
+          <span>现有题目</span>
+        </div>
+        <!-- /.abt_course-->
+      </el-col>
+      <el-col :md="11" :sm="24" class="col-md-6 col-sm-12">
+        <div class="about_text">
+          <h4 class="redtitle"> 03 </h4>
+          <h2> 防作弊机制 </h2>
+          <p> <a>打乱试题顺序</a> | 一场考试中考生的试题不同包含单选<br/>
+            <a>人脸识别</a> | 限制题库访问和操作，实现题库安全<br/>
+            <a>切屏限制</a> | 实现审批增加、删除、修改操作<br/>
+          </p>
+          <a href="/#/bank/bank" class="more-link"> 前往试用 </a>
+        </div>
+      </el-col>
+      <!--/ col-md-12  -->
+    </el-row>
   </div>
+
   <!--/ Container - -->
 </section>
 <!--   End: About US  Section
@@ -786,6 +838,20 @@
 </div>
 </template>
 <script>
+export default {
+  methods: {
+    parallax(e) {
+      document.querySelectorAll(".layer").forEach((layer) => {
+        const speed = layer.getAttribute("data-speed") || 2;
+        const x = (window.innerWidth - e.pageX * speed) / 100;
+        const y = (window.innerHeight - e.pageY * speed) / 100;
+        //设置 X轴和Y轴同时同时移动
+        layer.style.transform = `translateX(${x}px)`+`translateY(${y}px)`;
+
+      });
+    },
+  },
+}
 
 </script>
 <style lang="scss" scoped>
@@ -802,5 +868,8 @@
 h4
 {
   color: #5069ca;
+}
+.redtitle {
+  color:#FD661F;
 }
 </style>
