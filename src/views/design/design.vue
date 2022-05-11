@@ -18,7 +18,9 @@
   <!--      <el-button @click="topicNum++" icon="el-icon-circle-plus-outline" type="success">添加大题</el-button>-->
   <!--    </div>-->
       <h3 class="pagetitle" style="display: inline-block">设计试卷试题</h3>
-      <el-button style="float: right;margin-top: 15px;display: inline-block;"
+      <el-button style="float: right;margin-top: 15px;display: inline-block;margin-right: 10px"
+                 type="info" icon="el-icon-download" @click="exportWord" >试卷导出</el-button>
+      <el-button style="float: right;margin-top: 15px;display: inline-block;margin-right: 10px"
                  type="success" icon="el-icon-receiving" @click="isCopyPaper = true">试卷复用</el-button>
       <el-button style="float: right;margin-top: 15px;display: inline-block;margin-right: 10px"
                  type="danger" icon="el-icon-s-opportunity" @click="aiDesign" >智能组卷</el-button>
@@ -174,6 +176,11 @@ import axios from 'axios'
 import request from '@/utils/request'
 import examBank from '@/views/examBank/examBank'
 import Result from '@/views/result/result'
+import Docxtemplater from 'docxtemplater'
+import PizZip from 'pizzip'
+import JSZipUtils from 'jszip-utils'
+import {saveAs} from 'file-saver'
+import JSZip from 'jszip'
 axios.defaults.baseURL=''
 
 export default {
@@ -205,6 +212,7 @@ export default {
       keys:1,
       paperId:this.$route.query.paperId,
       totalNum:0,
+      examName:'',
       totalScore:0,
       list: {},
       options:[
@@ -254,6 +262,23 @@ export default {
           sums = sums + response[key].length
         })
         this.totalNum = sums
+      })
+    },
+    fetchName(){
+      request({
+        url: '/exam/info/query/',
+        methods: 'Get',
+        params:{
+          examId:this.$route.query.examId
+        }
+      }).then(response => {
+        console.log(response)
+        for(let i=0;i<4;i++){
+          if(response[i].length !== 0){
+            console.log(response[i])
+            this.examName=response[i][0].examName
+          }
+        }
       })
     },
     toPublish(){
@@ -333,11 +358,57 @@ export default {
       this.isCopyPaper = true
       this.isResult =false
       this.isView = undefined
-    }
+    },
+    exportWord: function() {
+      let _this = this;
+      // 读取并获得模板文件的二进制内容
+      JSZipUtils.getBinaryContent("demo.docx", function(error, content) {
+        // input.docx是模板。我们在导出的时候，会根据此模板来导出对应的数据
+        // 抛出异常
+        if (error) {
+          throw error;
+        }
+
+        // 创建一个JSZip实例，内容为模板的内容
+        let zip = new PizZip(content);
+        // 创建并加载docxtemplater实例对象
+        let doc = new Docxtemplater();
+        doc.loadZip(zip);
+        // 设置模板变量的值
+        doc.setData({
+          totalNum: _this.totalNum
+        });
+
+        try {
+          // 用模板变量的值替换所有模板变量
+          doc.render();
+        } catch (error) {
+          // 抛出异常
+          let e = {
+            message: error.message,
+            name: error.name,
+            stack: error.stack,
+            properties: error.properties
+          };
+          console.log(JSON.stringify({ error: e }));
+          throw error;
+        }
+
+        // 生成一个代表docxtemplater对象的zip文件（不是一个真实的文件，而是在内存中的表示）
+        let out = doc.getZip().generate({
+          type: "blob",
+          mimeType:
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+        });
+        // 将目标文件对象保存为目标类型的文件，并命名
+        saveAs(out, _this.examName+".docx");
+      });
+    },
   },
   created() {
     this.aiForm.subjectId = this.$route.query.subjectId
     this.fetchData()
+    this.fetchName()
   },
   watch:{
     scoreItems:{

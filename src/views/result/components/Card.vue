@@ -14,8 +14,10 @@
       <div v-if="exam_date !== undefined">
         <h4>学生姓名：{{realName}}</h4>
         <h4>学号：{{userName}}</h4>
+        <h4 style="display: inline">成绩: </h4>
         <h4 style="color: green;display: inline">{{exam_date.totalScore}}/</h4>
         <h4 style="color: red;display: inline">{{exam_date.maxScore}}</h4>
+        <h4>排名：{{exam_date.rank}}</h4>
         <h3>一、单选题</h3>
         <el-button v-for="(question,index) in exam_date.papers" :key="index" v-if="question.typeId===1"
                    :type="question.answer === exam_date.examDetails[index].answer?'success':'danger'"
