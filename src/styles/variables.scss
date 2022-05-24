@@ -3,23 +3,24 @@ $menuText: #0c0c0c;
 //$menuActiveText:#409EFF;
 $subMenuActiveText:#5e7de2; //https://github.com/ElemeFE/element/issues/12951
 
-$menuBg: #ffffff;
+$menuBg: rgba(255, 255, 255, 0.7);
+//$menuBg: #ffffff;
 $menuHover: #fff5aa;
 
-$subMenuBg: #ffffff;
-$subMenuHover: #e3e3e3;
+$subMenuBg:rgba(255, 255, 255, 0.7);;
+$subMenuHover: rgba(255, 255, 255, 0.7);;
 
 $menuActiveText: #5e7de2;
 
 $sideMenuBg: #eeeeee;
 
-$sideBarWidth: 210px;
+$sideBarWidth: 1000px;
 
 
 
 // 改的的地方start
-$topBarHeight: 56px;
-$contentHeight: calc(100vh - 56px);
+$topBarHeight: 70px;
+$contentHeight: calc(100vh - 70px);
 // 改的的地方end
 
 // the :export directive is the magic sauce for webpack

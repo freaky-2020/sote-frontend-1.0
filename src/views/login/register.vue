@@ -209,7 +209,7 @@ $cursor: #fff;
 .formcard:hover{
   background:rgba(255,255,255,0.95);
 }
-/* reset element-ui css */
+/* reset element-ui intro-css */
 .register-container {
 
   .el-input {

@@ -1,34 +1,36 @@
 <template>
+<!--  <div style="background-color:rgba(255, 255, 255, 0.9);">-->
   <div class="top-nav">
+
     <div class="log" >
       <router-link to="/dashboard" class="router-test"  >
-        <div style="padding:2px 0">
+        <div class="iconpicture" style="padding:8% 0 10% 40px">
           <img width="40"
                src="../../assets/images/img.png" />
           <img width="80"
                src="../../assets/images/sote-o.png"/>
         </div>
-
       </router-link>
 
     </div>
-
-    <el-menu
-      menu-trigger="hover"
-      :background-color="variables.menuBg"
-      :text-color="variables.menuText"
-      :active-text-color="variables.menuActiveText"
-      :default-active="activeMenu"
-      mode="horizontal"
-      @select="handleSelect">
-      <div v-for="item in permission_routes" :key="item.path" class="nav-item">
-        <app-link :to="resolvePath(item)">
-          <el-menu-item v-if="!item.hidden" :index="item.path"
-          >{{ item.meta ? item.meta.title : item.children[0].meta.title }}
-          </el-menu-item>
-        </app-link>
-      </div>
-    </el-menu>
+  <div style="padding:9px 0 0 0 ">
+      <el-menu
+        menu-trigger="hover"
+        :background-color="variables.menuBg"
+        :text-color="variables.menuText"
+        :active-text-color="variables.menuActiveText"
+        :default-active="activeMenu"
+        mode="horizontal"
+        @select="handleSelect">
+        <div v-for="item in permission_routes" :key="item.path" class="nav-item">
+          <app-link :to="resolvePath(item)">
+            <el-menu-item v-if="!item.hidden" :index="item.path"
+            >{{ item.meta ? item.meta.title : item.children[0].meta.title }}
+            </el-menu-item>
+          </app-link>
+        </div>
+      </el-menu>
+  </div>
 
 <!--    头像    -->
 
@@ -54,6 +56,7 @@
       </el-dropdown>
     </div>
   </div>
+
 </template>
 
 <script>

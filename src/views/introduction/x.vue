@@ -299,7 +299,7 @@
         </div>
         <!-- /.abt_rating-->
         <div >
-          <img  src="@/assets/picture/pic1-accomplish.png" alt="image" class="layer" data-depth="0.28"
+          <img  src="@/assets/picture/pic1-login.png" alt="image" class="layer" data-depth="0.28"
                 data-speed="4">
         </div>
         <!-- /.about_img-->
@@ -333,394 +333,108 @@
 
 <!-- Start: Popular Categories Section
 ==================================================-->
-<section class="category-section">
-  <!-- Container -->
-  <div class="container">
-    <!-- Start: Heading -->
-    <div class="base-header">
-      <h3> Popular Categories </h3>
-    </div>
-    <!-- End: Heading -->
-    <el-row class="row">
-      <el-col :md="24" class="col-md-12" id="popula_cat">
-        <!-- category 1 -->
-        <div class="category-item">
-          <img src="static/picture/cat-icon1.png" alt="image">
-          <h4>Design</h4>
-        </div>
-        <!-- category 2 -->
-        <div class="category-item">
-          <img src="static/picture/cat-icon2.png" alt="image">
-          <h4>Education</h4>
-        </div>
-        <!-- category 3 -->
-        <div class="category-item">
-          <img src="static/picture/cat-icon3.png" alt="image">
-          <h4>Craft</h4>
-        </div>
-        <!-- category 4 -->
-        <div class="category-item">
-          <img src="static/picture/cat-icon4.png" alt="image">
-          <h4>Marketing</h4>
-        </div>
-        <!-- category 5 -->
-        <div class="category-item">
-          <img src="static/picture/cat-icon2.png" alt="image">
-          <h4>Design</h4>
-        </div>
-      </el-col>
-      <!--/ col-md-12  -->
-    </el-row>
-    <!--/ row - -->
-  </div>
-  <!--/ Container - -->
-</section>
+<!--<section class="category-section">-->
+<!--  &lt;!&ndash; Container &ndash;&gt;-->
+<!--  <div class="container">-->
+<!--    &lt;!&ndash; Start: Heading &ndash;&gt;-->
+<!--    <div class="base-header">-->
+<!--      <h3> Popular Categories </h3>-->
+<!--    </div>-->
+<!--    &lt;!&ndash; End: Heading &ndash;&gt;-->
+<!--    <el-row class="row">-->
+<!--      <el-col :md="24" class="col-md-12" id="popula_cat">-->
+<!--        &lt;!&ndash; category 1 &ndash;&gt;-->
+<!--        <div class="category-item">-->
+<!--          <img src="static/picture/cat-icon1.png" alt="image">-->
+<!--          <h4>Design</h4>-->
+<!--        </div>-->
+<!--        &lt;!&ndash; category 2 &ndash;&gt;-->
+<!--        <div class="category-item">-->
+<!--          <img src="static/picture/cat-icon2.png" alt="image">-->
+<!--          <h4>Education</h4>-->
+<!--        </div>-->
+<!--        &lt;!&ndash; category 3 &ndash;&gt;-->
+<!--        <div class="category-item">-->
+<!--          <img src="static/picture/cat-icon3.png" alt="image">-->
+<!--          <h4>Craft</h4>-->
+<!--        </div>-->
+<!--        &lt;!&ndash; category 4 &ndash;&gt;-->
+<!--        <div class="category-item">-->
+<!--          <img src="static/picture/cat-icon4.png" alt="image">-->
+<!--          <h4>Marketing</h4>-->
+<!--        </div>-->
+<!--        &lt;!&ndash; category 5 &ndash;&gt;-->
+<!--        <div class="category-item">-->
+<!--          <img src="static/picture/cat-icon2.png" alt="image">-->
+<!--          <h4>Design</h4>-->
+<!--        </div>-->
+<!--      </el-col>-->
+<!--      &lt;!&ndash;/ col-md-12  &ndash;&gt;-->
+<!--    </el-row>-->
+<!--    &lt;!&ndash;/ row - &ndash;&gt;-->
+<!--  </div>-->
+<!--  &lt;!&ndash;/ Container - &ndash;&gt;-->
+<!--</section>-->
 <!--   End: Popular Categories Section
 ==================================================-->
 
 
-
-<!-- Start: Featured Courses Section
-==================================================-->
-<section class="feat-course-section">
-  <div class="container">
-    <!-- Start: Heading -->
-    <div class="base-header">
-      <h3> Our Featured Courses </h3>
-    </div>
-    <!-- End: Heading -->
-    <el-row class="row">
-      <el-col :lg="8" :md="12" :sm="24" class="col-lg-4 col-md-6 col-sm-12">
-        <div class="feat_course_item">
-          <img src="static/picture/courses1.jpg" alt="image">
-          <div class="feat_cour_price">
-            <span class="feat_cour_tag"> Development </span>
-            <span class="feat_cour_p"> $170 </span>
-          </div>
-          <h4 class="feat_cour_tit"> Become a professional designer be
-            with passion & dignity </h4>
-          <div class="feat_cour_lesson">
-            <span class="feat_cour_less"> <i class="pe-7s-note2"></i> 20 lessons </span>
-            <span class="feat_cour_stu"> <i class="pe-7s-add-user"></i> 237 Students </span>
-          </div>
-          <div class="feat_cour_rating">
-                            <span class="feat_cour_rat">
-                                4.6
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                (3,539)
-                            </span>
-            <a href="single-course.html"> <i class="arrow_right"></i> </a>
-          </div>
-        </div>
-      </el-col>
-      <!-- /. col-lg-4 col-md-6 col-sm-12-->
-
-      <div class="col-lg-4 col-md-6 col-sm-12">
-        <div class="feat_course_item">
-          <img src="static/picture/courses2.jpg" alt="image">
-          <div class="feat_cour_price">
-            <span class="feat_cour_tag"> UI/UX Design </span>
-            <span class="feat_cour_p"> $180 </span>
-          </div>
-          <h4 class="feat_cour_tit"> Java programming A-Z fully classes
-            with full task </h4>
-          <div class="feat_cour_lesson">
-            <span class="feat_cour_less"> <i class="pe-7s-note2"></i> 24 lessons </span>
-            <span class="feat_cour_stu"> <i class="pe-7s-add-user"></i> 259 Students </span>
-          </div>
-          <div class="feat_cour_rating">
-                            <span class="feat_cour_rat">
-                                4.7
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                (4,5609)
-                            </span>
-            <a href="single-course.html"> <i class="arrow_right"></i> </a>
-          </div>
-        </div>
-      </div>
-      <!-- /. col-lg-4 col-md-6 col-sm-12-->
-
-      <div class="col-lg-4 col-md-6 col-sm-12">
-        <div class="feat_course_item">
-          <img src="static/picture/courses3.jpg" alt="image">
-          <div class="feat_cour_price">
-            <span class="feat_cour_tag"> Art & Craft </span>
-            <span class="feat_cour_p"> $370 </span>
-          </div>
-          <h4 class="feat_cour_tit"> You will fell in love with this mustly
-            if you have desire
-          </h4>
-          <div class="feat_cour_lesson">
-            <span class="feat_cour_less"> <i class="pe-7s-note2"></i> 25 lessons </span>
-            <span class="feat_cour_stu"> <i class="pe-7s-add-user"></i> 537 Students </span>
-          </div>
-          <div class="feat_cour_rating">
-                            <span class="feat_cour_rat">
-                                4.8
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                (2,3399)
-                            </span>
-            <a href="single-course.html"> <i class="arrow_right"></i> </a>
-          </div>
-        </div>
-      </div>
-      <!-- /. col-lg-4 col-md-6 col-sm-12-->
-
-      <div class="col-lg-4 col-md-6 col-sm-12">
-        <div class="feat_course_item">
-          <img src="static/picture/courses4.jpg" alt="image">
-          <div class="feat_cour_price">
-            <span class="feat_cour_tag"> Lifestyle </span>
-            <span class="feat_cour_p"> $370 </span>
-          </div>
-          <h4 class="feat_cour_tit"> Be passionated with your regularly
-            exercise and stay fit </h4>
-          <div class="feat_cour_lesson">
-            <span class="feat_cour_less"> <i class="pe-7s-note2"></i> 30 lessons </span>
-            <span class="feat_cour_stu"> <i class="pe-7s-add-user"></i> 337 Students </span>
-          </div>
-          <div class="feat_cour_rating">
-                            <span class="feat_cour_rat">
-                                4.9
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                (2,539)
-                            </span>
-            <a href="single-course.html"> <i class="arrow_right"></i> </a>
-          </div>
-        </div>
-      </div>
-      <!-- /. col-lg-4 col-md-6 col-sm-12-->
-
-      <div class="col-lg-4 col-md-6 col-sm-12">
-        <div class="feat_course_item">
-          <img src="static/picture/courses5.jpg" alt="image">
-          <div class="feat_cour_price">
-            <span class="feat_cour_tag"> Business </span>
-            <span class="feat_cour_p"> $470 </span>
-          </div>
-          <h4 class="feat_cour_tit"> Grow your business by mastered in
-            some technique</h4>
-          <div class="feat_cour_lesson">
-            <span class="feat_cour_less"> <i class="pe-7s-note2"></i> 40 lessons </span>
-            <span class="feat_cour_stu"> <i class="pe-7s-add-user"></i> 737 Students </span>
-          </div>
-          <div class="feat_cour_rating">
-                            <span class="feat_cour_rat">
-                                4.2
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                (1,5559)
-                            </span>
-            <a href="single-course.html"> <i class="arrow_right"></i> </a>
-          </div>
-        </div>
-      </div>
-      <!-- /. col-lg-4 col-md-6 col-sm-12-->
-
-      <div class="col-lg-4 col-md-6 col-sm-12">
-        <div class="feat_course_item">
-          <img src="static/picture/courses6.jpg" alt="image">
-          <div class="feat_cour_price">
-            <span class="feat_cour_tag"> Marketing </span>
-            <span class="feat_cour_p"> $570 </span>
-          </div>
-          <h4 class="feat_cour_tit"> Top 10 tips to grow up audience to
-            progress business </h4>
-          <div class="feat_cour_lesson">
-            <span class="feat_cour_less"> <i class="pe-7s-note2"></i> 70 lessons </span>
-            <span class="feat_cour_stu"> <i class="pe-7s-add-user"></i> 537 Students </span>
-          </div>
-          <div class="feat_cour_rating">
-                            <span class="feat_cour_rat">
-                                4.9
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                (4,4000)
-                            </span>
-            <a href="single-course.html"> <i class="arrow_right"></i> </a>
-          </div>
-        </div>
-      </div>
-      <!-- /. col-lg-4 col-md-6 col-sm-12-->
-    </el-row>
-    <!-- /. row -->
-    <div class="text-center">
-      <a href="courses.html" class="more-link"> View All </a>
-    </div>
-  </div>
-  <!-- /. container -->
-</section>
-<!-- End: Featured Courses Section
-==================================================-->
-
-<!-- Start:  Best Books Section
-==================================================-->
-<section class="best-book-section">
-  <!-- Container -->
-  <div class="container">
-    <el-row class="row">
-      <el-col :lg="12" :sm="24" class="col-lg-6 col-sm-12">
-        <!-- Start: Heading -->
-        <div class="base-header">
-          <h3> Some Best Books </h3>
-        </div>
-        <!-- End: Heading -->
-        <!-- category 1 -->
-        <div class="bbook_wrap">
-          <div class="bbook_item">
-            <i class="pe-7s-note2"></i>
-            <span> 132+ <br> Total Pages </span>
-          </div>
-          <div class="bbook_item">
-            <i class="pe-7s-download"></i>
-            <span> 237+ <br> Downloads </span>
-          </div>
-          <div class="bbook_item">
-            <i class="pe-7s-cup"></i>
-            <span> 13+ <br> Award Won </span>
-          </div>
-        </div>
-        <div class="bbook_btn">
-          <a href="#" class="more-link link-transparent"> Free Preview </a>
-          <a href="#" class="more-link"> Download </a>
-        </div>
-      </el-col>
-      <el-col :lg="12" :sm="24"  class="col-lg-6 col-sm-12" id="best_book">
-        <!-- Best Book Image 1 -->
-        <div class="bbook_crs_item">
-          <img src="static/picture/best_book.jpg" alt="image">
-        </div>
-        <!-- Best Book Image 2 -->
-        <div class="bbook_crs_item">
-          <img src="static/picture/best_book.jpg" alt="image">
-        </div>
-        <!-- Best Book Image 3 -->
-        <div class="bbook_crs_item">
-          <img src="static/picture/best_book.jpg" alt="image">
-        </div>
-        <!-- Best Book Image 4 -->
-        <div class="bbook_crs_item">
-          <img src="static/picture/best_book.jpg" alt="image">
-        </div>
-      </el-col>
-      <!--/ col-md-12  -->
-    </el-row>
-    <!--/ row - -->
-  </div>
-  <!--/ Container - -->
-</section>
-<!--   End: Best Books Section
-==================================================-->
-
-
-
-<!-- Start:  Learners Feedback Section
-==================================================-->
-<section class="lfeedback-section">
-  <!-- Container -->
-  <div class="container">
-    <el-row class="row">
-      <el-col :md="12" :sm="24" class="col-md-6 col-sm-12">
-        <div class="lfeedback_img" id="scene3">
-          <img src="static/picture/feedback.png" alt="image" class="layer" data-depth="0.28">
-        </div>
-      </el-col>
-      <el-col :md="12" :sm="24" class="col-md-6 col-sm-12" id="lfeedback_cur">
-        <div class="lfeedback_item">
-          <!-- Start: Heading -->
-          <div class="base-header">
-            <h3> Our Learners Feedback </h3>
-          </div>
-          <!-- Best Book Image 1 -->
-          <div class="lfeedback_text">
-            <p> It's Had been a fear most experience me that I feel a great
-              assumption that never thoughts that will happens to But
-              great provocatives things appropities received without
-              realmost qualifier that happen that never thoughts that will happens to a fear most
-              experience. </p>
-            <h4> David Benjamin </h4>
-            <h5>Washington, United States</h5>
-          </div>
-        </div>
-        <div class="lfeedback_item">
-          <!-- Start: Heading -->
-          <div class="base-header">
-            <h3> Our Learners Feedback </h3>
-          </div>
-          <!-- Best Book Image 1 -->
-          <div class="lfeedback_text">
-            <p> It's Had been a fear most experience me that I feel a great
-              assumption that never thoughts that will happens to But
-              great provocatives things appropities received without
-              realmost qualifier that happen that never thoughts that will happens to a fear most
-              experience. </p>
-            <h4> David Benjamin </h4>
-            <h5>Washington, United States</h5>
-          </div>
-        </div>
-      </el-col>
-      <!--/ col-md-12  -->
-    </el-row>
-    <!--/ row - -->
-  </div>
-  <!--/ Container - -->
-</section>
-<!--   End: Learners Feedback Section
-==================================================-->
-
-
-
-<!-- Start: Newsletter Section
-==================================================-->
-<section class="newsletter-section pb-130">
-  <div class="container">
-    <el-row class="row">
-      <el-col :md="24" :sm="24" class="col-md-12 col-sm-12">
-        <div class="newsletter_wrap">
-          <!-- Start: Heading -->
-          <div class="base-header">
-            <h3> Sign Up To Our Newsletter </h3>
-          </div>
-          <span>
-                            Subscribe to our newsletter and get many <br>
-                            interesting things every week
-                        </span>
-          <div class="newsletter_form">
-            <input class="newsletter_field" name="search" id="search_field" type="text" placeholder="Type your email address">
-            <a href="#"> SUBSCRIBE </a>
-          </div>
-          <!-- Best Book Image 1 -->
-        </div>
-      </el-col>
-    </el-row>
-    <!-- /. row -->
-  </div>
-  <!-- /. container -->
-</section>
-<!-- End: Newsletter Section
-==================================================-->
+<!--<section class="best-book-section">-->
+<!--  &lt;!&ndash; Container &ndash;&gt;-->
+<!--  <div class="container">-->
+<!--    <el-row class="row">-->
+<!--      <el-col :lg="12" :sm="24" class="col-lg-6 col-sm-12">-->
+<!--        &lt;!&ndash; Start: Heading &ndash;&gt;-->
+<!--        <div class="base-header">-->
+<!--          <h3> Some Best Books </h3>-->
+<!--        </div>-->
+<!--        &lt;!&ndash; End: Heading &ndash;&gt;-->
+<!--        &lt;!&ndash; category 1 &ndash;&gt;-->
+<!--        <div class="bbook_wrap">-->
+<!--          <div class="bbook_item">-->
+<!--            <i class="pe-7s-note2"></i>-->
+<!--            <span> 132+ <br> Total Pages </span>-->
+<!--          </div>-->
+<!--          <div class="bbook_item">-->
+<!--            <i class="pe-7s-download"></i>-->
+<!--            <span> 237+ <br> Downloads </span>-->
+<!--          </div>-->
+<!--          <div class="bbook_item">-->
+<!--            <i class="pe-7s-cup"></i>-->
+<!--            <span> 13+ <br> Award Won </span>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="bbook_btn">-->
+<!--          <a href="#" class="more-link link-transparent"> Free Preview </a>-->
+<!--          <a href="#" class="more-link"> Download </a>-->
+<!--        </div>-->
+<!--      </el-col>-->
+<!--      <el-col :lg="12" :sm="24"  class="col-lg-6 col-sm-12" id="best_book">-->
+<!--        &lt;!&ndash; Best Book Image 1 &ndash;&gt;-->
+<!--        <div class="bbook_crs_item">-->
+<!--          <img src="static/picture/best_book.jpg" alt="image">-->
+<!--        </div>-->
+<!--        &lt;!&ndash; Best Book Image 2 &ndash;&gt;-->
+<!--        <div class="bbook_crs_item">-->
+<!--          <img src="static/picture/best_book.jpg" alt="image">-->
+<!--        </div>-->
+<!--        &lt;!&ndash; Best Book Image 3 &ndash;&gt;-->
+<!--        <div class="bbook_crs_item">-->
+<!--          <img src="static/picture/best_book.jpg" alt="image">-->
+<!--        </div>-->
+<!--        &lt;!&ndash; Best Book Image 4 &ndash;&gt;-->
+<!--        <div class="bbook_crs_item">-->
+<!--          <img src="static/picture/best_book.jpg" alt="image">-->
+<!--        </div>-->
+<!--      </el-col>-->
+<!--      &lt;!&ndash;/ col-md-12  &ndash;&gt;-->
+<!--    </el-row>-->
+<!--    &lt;!&ndash;/ row - &ndash;&gt;-->
+<!--  </div>-->
+<!--  &lt;!&ndash;/ Container - &ndash;&gt;-->
+<!--</section>-->
+<!--&lt;!&ndash;   End: Best Books Section-->
+<!--==================================================&ndash;&gt;-->
 
 
 
@@ -819,7 +533,7 @@
       <el-col :lg="6" :md="12" :sm="24" class="col-lg-3 col-md-6 col-sm-12">
         <div class="foo_widget footer_contact_form">
           <h5>Send Message</h5>
-          <form method="post" action="mailer.php">
+          <form method="post" action="">
             <input class="con-field" name="email" id="email" type="text" placeholder="Your Email">
             <textarea class="con-field" name="email" id="message" placeholder="Your Message"> </textarea>
             <input type="submit" id="submit-contact" class="btn-alt" value="Submit">
@@ -855,13 +569,13 @@ export default {
 
 </script>
 <style lang="scss" scoped>
-@import "../../styles/css/animate.css";
-@import "../../styles/css/hover.css";
-@import "../../styles/css/magnific-popup.css";
-//@import "../../styles/css/owl.carousel.css";
-@import "../../styles/css/responsive.css";
-@import "../../styles/css/slick.css";
-@import "../../styles/css/style.css";
+@import "../../styles/intro-css/animate.css";
+@import "../../styles/intro-css/hover.css";
+@import "../../styles/intro-css/magnific-popup.css";
+//@import "../../styles/intro-css/owl.carousel.intro-css";
+@import "../../styles/intro-css/responsive.css";
+@import "../../styles/intro-css/slick.css";
+@import "../../styles/intro-css/style.css";
 #topbar{
  border-bottom: #bbbbbb solid 1px;
 }

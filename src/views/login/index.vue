@@ -210,7 +210,7 @@ $bg:#ececec;
 .loginFormcard:hover{
   background:rgba(255,255,255,0.95);
 }
-/* reset element-ui css */
+/* reset element-ui intro-css */
 .login-container {
   //background-image: url("/src/assets/login_images/login_back.jpeg");
 

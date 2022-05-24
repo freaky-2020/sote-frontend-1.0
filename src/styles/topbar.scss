@@ -2,35 +2,49 @@
   // margin-left: $sideBarWidth;
   width: 100%;
   background-color: $menuBg;
+  //opacity: 0.8;
+  //background-color: rgba(255, 255, 255, 0.5);
   position: fixed;
   top: 0;
   left: 0;
   z-index: 1001;
   overflow: hidden;
   //box-shadow: #5a5e66;
-  box-shadow: 0px 3px 3px -3px #bbbbbb;
+  box-shadow: 0px 2px 2px -2px #bbbbbb;
+  height: $topBarHeight;
+  backdrop-filter: blur(6px);
+
 
   .log {
     padding: 0 20px;
-    line-height: 30px;
+    line-height: 70px;
     font-size: 24px;
     font-weight: bold;
     color: $menuText;
     float: left;
     margin-right: 20px;
   }
+  //.iconpicture {
+  //  padding:10% 0 10% 10%;
+  //  *{
+  //    vertical-align:middle
+  //  }
+  //}
 
   .el-menu {
     float: left;
     border: none !important;
-    background-color: $menuBg;
+    background-color: rgba(255, 255, 255, 0.7);
+    //height: 70px;
 
     .nav-item {
       display: inline-block;
 
       .el-menu-item {
+        //height: 70px;
         font-size: 16px !important;
-        color: white;
+        color:  $menuBg;
+
 
         &:hover {
           background-color: $subMenuHover !important;
@@ -47,7 +61,7 @@
   .right-menu {
     float: right;
     height: 100%;
-
+    top: 0;
     &:focus {
       outline: none;
     }
@@ -56,7 +70,7 @@
       display: inline-block;
       padding: 0 8px;
       height: 100%;
-      font-size: 22px;
+      font-size: 23px;
       color: #5a5e66;
       vertical-align: text-bottom;
 
