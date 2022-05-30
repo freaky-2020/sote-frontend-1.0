@@ -240,7 +240,7 @@ export default {
     fetchData() {
       this.listLoading = true
       // console.log("8888")
-      // console.log(this.$route.query.paperId)
+      console.log(this.$route.query.paperId)
       request({
         url: '/exam/paper/'+this.$route.query.paperId+'/get',
         methods: 'Get'

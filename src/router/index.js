@@ -35,6 +35,19 @@ import AppMain from '@/layout/components/AppMain'
 export const constantRoutes = [
 
   {
+    path: '/socket',
+    component: Layout,
+    meta: { title: 'socket', icon: 'el-icon-s-check', roles: ['ADMIN','TEACHER','STUDENTS'] },
+    children: [
+      {
+        path: 'socket',
+        name: 'Socket',
+        component: () => import('@/views/socket/index'),
+        meta: { title: 'socket', icon: 'el-icon-s-check', roles: ['ADMIN','TEACHER','STUDENTS'] }
+      }
+    ]
+  },
+  {
     path: '/login',
     component: () => import('@/views/login/index'),
     hidden: true

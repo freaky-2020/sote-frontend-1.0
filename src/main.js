@@ -8,7 +8,7 @@ import '@/styles/element-variables.scss'
 import locale from 'element-ui/lib/locale/lang/zh-CN' // lang i18n
 
 import '@/styles/index.scss' // global css
-
+import 'jquery'
 import App from './App'
 import store from './store'
 import router from './router'
