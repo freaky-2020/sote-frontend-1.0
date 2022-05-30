@@ -210,7 +210,7 @@ export default {
       designDialog:false,
       isFetched:false,
       keys:1,
-      paperId:this.$route.query.paperId,
+      paperId:0,
       totalNum:0,
       examName:'',
       totalScore:0,
@@ -246,6 +246,7 @@ export default {
 
   methods:{
     fetchData() {
+      alert(1)
       this.listLoading = true
       // console.log("8888")
       // console.log(this.$route.query.paperId)
@@ -283,6 +284,7 @@ export default {
     },
     toPublish(){
       this.designDialog =false
+      alert(1)
       this.$router.push({
         name: 'teacherExam'
       })
@@ -405,8 +407,11 @@ export default {
       });
     },
   },
-  created() {
-    this.aiForm.subjectId = this.$route.query.subjectId
+  beforeMount() {
+    let var2= JSON.parse(this.$route.query.subjectId)
+    this.paperId = JSON.parse(this.$route.query.paperId)
+    this.$route.query.subjectId = var2
+    this.aiForm.subjectId = JSON.parse(this.$route.query.subjectId)
     this.fetchData()
     this.fetchName()
   },
