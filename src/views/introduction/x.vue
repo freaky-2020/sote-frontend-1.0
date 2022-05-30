@@ -1,56 +1,32 @@
 <template>
 <div>
 <div class="navigation navigation_two">
-  <div class="container">
+  <div class="container" id="topbar">
     <div class="logo">
-      <a href=""><img class="img-responsive" src="static/picture/logo.png" alt="">
-      </a>
+      <div style="padding:2px 20px">
+        <img width="40"
+             src="../../assets/images/img.png" />
+        <img width="80"
+             src="../../assets/images/sote-o.png"/>
+      </div>
     </div>
     <div id="navigation" class="menu-wrap">
       <ul>
-        <li class="active has-sub"><a href="">Home</a>
-          <ul>
-            <li><a href="">Home One</a> </li>
-            <li><a href="index-two.html">Home Two</a> </li>
-          </ul>
+        <li class="active"><a href="#">主页</a>
         </li>
-        <li><a href="about.html">About</a></li>
-        <li class="has-sub"><a href="">Pages</a>
-          <ul>
-            <li><a href="course-category.html">Course Category</a> </li>
-            <li><a href="courses.html">Our Course</a> </li>
-            <li><a href="single-course.html">Course Details</a> </li>
-            <li><a href="login.html">Login Page</a> </li>
-            <li><a href="register.html">Register Page</a> </li>
-            <li><a href="teachers.html">Instructor Page</a> </li>
-            <li><a href="single-teacher.html">Instructor Details</a> </li>
-            <li><a href="events.html">Event Page</a> </li>
-            <li><a href="single-event.html">Event Details</a> </li>
-            <li><a href="gallery.html">Gallery Page</a> </li>
-            <li><a href="404.html">404 Page</a> </li>
-          </ul>
-        </li>
-        <li class="has-sub"><a href="courses.html"> Courses</a>
-          <ul>
-            <li><a href="course-category.html">Course Category</a> </li>
-            <li><a href="courses.html">Our Course</a> </li>
-            <li><a href="single-course.html">Course Details</a> </li>
-          </ul>
-        </li>
-        <li class="has-sub"><a href="blog.html">Blog</a>
-          <ul>
-            <li><a href="blog.html">Blog One</a> </li>
-            <li><a href="single-blog.html">Blog Details</a> </li>
-            <li><a href="events.html">Event Page</a> </li>
-            <li><a href="single-event.html">Event Details</a> </li>
-          </ul>
-        </li>
-        <li><a href="contact.html">Contact</a></li>
+        <li><a href="/register">注册</a></li>
+<!--        <li class="has-sub"><a href="">Pages</a>-->
+<!--          <ul>-->
+<!--            <li><a href="course-category.html">Course Category</a> </li>-->
+<!--            <li><a href="courses.html">Our Course</a> </li>-->
+<!--            <li><a href="single-course.html">Course Details</a> </li>-->
+<!--          </ul>-->
+<!--        </li>-->
       </ul>
     </div>
     <!-- End: navigation  -->
     <div class="header_sign">
-      <a href="#" class="more-link"> Sign in</a>
+      <a href="/login" class="more-link">登录</a>
     </div>
     <!-- End: Sign in -->
   </div>
@@ -63,103 +39,144 @@
 <!-- Start: Hero Section
 ==================================================-->
 <div class="slider_owl">
+  <el-carousel trigger="click" height="550px">
+    <el-carousel-item>
   <div class="hero-section hero_two">
     <div class="container">
-      <div class="row">
-        <div class="col-md-6 col-sm-12">
+      <el-row class="row">
+        <el-col :md="12" :sm="24" class="col-md-6 col-sm-12">
           <div class="hero_text">
-            <h2> Learn Anywhere <br>
-              Anytime From a <br>
-              Device Only</h2>
-            <p> Online learning is not the next big thing, <br>
-              it is now the greatest thing ever. </p>
-            <a href="#" class="more-link"> Get Started </a>
+            <h4>完备、高效、安全的考试平台<br><br></h4>
+            <h2>Sote在线考试系统<br>
+            </h2>
+            <p>操作简单 | 安全审批 | 防作弊 | 智能阅卷<br>
+            </p>
+            <br>
+            <a href="#" class="more-link"> 开始使用 </a>
           </div>
           <!-- /.hero_text -->
-        </div>
+        </el-col>
         <!-- /.col-md-6 col-sm-12-->
-
-        <div class="col-md-6 col-sm-12">
+        <el-col :md="12" :sm="24" class="col-md-6 col-sm-12">
           <div class="hero_img">
-            <img src="static/picture/coding.png" alt="" class="coding">
+<!--            <img src="static/picture/coding.png" alt="" class="coding">-->
             <div class="hero_img_ani" id="scene">
-              <img src="static/picture/hero-men2.png" alt="" data-depth="0.10" class="layer">
+              <img src="@/assets/picture/hero-image.svg" alt="" data-depth="0.2" class="layer">
             </div>
             <div class="hero_stu">
               <h4> 13k+ Students</h4>
-              <img src="static/picture/hero_students.png" alt="">
+              <img src="@/assets/picture/hero_students.png" alt="" width="100%">
             </div>
-            <img src="static/picture/pencil.png" alt="" class="pencil">
+            <img src="@/assets/picture/pencil.png" alt="" class="pencil">
             <!-- /.hero_stu-->
           </div>
-        </div>
+        </el-col>
         <!-- /.col-md-6 col-sm-12-->
-      </div>
+      </el-row>
       <!-- /. row -->
     </div>
     <!-- /. container -->
     <div class="hero_ellipse_icon">
-      <img class="ellipse1" src="static/picture/ellipse1.png" alt="">
-      <img class="ellipse2" src="static/picture/ellipse11.png" alt="">
-      <img class="ellipse3" src="static/picture/ellipse3.png" alt="">
-      <img class="ellipse4" src="static/picture/ellipse4.png" alt="">
-      <img class="ellipse7" src="static/picture/ellipse7.png" alt="">
-      <img class="ellipse8" src="static/picture/ellipse10.png" alt="">
-      <img class="ellipse6" src="static/picture/ellipse9.png" alt="">
+      <img class="ellipse1" src="@/assets/picture/ellipse1.png" alt="">
+      <img class="ellipse2" src="@/assets/picture/ellipse11.png" alt="">
+      <img class="ellipse3" src="@/assets/picture/ellipse3.png" alt="">
+      <img class="ellipse4" src="@/assets/picture/ellipse4.png" alt="">
+      <img class="ellipse7" src="@/assets/picture/ellipse7.png" alt="">
+      <img class="ellipse8" src="@/assets/picture/ellipse10.png" alt="">
+      <img class="ellipse6" src="@/assets/picture/ellipse9.png" alt="">
     </div>
     <!-- /.hero_ellipse_icon-->
   </div>
+    </el-carousel-item>
+    <el-carousel-item>
   <div class="hero-section hero_two">
     <div class="container">
-      <div class="row">
-        <div class="col-md-6 col-sm-12">
+      <el-row class="row">
+        <el-col :md="12" :sm="24" class="col-md-6 col-sm-12">
           <div class="hero_text">
-            <h2> Learn Anywhere <br>
-              Anytime From a <br>
-              Device Only</h2>
-            <p> Online learning is not the next big thing, <br>
-              it is now the greatest thing ever. </p>
-            <a href="#" class="more-link"> Get Started </a>
+            <h4>Sote在线考试系统<br><br></h4>
+            <h2>教考分离机制<br>
+              </h2>
+            <p> 专注考试业务 | 将教考分离落于实处<br>
+            </p>
+            <br>
+            <a href="#" class="more-link"> 开始使用 </a>
           </div>
           <!-- /.hero_text -->
-        </div>
+        </el-col>
         <!-- /.col-md-6 col-sm-12-->
 
-        <div class="col-md-6 col-sm-12">
+        <el-col :md="12" :sm="24" class="col-md-6 col-sm-12">
           <div class="hero_img">
-            <img src="static/picture/coding.png" alt="" class="coding">
+<!--            <img src="static/picture/coding.png" alt="" class="coding">-->
             <div class="hero_img_ani" id="scene4">
-              <img src="static/picture/hero-men3.png" alt="" data-depth="0.10" class="layer">
+              <img src="@/assets/picture/app development.svg" alt="" data-depth="0.10" class="layer">
             </div>
             <div class="hero_stu">
               <h4> 13k+ Students</h4>
-              <img src="static/picture/hero_students.png" alt="">
+              <img src="@/assets/picture/hero_students.png" alt="">
             </div>
-            <img src="static/picture/pencil.png" alt="" class="pencil">
+            <img src="@/assets/picture/pencil.png" alt="" class="pencil">
             <!-- /.hero_stu-->
           </div>
-        </div>
+        </el-col>
         <!-- /.col-md-6 col-sm-12-->
-      </div>
+      </el-row>
       <!-- /. row -->
     </div>
     <!-- /. container -->
     <div class="hero_ellipse_icon">
-      <img class="ellipse1" src="static/picture/ellipse1.png" alt="">
-      <img class="ellipse2" src="static/picture/ellipse11.png" alt="">
-      <img class="ellipse3" src="static/picture/ellipse3.png" alt="">
-      <img class="ellipse4" src="static/picture/ellipse4.png" alt="">
-      <img class="ellipse7" src="static/picture/ellipse7.png" alt="">
-      <img class="ellipse8" src="static/picture/ellipse10.png" alt="">
-      <img class="ellipse6" src="static/picture/ellipse9.png" alt="">
+      <img class="ellipse1" src="@/assets/picture/ellipse1.png" alt="">
+      <img class="ellipse2" src="@/assets/picture/ellipse11.png" alt="">
+      <img class="ellipse3" src="@/assets/picture/ellipse3.png" alt="">
+      <img class="ellipse4" src="@/assets/picture/ellipse4.png" alt="">
+      <img class="ellipse7" src="@/assets/picture/ellipse7.png" alt="">
+      <img class="ellipse8" src="@/assets/picture/ellipse10.png" alt="">
+      <img class="ellipse6" src="@/assets/picture/ellipse9.png" alt="">
     </div>
     <!-- /.hero_ellipse_icon-->
   </div>
+    </el-carousel-item>
+  </el-carousel>
+
 </div>
+
 <!-- End: Hero Section
 ==================================================-->
-
-
+  <section class="product-counter-section">
+    <div class="product-counter-wrap">
+  <div class="container">
+    <el-row>
+      <el-col :lg="1" :span="2">
+        <img src="@/assets/picture/process-num-2.png">
+      </el-col>
+      <el-col :lg="11" :span="22" class="col-lg-6 col-12">
+        <div class="counter-content-wrap">
+          <h6 class="counter-title">
+            <strong>完成考试人次 1200+</strong></h6>
+          <p class="counter-text">High performing team worldwide</p>
+        </div>
+      </el-col>
+      <el-col :lg="12" :span="24" class="col-lg-6 col-12">
+        <ul class="counter-list list-inline text-right">
+          <li>
+            <span class="number count">500+</span>
+            <span class="title">使用用户</span>
+          </li>
+          <li>
+            <span class="number count">500+</span>
+            <span class="title">累计发布考试</span>
+          </li>
+          <li>
+            <span class="number count">4500+</span>
+            <span class="title">累计题目数量</span>
+          </li>
+        </ul>
+      </el-col>
+    </el-row>
+  </div>
+    </div>
+  </section>
 <!-- Start: Work Flow Section
 ==================================================-->
 <section class="workflow-section pt-120">
@@ -167,41 +184,38 @@
   <div class="container">
     <!-- Start: Heading -->
     <div class="base-header text-center">
-      <h3> Our Work Flow</h3>
+      <h3> 完备、高效、安全的考试平台 </h3>
     </div>
     <!-- End: Heading -->
-    <div class="row">
-      <div class="col-lg-4 col-md-6 col-sm-12">
+    <el-row class="row" :gutter="20">
+      <el-col :lg="8" :md="12" :sm="24" class="col-lg-4 col-md-6 col-sm-12">
         <!-- category 1 -->
         <div class="workflow_item">
           <i class="pe-7s-search"></i>
-          <h4> Find Your Course </h4>
-          <p>Lorem ipsum dolor sit amet can be sed diam nonumy eirmod keeps an
-            the satriction of whole life that enter.</p>
+          <h4>智能高效</h4>
+          <p>提供完整的出题、组卷、发布、考试、批阅、统计、编辑流程，多条件供出题者遴选，手动及智能组卷并行</p>
         </div>
-      </div>
+      </el-col>
       <!--/ col-lg-4 col-md-6 col-sm-12  -->
-      <div class="col-lg-4 col-md-6 col-sm-12">
+      <el-col :lg="8" :md="12" :sm="24" class="col-lg-4 col-md-6 col-sm-12">
         <!-- category 1 -->
         <div class="workflow_item">
           <i class="pe-7s-date"></i>
-          <h4>Book Your Seat </h4>
-          <p>Lorem ipsum dolor sit amet can be sed diam nonumy eirmod keeps an
-            the satriction of whole life that enter.</p>
+          <h4>稳定易用</h4>
+          <p>高并发、高可用、考试环境稳定，用户体验良好，支持大量考生同时进行考试<br/></p>
         </div>
-      </div>
+      </el-col>
       <!--/ col-lg-4 col-md-6 col-sm-12  -->
-      <div class="col-lg-4 col-md-6 col-sm-12">
+      <el-col :lg="8" :md="12" :sm="24">
         <!-- category 1 -->
         <div class="workflow_item">
           <i class="pe-7s-medal"></i>
-          <h4> Instant Certified </h4>
-          <p>Lorem ipsum dolor sit amet can be sed diam nonumy eirmod keeps an
-            the satriction of whole life that enter.</p>
+          <h4>多业务场景支持 </h4>
+          <p>满足学生、员工练习及考试、各类资格考试、企事业招聘考试等，进行考生管理和题库建设等多应用场景</p>
         </div>
-      </div>
+      </el-col>
       <!--/ col-lg-4 col-md-6 col-sm-12  -->
-    </div>
+    </el-row>
     <!--/ row - -->
   </div>
   <!--/ Container - -->
@@ -216,8 +230,11 @@
 <section class="about-section">
   <!-- Container -->
   <div class="container">
-    <div class="row">
-      <div class="col-md-6 col-sm-12">
+    <div class="base-header text-center">
+      <h3> 核心功能 </h3>
+    </div>
+    <el-row class="row">
+      <el-col :md="12" :sm="24" class="col-md-6 col-sm-12">
         <div class="abt_rating">
           <h4> 4.9+</h4>
           <i class="fa fa-star"></i>
@@ -229,7 +246,7 @@
         </div>
         <!-- /.abt_rating-->
         <div class="about_img" id="scene2">
-          <img src="static/picture/about.png" alt="image" class="layer" data-depth="0.28">
+          <img src="@/assets/picture/pic1-accomplish.svg" alt="image" class="layer" data-depth="0.28">
         </div>
         <!-- /.about_img-->
         <div class="abt_course">
@@ -242,8 +259,8 @@
           <span> Active Courses</span>
         </div>
         <!-- /.abt_course-->
-      </div>
-      <div class="col-md-6 col-sm-12">
+      </el-col>
+      <el-col :md="12" :sm="24" class="col-md-6 col-sm-12">
         <div class="about_text">
           <h3> We Make Your Learning Through Awesome </h3>
           <p> Become the dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
@@ -251,9 +268,9 @@
             et justo duo dolores et ea rebum. Stet.</p>
           <a href="contact.html" class="more-link"> Learn More </a>
         </div>
-      </div>
+      </el-col>
       <!--/ col-md-12  -->
-    </div>
+    </el-row>
     <!--/ row - -->
   </div>
   <!--/ Container - -->
@@ -272,8 +289,8 @@
       <h3> Popular Categories </h3>
     </div>
     <!-- End: Heading -->
-    <div class="row">
-      <div class="col-md-12" id="popula_cat">
+    <el-row class="row">
+      <el-col :md="24" class="col-md-12" id="popula_cat">
         <!-- category 1 -->
         <div class="category-item">
           <img src="static/picture/cat-icon1.png" alt="image">
@@ -299,9 +316,9 @@
           <img src="static/picture/cat-icon2.png" alt="image">
           <h4>Design</h4>
         </div>
-      </div>
+      </el-col>
       <!--/ col-md-12  -->
-    </div>
+    </el-row>
     <!--/ row - -->
   </div>
   <!--/ Container - -->
@@ -320,8 +337,8 @@
       <h3> Our Featured Courses </h3>
     </div>
     <!-- End: Heading -->
-    <div class="row">
-      <div class="col-lg-4 col-md-6 col-sm-12">
+    <el-row class="row">
+      <el-col :lg="8" :md="12" :sm="24" class="col-lg-4 col-md-6 col-sm-12">
         <div class="feat_course_item">
           <img src="static/picture/courses1.jpg" alt="image">
           <div class="feat_cour_price">
@@ -347,7 +364,7 @@
             <a href="single-course.html"> <i class="arrow_right"></i> </a>
           </div>
         </div>
-      </div>
+      </el-col>
       <!-- /. col-lg-4 col-md-6 col-sm-12-->
 
       <div class="col-lg-4 col-md-6 col-sm-12">
@@ -495,7 +512,7 @@
         </div>
       </div>
       <!-- /. col-lg-4 col-md-6 col-sm-12-->
-    </div>
+    </el-row>
     <!-- /. row -->
     <div class="text-center">
       <a href="courses.html" class="more-link"> View All </a>
@@ -511,8 +528,8 @@
 <section class="best-book-section">
   <!-- Container -->
   <div class="container">
-    <div class="row">
-      <div class="col-lg-6 col-sm-12">
+    <el-row class="row">
+      <el-col :lg="12" :sm="24" class="col-lg-6 col-sm-12">
         <!-- Start: Heading -->
         <div class="base-header">
           <h3> Some Best Books </h3>
@@ -537,8 +554,8 @@
           <a href="#" class="more-link link-transparent"> Free Preview </a>
           <a href="#" class="more-link"> Download </a>
         </div>
-      </div>
-      <div class="col-lg-6 col-sm-12" id="best_book">
+      </el-col>
+      <el-col :lg="12" :sm="24"  class="col-lg-6 col-sm-12" id="best_book">
         <!-- Best Book Image 1 -->
         <div class="bbook_crs_item">
           <img src="static/picture/best_book.jpg" alt="image">
@@ -555,9 +572,9 @@
         <div class="bbook_crs_item">
           <img src="static/picture/best_book.jpg" alt="image">
         </div>
-      </div>
+      </el-col>
       <!--/ col-md-12  -->
-    </div>
+    </el-row>
     <!--/ row - -->
   </div>
   <!--/ Container - -->
@@ -572,13 +589,13 @@
 <section class="lfeedback-section">
   <!-- Container -->
   <div class="container">
-    <div class="row">
-      <div class="col-md-6 col-sm-12">
+    <el-row class="row">
+      <el-col :md="12" :sm="24" class="col-md-6 col-sm-12">
         <div class="lfeedback_img" id="scene3">
           <img src="static/picture/feedback.png" alt="image" class="layer" data-depth="0.28">
         </div>
-      </div>
-      <div class="col-md-6 col-sm-12" id="lfeedback_cur">
+      </el-col>
+      <el-col :md="12" :sm="24" class="col-md-6 col-sm-12" id="lfeedback_cur">
         <div class="lfeedback_item">
           <!-- Start: Heading -->
           <div class="base-header">
@@ -611,9 +628,9 @@
             <h5>Washington, United States</h5>
           </div>
         </div>
-      </div>
+      </el-col>
       <!--/ col-md-12  -->
-    </div>
+    </el-row>
     <!--/ row - -->
   </div>
   <!--/ Container - -->
@@ -627,8 +644,8 @@
 ==================================================-->
 <section class="newsletter-section pb-130">
   <div class="container">
-    <div class="row">
-      <div class="col-md-12 col-sm-12">
+    <el-row class="row">
+      <el-col :md="24" :sm="24" class="col-md-12 col-sm-12">
         <div class="newsletter_wrap">
           <!-- Start: Heading -->
           <div class="base-header">
@@ -644,8 +661,8 @@
           </div>
           <!-- Best Book Image 1 -->
         </div>
-      </div>
-    </div>
+      </el-col>
+    </el-row>
     <!-- /. row -->
   </div>
   <!-- /. container -->
@@ -659,10 +676,10 @@
 ==================================================-->
 <footer class="footertwo-section">
   <div class="container">
-    <div class="row">
+    <el-row class="row">
 
       <!-- Start: logo -->
-      <div class="col-lg-3 col-md-6 col-sm-12">
+      <el-col :lg="6" :md="12" :sm="24" class="col-lg-3 col-md-6 col-sm-12">
         <div class="footer_logo">
           <img src="static/picture/logo.png" alt="">
           <ul>
@@ -693,11 +710,11 @@
             </ul>
           </div>
         </div>
-      </div>
+      </el-col>
       <!-- End: logo -->
 
       <!-- Start: Quick Link -->
-      <div class="col-lg-3 col-md-6 col-sm-12">
+      <el-col :lg="6" :md="12" :sm="24" class="col-lg-3 col-md-6 col-sm-12">
         <div class="foo_widgetquick_lnk">
           <h5>Category</h5>
           <ul>
@@ -718,11 +735,11 @@
             </li>
           </ul>
         </div>
-      </div>
+      </el-col>
       <!-- End: Quick Link -->
 
       <!-- Start: Useful Link -->
-      <div class="col-lg-3 col-md-6 col-sm-12">
+      <el-col :lg="6" :md="12" :sm="24" class="col-lg-3 col-md-6 col-sm-12">
         <div class="foo_widgetuseful_lnk">
           <h5>Useful Links</h5>
           <ul>
@@ -743,11 +760,11 @@
             </li>
           </ul>
         </div>
-      </div>
+      </el-col>
       <!-- End: Social Link-->
 
       <!-- Start: Contact Form -->
-      <div class="col-lg-3 col-md-6 col-sm-12">
+      <el-col :lg="6" :md="12" :sm="24" class="col-lg-3 col-md-6 col-sm-12">
         <div class="foo_widget footer_contact_form">
           <h5>Send Message</h5>
           <form method="post" action="mailer.php">
@@ -756,15 +773,34 @@
             <input type="submit" id="submit-contact" class="btn-alt" value="Submit">
           </form>
         </div>
-      </div>
+      </el-col>
       <!-- End: Contact Form-->
-    </div>
+    </el-row>
   </div>
   <!-- Start:Subfooter -->
   <div class="subfooter">
-    <p>Copyright &copy; 2021.Company name All rights reserved.<a target="_blank" href="https://sc.chinaz.com/moban/">&#x7F51;&#x9875;&#x6A21;&#x677F;</a></p>
+    <p>Copyright &copy; 2022. Examination system based on Separation Of Teaching and Examination on  All rights reserved.</p>
   </div>
   <!-- End:Subfooter -->
 </footer>
 </div>
 </template>
+<script>
+
+</script>
+<style lang="scss" scoped>
+@import "../../styles/css/animate.css";
+@import "../../styles/css/hover.css";
+@import "../../styles/css/magnific-popup.css";
+//@import "../../styles/css/owl.carousel.css";
+@import "../../styles/css/responsive.css";
+@import "../../styles/css/slick.css";
+@import "../../styles/css/style.css";
+#topbar{
+ border-bottom: #bbbbbb solid 1px;
+}
+h4
+{
+  color: #5069ca;
+}
+</style>
