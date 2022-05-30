@@ -45,7 +45,8 @@ export const constantRoutes = [
         component: () => import('@/views/socket/index'),
         meta: { title: 'socket', icon: 'el-icon-s-check', roles: ['ADMIN','TEACHER','STUDENTS'] }
       }
-    ]
+    ],
+    hidden: true
   },
   {
     path: '/login',

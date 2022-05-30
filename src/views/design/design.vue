@@ -246,7 +246,7 @@ export default {
 
   methods:{
     fetchData() {
-      alert(1)
+      // alert(1)
       this.listLoading = true
       // console.log("8888")
       console.log(this.$route.query.paperId)
