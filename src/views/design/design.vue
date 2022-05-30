@@ -284,7 +284,7 @@ export default {
     },
     toPublish(){
       this.designDialog =false
-      alert(1)
+      // alert(1)
       this.$router.push({
         name: 'teacherExam'
       })
