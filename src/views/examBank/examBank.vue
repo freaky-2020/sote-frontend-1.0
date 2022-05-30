@@ -328,6 +328,15 @@ export default {
     },
     toPreview(row){
       this.$emit("viewDetails",row.paperId)
+      if(this.isCopy === undefined){
+        this.$router.push({
+          name: 'Result',
+          query:{
+            paperId:row.paperId,
+            isView:true,
+          }
+        })
+      }
     },
     copy() {
       this.$emit("copyPaper",this.selection.paperId)
