@@ -35,6 +35,20 @@ import AppMain from '@/layout/components/AppMain'
 export const constantRoutes = [
 
   {
+    path: '/socket',
+    component: Layout,
+    meta: { title: 'socket', icon: 'el-icon-s-check', roles: ['ADMIN','TEACHER','STUDENTS'] },
+    children: [
+      {
+        path: 'socket',
+        name: 'Socket',
+        component: () => import('@/views/socket/index'),
+        meta: { title: 'socket', icon: 'el-icon-s-check', roles: ['ADMIN','TEACHER','STUDENTS'] }
+      }
+    ],
+    hidden: true
+  },
+  {
     path: '/login',
     component: () => import('@/views/login/index'),
     hidden: true
@@ -209,13 +223,13 @@ export const asyncRoutes = [
   {
     path: '/design',
     component: Layout,
-    meta: { title: '设计试卷', icon: 'el-icon-edit', roles: ['TEACHER'] },
+    meta: { title: '设计试卷', icon: 'el-icon-edit', keepAlive:true, roles: ['TEACHER'] },
     children: [
       {
         path: 'design',
         name: 'Design',
         component: () => import('@/views/design/design'),
-        meta: { title: '设计试卷', icon: 'el-icon-edit', roles: ['TEACHER'] }
+        meta: { title: '设计试卷', icon: 'el-icon-edit',keepAlive:true, roles: ['TEACHER'] }
       }
     ],
     hidden: true

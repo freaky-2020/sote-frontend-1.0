@@ -127,12 +127,12 @@
 <!--      <el-button type="primary" @click="addOption(scope.$index)">添 加</el-button>-->
 <!--    </el-dialog>-->
 
-    <el-dialog  title="指定考生考试" :visible.sync="stuDialogVisible" center width="70%">
-      <stu-table></stu-table>
+    <el-dialog  title="指定考生考试" :visible.sync="stuDialogVisible" center width="85%">
+      <stu-table :stuList="stuList"></stu-table>
       <br/>
       <div slot="footer" class="dialog-footer" >
         <el-button @click="stuDialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="wordDialogVisible = false,(word)">确 定</el-button>
+        <el-button type="primary" @click="addStu()">确 定</el-button>
       </div>
     </el-dialog>
   </div>
@@ -160,6 +160,9 @@ export default {
       }
     };
     return {
+      stuList:[
+
+      ],
       stuDialogVisible:false,
       subjectBox:[
         { id: 1,
@@ -315,9 +318,9 @@ export default {
             this.$router.push({
               name: 'Design',
               query:{
-                paperId:res.paperId,
-                word:res.word,
-                subjectId:this.form.subjectId
+                paperId:JSON.stringify(res.paperId),
+                word:JSON.stringify(res.word),
+                subjectId:JSON.stringify(this.form.subjectId)
               }
             })
             // this.$router.push({ path: 'design/design' })
@@ -372,7 +375,7 @@ export default {
     },
     editOngoing() {
       this.$emit("editOngoingDo",this.form)
-    }
+    },
   }
 }
 </script>

@@ -18,7 +18,7 @@
       </template>
       <div style="margin-top: 15px;margin-bottom: 15px">
         <el-input placeholder="请输入内容" v-model="input" class="input-with-select">
-          <el-select v-model="select" slot="prepend" placeholder="请选择">
+          <el-select v-model="select" style="width: 180px" slot="prepend" placeholder="请选择">
             <el-option label="学号" value="1"></el-option>
             <el-option label="姓名" value="2"></el-option>
           </el-select>
@@ -41,7 +41,7 @@
         </el-table-column>
         <el-table-column
           label="姓名"
-          width="180">
+          width="150">
           <template slot-scope="scope">
             <div slot="reference" class="name-wrapper">
               <el-tag size="medium">{{ scope.row.realName }}</el-tag>

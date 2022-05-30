@@ -14,8 +14,10 @@
       <div v-if="exam_date !== undefined">
         <h4>学生姓名：{{realName}}</h4>
         <h4>学号：{{userName}}</h4>
+        <h4 style="display: inline">成绩: </h4>
         <h4 style="color: green;display: inline">{{exam_date.totalScore}}/</h4>
         <h4 style="color: red;display: inline">{{exam_date.maxScore}}</h4>
+        <h4>排名：{{exam_date.rank}}</h4>
         <h3>一、单选题</h3>
         <el-button v-for="(question,index) in exam_date.papers" :key="index" v-if="question.typeId===1"
                    :type="question.answer === exam_date.examDetails[index].answer?'success':'danger'"
@@ -83,7 +85,7 @@
 import request from '@/utils/request'
 export default {
   name: 'Card',
-  props: ['exam_date','quesNos','userName','realName','paperData'],
+  props: ['exam_date','quesNos','userName','realName','paperData','viewFlag'],
   // 父子组件之间数据传递，该数据在子组件中不能随便更改，会报错
   data() {
     return {
@@ -125,7 +127,12 @@ export default {
       this.$store.commit('addSum')
     },
     endView(){
-      this.$router.go(-1)
+      if(this.viewFlag !==undefined){
+        this.$emit('backTo')
+      }
+      else{
+        this.$router.back()
+      }
     }
   },
   mounted() {
