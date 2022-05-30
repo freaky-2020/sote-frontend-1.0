@@ -382,9 +382,12 @@ export default {
 
 <style lang="scss" scoped>
 .h3title{
+  //font-family:"Hiragino Sans GB, Microsoft YaHei,  sans-serif",serif !important;
   color: #5069c0;
   //background-color: lightgrey;
   height: 40px;
+  font-weight: bold;
+  font-size: 20px;
   border-bottom: 1px solid lightgrey;
 }
 .line{

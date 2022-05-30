@@ -117,7 +117,7 @@ body {
   font-size: 1rem;
   font-style: normal;
   font-weight: 400;
-  font-family: "IBM Plex Sans", sans-serif;
+  /*font-family: "IBM Plex Sans", sans-serif;*/
   line-height: 1.5;
   background-color: #fafbfd; }
 
@@ -136,7 +136,7 @@ a:hover, a:active, a:focus {
   text-decoration: none; }
 
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
-  font-family: "Rubik", sans-serif;
+  /*font-family: "Rubik", sans-serif;*/
   font-weight: 400;
   line-height: 1.2; }
 
@@ -178,10 +178,12 @@ img {
   vertical-align: sub; }
 
 .base-font {
-  font-family: "IBM Plex Sans", sans-serif !important; }
+  /*font-family: "IBM Plex Sans", sans-serif !important; */
+}
 
 .heading-font {
-  font-family: "Rubik", sans-serif !important; }
+  /*font-family: "Rubik", sans-serif !important; */
+}
 
 .font-size-0 {
   font-size: 0rem!important; }
@@ -12528,7 +12530,8 @@ Height property
   height: 115px;
   width: 115px;
   line-height: 115px;
-  font-family: "Rubik", sans-serif !important; }
+  /*font-family: "Rubik", sans-serif !important; */
+}
 
 .icon i {
   width: 60px;
@@ -13298,7 +13301,6 @@ body .main-header .navbar .nav > li.search-box > a:hover, body .main-header .nav
   transition: transform .3s ease-in-out, width .3s ease-in-out;
   border-top-right-radius: 20px; }
   .main-sidebar .sidebar-footer {
-    ><N
     background-color: #f2f2f2; }
     .main-sidebar .sidebar-footer a {
       color: #b5b5c3; }
@@ -15609,7 +15611,7 @@ ul.panel-actions > li {
       position: absolute;
       top: 15px;
       right: 30px;
-      font-family: "Material Design Icons";
+      /*font-family: "Material Design Icons";*/
       transition: all 300ms linear 0s; }
     .panel-group .panel-title:before {
       content: "\F415"; }
@@ -16047,7 +16049,7 @@ ul.panel-actions > li {
   margin-left: 0; }
 
 .avatar-add {
-  font-family: themify;
+  /*font-family: themify;*/
   background-color: transparent;
   border: 1px dashed #172b4c;
   color: #172b4c;

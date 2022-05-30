@@ -4,7 +4,7 @@
 
     <div class="log" >
       <router-link to="/dashboard" class="router-test"  >
-        <div class="iconpicture" style="padding:8% 0 10% 40px">
+        <div class="iconpicture" style="padding:5% 0 12% 40px">
           <img width="40"
                src="../../assets/images/img.png" />
           <img width="80"
